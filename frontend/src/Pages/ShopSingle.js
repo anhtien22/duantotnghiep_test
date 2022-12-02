@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import Breadcrumb from '../components/Breadcrumb'
 import productContext from '../context/product/productContext'
 import { useCart } from 'react-use-cart'
-import FeaturedProducts from '../components/FeaturedProducts'
+
 
 const ShopSingle = () => {
   const { addItem } = useCart()
@@ -95,8 +95,6 @@ const ShopSingle = () => {
           </div>
         </div>
       </div>
-
-      <FeaturedProducts />
     </>
   )
 }
