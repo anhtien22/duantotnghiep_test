@@ -1,4 +1,5 @@
 import Order from '../models/Order.js'
+import Product from '../models/Product.js'
 
 // @desc Place new order
 // @route POST '/api/orders/new'
@@ -79,4 +80,38 @@ export const getOneOrderAdmin = async (req, res) => {
   } catch (err) {
     res.status(400).json({ success: false, error: err.message })
   }
+}
+
+export const updateOrder = async (req, res, next) => {
+  const order = await Order.findById(req.params.id);
+
+  if (!order) {
+    return res
+      .status(404)
+      .json({ success: false, error: 'Order not found with this Id' })
+  }
+  if (order.paymentResult.status === "Successfully") {
+    return res
+      .status(400)
+      .json({ success: false, error: 'You have already Successfully this order' })
+  };
+  order.orderItems.forEach(async (o) => {
+    await updateStock(o.product, o.quantity);
+  });
+  order.paymentResult.status = req.body.status;
+
+  if (req.body.status === "Successfully") {
+    order.deliveredAt = Date.now();
+  }
+  await order.save({ validateBeforeSave: false });
+  res.status(200).json({
+    success: true,
+  })
+};
+async function updateStock(id, quantity) {
+  const product = await Product.findById(id);
+
+  product.Stock -= quantity;
+
+  await product.save({ validateBeforeSave: false });
 }
