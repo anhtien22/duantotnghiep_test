@@ -1,9 +1,12 @@
 import express from 'express'
 import {
   addProduct,
+  createProductReview,
   deleteProduct,
+  deleteReview,
   getAllProducts,
   getProduct,
+  getProductReviews,
   updateProductDetails,
   updateProductImage,
 } from '../controllers/productController.js'
@@ -13,7 +16,7 @@ import upload from '../middleware/multer.js'
 
 const router = express.Router()
 
-router.post('/add', auth, checkAdmin, upload.single('image'), addProduct)
+router.post('/add', upload.single('image'), addProduct)
 
 router.get('/getAll', getAllProducts)
 
@@ -30,5 +33,11 @@ router.patch(
 )
 
 router.delete('/:id', auth, checkAdmin, deleteProduct)
+
+router.put("/review", createProductReview);
+
+router.get("/reviews", getProductReviews);
+
+router.delete("/reviews", deleteReview);
 
 export default router

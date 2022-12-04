@@ -61,32 +61,15 @@ const productSchema = mongoose.Schema(
     },
     variation: [
       {
-        color: {
-          type: String,
-          required: true,
-        },
-        images: {
-          type: String,
-          required: true
-        },
-        size: [
-          {
-            name: {
-              type: String,
-              required: true,
-            },
-            stock: {
-              type: Number,
-              required: true,
-            }
-          }
-        ]
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Variation',
+        required: true,
       }
     ],
     reviews: [
       {
         user: {
-          type: mongoose.Schema.ObjectId,
+          type: mongoose.Schema.Types.ObjectId,
           ref: "User",
           required: true,
         },

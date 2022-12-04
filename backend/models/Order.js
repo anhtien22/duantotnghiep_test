@@ -36,7 +36,7 @@ const orderSchema = mongoose.Schema(
     },
     paymentResult: {
       id: { type: String },
-      status: { type: String, default: 'pending' },
+      status: { type: String, default: 'Confirmed' },
       update_time: { type: String },
       email_address: { type: String },
     },
@@ -45,6 +45,7 @@ const orderSchema = mongoose.Schema(
       required: true,
       default: 0.0,
     },
+    deliveredAt: Date,
     createdAt: {
       type: Date,
       default: Date.now,

@@ -5,6 +5,7 @@ import {
   getOneOrder,
   getOneOrderAdmin,
   placeOrder,
+  updateOrder,
 } from "../controllers/orderControllers.js";
 import auth from "../middleware/auth.js";
 import checkAdmin from "../middleware/checkAdmin.js";
@@ -20,5 +21,7 @@ router.get("/myOrders", getMyOrders);
 router.get("/myOrders/:id", getOneOrder);
 
 router.get("/:id", getOneOrderAdmin);
+
+router.put("/admin/order/:id", updateOrder);
 
 export default router;
