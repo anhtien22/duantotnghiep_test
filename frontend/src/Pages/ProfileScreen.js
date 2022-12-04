@@ -22,12 +22,13 @@ const ProfileScreen = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    editProfile(userInfo.name, userInfo.email)
+    editProfile(userInfo.name, userInfo.email, userInfo.password)
   }
 
   const [userInfo, setUserInfo] = useState({
     name: user.name,
     email: user.email,
+    password: user.password
   })
 
   return (

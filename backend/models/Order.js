@@ -36,7 +36,7 @@ const orderSchema = mongoose.Schema(
     },
     paymentResult: {
       id: { type: String },
-      status: { type: String, default: 'pending' },
+      status: { type: String, default: 'Đang xử lý' },
       update_time: { type: String },
       email_address: { type: String },
     },
