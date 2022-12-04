@@ -1,17 +1,61 @@
-import React, { useContext, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import Navbar from '../AdminComponents/Navbar'
-import OrderContext from '../context/orders/orderContext'
+import React, { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
+import Navbar from "../AdminComponents/Navbar";
+import OrderContext from "../context/orders/orderContext";
 
+const statusOrder = {
+  Confirmed: "Đang xác nhận",
+  Processing: "Đang giao hàng",
+  Successfully: "Đã giao hàng",
+  Canceled: "Đã hủy",
+};
 const Orders = () => {
   // for order context
-  const oContext = useContext(OrderContext)
-  const { getAllOrders, orders } = oContext
-
+  const oContext = useContext(OrderContext);
+  const { getAllOrders, orders } = oContext;
+  const onChange = async (e, id) => {
+    const selectHend = e.target.value;
+    console.log(selectHend);
+    const select = e.target
+      .closest("td")
+      .querySelectorAll('[name="orderStatus"] option');
+    const indexSatus = [...select].findIndex((val) => val.value === selectHend);
+    for (let index = 0; index < select.length; index++) {
+      if (index < indexSatus) select[index].remove();
+    }
+    try {
+      const baseUrl = `http://localhost:4000/api/v1/admin/order/${id}`;
+      const response = await fetch(baseUrl, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, status: selectHend }),
+      });
+      console.log("response", response);
+      return response.json();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const statusHtml = (orderStatus) => {
+    const index = Object.keys(statusOrder).findIndex(
+      (key) => key === orderStatus
+    );
+    return Object.keys(statusOrder)
+      .map(function (key, i) {
+        if (i >= index) {
+          return `<option
+          value="${key}"
+          className="text-gray-200 dark:text-slate-800"
+        >${statusOrder[key]}</option>`;
+        }
+        return "";
+      })
+      .join("");
+  };
   useEffect(() => {
-    getAllOrders()
+    getAllOrders();
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
   return (
     <>
@@ -64,6 +108,8 @@ const Orders = () => {
                       <th>User</th>
                       <th>Date</th>
                       <th>Order Amount</th>
+                      <th>Stt</th>
+                      <th>Action</th>
                       <th />
                     </tr>
                   </thead>
@@ -71,15 +117,34 @@ const Orders = () => {
                     {orders.map((order, index) => (
                       <tr key={order._id}>
                         <td>{index + 1}</td>
-                        <td>{order.user.name}</td>
+                        <td>{order.user?.name}</td>
                         <td>
                           {new Date(order.createdAt).toLocaleDateString()}
                         </td>
-                        <td>{order.totalPrice}</td>
+                        <td>
+                          {order.totalPrice.toLocaleString("it-IT", {
+                            style: "currency",
+                            currency: "VND",
+                          })}
+                        </td>
+                        <td className="px-4 py-3">
+                          <div className="flex-grow w-full">
+                            <select
+                              onChange={(e) => onChange(e, order._id)}
+                              className="block w-full px-2 py-1 text-sm outline-none rounded-md form-select focus:shadow-none leading-5 h-12 bg-[#24262D] dark:bg-[#F4F5F7] border-[1px] border-gray-600 dark:border-gray-300 text-gray-200 dark:text-black"
+                              name="orderStatus"
+                              dangerouslySetInnerHTML={{
+                                __html: statusHtml(order.orderStatus),
+                              }}
+                            ></select>
+                          </div>
+                        </td>
+
                         <td>
                           <Link
                             to={`/orderDetailsAdmin/${order._id}`}
-                            className="btn btn-secondary">
+                            className="btn btn-secondary"
+                          >
                             <i className="fas fa-angle-double-right" /> Details
                           </Link>
                         </td>
@@ -93,7 +158,7 @@ const Orders = () => {
         </div>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default Orders
+export default Orders;
