@@ -24,7 +24,6 @@ export const addProduct = async (req, res) => {
     })
 
     await sharp(req.file.buffer)
-      .resize({ width: 400, height: 400 })
       .toFile(`uploads/${date.getTime()}${req.file.originalname}`)
 
     await product.save()
