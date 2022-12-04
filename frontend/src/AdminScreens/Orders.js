@@ -71,7 +71,7 @@ const Orders = () => {
                     {orders.map((order, index) => (
                       <tr key={order._id}>
                         <td>{index + 1}</td>
-                        <td>{order.user.name}</td>
+                        <td>{order.user?.name}</td>
                         <td>
                           {new Date(order.createdAt).toLocaleDateString()}
                         </td>

@@ -47,10 +47,11 @@ const ProductDetails = () => {
     const { name, sku, category, price, description } = product
     updateProductDetails(id, name, sku, category, price, description)
   }
-  const deleteSaveChanges = () => {
+
+
+  const deleteSaveChanges = (id) => {
     // console.log(product)
-    const { name, sku, category, price, description } = product
-    deleteProduct(id, name, sku, category, price, description)
+    deleteProduct(id)
   }
 
   const handleUpdateImage = async () => {
@@ -90,7 +91,7 @@ const ProductDetails = () => {
             </div>
             <div className="col-md-4">
               <button className="btn btn-danger btn-block"
-                onClick={ deleteSaveChanges }>
+                onClick={() => deleteSaveChanges(id)}>
                 <i className="fas fa-trash" /> Delete Product
               </button>
             </div>

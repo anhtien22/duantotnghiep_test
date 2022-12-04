@@ -4,13 +4,20 @@ import AddProductModal from '../AdminComponents/AddProductModal'
 import AddCategoryModal from '../AdminComponents/AddCategoryModal'
 import { Link } from 'react-router-dom'
 import productContext from '../context/product/productContext'
+import categoryContext from '../context/category/categoryContext'
+import userContext from '../context/user/UserContext'
+
 
 const AdminDashboard = () => {
   // for product context
+  const cContext = useContext(categoryContext)
   const pContext = useContext(productContext)
+  const uContext = useContext(userContext)
   const { getProducts, products } = pContext
+  const { getCategories, categories } = cContext
+  const { getAllUsers, allUsers } = uContext
 
-  const limit = 5
+  // const limit = 5
   const skip = 0
   // const [skip, setSkip] = useState(0)
   // const [keyWord, setKeyWord] = useState('')
@@ -18,7 +25,15 @@ const AdminDashboard = () => {
   // const [totalResults, setTotalResults] = useState(0)
 
   useEffect(() => {
-    getProducts(limit, skip, '', '')
+    getProducts(skip, '', '')
+    // eslint-disable-next-line
+  }, [])
+  useEffect(() => {
+    getCategories(skip, '', '')
+    // eslint-disable-next-line
+  }, [])
+  useEffect(() => {
+    getAllUsers(skip, '', '')
     // eslint-disable-next-line
   }, [])
 
@@ -136,7 +151,7 @@ const AdminDashboard = () => {
                   <div className="card-body">
                     <h3>Categories</h3>
                     <h4 className="display-4">
-                      <i className="fas fa-folder" /> 4
+                      <i className="fas fa-folder" /> {categories.length}
                     </h4>
                     <Link
                       to="/categories"
@@ -149,7 +164,7 @@ const AdminDashboard = () => {
                   <div className="card-body">
                     <h3>Users</h3>
                     <h4 className="display-4">
-                      <i className="fas fa-users" /> 4
+                      <i className="fas fa-users" /> {allUsers.length}
                     </h4>
                     <Link to="/users" className="btn btn-outline-light btn-sm">
                       View

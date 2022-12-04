@@ -53,6 +53,7 @@ const CategoryState = props => {
   // Add new category
   const addCategory = async title => {
     const categoryBody = clean({ title })
+    console.log(categoryBody, ' categoryBody')
     try {
       const userToken = JSON.parse(localStorage.getItem('userToken'))
       const headers = {
@@ -60,11 +61,12 @@ const CategoryState = props => {
       }
       setCategoriesLoading(true)
       await axios.post('api/category/add', categoryBody, { headers })
-      setCategories([...categories, categoryBody])
+      // setCategories([...categories, categoryBody])
       setCategoriesMessage({
         variant: 'success',
         message: 'category added successfully!',
       })
+      window.location.reload()
       setCategoriesLoading(false)
       setCategoriesError(null)
     } catch (err) {
@@ -84,6 +86,29 @@ const CategoryState = props => {
       errorHandler(err)
     }
   }
+  
+// Delete Category
+const deleteCategory = async id  => {
+  try {
+    setCategoriesLoading(true)
+    const userToken = JSON.parse(localStorage.getItem('userToken'))
+    const headers = {
+      Authorization: `Bearer ${userToken && userToken}`,
+      'Content-Type': 'multipart/form-data',
+    }
+    const { data } = await axios.delete(`/api/category/${id}`, { headers })
+    setCategoriesMessage({
+      variant: 'success',
+      message: 'Xóa thành công!',
+    })
+    window.location.reload();
+    setCategoriesLoading(false)
+    setCategoriesError(null)
+    return data.categories
+  } catch (err) {
+    errorHandler(err, 'Không tìm thấy sản phẩm')
+  }
+}
 
   // get one category
   const getOneCategory = async id => {
@@ -124,6 +149,7 @@ const CategoryState = props => {
         categoriesMessage,
         getCategories,
         addCategory,
+        deleteCategory,
         getOneCategory,
         updateCategory,
       }}>

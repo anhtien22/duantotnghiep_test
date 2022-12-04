@@ -8,7 +8,7 @@ import AddCategoryModal from '../AdminComponents/AddCategoryModal'
 
 const Categories = () => {
   const context = useContext(CategoryContext)
-  const { categories, getCategories } = context
+  const { categories, getCategories, deleteCategory } = context
 
   // const [categoryArray, setCategoryArray] = useState(categories)
 
@@ -18,6 +18,11 @@ const Categories = () => {
     // eslint-disable-next-line
   }, [])
 
+  //delete catagory
+  const deleteSaveChanges = (id) => {
+    // console.log(product)
+    deleteCategory(id)
+  }
   return (
     <div>
       <Navbar />
@@ -96,7 +101,7 @@ const Categories = () => {
                               Details
                             </button> */}
                             <EditCategoryModal category={category} />
-                            <Button variant="danger" className="mx-2" disabled>
+                            <Button variant="danger" className="mx-2" onClick={() => deleteSaveChanges(category._id)}>
                               <i className="fas fa-trash" /> Delete
                             </Button>
                           </td>
