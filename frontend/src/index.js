@@ -9,6 +9,7 @@ import UserState from './context/user/UserState'
 import OrderState from './context/orders/OrderState'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { CartProvider } from 'react-use-cart'
+import VariationState from './context/variation/VariationState'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -17,9 +18,11 @@ ReactDOM.render(
         <UserState>
           <OrderState>
             <CategoryState>
-              <ProductState>
-                <App />
-              </ProductState>
+              <VariationState>
+                <ProductState>
+                  <App />
+                </ProductState>
+              </VariationState>
             </CategoryState>
           </OrderState>
         </UserState>

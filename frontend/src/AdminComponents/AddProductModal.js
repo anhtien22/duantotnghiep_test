@@ -1,8 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
 import CategoryContext from '../context/category/categoryContext'
 import productContext from '../context/product/productContext'
+import VariationContext from '../context/variation/variationContext'
 
 const AddProductModal = () => {
+
+
   // for product context
   const pContext = useContext(productContext)
   const { addProduct } = pContext
@@ -10,9 +13,14 @@ const AddProductModal = () => {
   // for category context
   const cContext = useContext(CategoryContext)
   const { categories, getCategories } = cContext
-
+  console.log("categories", categories);
+  // variation context
+  const vContext = useContext(VariationContext)
+  const { variations, getVariations } = vContext
+  console.log("variations", variations);
   useEffect(() => {
-    getCategories()
+    getCategories();
+    getVariations();
     // eslint-disable-next-line
   }, [])
 
@@ -27,6 +35,7 @@ const AddProductModal = () => {
     Stock: '',
     variation: '',
   })
+
   const [image, setImage] = useState(null)
 
   const handleChange = e => {
@@ -118,20 +127,41 @@ const AddProductModal = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="category">Category</label>
+                <label htmlFor="category">Variation</label>
                 <select
                   className="form-control"
                   name="category"
                   onChange={ handleChange }>
                   <option value>Select Category</option>
-                  { categories.map(item => (
+                  { variations.map(item => (
                     <option key={ item._id } value={ item._id }>
-                      { item.title }
+                      { item.color }
                     </option>
                   )) }
                 </select>
               </div>
-
+              <div className="form-group">
+                <label htmlFor="category">Variation</label>
+                <select
+                  className="form-control"
+                  name="category"
+                  onChange={ handleChange }>
+                  <option value>Select Category</option>
+                  { variations.map(item => {
+                    return item.color === variations[0]?.color
+                      ? item.size.map((singleSize, key) => {
+                        return (
+                          <>
+                            <option key={ singleSize._id } value={ singleSize._id }>
+                              { singleSize.name }
+                            </option>
+                          </>
+                        );
+                      })
+                      : "";
+                  }) }
+                </select>
+              </div>
               <div className="form-group">
                 <label htmlFor="price">Pirce</label>
                 <input
