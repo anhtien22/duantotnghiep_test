@@ -2,6 +2,7 @@ import Product from '../models/Product.js'
 import sharp from 'sharp'
 import fs from 'fs'
 import path from 'path'
+import { errorHandler } from '../middleware/errorMiddleware.js'
 
 // @desc Add new product
 // @route POST '/api/products/add'
@@ -198,4 +199,87 @@ export const deleteProduct = async (req, res) => {
   } catch (err) {
     res.status(400).json({ success: false, error: err.message })
   }
+}
+
+export const createProductReview = async (req, res, next) => {
+  const { rating, comment, productId, user, name } = req.body
+  const review = {
+    user,
+    name,
+    rating: Number(rating),
+    comment,
+  };
+  const product = await Product.findById(productId);
+  const isReviewed = product.reviews.find(rev => rev.user === req.user?._id)
+  if (isReviewed) {
+    product.reviews.forEach(rev => {
+      if (rev.user === req.user?._id)
+        rev.rating = rating,
+          rev.comment = comment;
+    });
+  } else {
+    product.reviews.push(review);
+    product.numOfReviews = product.reviews.length
+  }
+  let avg = 0;
+
+  product.reviews.forEach(rev => {
+    avg += rev.rating
+  })
+  product.ratings = avg / product.reviews.length;
+  // vd: 1, 2, 3, 4 = 10 / 4 =2.5 *
+  await product.save({ validateBeforeSave: false });
+  res.status(200).json({
+    success: true,
+    review
+  })
+};
+// Get All review of a Product
+export const getProductReviews = async (req, res, next) => {
+  const product = await Product.findById(req.query.id);
+  if (!product) {
+    return next(new errorHandler("Product not found", 404))
+  }
+  res.status(200).json({
+    success: true,
+    reviews: product.reviews,
+  })
+};
+
+// Delete review
+export const deleteReview = async (req, res, next) => {
+  const product = await Product.findById(req.query.productId);
+  if (!product) {
+    return next(new errorHandler("Product not found", 404))
+  }
+
+  const reviews = product.reviews.filter(rev => rev._id.toString() !== req.query.id.toString());
+
+  let avg = 0;
+
+  reviews.forEach(rev => {
+    avg += rev.rating
+  })
+  let ratings = 0;
+
+  if (reviews.length === 0) {
+    ratings = 0;
+  } else {
+    ratings = avg / reviews.length;
+  }
+  // vd: 1, 2, 3, 4 = 10 / 4 =2.5 *
+  const numOfReviews = reviews.length;
+
+  await Product.findByIdAndUpdate(req.query.productId, {
+    reviews,
+    ratings,
+    numOfReviews,
+  }, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false
+  })
+  res.status(200).json({
+    success: true,
+  })
 }

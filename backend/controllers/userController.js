@@ -171,6 +171,25 @@ export const getOneUserAdmin = async (req, res, next) => {
   })
 };
 
+export const updateUserRole = async (req, res, next) => {
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+    role: req.body.role,
+  }
+
+  const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+  res.status(200).json({
+    success: true,
+  })
+
+};
+
 export const deleteOneUserAdmin = async (req, res, next) => {
 
   const user = await User.findById(req.params.id)

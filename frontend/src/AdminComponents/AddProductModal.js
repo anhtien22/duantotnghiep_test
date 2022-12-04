@@ -22,8 +22,11 @@ const AddProductModal = () => {
     category: '',
     price: '',
     description: '',
+    discount: '',
+    saleCount: '',
+    Stock: '',
+    variation: '',
   })
-
   const [image, setImage] = useState(null)
 
   const handleChange = e => {
@@ -31,7 +34,7 @@ const AddProductModal = () => {
   }
 
   const handleAddproduct = () => {
-    const { name, sku, category, price, description } = product
+    const { name, sku, category, price, description, discount, saleCount, Stock, variation } = product
     const formData = new FormData()
     formData.append('image', image)
     formData.append('name', name)
@@ -39,6 +42,10 @@ const AddProductModal = () => {
     formData.append('category', category)
     formData.append('price', price)
     formData.append('description', description)
+    formData.append('discount', discount)
+    formData.append('saleCount', saleCount)
+    formData.append('Stock', Stock)
+    formData.append('variation', variation)
     console.log('Add product to run')
     addProduct(formData)
     console.log('Add product ran')
@@ -48,15 +55,19 @@ const AddProductModal = () => {
       category: '',
       price: '',
       description: '',
+      discount: '',
+      saleCount: '',
+      Stock: '',
+      variation: '',
     })
     setImage('')
   }
 
   return (
     <>
-      {/* ADD POST MODAL */}
+      {/* ADD POST MODAL */ }
       <div
-        style={{ zIndex: '9999' }}
+        style={ { zIndex: '9999' } }
         className="modal fade"
         id="addProductModal">
         <div className="modal-dialog modal-lg">
@@ -67,15 +78,15 @@ const AddProductModal = () => {
                 <span>×</span>
               </button>
             </div>
-            {/* <form onSubmit={handleAddproduct}> */}
+            {/* <form onSubmit={handleAddproduct}> */ }
             <div className="modal-body">
               <div className="form-group">
                 <label htmlFor="name">Product Name</label>
                 <input
                   type="text"
                   name="name"
-                  onChange={handleChange}
-                  value={product.name}
+                  onChange={ handleChange }
+                  value={ product.name }
                   className="form-control"
                 />
               </div>
@@ -85,8 +96,8 @@ const AddProductModal = () => {
                 <input
                   type="text"
                   name="sku"
-                  onChange={handleChange}
-                  value={product.sku}
+                  onChange={ handleChange }
+                  value={ product.sku }
                   className="form-control"
                 />
               </div>
@@ -96,13 +107,28 @@ const AddProductModal = () => {
                 <select
                   className="form-control"
                   name="category"
-                  onChange={handleChange}>
+                  onChange={ handleChange }>
                   <option value>Select Category</option>
-                  {categories.map(item => (
-                    <option key={item._id} value={item._id}>
-                      {item.title}
+                  { categories.map(item => (
+                    <option key={ item._id } value={ item._id }>
+                      { item.title }
                     </option>
-                  ))}
+                  )) }
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="category">Category</label>
+                <select
+                  className="form-control"
+                  name="category"
+                  onChange={ handleChange }>
+                  <option value>Select Category</option>
+                  { categories.map(item => (
+                    <option key={ item._id } value={ item._id }>
+                      { item.title }
+                    </option>
+                  )) }
                 </select>
               </div>
 
@@ -111,8 +137,8 @@ const AddProductModal = () => {
                 <input
                   type="text"
                   name="price"
-                  onChange={handleChange}
-                  value={product.price}
+                  onChange={ handleChange }
+                  value={ product.price }
                   className="form-control"
                 />
               </div>
@@ -122,8 +148,8 @@ const AddProductModal = () => {
                 <textarea
                   className="form-control"
                   name="description"
-                  onChange={handleChange}
-                  value={product.description}
+                  onChange={ handleChange }
+                  value={ product.description }
                 />
               </div>
 
@@ -136,8 +162,8 @@ const AddProductModal = () => {
                     id="image"
                     // onChange={uploadFileHandler}
                     name="image"
-                    onChange={e => setImage(e.target.files[0])}
-                    // value={product.description}
+                    onChange={ e => setImage(e.target.files[0]) }
+                  // value={product.description}
                   />
                   <label htmlFor="image" className="custom-file-label">
                     Choose File
@@ -151,11 +177,11 @@ const AddProductModal = () => {
                 className="btn btn-primary"
                 type="submit"
                 data-dismiss="modal"
-                onClick={handleAddproduct}>
+                onClick={ handleAddproduct }>
                 Add Product
               </button>
             </div>
-            {/* </form> */}
+            {/* </form> */ }
           </div>
         </div>
       </div>
