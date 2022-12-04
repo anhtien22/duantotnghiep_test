@@ -1,15 +1,15 @@
-import React, { useContext } from 'react'
-import Breadcrumb from '../components/Breadcrumb'
-import { Link, useNavigate } from 'react-router-dom'
-import { useCart } from 'react-use-cart'
-import UserContext from '../context/user/UserContext'
+import React, { useContext } from "react";
+import Breadcrumb from "../components/Breadcrumb";
+import { Link, useNavigate } from "react-router-dom";
+import { useCart } from "react-use-cart";
+import UserContext from "../context/user/UserContext";
 
 const Cart = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // for user context
-  const uContext = useContext(UserContext)
-  const { user } = uContext
+  const uContext = useContext(UserContext);
+  const { user } = uContext;
 
   const {
     isEmpty,
@@ -20,15 +20,16 @@ const Cart = () => {
     removeItem,
     emptyCart,
     items,
-  } = useCart()
+  } = useCart();
 
+  console.log("items", items);
   return (
     <>
       <Breadcrumb pageName="Cart" />
       {isEmpty ? (
         <div className="text-center my-5">
           <h2 className=" my-3">Your cart is empty</h2>
-          <button onClick={() => navigate('/shop')}>Back to Shop</button>
+          <button onClick={() => navigate("/shop")}>Back to Shop</button>
         </div>
       ) : (
         <div className="site-section">
@@ -37,7 +38,7 @@ const Cart = () => {
               <form className="col-md-12" method="post">
                 <div className="site-blocks-table">
                   <h4>
-                    Cart has ({totalUniqueItems}) products and total items are ({' '}
+                    Cart has ({totalUniqueItems}) products and total items are ({" "}
                     {totalItems}) in the cart.
                   </h4>
                   <table className="table table-bordered">
@@ -55,7 +56,7 @@ const Cart = () => {
                     <tbody>
                       {
                         <>
-                          {items.map(item => (
+                          {items.map((item) => (
                             <tr key={item._id}>
                               <td className="product-thumbnail">
                                 <Link to={`/shopSingle/${item._id}`}>
@@ -73,7 +74,8 @@ const Cart = () => {
                               <td>
                                 <div
                                   className="input-group mb-3"
-                                  style={{ maxWidth: '120px' }}>
+                                  style={{ maxWidth: "120px" }}
+                                >
                                   <div className="input-group-prepend">
                                     <button
                                       onClick={() =>
@@ -83,7 +85,8 @@ const Cart = () => {
                                         )
                                       }
                                       className="btn btn-outline-primary js-btn-minus"
-                                      type="button">
+                                      type="button"
+                                    >
                                       &minus;
                                     </button>
                                   </div>
@@ -92,7 +95,7 @@ const Cart = () => {
                                     className="form-control text-center"
                                     value={item.quantity}
                                     placeholder=""
-                                    onChange={e =>
+                                    onChange={(e) =>
                                       updateItemQuantity(
                                         item.id,
                                         e.target.value
@@ -109,7 +112,8 @@ const Cart = () => {
                                         )
                                       }
                                       className="btn btn-outline-primary js-btn-plus"
-                                      type="button">
+                                      type="button"
+                                    >
                                       &#43;
                                     </button>
                                   </div>
@@ -119,7 +123,8 @@ const Cart = () => {
                               <td>
                                 <button
                                   onClick={() => removeItem(item.id)}
-                                  className="btn btn-danger btn-sm">
+                                  className="btn btn-danger btn-sm"
+                                >
                                   Remove
                                 </button>
                               </td>
@@ -139,14 +144,16 @@ const Cart = () => {
                   <div className="col-md-6 mb-3 mb-md-0">
                     <button
                       onClick={() => emptyCart()}
-                      className="btn btn-warning btn-sm btn-block">
+                      className="btn btn-warning btn-sm btn-block"
+                    >
                       Empty Cart
                     </button>
                   </div>
                   <div className="col-md-6">
                     <Link
                       to="/shop"
-                      className="btn btn-outline-primary btn-sm btn-block">
+                      className="btn btn-outline-primary btn-sm btn-block"
+                    >
                       Continue Shopping
                     </Link>
                   </div>
@@ -205,8 +212,9 @@ const Cart = () => {
                         <button
                           className="btn btn-primary btn-lg py-3 btn-block"
                           onClick={() =>
-                            navigate(user ? '/checkout' : '/login')
-                          }>
+                            navigate(user ? "/checkout" : "/login")
+                          }
+                        >
                           Proceed To Checkout
                         </button>
                       </div>
@@ -219,6 +227,6 @@ const Cart = () => {
         </div>
       )}
     </>
-  )
-}
-export default Cart
+  );
+};
+export default Cart;

@@ -2,7 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import Breadcrumb from "../components/Breadcrumb";
 import { Link, useParams } from "react-router-dom";
 import OrderContext from "../context/orders/orderContext";
-
+const statusOrder = {
+  Confirmed: "Đang xác nhận",
+  Processing: "Đang giao hàng",
+  Successfully: "Đã giao hàng",
+  Canceled: "Đã hủy",
+};
 const OrderDetails = () => {
   // for order context
   const oContext = useContext(OrderContext);
@@ -37,7 +42,8 @@ const OrderDetails = () => {
                 <div className="card-header px-4 py-5">
                   <h5 className="text-muted mb-0">
                     Thanks for your Order,{" "}
-                    <span style={{ color: "#a8729a" }}>{order.user.name}</span>!
+                    <span style={{ color: "#a8729a" }}>{order.user?.name}</span>
+                    !
                   </h5>
                 </div>
                 <div className="card-body p-4">
@@ -46,10 +52,10 @@ const OrderDetails = () => {
                       className="lead fw-normal mb-0"
                       style={{ color: "#a8729a" }}
                     >
-                      Receipt
+                      Biên nhận
                     </p>
                     <p className="small text-muted mb-0">
-                      Order ID : <b>{id}</b>
+                      ID : <b>{id}</b>
                     </p>
                   </div>
 
@@ -81,27 +87,17 @@ const OrderDetails = () => {
                           </div>
                           <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
                             <p className="text-muted mb-0 small">
-                              Qty: {orderItem.quantity}
+                              Số lượng: {orderItem.quantity}
                             </p>
                           </div>
                           <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
                             <p className="text-muted mb-0 small">
-                              Price:{" "}
-                              {orderItem.price.toLocaleString("it-IT", {
-                                style: "currency",
-                                currency: "VND",
-                              })}
+                              Giá: {orderItem.price}
                             </p>
                           </div>
                           <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
                             <p className="text-muted mb-0 small">
-                              <b>
-                                {" "}
-                                {orderItem.itemTotal.toLocaleString("it-IT", {
-                                  style: "currency",
-                                  currency: "VND",
-                                })}
-                              </b>
+                              <b> Tiền: {orderItem.itemTotal}</b>
                             </p>
                           </div>
                         </div>
@@ -115,39 +111,41 @@ const OrderDetails = () => {
 
                   <div className="row my-3">
                     <div className="col-md-6">
-                      <h4>Shipping Details</h4>
+                      <h4>Chi tiết giao hàng</h4>
                       <div>
-                        <b>Deliver to: </b> {order.shippingAddress.name} <br />
-                        <b>Phone : </b> {order.shippingAddress.phone} <br />
-                        <b>Sipping Address: </b> {order.shippingAddress.address}
-                        , {order.shippingAddress.city},{" "}
+                        <b>GIoa hàng cho: </b> {order.shippingAddress.name}{" "}
+                        <br />
+                        <b>Số điện thoại : </b> {order.shippingAddress.phone}{" "}
+                        <br />
+                        <b>Địa chỉ: </b> {order.shippingAddress.address},{" "}
+                        {order.shippingAddress.city},{" "}
                         {order.shippingAddress.country} <br />
-                        <b>Postal Code:</b> {order.shippingAddress.postalCode}
+                        <b>Mã :</b> {order.shippingAddress.postalCode}
                       </div>
                     </div>
                     <div className="col-md-6 border-left">
                       <div className="">
-                        <h4>Order Details</h4>
+                        <h4>Chi tiết đơn</h4>
                         <div>
-                          <b>Order Date</b> :{" "}
+                          <b>Ngày đặt hàng</b> :{" "}
                           {new Date(order.createdAt).toLocaleDateString()}
                         </div>
                         <div>
-                          <b>Payment Method</b> : {order.paymentMethod}
+                          <b>Thanh toán</b> : {order.paymentMethod}
                         </div>
                         <div>
-                          <b>Payment Status</b> : {order.paymentResult.status}
+                          <b>Trạng thái</b> :{" "}
+                          {statusOrder[order.paymentResult.status]}
                         </div>
                         {order.paymentMethod === "paypal" && (
                           <div>
-                            <b>Transaction Id</b> : {order.paymentResult.id}{" "}
-                            <br />
-                            <b>Payment Time</b> :{" "}
+                            <b>Id</b> : {order.paymentResult.id} <br />
+                            <b>THời gian thanh toán</b> :{" "}
                             {new Date(
                               order.paymentResult.update_time
                             ).toLocaleString()}{" "}
                             <br />
-                            <b>Payer Email</b> :{" "}
+                            <b>Địa chỉ email</b> :{" "}
                             {order.paymentResult.email_address}{" "}
                           </div>
                         )}
@@ -164,14 +162,8 @@ const OrderDetails = () => {
                     }}
                   >
                     <h5 className="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">
-                      Order Total :{" "}
-                      <span className="h2 mb-0 ms-2">
-                        {" "}
-                        {order.totalPrice.toLocaleString("it-IT", {
-                          style: "currency",
-                          currency: "VND",
-                        })}
-                      </span>
+                      Tổng tiền :
+                      <span className="h2 mb-0 ms-2">{order.totalPrice}</span>
                     </h5>
                   </div>
                 </div>

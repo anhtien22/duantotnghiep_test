@@ -12,13 +12,13 @@ import checkAdmin from "../middleware/checkAdmin.js";
 
 const router = express.Router();
 
-router.post("/new", placeOrder);
+router.post("/new", auth, placeOrder);
 
 router.get("/getAll", getAllOrders);
 
-router.get("/myOrders", getMyOrders);
+router.get("/myOrders", auth, getMyOrders);
 
-router.get("/myOrders/:id", getOneOrder);
+router.get("/myOrders/:id", auth, getOneOrder);
 
 router.get("/:id", getOneOrderAdmin);
 

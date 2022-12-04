@@ -12,34 +12,24 @@ const statusOrder = {
 const Orders = () => {
   // for order context
   const oContext = useContext(OrderContext);
-  const { getAllOrders, orders } = oContext;
-  const onChange = async (e, id) => {
-    const selectHend = e.target.value;
-    console.log(selectHend);
-    const select = e.target
-      .closest("td")
-      .querySelectorAll('[name="orderStatus"] option');
-    const indexSatus = [...select].findIndex((val) => val.value === selectHend);
-    for (let index = 0; index < select.length; index++) {
-      if (index < indexSatus) select[index].remove();
+  const { getAllOrders, orders, updateStatustAdmin } = oContext;
+  const resulf = orders.reduce((r, index) => {
+    if (index.paymentResult.status === "Successfully") {
+      if (index.orderItems.length) {
+        const total = index.orderItems.reduce((count, item) => {
+          return (count += item.price * item.quantity);
+        }, 0);
+
+        return (r += total);
+      }
     }
-    try {
-      const baseUrl = `http://localhost:4000/api/v1/admin/order/${id}`;
-      const response = await fetch(baseUrl, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, status: selectHend }),
-      });
-      console.log("response", response);
-      return response.json();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    return r;
+  }, 0);
   const statusHtml = (orderStatus) => {
     const index = Object.keys(statusOrder).findIndex(
       (key) => key === orderStatus
     );
+
     return Object.keys(statusOrder)
       .map(function (key, i) {
         if (i >= index) {
@@ -77,6 +67,13 @@ const Orders = () => {
       <section id="search" className="py-4 mb-4 bg-light">
         <div className="container">
           <div className="row">
+            <div>
+              Doanh thu:{" "}
+              {resulf.toLocaleString("it-IT", {
+                style: "currency",
+                currency: "VND",
+              })}
+            </div>
             <div className="col-md-6 ml-auto">
               <div className="input-group">
                 <input
@@ -99,17 +96,17 @@ const Orders = () => {
             <div className="col">
               <div className="card">
                 <div className="card-header">
-                  <h4>Latest Orders</h4>
+                  <h4>Đơn đặt hàng mới nhất </h4>
                 </div>
                 <table className="table table-striped">
                   <thead className="thead-dark">
                     <tr>
                       <th>#</th>
-                      <th>User</th>
-                      <th>Date</th>
-                      <th>Order Amount</th>
-                      <th>Stt</th>
-                      <th>Action</th>
+                      <th>Tên người dùng</th>
+                      <th>Ngày đặt hàng</th>
+                      <th>Tiền </th>
+                      <th>Trạng thái</th>
+                      <th>Xem thêm</th>
                       <th />
                     </tr>
                   </thead>
@@ -130,11 +127,11 @@ const Orders = () => {
                         <td className="px-4 py-3">
                           <div className="flex-grow w-full">
                             <select
-                              onChange={(e) => onChange(e, order._id)}
+                              onChange={(e) => updateStatustAdmin(e, order._id)}
                               className="block w-full px-2 py-1 text-sm outline-none rounded-md form-select focus:shadow-none leading-5 h-12 bg-[#24262D] dark:bg-[#F4F5F7] border-[1px] border-gray-600 dark:border-gray-300 text-gray-200 dark:text-black"
                               name="orderStatus"
                               dangerouslySetInnerHTML={{
-                                __html: statusHtml(order.orderStatus),
+                                __html: statusHtml(order.paymentResult.status),
                               }}
                             ></select>
                           </div>
@@ -145,7 +142,7 @@ const Orders = () => {
                             to={`/orderDetailsAdmin/${order._id}`}
                             className="btn btn-secondary"
                           >
-                            <i className="fas fa-angle-double-right" /> Details
+                            <i className="fas fa-angle-double-right" /> Chi tiết
                           </Link>
                         </td>
                       </tr>

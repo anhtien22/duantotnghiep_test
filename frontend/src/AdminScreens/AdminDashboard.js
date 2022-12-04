@@ -1,26 +1,30 @@
-import React, { useContext, useEffect } from 'react'
-import Navbar from '../AdminComponents/Navbar'
-import AddProductModal from '../AdminComponents/AddProductModal'
-import AddCategoryModal from '../AdminComponents/AddCategoryModal'
-import { Link } from 'react-router-dom'
-import productContext from '../context/product/productContext'
-
+import React, { useContext, useEffect } from "react";
+import Navbar from "../AdminComponents/Navbar";
+import AddProductModal from "../AdminComponents/AddProductModal";
+import AddCategoryModal from "../AdminComponents/AddCategoryModal";
+import { Link } from "react-router-dom";
+import productContext from "../context/product/productContext";
+import OrderContext from "../context/orders/orderContext";
 const AdminDashboard = () => {
   // for product context
-  const pContext = useContext(productContext)
-  const { getProducts, products } = pContext
+  const pContext = useContext(productContext);
 
-  const limit = 5
-  const skip = 0
+  const { getProducts, products } = pContext;
+  console.log(products);
+  const oContext = useContext(OrderContext);
+  // // const { getAllOrders, orders } = oContext;
+  // // console.log(getAllOrders);
+  const limit = 5;
+  const skip = 0;
   // const [skip, setSkip] = useState(0)
   // const [keyWord, setKeyWord] = useState('')
   // const [category, setCategory] = useState('')
   // const [totalResults, setTotalResults] = useState(0)
 
   useEffect(() => {
-    getProducts(limit, skip, '', '')
+    getProducts(limit, skip, "", "");
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
   return (
     <div>
@@ -48,7 +52,8 @@ const AdminDashboard = () => {
                   href="/"
                   className="btn btn-primary btn-block"
                   data-toggle="modal"
-                  data-target="#addProductModal">
+                  data-target="#addProductModal"
+                >
                   <i className="fas fa-plus" /> Add Porduct
                 </a>
               </div>
@@ -58,7 +63,8 @@ const AdminDashboard = () => {
                   href="/"
                   className="btn btn-success btn-block"
                   data-toggle="modal"
-                  data-target="#addCategoryModal">
+                  data-target="#addCategoryModal"
+                >
                   <i className="fas fa-plus" /> Add Category
                 </a>
               </div>
@@ -102,8 +108,9 @@ const AdminDashboard = () => {
                           <td>
                             <Link
                               to={`/productDetailsAdmin/${product._id}`}
-                              className="btn btn-secondary">
-                              <i className="fas fa-angle-double-right" />{' '}
+                              className="btn btn-secondary"
+                            >
+                              <i className="fas fa-angle-double-right" />{" "}
                               Details
                             </Link>
                           </td>
@@ -127,7 +134,8 @@ const AdminDashboard = () => {
                     </h4>
                     <Link
                       to="/products"
-                      className="btn btn-outline-light btn-sm">
+                      className="btn btn-outline-light btn-sm"
+                    >
                       View
                     </Link>
                   </div>
@@ -140,7 +148,8 @@ const AdminDashboard = () => {
                     </h4>
                     <Link
                       to="/categories"
-                      className="btn btn-outline-light btn-sm">
+                      className="btn btn-outline-light btn-sm"
+                    >
                       View
                     </Link>
                   </div>
@@ -152,6 +161,18 @@ const AdminDashboard = () => {
                       <i className="fas fa-users" /> 4
                     </h4>
                     <Link to="/users" className="btn btn-outline-light btn-sm">
+                      View
+                    </Link>
+                  </div>
+                </div>
+                <div className="card text-center bg-warning text-white mb-3">
+                  <div className="card-body">
+                    <h3>Đơn hàng</h3>
+                    <h4 className="display-4">
+                      <i className="fas fa-users" />
+                      {oContext.orders.length}
+                    </h4>
+                    <Link to="/orders" className="btn btn-outline-light btn-sm">
                       View
                     </Link>
                   </div>
@@ -170,7 +191,7 @@ const AdminDashboard = () => {
         <AddCategoryModal />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AdminDashboard
+export default AdminDashboard;
