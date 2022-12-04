@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CategoryContext from './categoryContext'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 // Function for cleaning null, undefined and empty strings values in objects
@@ -20,6 +21,9 @@ function clean(obj) {
 // Category State
 // ------------------------------------------
 const CategoryState = props => {
+
+  const navigate = useNavigate()
+
   const [categories, setCategories] = useState([])
   const [categoriesError, setCategoriesError] = useState(null)
   const [categoriesLoading, setCategoriesLoading] = useState(false)

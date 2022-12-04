@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ProductContext from './productContext'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 // Function for cleaning null, undefined and empty strings values in objects
@@ -20,6 +21,9 @@ function clean(obj) {
 // Product State
 // ------------------------------------------
 const ProductState = props => {
+
+  const navigate = useNavigate()
+
   const [products, setProducts] = useState([])
   const [productsError, setProductsError] = useState(null)
   const [productsLoading, setProductsLoading] = useState(false)
@@ -104,6 +108,7 @@ const deleteProduct = async id  => {
       variant: 'success',
       message: 'Xóa thành công!',
     })
+    navigate('/products')
     setProductsLoading(false)
     setProductsError(null)
     return data.product
