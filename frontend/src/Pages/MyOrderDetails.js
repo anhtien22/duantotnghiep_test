@@ -2,7 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import Breadcrumb from "../components/Breadcrumb";
 import { Link, useParams } from "react-router-dom";
 import OrderContext from "../context/orders/orderContext";
-
+const statusOrder = {
+  Confirmed: "Đang xác nhận",
+  Processing: "Đang giao hàng",
+  Successfully: "Đã giao hàng",
+  Canceled: "Đã hủy",
+  COMPLETED: "Đã Thanh toán online",
+};
 const MyOrderDetails = () => {
   // for order context
   const oContext = useContext(OrderContext);
@@ -167,7 +173,7 @@ const MyOrderDetails = () => {
                         </div>
                         <div>
                           <b>Trạng thái</b> :{" "}
-                          {order.paymentResult.status === "Canceled"
+                          {/* {order.paymentResult.status === "Canceled"
                             ? "Đã hủy"
                             : order.paymentResult.status === "Confirmed"
                             ? "Đang xác nhận"
@@ -175,7 +181,8 @@ const MyOrderDetails = () => {
                             ? "Đang giao hàng"
                             : order.paymentResult.status === "Successfully"
                             ? "Đã giao hàng"
-                            : ""}
+                            : ""} */}
+                          {statusOrder[order.paymentResult.status]}
                         </div>
                         {order.paymentMethod === "paypal" && (
                           <div>
