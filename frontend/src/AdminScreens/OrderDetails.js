@@ -36,7 +36,7 @@ const OrderDetails = () => {
               <div className="card" style={{ borderRadius: '10px' }}>
                 <div className="card-header px-4 py-5">
                   <h5 className="text-muted mb-0">
-                    Thanks for your Order,{' '}
+                  Cảm ơn vì đơn hàng của bạn,{' '}
                     <span style={{ color: '#a8729a' }}>{order.user.name}</span>!
                   </h5>
                 </div>
@@ -45,7 +45,7 @@ const OrderDetails = () => {
                     <p
                       className="lead fw-normal mb-0"
                       style={{ color: '#a8729a' }}>
-                      Receipt
+                     Biên nhận
                     </p>
                     <p className="small text-muted mb-0">
                       Order ID : <b>{id}</b>
@@ -103,39 +103,39 @@ const OrderDetails = () => {
 
                   <div className="row my-3">
                     <div className="col-md-6">
-                      <h4>Shipping Details</h4>
+                      <h4>Chi tiết vận chuyển</h4>
                       <div>
-                        <b>Deliver to: </b> {order.shippingAddress.name} <br />
-                        <b>Phone : </b> {order.shippingAddress.phone} <br />
-                        <b>Sipping Address: </b> {order.shippingAddress.address}
+                        <b>Giao hàng đến: </b> {order.shippingAddress.name} <br />
+                        <b>Điện thoại: </b> {order.shippingAddress.phone} <br />
+                        <b>Địa chỉ: </b> {order.shippingAddress.address}
                         , {order.shippingAddress.city},{' '}
                         {order.shippingAddress.country} <br />
-                        <b>Postal Code:</b> {order.shippingAddress.postalCode}
+                        <b>Mã bưu điện:</b> {order.shippingAddress.postalCode}
                       </div>
                     </div>
                     <div className="col-md-6 border-left">
                       <div className="">
-                        <h4>Order Details</h4>
+                        <h4>Chi tiết đặt hàng</h4>
                         <div>
-                          <b>Order Date</b> :{' '}
+                          <b>Ngày đặt hàng</b> :{' '}
                           {new Date(order.createdAt).toLocaleDateString()}
                         </div>
                         <div>
-                          <b>Payment Method</b> : {order.paymentMethod}
+                          <b>Phương thức thanh toán</b> : {order.paymentMethod}
                         </div>
                         <div>
-                          <b>Payment Status</b> : {order.paymentResult.status}
+                          <b>Tình trạng thanh toán</b> : {order.paymentResult.status}
                         </div>
                         {order.paymentMethod === 'paypal' && (
                           <div>
-                            <b>Transaction Id</b> : {order.paymentResult.id}{' '}
+                            <b>ID giao dịch</b> : {order.paymentResult.id}{' '}
                             <br />
-                            <b>Payment Time</b> :{' '}
+                            <b>Thời gian thanh toán</b> :{' '}
                             {new Date(
                               order.paymentResult.update_time
                             ).toLocaleString()}{' '}
                             <br />
-                            <b>Payer Email</b> :{' '}
+                            <b>Email người trả tiền</b> :{' '}
                             {order.paymentResult.email_address}{' '}
                           </div>
                         )}
@@ -151,7 +151,7 @@ const OrderDetails = () => {
                       borderBottomRightRadius: '10px',
                     }}>
                     <h5 className="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">
-                      Order Total :{' '}
+                    Tổng số đơn đặt hàng :{' '}
                       <span className="h2 mb-0 ms-2"> ${order.totalPrice}</span>
                     </h5>
                   </div>

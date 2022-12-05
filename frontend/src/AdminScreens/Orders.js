@@ -22,7 +22,7 @@ const Orders = () => {
           <div className="row">
             <div className="col-md-6">
               <h1>
-                <i className="fas fa-users" /> Orders
+                <i className="fas fa-users" /> Đơn hàng
               </h1>
             </div>
           </div>
@@ -38,10 +38,10 @@ const Orders = () => {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Search Users..."
+                  placeholder="Tìm kiếm khách hàng..."
                 />
                 <div className="input-group-append">
-                  <button className="btn btn-warning">Search</button>
+                  <button className="btn btn-warning">Tìm kiếm</button>
                 </div>
               </div>
             </div>
@@ -55,15 +55,15 @@ const Orders = () => {
             <div className="col">
               <div className="card">
                 <div className="card-header">
-                  <h4>Latest Orders</h4>
+                  <h4>Đơn đặt hàng mới nhất</h4>
                 </div>
                 <table className="table table-striped">
                   <thead className="thead-dark">
                     <tr>
                       <th>#</th>
-                      <th>User</th>
-                      <th>Date</th>
-                      <th>Order Amount</th>
+                      <th>Khách hàng</th>
+                      <th>Ngày</th>
+                      <th>Số lượng đơn đặt hàng</th>
                       <th />
                     </tr>
                   </thead>
@@ -71,7 +71,7 @@ const Orders = () => {
                     {orders.map((order, index) => (
                       <tr key={order._id}>
                         <td>{index + 1}</td>
-                        <td>{order.user.name}</td>
+                        <td>{order.user?.name}</td>
                         <td>
                           {new Date(order.createdAt).toLocaleDateString()}
                         </td>
@@ -80,7 +80,7 @@ const Orders = () => {
                           <Link
                             to={`/orderDetailsAdmin/${order._id}`}
                             className="btn btn-secondary">
-                            <i className="fas fa-angle-double-right" /> Details
+                            <i className="fas fa-angle-double-right" /> Thông tin chi tiết
                           </Link>
                         </td>
                       </tr>

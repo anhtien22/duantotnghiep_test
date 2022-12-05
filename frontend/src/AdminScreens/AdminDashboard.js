@@ -4,13 +4,20 @@ import AddProductModal from '../AdminComponents/AddProductModal'
 import AddCategoryModal from '../AdminComponents/AddCategoryModal'
 import { Link } from 'react-router-dom'
 import productContext from '../context/product/productContext'
+import categoryContext from '../context/category/categoryContext'
+import userContext from '../context/user/UserContext'
+
 
 const AdminDashboard = () => {
   // for product context
+  const cContext = useContext(categoryContext)
   const pContext = useContext(productContext)
+  const uContext = useContext(userContext)
   const { getProducts, products } = pContext
+  const { getCategories, categories } = cContext
+  const { getAllUsers, allUsers } = uContext
 
-  const limit = 5
+  // const limit = 5
   const skip = 0
   // const [skip, setSkip] = useState(0)
   // const [keyWord, setKeyWord] = useState('')
@@ -18,7 +25,15 @@ const AdminDashboard = () => {
   // const [totalResults, setTotalResults] = useState(0)
 
   useEffect(() => {
-    getProducts(limit, skip, '', '')
+    getProducts(skip, '', '')
+    // eslint-disable-next-line
+  }, [])
+  useEffect(() => {
+    getCategories(skip, '', '')
+    // eslint-disable-next-line
+  }, [])
+  useEffect(() => {
+    getAllUsers(skip, '', '')
     // eslint-disable-next-line
   }, [])
 
@@ -49,7 +64,7 @@ const AdminDashboard = () => {
                   className="btn btn-primary btn-block"
                   data-toggle="modal"
                   data-target="#addProductModal">
-                  <i className="fas fa-plus" /> Add Porduct
+                  <i className="fas fa-plus" /> Thêm sản phẩm
                 </a>
               </div>
 
@@ -59,13 +74,13 @@ const AdminDashboard = () => {
                   className="btn btn-success btn-block"
                   data-toggle="modal"
                   data-target="#addCategoryModal">
-                  <i className="fas fa-plus" /> Add Category
+                  <i className="fas fa-plus" /> Thêm danh mục
                 </a>
               </div>
 
               <div className="col-md-4">
                 <Link to="/users" className="btn btn-warning btn-block">
-                  <i className="fas fa-plus" /> Manage Users
+                  <i className="fas fa-plus" /> Quản lý người dùng
                 </Link>
               </div>
             </div>
@@ -78,15 +93,15 @@ const AdminDashboard = () => {
               <div className="col-md-9">
                 <div className="card">
                   <div className="card-header">
-                    <h4>Latest Products</h4>
+                    <h4>Sản phẩm mới nhất</h4>
                   </div>
                   <table className="table table-striped">
                     <thead className="thead-dark">
                       <tr>
                         <th>#</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Date</th>
+                        <th>Tên</th>
+                        <th>Giá</th>
+                        <th>Ngày</th>
                         <th />
                       </tr>
                     </thead>
@@ -113,7 +128,7 @@ const AdminDashboard = () => {
                   </table>
                   <div className="text-center my-3">
                     <Link to="/products">
-                      <button className="btn btn-info">See all products</button>
+                      <button className="btn btn-info">Xem tất cả sản phẩm</button>
                     </Link>
                   </div>
                 </div>
@@ -121,38 +136,38 @@ const AdminDashboard = () => {
               <div className="col-md-3">
                 <div className="card text-center bg-primary text-white mb-3">
                   <div className="card-body">
-                    <h3>Products</h3>
+                    <h3>Sản phẩm</h3>
                     <h4 className="display-4">
                       <i className="fas fa-pencil-alt" /> {products.length}
                     </h4>
                     <Link
                       to="/products"
                       className="btn btn-outline-light btn-sm">
-                      View
+                     Xem
                     </Link>
                   </div>
                 </div>
                 <div className="card text-center bg-success text-white mb-3">
                   <div className="card-body">
-                    <h3>Categories</h3>
+                    <h3>Danh mục</h3>
                     <h4 className="display-4">
-                      <i className="fas fa-folder" /> 4
+                      <i className="fas fa-folder" /> {categories.length}
                     </h4>
                     <Link
                       to="/categories"
                       className="btn btn-outline-light btn-sm">
-                      View
+                     Xem
                     </Link>
                   </div>
                 </div>
                 <div className="card text-center bg-warning text-white mb-3">
                   <div className="card-body">
-                    <h3>Users</h3>
+                    <h3>Tài khoản</h3>
                     <h4 className="display-4">
-                      <i className="fas fa-users" /> 4
+                      <i className="fas fa-users" /> {allUsers.length}
                     </h4>
                     <Link to="/users" className="btn btn-outline-light btn-sm">
-                      View
+                      Xem
                     </Link>
                   </div>
                 </div>

@@ -57,7 +57,7 @@ const Products = () => {
           <div className="row">
             <div className="col-md-6">
               <h1>
-                <i className="fas fa-pencil-alt" /> Products
+                <i className="fas fa-pencil-alt" /> Sản phẩm
               </h1>
             </div>
           </div>
@@ -73,7 +73,7 @@ const Products = () => {
                 className="btn btn-primary btn-block"
                 data-toggle="modal"
                 data-target="#addProductModal">
-                <i className="fas fa-plus" /> Add Porduct
+                <i className="fas fa-plus" /> Thêm sản phẩm
               </a>
               <AddProductModal />
             </div>
@@ -83,13 +83,13 @@ const Products = () => {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Search Products..."
+                    placeholder="Tìm kiếm sản phẩm..."
                     value={keyWord}
                     onChange={handleChange}
                   />
                   <div className="input-group-append">
                     <button className="btn btn-primary" type="submit">
-                      Search
+                      Tìm kiếm
                     </button>
                   </div>
                 </div>
@@ -105,16 +105,16 @@ const Products = () => {
             <div className="col">
               <div className="card">
                 <div className="card-header">
-                  <h4>Latest Products</h4>
+                  <h4>Sản phẩm mới nhất</h4>
                 </div>
 
                 <table className="table table-striped">
                   <thead className="thead-dark">
                     <tr>
                       <th>#</th>
-                      <th>Name</th>
-                      <th>Price</th>
-                      <th>Date</th>
+                      <th>Tên</th>
+                      <th>Giá</th>
+                      <th>Ngày</th>
                       <th />
                     </tr>
                   </thead>
@@ -131,7 +131,7 @@ const Products = () => {
                           <Link
                             to={`/productDetailsAdmin/${product._id}`}
                             className="btn btn-secondary">
-                            <i className="fas fa-angle-double-right" /> Details
+                            <i className="fas fa-angle-double-right" /> Chi tiết
                           </Link>
                         </td>
                       </tr>
@@ -147,15 +147,15 @@ const Products = () => {
                         size="sm"
                         onClick={handlePreviousClick}
                         disabled={skip < 1}>
-                        &larr; Previous
+                        &larr; Trước
                       </Button>
 
                       <div className="text-center mx-2">
-                        Page-{skip / limit + 1},
+                        Trang-{skip / limit + 1},
                         <span className="text-muted">
                           {' '}
-                          Showing {products.length} out of {totalResults}{' '}
-                          products.
+                          Hiển thị {products.length} hết {totalResults}{' '}
+                          sản phẩm.
                         </span>
                       </div>
 
@@ -164,7 +164,7 @@ const Products = () => {
                         size="sm"
                         onClick={handleNextClick}
                         disabled={totalResults - skip <= limit}>
-                        Next &rarr;
+                        Tiếp tục &rarr;
                       </Button>
                     </div>
                   </div>
