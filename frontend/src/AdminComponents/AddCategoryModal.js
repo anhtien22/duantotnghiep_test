@@ -25,7 +25,7 @@ const AddCategoryModal = () => {
         <div className="modal-dialog modal-lg">
           <div className="modal-content">
             <div className="modal-header bg-success text-white">
-              <h5 className="modal-title">Add Category</h5>
+              <h5 className="modal-title">Thêm danh mục</h5>
               <button className="close" data-dismiss="modal">
                 <span>×</span>
               </button>
@@ -33,7 +33,7 @@ const AddCategoryModal = () => {
             <div className="modal-body">
               <form>
                 <div className="form-group">
-                  <label htmlFor="title">Title</label>
+                  <label htmlFor="title">Danh mục</label>
                   <input
                     type="text"
                     name="title"
@@ -49,7 +49,7 @@ const AddCategoryModal = () => {
                 className="btn btn-success"
                 data-dismiss="modal"
                 onClick={handleAddCategory}>
-                Add Category
+                Thêm danh mục
               </button>
             </div>
           </div>

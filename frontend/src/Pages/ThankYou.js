@@ -9,11 +9,11 @@ const ThankYou = () => {
           <div className="row">
             <div className="col-md-12 text-center">
               <span className="icon-check_circle display-3 text-success"></span>
-              <h2 className="display-3 text-black">Thank you!</h2>
-              <p className="lead mb-5">You order was successfuly completed.</p>
+              <h2 className="display-3 text-black"> Cảm ơn ! </h2>
+              <p className="lead mb-5">Đơn đặt hàng của bạn đã được hoàn thành thành công.</p>
               <p>
                 <Link to="/shop" className="btn btn-sm btn-primary">
-                  Back to shop
+                 Trở lại Shop
                 </Link>
               </p>
             </div>

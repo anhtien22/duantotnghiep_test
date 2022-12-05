@@ -55,13 +55,13 @@ export const updateProfile = async (req, res) => {
     allowedUpdates.includes(update)
   )
   if (!isValidOperation) {
-    return res.status(400).json({ error: 'Invalid updates' })
+    return res.status(400).json({ error: 'Cập nhật không hợp lệ' })
   }
 
   updates.forEach(update => (req.user[update] = req.body[update]))
   try {
     await req.user.save()
-    res.json({ success: true, message: 'profile updated', user: req.user })
+    res.json({ success: true, message: 'Hồ sơ cá nhân đã cập nhật', user: req.user })
   } catch (e) {
     res.status(400).json({ error: e.message })
   }
@@ -73,7 +73,7 @@ export const updateProfile = async (req, res) => {
 export const deleteProfile = async (req, res) => {
   try {
     await req.user.remove()
-    res.json({ success: true, message: 'user deleted' })
+    res.json({ success: true, message: 'Người dùng đã xóa' })
   } catch (e) {
     res.status(500).json({ success: false, error: e.message })
   }

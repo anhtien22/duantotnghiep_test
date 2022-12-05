@@ -128,15 +128,15 @@ const Shop = () => {
                       size="sm"
                       onClick={ handlePreviousClick }
                       disabled={ skip < 1 }>
-                      &larr; Previous
+                      &larr; Trước
                     </Button>
 
                     <div className="text-center mx-2">
-                      Page-{ skip / limit + 1 },
+                      Trang -{ skip / limit + 1 },
                       <span className="text-muted">
                         { ' ' }
-                        Showing { products.length } out of { totalResults }{ ' ' }
-                        products.
+                        Hiển thị { products.length } trong số { totalResults }{ ' ' }
+                        sản phẩm .
                       </span>
                     </div>
 
@@ -145,7 +145,7 @@ const Shop = () => {
                       size="sm"
                       onClick={ handleNextClick }
                       disabled={ totalResults - skip <= limit }>
-                      Next &rarr;
+                      Tiếp tục &rarr;
                     </Button>
                   </div>
                 </div>
@@ -155,7 +155,7 @@ const Shop = () => {
             <div className="col-md-3 order-1 mb-5 mb-md-0">
               <div className="border p-4 rounded mb-4">
                 <h3 className="mb-3 h6 text-uppercase text-black d-block">
-                  Categories
+                  Danh mục
                 </h3>
                 <ul className="list-unstyled mb-0">
                   <li className="mb-1">
@@ -165,7 +165,7 @@ const Shop = () => {
                         setCategory('')
                         setSkip(0)
                       } }>
-                      <span>All</span>
+                      <span>Tất cả</span>
                       {/* <span className="text-black ml-auto">
                         ({totalResults})
                       </span> */}
@@ -192,7 +192,9 @@ const Shop = () => {
                   <h3 className="mb-3 h6 text-uppercase text-black d-block">
                     Filter by Price
                   </h3>
-                  <div id="slider-range" className="border-primary"></div>
+                  <div id="slider-range" className="border-primary">
+                    
+                  </div>
                   <input
                     type="text"
                     name="text"
@@ -210,7 +212,7 @@ const Shop = () => {
               <div className="site-section site-blocks-2">
                 <div className="row justify-content-center text-center mb-5">
                   <div className="col-md-7 site-section-heading pt-4">
-                    <h2>Categories</h2>
+                    <h2>Danh mục</h2>
                   </div>
                 </div>
                 <div className="row">
@@ -227,7 +229,7 @@ const Shop = () => {
                         />
                       </figure>
                       <div className="text">
-                        <span className="text-uppercase">Collections</span>
+                        <span className="text-uppercase">Bộ sưu tập</span>
                         <h3>Women</h3>
                       </div>
                     </a>
@@ -245,7 +247,7 @@ const Shop = () => {
                         />
                       </figure>
                       <div className="text">
-                        <span className="text-uppercase">Collections</span>
+                        <span className="text-uppercase">Bộ sưu tập</span>
                         <h3>Children</h3>
                       </div>
                     </a>
@@ -263,7 +265,7 @@ const Shop = () => {
                         />
                       </figure>
                       <div className="text">
-                        <span className="text-uppercase">Collections</span>
+                        <span className="text-uppercase">Bộ sưu tập</span>
                         <h3>Men</h3>
                       </div>
                     </a>

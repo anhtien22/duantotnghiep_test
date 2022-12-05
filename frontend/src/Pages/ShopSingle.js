@@ -1,30 +1,28 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
-import Breadcrumb from '../components/Breadcrumb'
-import productContext from '../context/product/productContext'
-import { useCart } from 'react-use-cart'
-
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import Breadcrumb from "../components/Breadcrumb";
+import productContext from "../context/product/productContext";
+import { useCart } from "react-use-cart";
 
 const ShopSingle = () => {
-  const { addItem } = useCart()
+  const { addItem } = useCart();
+  const [quantity, setQuantity] = useState(1);
 
-  const [quantity, setQuantity] = useState(1)
-
-  const { id } = useParams()
-  const [product, setProduct] = useState({ category: {} })
+  const { id } = useParams();
+  const [product, setProduct] = useState({ category: {} });
 
   // for product context
-  const pContext = useContext(productContext)
-  const { getOneProduct } = pContext
+  const pContext = useContext(productContext);
+  const { getOneProduct } = pContext;
 
   useEffect(() => {
     const fetctProduct = async () => {
-      const fetchedProduct = await getOneProduct(id)
-      setProduct(fetchedProduct)
-    }
-    fetctProduct()
+      const fetchedProduct = await getOneProduct(id);
+      setProduct(fetchedProduct);
+    };
+    fetctProduct();
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
   return (
     <>
@@ -48,13 +46,14 @@ const ShopSingle = () => {
               </p>
 
               <div className="mb-5">
-                <div className="input-group mb-3" style={{ maxWidth: '120px' }}>
+                <div className="input-group mb-3" style={{ maxWidth: "120px" }}>
                   <div className="input-group-prepend">
                     <button
                       disabled={quantity < 2}
                       className="btn btn-outline-primary js-btn-minus"
                       onClick={() => setQuantity(quantity - 1)}
-                      type="button">
+                      type="button"
+                    >
                       &minus;
                     </button>
                   </div>
@@ -62,7 +61,7 @@ const ShopSingle = () => {
                     type="text"
                     className="form-control text-center"
                     value={quantity}
-                    onChange={e => setQuantity(e.target.value)}
+                    onChange={(e) => setQuantity(e.target.value)}
                     placeholder=""
                     aria-label="Example text with button addon"
                     aria-describedby="button-addon1"
@@ -71,7 +70,8 @@ const ShopSingle = () => {
                     <button
                       className="btn btn-outline-primary js-btn-plus"
                       onClick={() => setQuantity(quantity + 1)}
-                      type="button">
+                      type="button"
+                    >
                       &#43;
                     </button>
                   </div>
@@ -85,10 +85,11 @@ const ShopSingle = () => {
                     let item = {
                       ...product,
                       id: product._id,
-                    }
-                    addItem(item, quantity)
-                  }}>
-                  Add To Cart
+                    };
+                    addItem(item, quantity);
+                  }}
+                >
+                  Thêm vào giỏ
                 </Link>
               </p>
             </div>
@@ -96,7 +97,7 @@ const ShopSingle = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default ShopSingle
+export default ShopSingle;

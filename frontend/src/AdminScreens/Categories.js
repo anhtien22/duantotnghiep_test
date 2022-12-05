@@ -8,7 +8,7 @@ import AddCategoryModal from '../AdminComponents/AddCategoryModal'
 
 const Categories = () => {
   const context = useContext(CategoryContext)
-  const { categories, getCategories } = context
+  const { categories, getCategories, deleteCategory } = context
 
   // const [categoryArray, setCategoryArray] = useState(categories)
 
@@ -18,6 +18,11 @@ const Categories = () => {
     // eslint-disable-next-line
   }, [])
 
+  //delete catagory
+  const deleteSaveChanges = (id) => {
+    // console.log(product)
+    deleteCategory(id)
+  }
   return (
     <div>
       <Navbar />
@@ -29,7 +34,7 @@ const Categories = () => {
             <div className="row">
               <div className="col-md-6">
                 <h1>
-                  <i className="fas fa-folder" /> Categories
+                  <i className="fas fa-folder" /> Danh mục
                 </h1>
               </div>
             </div>
@@ -45,7 +50,7 @@ const Categories = () => {
                   className="btn btn-success btn-block"
                   data-toggle="modal"
                   data-target="#addCategoryModal">
-                  <i className="fas fa-plus" /> Add New Category
+                  <i className="fas fa-plus" /> Thêm mới danh mục
                 </a>
                 <AddCategoryModal />
               </div>
@@ -54,10 +59,10 @@ const Categories = () => {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Search Categories..."
+                    placeholder="Tìm kiếm danh mục..."
                   />
                   <div className="input-group-append">
-                    <button className="btn btn-success">Search</button>
+                    <button className="btn btn-success">Tìm kiếm</button>
                   </div>
                 </div>
               </div>
@@ -71,14 +76,14 @@ const Categories = () => {
               <div className="col">
                 <div className="card">
                   <div className="card-header">
-                    <h4>Latest Categories</h4>
+                    <h4>Danh mục mới nhất</h4>
                   </div>
                   <table className="table table-striped">
                     <thead className="thead-dark">
                       <tr>
                         <th>#</th>
-                        <th>Title</th>
-                        <th>Date</th>
+                        <th>Tiêu đề</th>
+                        <th>Ngày</th>
                         <th />
                       </tr>
                     </thead>
@@ -96,8 +101,8 @@ const Categories = () => {
                               Details
                             </button> */}
                             <EditCategoryModal category={category} />
-                            <Button variant="danger" className="mx-2" disabled>
-                              <i className="fas fa-trash" /> Delete
+                            <Button variant="danger" className="mx-2" onClick={() => deleteSaveChanges(category._id)}>
+                              <i className="fas fa-trash" /> Xóa
                             </Button>
                           </td>
                         </tr>

@@ -19,8 +19,8 @@ function clean(obj) {
 // ------------------------------------------
 // Category State
 // ------------------------------------------
-const CategoryState = props => {
-  const [variation, setVariation] = useState([])
+const VariationState = props => {
+  const [variations, setVariations] = useState([])
   const [variationsError, setVariationsError] = useState(null)
   const [variationsLoading, setVariationsLoading] = useState(false)
   const [variationsMessage, setVariationsMessage] = useState(null)
@@ -60,7 +60,7 @@ const CategoryState = props => {
       }
       setVariationsLoading(true)
       await axios.post('api/variation/add', variationBody, { headers })
-      setVariation([...variation, variationBody])
+      setVariations([...variations, variationBody])
       setVariationsMessage({
         variant: 'success',
         message: 'variation added successfully!',
@@ -73,11 +73,11 @@ const CategoryState = props => {
   }
 
   // get all variation
-  const getVariation = async () => {
+  const getVariations = async () => {
     try {
       setVariationsLoading(true)
       const { data } = await axios.get('api/variation/getAll')
-      setVariation(data.variation)
+      setVariations(data.variations)
       setVariationsLoading(false)
       setVariationsError(null)
     } catch (err) {
@@ -89,7 +89,7 @@ const CategoryState = props => {
   const getOneVariation = async id => {
     try {
       const { data } = await axios.get(`/api/variation/${id}`)
-      return data.variation
+      return data.variations
     } catch (err) {
       errorHandler(err)
     }
@@ -103,7 +103,7 @@ const CategoryState = props => {
       }
       setVariationsLoading(true)
       await axios.patch(`api/variation/${id}`, { title }, { headers })
-      getVariation()
+      getVariations()
       setVariationsMessage({
         variant: 'info',
         message: 'Category updated!',
@@ -118,11 +118,11 @@ const CategoryState = props => {
   return (
     <VariationContext.Provider
       value={ {
-        variation,
+        variations,
         variationsError,
         variationsLoading,
         variationsMessage,
-        getVariation,
+        getVariations,
         addVariation,
         getOneVariation,
         updateVariation,
@@ -132,4 +132,4 @@ const CategoryState = props => {
   )
 }
 
-export default CategoryState
+export default VariationState

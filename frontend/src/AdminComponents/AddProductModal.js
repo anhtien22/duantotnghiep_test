@@ -1,8 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
 import CategoryContext from '../context/category/categoryContext'
 import productContext from '../context/product/productContext'
+import VariationContext from '../context/variation/variationContext'
 
 const AddProductModal = () => {
+
+
   // for product context
   const pContext = useContext(productContext)
   const { addProduct } = pContext
@@ -10,9 +13,14 @@ const AddProductModal = () => {
   // for category context
   const cContext = useContext(CategoryContext)
   const { categories, getCategories } = cContext
-
+  console.log("categories", categories);
+  // variation context
+  const vContext = useContext(VariationContext)
+  const { variations, getVariations } = vContext
+  console.log("variations", variations);
   useEffect(() => {
-    getCategories()
+    getCategories();
+    getVariations();
     // eslint-disable-next-line
   }, [])
 
@@ -39,9 +47,9 @@ const AddProductModal = () => {
     formData.append('category', category)
     formData.append('price', price)
     formData.append('description', description)
-    console.log('Add product to run')
+    console.log('Thêm sản phẩm để chạy')
     addProduct(formData)
-    console.log('Add product ran')
+    console.log('Thêm sản phẩm chạy')
     setProduct({
       name: '',
       sku: '',

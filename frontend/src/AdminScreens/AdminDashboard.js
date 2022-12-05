@@ -23,7 +23,10 @@ const AdminDashboard = () => {
   // const [keyWord, setKeyWord] = useState('')
   // const [category, setCategory] = useState('')
   // const [totalResults, setTotalResults] = useState(0)
-
+  const formatter = new Intl.NumberFormat("it-IT", {
+    style: "currency",
+    currency: "VND",
+  });
   useEffect(() => {
     getProducts(skip, '', '')
     // eslint-disable-next-line
@@ -35,7 +38,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     getAllUsers(skip, '', '')
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
   return (
     <div>
@@ -110,15 +113,16 @@ const AdminDashboard = () => {
                         <tr key={product._id}>
                           <td>{i + 1}</td>
                           <td>{product.name}</td>
-                          <td>{product.price}</td>
+                          <td>{formatter.format(product.price)}</td>
                           <td>
                             {new Date(product.createdAt).toLocaleDateString()}
                           </td>
                           <td>
                             <Link
                               to={`/productDetailsAdmin/${product._id}`}
-                              className="btn btn-secondary">
-                              <i className="fas fa-angle-double-right" />{' '}
+                              className="btn btn-secondary"
+                            >
+                              <i className="fas fa-angle-double-right" />{" "}
                               Details
                             </Link>
                           </td>
@@ -171,6 +175,18 @@ const AdminDashboard = () => {
                     </Link>
                   </div>
                 </div>
+                {/* <div className="card text-center bg-warning text-white mb-3">
+                  <div className="card-body">
+                    <h3>Đơn hàng</h3>
+                    <h4 className="display-4">
+                      <i className="fas fa-users" />
+                      {oContext.orders?.length}
+                    </h4>
+                    <Link to="/orders" className="btn btn-outline-light btn-sm">
+                      View
+                    </Link>
+                  </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -185,7 +201,7 @@ const AdminDashboard = () => {
         <AddCategoryModal />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AdminDashboard
+export default AdminDashboard;

@@ -1,52 +1,57 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import AddProductModal from '../AdminComponents/AddProductModal'
-import Navbar from '../AdminComponents/Navbar'
-import productContext from '../context/product/productContext'
+import React, { useContext, useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import AddProductModal from "../AdminComponents/AddProductModal";
+import Navbar from "../AdminComponents/Navbar";
+import productContext from "../context/product/productContext";
 // import Footer from '../AdminComponents/Footer'
 
 const Products = () => {
   // for product context
-  const pContext = useContext(productContext)
-  const { getProducts, products } = pContext
+  const pContext = useContext(productContext);
+  const { getProducts, products } = pContext;
 
-  const limit = 8
-  const [skip, setSkip] = useState(0)
-  const [keyWord, setKeyWord] = useState('')
+  const limit = 8;
+  const [skip, setSkip] = useState(0);
+  const [keyWord, setKeyWord] = useState("");
   // const [category, setCategory] = useState('')
-  const [totalResults, setTotalResults] = useState(0)
+  const [totalResults, setTotalResults] = useState(0);
 
   useEffect(() => {
     const populateProducts = async () => {
-      setTotalResults(await getProducts(limit, skip, keyWord))
-    }
-    populateProducts()
+      setTotalResults(await getProducts(limit, skip, keyWord));
+    };
+    populateProducts();
     // eslint-disable-next-line
-  }, [skip, limit])
+  }, [skip, limit]);
 
   const handlePreviousClick = async () => {
     if (skip > 0) {
-      setSkip(skip - limit)
+      setSkip(skip - limit);
     }
-  }
+  };
 
   const handleNextClick = async () => {
-    setSkip(skip + limit)
-  }
+    setSkip(skip + limit);
+  };
 
-  const handleChange = e => {
-    setKeyWord(e.target.value)
-  }
+  const handleChange = (e) => {
+    setKeyWord(e.target.value);
+  };
 
-  const handleSearchSubmit = e => {
-    e.preventDefault()
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
     const populateProducts = async () => {
-      setTotalResults(await getProducts(limit, skip, keyWord))
-    }
-    setSkip(0)
-    populateProducts()
-  }
+      setTotalResults(await getProducts(limit, skip, keyWord));
+    };
+    setSkip(0);
+    populateProducts();
+  };
+
+  const formatter = new Intl.NumberFormat("it-IT", {
+    style: "currency",
+    currency: "VND",
+  });
 
   return (
     <>
@@ -123,7 +128,9 @@ const Products = () => {
                       <tr key={product._id}>
                         <td>{i + 1}</td>
                         <td>{product.name}</td>
-                        <td>{product.price}</td>
+                        <td>
+                        {formatter.format(product.price)}
+                        </td>
                         <td>
                           {new Date(product.createdAt).toLocaleDateString()}
                         </td>
@@ -176,7 +183,7 @@ const Products = () => {
       </section>
       {/* <Footer /> */}
     </>
-  )
-}
+  );
+};
 
-export default Products
+export default Products;

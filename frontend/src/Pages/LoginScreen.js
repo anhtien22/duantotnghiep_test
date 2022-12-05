@@ -37,13 +37,13 @@ const LoginScreen = () => {
         <section id="login">
           <div className="container">
             <p className="text-center">
-              Don't have an accout? <Link to="/signup">Signup</Link>
+            Don't have an accout? <Link to="/signup">Đăng ký</Link>
             </p>
             <div className="row">
               <div className="col-md-6 mx-auto">
                 <div className="card">
                   <div className="card-header">
-                    <h4>Account Login</h4>
+                    <h4>Đăng nhập tài khoản</h4>
                   </div>
                   <div className="card-body">
                     <form onSubmit={handleLogin}>
@@ -58,7 +58,7 @@ const LoginScreen = () => {
                         />
                       </div>
                       <div className="form-group">
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">Mật khẩu</label>
                         <input
                           onChange={handleChange}
                           type="password"
