@@ -10,12 +10,9 @@ const statusOrder = {
   Canceled: "Đã hủy",
   // COMPLETED: "Đã Thanh toán online",
 };
-const Orders = () => {
-  // for order context
-  const oContext = useContext(OrderContext);
-  const { getAllOrders, orders, updateStatustAdmin } = oContext;
-  const resulf = orders.reduce((r, index) => {
-    if (index.paymentResult.status === "Successfully") {
+const total = (orders, status) =>
+  orders.reduce((r, index) => {
+    if (index.paymentResult.status === status) {
       if (index.orderItems.length) {
         const total = index.orderItems.reduce((count, item) => {
           return (count += item.price * item.quantity);
@@ -26,6 +23,14 @@ const Orders = () => {
     }
     return r;
   }, 0);
+
+const Orders = () => {
+  // for order context
+  const oContext = useContext(OrderContext);
+  const { getAllOrders, orders, updateStatustAdmin } = oContext;
+  const resulf = total(orders, "Successfully");
+  const resulf2 = total(orders, "COMPLETED");
+  const resulf3 = resulf + resulf2;
   const statusHtml = (orderStatus) => {
     const index = Object.keys(statusOrder).findIndex(
       (key) => key === orderStatus
@@ -72,7 +77,13 @@ const Orders = () => {
       <section id="search" className="py-4 mb-4 bg-light">
         <div className="container">
           <div className="row">
-            <div>Doanh thu: {formatter.format(resulf)}</div>
+            <div>Doanh thu giao hàng: {formatter.format(resulf)}</div>
+
+            <div>
+              Doanh thu đã thanh toán online: {formatter.format(resulf2)}
+            </div>
+            <div>Tổng doanh thu : {formatter.format(resulf3)}</div>
+
             <div className="col-md-6 ml-auto">
               <div className="input-group">
                 <input
