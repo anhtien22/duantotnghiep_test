@@ -29,7 +29,10 @@ const ProfileScreen = () => {
     name: user.name,
     email: user.email,
   });
-
+  const formatter = new Intl.NumberFormat("it-IT", {
+    style: "currency",
+    currency: "VND",
+  });
   return (
     <>
       {/* ACTIONS */}
@@ -128,12 +131,7 @@ const ProfileScreen = () => {
                         <tr key={order._id}>
                           <td>{order._id}</td>
                           <td>{order.orderItems.length} item(s)</td>
-                          <td>
-                            {order.totalPrice.toLocaleString("it-IT", {
-                              style: "currency",
-                              currency: "VND",
-                            })}
-                          </td>
+                          <td>{formatter.format(order.totalPrice)}</td>
                           <td>
                             {new Date(order.createdAt).toLocaleDateString()}
                           </td>

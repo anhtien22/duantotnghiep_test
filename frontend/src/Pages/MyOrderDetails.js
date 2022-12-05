@@ -25,7 +25,10 @@ const MyOrderDetails = () => {
     fetchOrder();
     // eslint-disable-next-line
   }, []);
-
+  const formatter = new Intl.NumberFormat("it-IT", {
+    style: "currency",
+    currency: "VND",
+  });
   return (
     <>
       <Breadcrumb pageName="Order" />
@@ -87,12 +90,15 @@ const MyOrderDetails = () => {
                           </div>
                           <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
                             <p className="text-muted mb-0 small">
-                              Giá: {orderItem.price}
+                              Giá {formatter.format(orderItem.price)}
                             </p>
                           </div>
                           <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
                             <p className="text-muted mb-0 small">
-                              <b> Tiền: {orderItem.itemTotal}</b>
+                              <b>
+                                {" "}
+                                Tiền {formatter.format(orderItem.itemTotal)}
+                              </b>
                             </p>
                           </div>
                         </div>
@@ -196,8 +202,11 @@ const MyOrderDetails = () => {
                     }}
                   >
                     <h5 className="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">
-                      Tổng tiền :{" "}
-                      <span className="h2 mb-0 ms-2"> ${order.totalPrice}</span>
+                      Tổng tiền:{"   "}
+                      <span className="h2 mb-0 ms-2">
+                        {" "}
+                        {formatter.format(order.totalPrice)}
+                      </span>
                     </h5>
                   </div>
                 </div>

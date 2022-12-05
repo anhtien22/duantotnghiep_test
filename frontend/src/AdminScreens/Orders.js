@@ -42,6 +42,10 @@ const Orders = () => {
       })
       .join("");
   };
+  const formatter = new Intl.NumberFormat("it-IT", {
+    style: "currency",
+    currency: "VND",
+  });
   useEffect(() => {
     getAllOrders();
     // eslint-disable-next-line
@@ -67,13 +71,7 @@ const Orders = () => {
       <section id="search" className="py-4 mb-4 bg-light">
         <div className="container">
           <div className="row">
-            <div>
-              Doanh thu:{" "}
-              {resulf.toLocaleString("it-IT", {
-                style: "currency",
-                currency: "VND",
-              })}
-            </div>
+            <div>Doanh thu: {formatter.format(resulf)}</div>
             <div className="col-md-6 ml-auto">
               <div className="input-group">
                 <input
@@ -118,12 +116,7 @@ const Orders = () => {
                         <td>
                           {new Date(order.createdAt).toLocaleDateString()}
                         </td>
-                        <td>
-                          {order.totalPrice.toLocaleString("it-IT", {
-                            style: "currency",
-                            currency: "VND",
-                          })}
-                        </td>
+                        <td>{formatter.format(order.totalPrice)}</td>
                         <td className="px-4 py-3">
                           <div className="flex-grow w-full">
                             <select

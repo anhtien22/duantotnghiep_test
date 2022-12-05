@@ -18,7 +18,10 @@ const AdminDashboard = () => {
   // const [keyWord, setKeyWord] = useState('')
   // const [category, setCategory] = useState('')
   // const [totalResults, setTotalResults] = useState(0)
-
+  const formatter = new Intl.NumberFormat("it-IT", {
+    style: "currency",
+    currency: "VND",
+  });
   useEffect(() => {
     getProducts(limit, skip, "", "");
     // eslint-disable-next-line
@@ -99,12 +102,7 @@ const AdminDashboard = () => {
                         <tr key={product._id}>
                           <td>{i + 1}</td>
                           <td>{product.name}</td>
-                          <td>
-                            {product.price.toLocaleString("it-IT", {
-                              style: "currency",
-                              currency: "VND",
-                            })}
-                          </td>
+                          <td>{formatter.format(product.price)}</td>
                           <td>
                             {new Date(product.createdAt).toLocaleDateString()}
                           </td>
