@@ -38,10 +38,6 @@ const AddProductModal = () => {
     category: '',
     price: '',
     description: '',
-    discount: '',
-    saleCount: '',
-    Stock: '',
-    variation: '',
   })
 
   const [image, setImage] = useState(null)
@@ -52,7 +48,7 @@ const AddProductModal = () => {
   }
 
   const handleAddproduct = () => {
-    const { name, sku, category, price, description, discount, saleCount, Stock, variation } = product
+    const { name, sku, category, price, description } = product
     const formData = new FormData()
     formData.append('image', image)
     formData.append('name', name)
@@ -60,23 +56,15 @@ const AddProductModal = () => {
     formData.append('category', category)
     formData.append('price', price)
     formData.append('description', description)
-    formData.append('discount', discount)
-    formData.append('saleCount', saleCount)
-    formData.append('Stock', Stock)
-    formData.append('variation', variation)
-    console.log('Add product to run')
+    console.log('Thêm sản phẩm để chạy')
     addProduct(formData)
-    console.log('Add product ran')
+    console.log('Thêm sản phẩm chạy')
     setProduct({
       name: '',
       sku: '',
       category: '',
       price: '',
       description: '',
-      discount: '',
-      saleCount: '',
-      Stock: '',
-      variation: '',
     })
     setImage('')
   }
@@ -91,7 +79,7 @@ const AddProductModal = () => {
         <div className="modal-dialog modal-lg">
           <div className="modal-content">
             <div className="modal-header bg-primary text-white">
-              <h5 className="modal-title">Add Product</h5>
+              <h5 className="modal-title">Thêm sản phẩm</h5>
               <button className="close" data-dismiss="modal">
                 <span>×</span>
               </button>
@@ -99,7 +87,7 @@ const AddProductModal = () => {
             {/* <form onSubmit={handleAddproduct}> */ }
             <div className="modal-body">
               <div className="form-group">
-                <label htmlFor="name">Product Name</label>
+                <label htmlFor="name">Tên sản phẩm</label>
                 <input
                   type="text"
                   name="name"
@@ -110,7 +98,7 @@ const AddProductModal = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="sku">SKU</label>
+                <label htmlFor="sku">Mã sản phẩm</label>
                 <input
                   type="text"
                   name="sku"
@@ -121,12 +109,12 @@ const AddProductModal = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="category">Category</label>
+                <label htmlFor="category">Danh mục</label>
                 <select
                   className="form-control"
                   name="category"
                   onChange={ handleChange }>
-                  <option value>Select Category</option>
+                  <option value>Chọn danh mục</option>
                   { categories.map(item => (
                     <option key={ item._id } value={ item._id }>
                       { item.title }
@@ -188,7 +176,7 @@ const AddProductModal = () => {
               ) : "" }
 
               <div className="form-group">
-                <label htmlFor="price">Pirce</label>
+                <label htmlFor="price">Giá</label>
                 <input
                   type="text"
                   name="price"
@@ -199,7 +187,7 @@ const AddProductModal = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="body">Description</label>
+                <label htmlFor="body">Mô tả</label>
                 <textarea
                   className="form-control"
                   name="description"
@@ -209,7 +197,7 @@ const AddProductModal = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="image">Upload Image</label>
+                <label htmlFor="image">Tải hình ảnh</label>
                 <div className="custom-file">
                   <input
                     type="file"
@@ -221,10 +209,10 @@ const AddProductModal = () => {
                   // value={product.description}
                   />
                   <label htmlFor="image" className="custom-file-label">
-                    Choose File
+                    Chọn hình ảnh
                   </label>
                 </div>
-                <small className="form-text text-muted">Max Size 3mb</small>
+                {/* <small className="form-text text-muted">Max Size 3mb</small> */ }
               </div>
             </div>
             <div className="modal-footer">
@@ -233,7 +221,7 @@ const AddProductModal = () => {
                 type="submit"
                 data-dismiss="modal"
                 onClick={ handleAddproduct }>
-                Add Product
+                Thêm sản phẩm
               </button>
             </div>
             {/* </form> */ }

@@ -1,4 +1,4 @@
-import express from 'express'
+import express from "express";
 import {
   getAllOrders,
   getMyOrders,
@@ -10,18 +10,20 @@ import {
 import auth from '../middleware/auth.js'
 import checkAdmin from '../middleware/checkAdmin.js'
 
-const router = express.Router()
+const router = express.Router();
 
-router.post('/new', auth, placeOrder)
+router.post("/new", auth, placeOrder);
 
 router.get('/getAll', getAllOrders)
 
-router.get('/myOrders', auth, getMyOrders)
+router.get("/myOrders", auth, getMyOrders);
 
-router.get('/myOrders/:id', auth, getOneOrder)
+router.get("/myOrders/:id", auth, getOneOrder);
 
 router.get('/:id', getOneOrderAdmin)
 
 router.put("/admin/order/:id", updateOrder)
 
-export default router
+router.put("/admin/order/:id", updateOrder);
+
+export default router;

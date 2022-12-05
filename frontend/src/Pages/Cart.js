@@ -1,15 +1,15 @@
-import React, { useContext } from 'react'
-import Breadcrumb from '../components/Breadcrumb'
-import { Link, useNavigate } from 'react-router-dom'
-import { useCart } from 'react-use-cart'
-import UserContext from '../context/user/UserContext'
+import React, { useContext } from "react";
+import Breadcrumb from "../components/Breadcrumb";
+import { Link, useNavigate } from "react-router-dom";
+import { useCart } from "react-use-cart";
+import UserContext from "../context/user/UserContext";
 
 const Cart = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // for user context
-  const uContext = useContext(UserContext)
-  const { user } = uContext
+  const uContext = useContext(UserContext);
+  const { user } = uContext;
 
   const {
     isEmpty,
@@ -20,15 +20,16 @@ const Cart = () => {
     removeItem,
     emptyCart,
     items,
-  } = useCart()
+  } = useCart();
 
+  console.log("items", items);
   return (
     <>
       <Breadcrumb pageName="Cart" />
       {isEmpty ? (
         <div className="text-center my-5">
-          <h2 className=" my-3">Your cart is empty</h2>
-          <button onClick={() => navigate('/shop')}>Back to Shop</button>
+          <h2 className=" my-3">Giỏ Hàng Bạn Đang Trống</h2>
+          <button onClick={() => navigate("/shop")}>Trở Lại Shop</button>
         </div>
       ) : (
         <div className="site-section">
@@ -36,26 +37,26 @@ const Cart = () => {
             <div className="row mb-5">
               <form className="col-md-12" method="post">
                 <div className="site-blocks-table">
-                  <h4>
-                    Cart has ({totalUniqueItems}) products and total items are ({' '}
-                    {totalItems}) in the cart.
+                <h4>
+                    Giỏ hàng có : ({totalUniqueItems}) loại sản phẩm và tổng số lượng sản phẩm là : ({' '}
+                    {totalItems}) trong giỏ hàng.
                   </h4>
                   <table className="table table-bordered">
                     <thead>
                       <tr>
-                        <th className="product-thumbnail">Image</th>
-                        <th className="product-name">Product</th>
-                        <th className="product-price">Price</th>
-                        <th className="product-quantity">Quantity</th>
-                        <th className="product-total">Total</th>
-                        <th className="product-remove">Remove</th>
+                        <th className="product-thumbnail">Ảnh</th>
+                        <th className="product-name">Sản Phẩm</th>
+                        <th className="product-price">Giá</th>
+                        <th className="product-quantity">Số Lượng</th>
+                        <th className="product-total">Tổng</th>
+                        <th className="product-remove"></th>
                       </tr>
                     </thead>
 
                     <tbody>
                       {
                         <>
-                          {items.map(item => (
+                          {items.map((item) => (
                             <tr key={item._id}>
                               <td className="product-thumbnail">
                                 <Link to={`/shopSingle/${item._id}`}>
@@ -73,7 +74,8 @@ const Cart = () => {
                               <td>
                                 <div
                                   className="input-group mb-3"
-                                  style={{ maxWidth: '120px' }}>
+                                  style={{ maxWidth: "120px" }}
+                                >
                                   <div className="input-group-prepend">
                                     <button
                                       onClick={() =>
@@ -83,7 +85,8 @@ const Cart = () => {
                                         )
                                       }
                                       className="btn btn-outline-primary js-btn-minus"
-                                      type="button">
+                                      type="button"
+                                    >
                                       &minus;
                                     </button>
                                   </div>
@@ -92,7 +95,7 @@ const Cart = () => {
                                     className="form-control text-center"
                                     value={item.quantity}
                                     placeholder=""
-                                    onChange={e =>
+                                    onChange={(e) =>
                                       updateItemQuantity(
                                         item.id,
                                         e.target.value
@@ -109,7 +112,8 @@ const Cart = () => {
                                         )
                                       }
                                       className="btn btn-outline-primary js-btn-plus"
-                                      type="button">
+                                      type="button"
+                                    >
                                       &#43;
                                     </button>
                                   </div>
@@ -119,8 +123,9 @@ const Cart = () => {
                               <td>
                                 <button
                                   onClick={() => removeItem(item.id)}
-                                  className="btn btn-danger btn-sm">
-                                  Remove
+                                  className="btn btn-danger btn-sm"
+                                >
+                                  Xóa
                                 </button>
                               </td>
                             </tr>
@@ -140,23 +145,23 @@ const Cart = () => {
                     <button
                       onClick={() => emptyCart()}
                       className="btn btn-warning btn-sm btn-block">
-                      Empty Cart
+                      Xóa Tất Cả 
                     </button>
                   </div>
                   <div className="col-md-6">
                     <Link
                       to="/shop"
                       className="btn btn-outline-primary btn-sm btn-block">
-                      Continue Shopping
+                      Tiếp Tục Mua
                     </Link>
                   </div>
                 </div>
                 <div className="row">
                   <div className="col-md-12">
                     <label className="text-black h4" htmlFor="coupon">
-                      Coupon
+                      Giảm giá
                     </label>
-                    <p>Enter your coupon code if you have one.</p>
+                    <p>Nhập mã giảm giá vào đây nếu bạn có </p>
                   </div>
                   <div className="col-md-8 mb-3 mb-md-0">
                     <input
@@ -168,7 +173,7 @@ const Cart = () => {
                   </div>
                   <div className="col-md-4">
                     <button className="btn btn-primary btn-sm">
-                      Apply Coupon
+                      Chấp Nhận
                     </button>
                   </div>
                 </div>
@@ -179,21 +184,13 @@ const Cart = () => {
                     <div className="row">
                       <div className="col-md-12 text-right border-bottom mb-5">
                         <h3 className="text-black h4 text-uppercase text-center">
-                          Cart Totals
+                          Tổng
                         </h3>
-                      </div>
-                    </div>
-                    <div className="row mb-3">
-                      <div className="col-md-6">
-                        <span className="text-black">Subtotal</span>
-                      </div>
-                      <div className="col-md-6 text-right">
-                        <strong className="text-black">${cartTotal}.00</strong>
                       </div>
                     </div>
                     <div className="row mb-5">
                       <div className="col-md-6">
-                        <span className="text-black">Total</span>
+                        <span className="text-black">Tổng : </span>
                       </div>
                       <div className="col-md-6 text-right">
                         <strong className="text-black">${cartTotal}.00</strong>
@@ -207,7 +204,7 @@ const Cart = () => {
                           onClick={() =>
                             navigate(user ? '/checkout' : '/login')
                           }>
-                          Proceed To Checkout
+                          Tiến hành thanh toán
                         </button>
                       </div>
                     </div>
@@ -219,6 +216,6 @@ const Cart = () => {
         </div>
       )}
     </>
-  )
-}
-export default Cart
+  );
+};
+export default Cart;

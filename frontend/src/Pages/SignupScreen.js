@@ -41,18 +41,18 @@ const SignupScreen = () => {
         <section id="Signup">
           <div className="container">
             <p className="text-center">
-              Already have an account? <Link to="/login">Signup</Link>
+              Bạn có sẳn tài khoản chưa? <Link to="/login">Đăng ký</Link>
             </p>
             <div className="row">
               <div className="col-md-6 mx-auto">
                 <div className="card">
                   <div className="card-header">
-                    <h4>Account Register</h4>
+                    <h4>Tài khoản đăng ký</h4>
                   </div>
                   <div className="card-body">
                     <form onSubmit={handleSignup}>
                       <div className="form-group">
-                        <label htmlFor="name">Name</label>
+                        <label htmlFor="name">Tên</label>
                         <input
                           onChange={handleChange}
                           type="text"
@@ -72,7 +72,7 @@ const SignupScreen = () => {
                         />
                       </div>
                       <div className="form-group">
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">Mật khẩu</label>
                         <input
                           onChange={handleChange}
                           type="password"

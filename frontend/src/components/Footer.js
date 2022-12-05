@@ -8,80 +8,81 @@ const Footer = () => {
           <div className="col-lg-6 mb-5 mb-lg-0">
             <div className="row">
               <div className="col-md-12">
-                <h3 className="footer-heading mb-4">Navigations</h3>
+                <h3 className="footer-heading mb-4">Khuynh Hướng</h3>
               </div>
               <div className="col-md-6 col-lg-4">
                 <ul className="list-unstyled">
                   <li>
-                    <a href="/">Sell online</a>
+                    <a href="/">Bán trực tuyến</a>
                   </li>
                   <li>
-                    <a href="/">Features</a>
+                    <a href="/">Đặc trưng</a>
                   </li>
                   <li>
-                    <a href="/">Shopping cart</a>
+                    <a href="/">Giỏ hàng</a>
                   </li>
                   <li>
-                    <a href="/">Store builder</a>
+                    <a href="/">Cửa hàng</a>
                   </li>
                 </ul>
               </div>
               <div className="col-md-6 col-lg-4">
                 <ul className="list-unstyled">
                   <li>
-                    <a href="/">Mobile commerce</a>
+                    <a href="/">Thương mại điện tử</a>
                   </li>
                   <li>
-                    <a href="/">Dropshipping</a>
+                    <a href="/">Vận chuyển </a>
                   </li>
                   <li>
-                    <a href="/">Website development</a>
+                    <a href="/">Phát triển website</a>
                   </li>
                 </ul>
               </div>
               <div className="col-md-6 col-lg-4">
                 <ul className="list-unstyled">
                   <li>
-                    <a href="/">Point of sale</a>
+                    <a href="/">Điểm bán hàng</a>
                   </li>
                   <li>
-                    <a href="/">Hardware</a>
+                    <a href="/">Phần cứng</a>
                   </li>
                   <li>
-                    <a href="/">Software</a>
+                    <a href="/">Phần mềm</a>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
           <div className="col-md-6 col-lg-3 mb-4 mb-lg-0">
-            <h3 className="footer-heading mb-4">Promo</h3>
+            <h3 className="footer-heading mb-4">Khuyến Mãi</h3>
             <a href="/" className="block-6">
               <img
-                src="images/hero_1.jpg"
+                src="images/1_bn.jpg"
                 alt="placeholder"
                 className="img-fluid rounded mb-4"
               />
               <h3 className="font-weight-light mb-0">
-                Finding Your Perfect Shoes
+                Drew
               </h3>
-              <p>Promo from nuary 15 &mdash; 25, 2019</p>
+              <p>Khuyễn mãi từ  1 &mdash; 12, 2022</p>
             </a>
           </div>
           <div className="col-md-6 col-lg-3">
             <div className="block-5 mb-5">
-              <h3 className="footer-heading mb-4">Contact Info</h3>
+              <h3 className="footer-heading mb-4">Địa Chỉ Liên Hệ</h3>
               <ul className="list-unstyled">
                 <li className="address">
-                  203 Fake St. Mountain View, San Francisco, California, USA
+
+                  <a href=" https://goo.gl/maps/gviSv1m62iDQ8kub6">  Tòa P ,  Công Viên Phần Mềm Quang Trung , Q.12 TP.HCM  </a>
+
                 </li>
                 <li className="phone">
-                  <a href="tel://23923929210">+2 392 3929 210</a>
+                  <a>+84 999 999 999</a>
                 </li>
-                <li className="email">emailaddress@domain.com</li>
+                <li className="email">duantotnghiep@domain.com</li>
               </ul>
             </div>
-
             <div className="block-7">
               <form action="/" method="post">
                 <label htmlFor="email_subscribe" className="footer-heading">
@@ -113,14 +114,14 @@ const Footer = () => {
                 data-cfasync="false"
                 src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
               <script>document.write(new Date().getFullYear())</script>
-              All rights reserved | This template is made with
-              <i className="icon-heart" aria-hidden="true"></i> by
+              Bảo lưu mọi quyền | Website này được thực hiện 
+              <i className="icon-heart" aria-hidden="true"></i> bởi nhóm 
               <a
                 href="https://colorlib.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary">
-                Colorlib
+                MEN4MEN
               </a>
               {/* <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --> */}
             </p>

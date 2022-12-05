@@ -99,7 +99,7 @@ userSchema.pre('save', async function (next) {
 // Middleware function for unique email error
 userSchema.post('save', function (error, doc, next) {
   if (error.name === 'MongoServerError' && error.code === 11000) {
-    next(new Error('Email đã đưa!'))
+    next(new Error('Email tồn tại!'))
   } else {
     next()
   }

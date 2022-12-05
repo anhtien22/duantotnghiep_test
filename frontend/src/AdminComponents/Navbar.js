@@ -8,7 +8,7 @@ const Navbar = () => {
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark p-0">
         <div className="container">
           <Link to="/adminDashboard" className="navbar-brand">
-            Admin Dashboard
+         Bảng điều khiển
           </Link>
           <button
             className="navbar-toggler"
@@ -20,27 +20,27 @@ const Navbar = () => {
             <ul className="navbar-nav">
               <li className="nav-item px-2">
                 <Link to="/adminDashboard" className="nav-link active">
-                  Dashboard
+                  Trang chủ
                 </Link>
               </li>
               <li className="nav-item px-2">
                 <Link to="/products" className="nav-link">
-                  Products
+                  Sản phẩm
                 </Link>
               </li>
               <li className="nav-item px-2">
                 <Link to="/categories" className="nav-link">
-                  Categories
+                  Danh mục
                 </Link>
               </li>
               <li className="nav-item px-2">
                 <Link to="/users" className="nav-link">
-                  Users
+                  Tài khoản
                 </Link>
               </li>
               <li className="nav-item px-2">
                 <Link to="/orders" className="nav-link">
-                  Orders
+                  Đơn hàng
                 </Link>
               </li>
             </ul>

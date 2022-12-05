@@ -1,52 +1,57 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import AddProductModal from '../AdminComponents/AddProductModal'
-import Navbar from '../AdminComponents/Navbar'
-import productContext from '../context/product/productContext'
+import React, { useContext, useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import AddProductModal from "../AdminComponents/AddProductModal";
+import Navbar from "../AdminComponents/Navbar";
+import productContext from "../context/product/productContext";
 // import Footer from '../AdminComponents/Footer'
 
 const Products = () => {
   // for product context
-  const pContext = useContext(productContext)
-  const { getProducts, products } = pContext
+  const pContext = useContext(productContext);
+  const { getProducts, products } = pContext;
 
-  const limit = 8
-  const [skip, setSkip] = useState(0)
-  const [keyWord, setKeyWord] = useState('')
+  const limit = 8;
+  const [skip, setSkip] = useState(0);
+  const [keyWord, setKeyWord] = useState("");
   // const [category, setCategory] = useState('')
-  const [totalResults, setTotalResults] = useState(0)
+  const [totalResults, setTotalResults] = useState(0);
 
   useEffect(() => {
     const populateProducts = async () => {
-      setTotalResults(await getProducts(limit, skip, keyWord))
-    }
-    populateProducts()
+      setTotalResults(await getProducts(limit, skip, keyWord));
+    };
+    populateProducts();
     // eslint-disable-next-line
-  }, [skip, limit])
+  }, [skip, limit]);
 
   const handlePreviousClick = async () => {
     if (skip > 0) {
-      setSkip(skip - limit)
+      setSkip(skip - limit);
     }
-  }
+  };
 
   const handleNextClick = async () => {
-    setSkip(skip + limit)
-  }
+    setSkip(skip + limit);
+  };
 
-  const handleChange = e => {
-    setKeyWord(e.target.value)
-  }
+  const handleChange = (e) => {
+    setKeyWord(e.target.value);
+  };
 
-  const handleSearchSubmit = e => {
-    e.preventDefault()
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
     const populateProducts = async () => {
-      setTotalResults(await getProducts(limit, skip, keyWord))
-    }
-    setSkip(0)
-    populateProducts()
-  }
+      setTotalResults(await getProducts(limit, skip, keyWord));
+    };
+    setSkip(0);
+    populateProducts();
+  };
+
+  const formatter = new Intl.NumberFormat("it-IT", {
+    style: "currency",
+    currency: "VND",
+  });
 
   return (
     <>
@@ -57,7 +62,7 @@ const Products = () => {
           <div className="row">
             <div className="col-md-6">
               <h1>
-                <i className="fas fa-pencil-alt" /> Products
+                <i className="fas fa-pencil-alt" /> Sản phẩm
               </h1>
             </div>
           </div>
@@ -73,7 +78,7 @@ const Products = () => {
                 className="btn btn-primary btn-block"
                 data-toggle="modal"
                 data-target="#addProductModal">
-                <i className="fas fa-plus" /> Add Porduct
+                <i className="fas fa-plus" /> Thêm sản phẩm
               </a>
               <AddProductModal />
             </div>
@@ -83,13 +88,13 @@ const Products = () => {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Search Products..."
+                    placeholder="Tìm kiếm sản phẩm..."
                     value={keyWord}
                     onChange={handleChange}
                   />
                   <div className="input-group-append">
                     <button className="btn btn-primary" type="submit">
-                      Search
+                      Tìm kiếm
                     </button>
                   </div>
                 </div>
@@ -105,16 +110,16 @@ const Products = () => {
             <div className="col">
               <div className="card">
                 <div className="card-header">
-                  <h4>Latest Products</h4>
+                  <h4>Sản phẩm mới nhất</h4>
                 </div>
 
                 <table className="table table-striped">
                   <thead className="thead-dark">
                     <tr>
                       <th>#</th>
-                      <th>Name</th>
-                      <th>Price</th>
-                      <th>Date</th>
+                      <th>Tên</th>
+                      <th>Giá</th>
+                      <th>Ngày</th>
                       <th />
                     </tr>
                   </thead>
@@ -123,7 +128,9 @@ const Products = () => {
                       <tr key={product._id}>
                         <td>{i + 1}</td>
                         <td>{product.name}</td>
-                        <td>{product.price}</td>
+                        <td>
+                        {formatter.format(product.price)}
+                        </td>
                         <td>
                           {new Date(product.createdAt).toLocaleDateString()}
                         </td>
@@ -131,7 +138,7 @@ const Products = () => {
                           <Link
                             to={`/productDetailsAdmin/${product._id}`}
                             className="btn btn-secondary">
-                            <i className="fas fa-angle-double-right" /> Details
+                            <i className="fas fa-angle-double-right" /> Chi tiết
                           </Link>
                         </td>
                       </tr>
@@ -147,15 +154,15 @@ const Products = () => {
                         size="sm"
                         onClick={handlePreviousClick}
                         disabled={skip < 1}>
-                        &larr; Previous
+                        &larr; Trước
                       </Button>
 
                       <div className="text-center mx-2">
-                        Page-{skip / limit + 1},
+                        Trang-{skip / limit + 1},
                         <span className="text-muted">
                           {' '}
-                          Showing {products.length} out of {totalResults}{' '}
-                          products.
+                          Hiển thị {products.length} hết {totalResults}{' '}
+                          sản phẩm.
                         </span>
                       </div>
 
@@ -164,7 +171,7 @@ const Products = () => {
                         size="sm"
                         onClick={handleNextClick}
                         disabled={totalResults - skip <= limit}>
-                        Next &rarr;
+                        Tiếp tục &rarr;
                       </Button>
                     </div>
                   </div>
@@ -176,7 +183,7 @@ const Products = () => {
       </section>
       {/* <Footer /> */}
     </>
-  )
-}
+  );
+};
 
-export default Products
+export default Products;

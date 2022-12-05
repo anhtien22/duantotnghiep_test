@@ -29,20 +29,17 @@ const About = () => {
             <div className="col-md-1"></div>
             <div className="col-md-5">
               <div className="site-section-heading pt-3 mb-4">
-                <h2 className="text-black">How We Started</h2>
+                <h2 className="text-black ">Chúng tôi đã bắt đầu như thế nào?</h2>
               </div>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius
-                repellat, dicta at laboriosam, nemo exercitationem itaque
-                eveniet architecto cumque, deleniti commodi molestias
-                repellendus quos sequi hic fugiat asperiores illum. Atque, in,
-                fuga excepturi corrupti error corporis aliquam unde nostrum
-                quas.
+                Trong thế giới ngày nay, nhiều người tiêu dùng nghĩ về mua sắm trực tuyến khi họ nghe thuật ngữ “bán lẻ”. 
+                Trong khi các nhà bán lẻ nhỏ hơn đang tìm kiếm thành công trực tuyến, thì vẫn có thị trường cho các cửa hàng bán lẻ truyền thống. 
+                Hầu hết các doanh nghiệp này cũng duy trì sự hiện diện trên web, nhưng có điều gì đó về trải nghiệm mua sắm trực tiếp không thể sao chép trực tuyến.
               </p>
               <p>
-                Accusantium dolor ratione maiores est deleniti nihil?
-                Dignissimos est, sunt nulla illum autem in, quibusdam cumque
-                recusandae, laudantium minima repellendus.
+              Một số nghiên cứu cho thấy rằng việc mua hàng tại cửa hàng không phải là quá khứ và bán lẻ trực tuyến và tại cửa hàng có thể cùng tồn tại.
+               Nếu bạn quan tâm đến việc mở một doanh nghiệp bán lẻ, thì việc lập kế hoạch cho sự kiện là rất quan trọng. 
+              Chúng tôi đã nói chuyện với các chuyên gia trong ngành để tìm hiểu thêm về cách mở một cửa hàng bán lẻ.
               </p>
             </div>
           </div>
@@ -53,7 +50,7 @@ const About = () => {
         <div className="container">
           <div className="row justify-content-center mb-5">
             <div className="col-md-7 site-section-heading text-center pt-4">
-              <h2>The Team</h2>
+              <h2>TEAM MEN4MEN</h2>
             </div>
           </div>
           <div className="row">
@@ -66,8 +63,8 @@ const About = () => {
                       alt="placeholder"
                       className="mb-4"
                     />
-                    <h3 className="block-38-heading h4">Elizabeth Graham</h3>
-                    <p className="block-38-subheading">CEO/Co-Founder</p>
+                    <h3 className="block-38-heading h4">Phạm Anh Tiến</h3>
+                    <p className="block-38-subheading">Trưởng Nhóm</p>
                   </div>
                   <div className="block-38-body">
                     <p>
@@ -79,6 +76,7 @@ const About = () => {
                 </div>
               </div>
             </div>
+            
             <div className="col-md-6 col-lg-3">
               <div className="block-38 text-center">
                 <div className="block-38-img">
@@ -88,8 +86,8 @@ const About = () => {
                       alt="placeholder"
                       className="mb-4"
                     />
-                    <h3 className="block-38-heading h4">Jennifer Greive</h3>
-                    <p className="block-38-subheading">Co-Founder</p>
+                    <h3 className="block-38-heading h4">Phan Ngọc Truyền</h3>
+                    <p className="block-38-subheading">Thành Viên</p>
                   </div>
                   <div className="block-38-body">
                     <p>
@@ -110,8 +108,8 @@ const About = () => {
                       alt="placeholder"
                       className="mb-4"
                     />
-                    <h3 className="block-38-heading h4">Patrick Marx</h3>
-                    <p className="block-38-subheading">Marketing</p>
+                    <h3 className="block-38-heading h4">Huỳnh Quốc Chương</h3>
+                    <p className="block-38-subheading">Thành Viên</p>
                   </div>
                   <div className="block-38-body">
                     <p>
@@ -132,8 +130,8 @@ const About = () => {
                       alt="placeholder"
                       className="mb-4"
                     />
-                    <h3 className="block-38-heading h4">Mike Coolbert</h3>
-                    <p className="block-38-subheading">Sales Manager</p>
+                    <h3 className="block-38-heading h4">Trần Đắc Huy</h3>
+                    <p className="block-38-subheading">Thành Viên</p>
                   </div>
                   <div className="block-38-body">
                     <p>
@@ -164,11 +162,9 @@ const About = () => {
                 <span className="icon-truck"></span>
               </div>
               <div className="text">
-                <h2 className="text-uppercase">Free Shipping</h2>
+                <h2 className="text-uppercase">Miễn Phí Vận Chuyển</h2>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Phasellus at iaculis quam. Integer accumsan tincidunt
-                  fringilla.
+                  Shop sẽ hỗ trợ giao sản phẩm cho các đơn hàng trên 500k và các đơn hàng mua lần đầu tại shop .
                 </p>
               </div>
             </div>
@@ -181,11 +177,10 @@ const About = () => {
                 <span className="icon-refresh2"></span>
               </div>
               <div className="text">
-                <h2 className="text-uppercase">Free Returns</h2>
+                <h2 className="text-uppercase">MIỄN PHÍ HOÀN TRẢ </h2>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Phasellus at iaculis quam. Integer accumsan tincidunt
-                  fringilla.
+                  Theo các điều lệ được quy định trong Điều khoản dịch vụ, Shop đảm
+                  bảo quyền lợi của Người mua .
                 </p>
               </div>
             </div>
@@ -198,11 +193,10 @@ const About = () => {
                 <span className="icon-help"></span>
               </div>
               <div className="text">
-                <h2 className="text-uppercase">Customer Support</h2>
+                <h2 className="text-uppercase">HỖ TRỢ KHÁCH HÀNG</h2>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Phasellus at iaculis quam. Integer accumsan tincidunt
-                  fringilla.
+                  Hỗ trợ 24/7 bất cứ lúc nào mà khách hàng cần hỗ trợ :
+                  Luôn đáp ứng các câu hỏi và thắc mắc của khách hàng 
                 </p>
               </div>
             </div>
