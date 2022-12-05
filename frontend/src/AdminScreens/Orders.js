@@ -8,7 +8,7 @@ const statusOrder = {
   Processing: "Đang giao hàng",
   Successfully: "Đã giao hàng",
   Canceled: "Đã hủy",
-  COMPLETED: "Đã Thanh toán online",
+  // COMPLETED: "Đã Thanh toán online",
 };
 const Orders = () => {
   // for order context
@@ -120,14 +120,22 @@ const Orders = () => {
                         <td>{formatter.format(order.totalPrice)}</td>
                         <td className="px-4 py-3">
                           <div className="flex-grow w-full">
-                            <select
-                              onChange={(e) => updateStatustAdmin(e, order._id)}
-                              className="block w-full px-2 py-1 text-sm outline-none rounded-md form-select focus:shadow-none leading-5 h-12 bg-[#24262D] dark:bg-[#F4F5F7] border-[1px] border-gray-600 dark:border-gray-300 text-gray-200 dark:text-black"
-                              name="orderStatus"
-                              dangerouslySetInnerHTML={{
-                                __html: statusHtml(order.paymentResult.status),
-                              }}
-                            ></select>
+                            {order.paymentResult.status === "COMPLETED" ? (
+                              "Đã thanh toán online"
+                            ) : (
+                              <select
+                                onChange={(e) =>
+                                  updateStatustAdmin(e, order._id)
+                                }
+                                className="block w-full px-2 py-1 text-sm outline-none rounded-md form-select focus:shadow-none leading-5 h-12 bg-[#24262D] dark:bg-[#F4F5F7] border-[1px] border-gray-600 dark:border-gray-300 text-gray-200 dark:text-black"
+                                name="orderStatus"
+                                dangerouslySetInnerHTML={{
+                                  __html: statusHtml(
+                                    order.paymentResult.status
+                                  ),
+                                }}
+                              ></select>
+                            )}
                           </div>
                         </td>
 
