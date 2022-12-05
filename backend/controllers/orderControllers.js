@@ -7,7 +7,7 @@ export const placeOrder = async (req, res) => {
   try {
     const order = new Order({ ...req.body, user: req.user._id })
     await order.save()
-    res.status(201).json({ success: true, message: 'order placed', order })
+    res.status(201).json({ success: true, message: 'Đã đặt hàng', order })
   } catch (err) {
     res.status(400).json({ success: false, error: err.message })
   }
@@ -53,7 +53,7 @@ export const getOneOrder = async (req, res) => {
     if (!order) {
       return res
         .status(404)
-        .json({ success: false, error: 'Could not find order!' })
+        .json({ success: false, error: 'Không thể tìm thấy đơn đặt hàng!' })
     }
     res.json({ success: true, order })
   } catch (err) {
@@ -73,7 +73,7 @@ export const getOneOrderAdmin = async (req, res) => {
     if (!order) {
       return res
         .status(404)
-        .json({ success: false, error: 'Could not find order!' })
+        .json({ success: false, error: 'Không thể tìm thấy đơn đặt hàng!' })
     }
     res.json({ success: true, order })
   } catch (err) {
