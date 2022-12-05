@@ -8,6 +8,7 @@ const statusOrder = {
   Processing: "Đang giao hàng",
   Successfully: "Đã giao hàng",
   Canceled: "Đã hủy",
+  COMPLETED: "Đã Thanh toán online",
 };
 const Orders = () => {
   // for order context
