@@ -10,10 +10,8 @@ const AdminDashboard = () => {
   const pContext = useContext(productContext);
 
   const { getProducts, products } = pContext;
-  console.log(products);
+
   const oContext = useContext(OrderContext);
-  // // const { getAllOrders, orders } = oContext;
-  // // console.log(getAllOrders);
   const limit = 5;
   const skip = 0;
   // const [skip, setSkip] = useState(0)
@@ -101,7 +99,12 @@ const AdminDashboard = () => {
                         <tr key={product._id}>
                           <td>{i + 1}</td>
                           <td>{product.name}</td>
-                          <td>{product.price}</td>
+                          <td>
+                            {product.price.toLocaleString("it-IT", {
+                              style: "currency",
+                              currency: "VND",
+                            })}
+                          </td>
                           <td>
                             {new Date(product.createdAt).toLocaleDateString()}
                           </td>
@@ -170,7 +173,7 @@ const AdminDashboard = () => {
                     <h3>Đơn hàng</h3>
                     <h4 className="display-4">
                       <i className="fas fa-users" />
-                      {oContext.orders.length}
+                      {oContext.orders?.length}
                     </h4>
                     <Link to="/orders" className="btn btn-outline-light btn-sm">
                       View

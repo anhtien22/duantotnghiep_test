@@ -1,52 +1,52 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import AddProductModal from '../AdminComponents/AddProductModal'
-import Navbar from '../AdminComponents/Navbar'
-import productContext from '../context/product/productContext'
+import React, { useContext, useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import AddProductModal from "../AdminComponents/AddProductModal";
+import Navbar from "../AdminComponents/Navbar";
+import productContext from "../context/product/productContext";
 // import Footer from '../AdminComponents/Footer'
 
 const Products = () => {
   // for product context
-  const pContext = useContext(productContext)
-  const { getProducts, products } = pContext
+  const pContext = useContext(productContext);
+  const { getProducts, products } = pContext;
 
-  const limit = 8
-  const [skip, setSkip] = useState(0)
-  const [keyWord, setKeyWord] = useState('')
+  const limit = 8;
+  const [skip, setSkip] = useState(0);
+  const [keyWord, setKeyWord] = useState("");
   // const [category, setCategory] = useState('')
-  const [totalResults, setTotalResults] = useState(0)
+  const [totalResults, setTotalResults] = useState(0);
 
   useEffect(() => {
     const populateProducts = async () => {
-      setTotalResults(await getProducts(limit, skip, keyWord))
-    }
-    populateProducts()
+      setTotalResults(await getProducts(limit, skip, keyWord));
+    };
+    populateProducts();
     // eslint-disable-next-line
-  }, [skip, limit])
+  }, [skip, limit]);
 
   const handlePreviousClick = async () => {
     if (skip > 0) {
-      setSkip(skip - limit)
+      setSkip(skip - limit);
     }
-  }
+  };
 
   const handleNextClick = async () => {
-    setSkip(skip + limit)
-  }
+    setSkip(skip + limit);
+  };
 
-  const handleChange = e => {
-    setKeyWord(e.target.value)
-  }
+  const handleChange = (e) => {
+    setKeyWord(e.target.value);
+  };
 
-  const handleSearchSubmit = e => {
-    e.preventDefault()
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
     const populateProducts = async () => {
-      setTotalResults(await getProducts(limit, skip, keyWord))
-    }
-    setSkip(0)
-    populateProducts()
-  }
+      setTotalResults(await getProducts(limit, skip, keyWord));
+    };
+    setSkip(0);
+    populateProducts();
+  };
 
   return (
     <>
@@ -72,7 +72,8 @@ const Products = () => {
                 href="/"
                 className="btn btn-primary btn-block"
                 data-toggle="modal"
-                data-target="#addProductModal">
+                data-target="#addProductModal"
+              >
                 <i className="fas fa-plus" /> Add Porduct
               </a>
               <AddProductModal />
@@ -123,14 +124,20 @@ const Products = () => {
                       <tr key={product._id}>
                         <td>{i + 1}</td>
                         <td>{product.name}</td>
-                        <td>{product.price}</td>
+                        <td>
+                          {product.price.toLocaleString("it-IT", {
+                            style: "currency",
+                            currency: "VND",
+                          })}
+                        </td>
                         <td>
                           {new Date(product.createdAt).toLocaleDateString()}
                         </td>
                         <td>
                           <Link
                             to={`/productDetailsAdmin/${product._id}`}
-                            className="btn btn-secondary">
+                            className="btn btn-secondary"
+                          >
                             <i className="fas fa-angle-double-right" /> Details
                           </Link>
                         </td>
@@ -146,15 +153,16 @@ const Products = () => {
                         variant="success"
                         size="sm"
                         onClick={handlePreviousClick}
-                        disabled={skip < 1}>
+                        disabled={skip < 1}
+                      >
                         &larr; Previous
                       </Button>
 
                       <div className="text-center mx-2">
                         Page-{skip / limit + 1},
                         <span className="text-muted">
-                          {' '}
-                          Showing {products.length} out of {totalResults}{' '}
+                          {" "}
+                          Showing {products.length} out of {totalResults}{" "}
                           products.
                         </span>
                       </div>
@@ -163,7 +171,8 @@ const Products = () => {
                         variant="success"
                         size="sm"
                         onClick={handleNextClick}
-                        disabled={totalResults - skip <= limit}>
+                        disabled={totalResults - skip <= limit}
+                      >
                         Next &rarr;
                       </Button>
                     </div>
@@ -176,7 +185,7 @@ const Products = () => {
       </section>
       {/* <Footer /> */}
     </>
-  )
-}
+  );
+};
 
-export default Products
+export default Products;
