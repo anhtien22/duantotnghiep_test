@@ -160,8 +160,8 @@ export const resetPassword = async (req, res, next) => {
   res.status(200).json({ success: true, user, token })
 };
 
-export const updatePassword = async (req, res, next) => {
-  const user = await User.findById(req.user.id).select("+password");
+export const updatePassword = async (req, res) => {
+  const user = await User.findById(req.user.id);
 
   const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
 

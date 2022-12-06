@@ -28,7 +28,7 @@ router.put("/password/reset/:token", resetPassword);
 
 router.get('/profile', auth, readProfile)
 
-router.put("/profile/updatepassword", updatePassword);
+router.patch("/profile/updatepassword", updatePassword);
 
 router.patch('/profile', auth, updateProfile)
 

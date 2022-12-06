@@ -264,10 +264,10 @@ const UserState = props => {
     try {
       // setUserLoading(true)
       console.log("payload", payload);
-      const headers = {
-        Authorization: `Bearer ${userToken && userToken}`,
-        "Content-Type": "application/json",
-      };
+      // const headers = {
+      //   Authorization: `Bearer ${userToken && userToken}`,
+      //   "Content-Type": "application/json",
+      // };
 
       // const res = await fetch(
       //   `/api/users/profile/updatepassword`,
@@ -279,7 +279,7 @@ const UserState = props => {
       //   config
       // );
       const res = await fetch(`/api/users/profile/updatepassword`, {
-        method: "PUT",
+        method: "PATCH",
         headers,
         body: JSON.stringify({
           oldPassword: payload.oldPassword,
