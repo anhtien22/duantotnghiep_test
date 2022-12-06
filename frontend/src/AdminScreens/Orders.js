@@ -10,12 +10,9 @@ const statusOrder = {
   Canceled: "Đã hủy",
   // COMPLETED: "Đã Thanh toán online",
 };
-const Orders = () => {
-  // for order context
-  const oContext = useContext(OrderContext);
-  const { getAllOrders, orders, updateStatustAdmin } = oContext;
-  const resulf = orders.reduce((r, index) => {
-    if (index.paymentResult.status === "Successfully") {
+const total = (orders, status) =>
+  orders.reduce((r, index) => {
+    if (index.paymentResult.status === status) {
       if (index.orderItems.length) {
         const total = index.orderItems.reduce((count, item) => {
           return (count += item.price * item.quantity);
@@ -26,6 +23,14 @@ const Orders = () => {
     }
     return r;
   }, 0);
+
+const Orders = () => {
+  // for order context
+  const oContext = useContext(OrderContext);
+  const { getAllOrders, orders, updateStatustAdmin } = oContext;
+  const resulf = total(orders, "Successfully");
+  const resulf2 = total(orders, "COMPLETED");
+  const resulf3 = resulf + resulf2;
   const statusHtml = (orderStatus) => {
     const index = Object.keys(statusOrder).findIndex(
       (key) => key === orderStatus
@@ -36,7 +41,7 @@ const Orders = () => {
         if (i >= index) {
           return `<option
           value="${key}"
-          className="text-gray-200 dark:text-slate-800"
+          className={"text-gray-200 dark:text-slate-800"}
         >${statusOrder[key]}</option>`;
         }
         return "";
@@ -61,7 +66,7 @@ const Orders = () => {
           <div className="row">
             <div className="col-md-6">
               <h1>
-                <i className="fas fa-users" /> Orders
+                <i className="fas fa-users" /> Đơn hàng
               </h1>
             </div>
           </div>
@@ -72,7 +77,10 @@ const Orders = () => {
       <section id="search" className="py-4 mb-4 bg-light">
         <div className="container">
           <div className="row">
-            <div>Doanh thu: {formatter.format(resulf)}</div>
+            {/* <div>Doanh thu giao hàng: {formatter.format(resulf)}</div><br />
+            <div>Doanh thu đã thanh toán online: {formatter.format(resulf2)}</div><br />
+            <div>Tổng doanh thu : {formatter.format(resulf3)}</div><br /> */}
+
             <div className="col-md-6 ml-auto">
               <div className="input-group">
                 <input
@@ -81,14 +89,42 @@ const Orders = () => {
                   placeholder="Search Users..."
                 />
                 <div className="input-group-append">
-                  <button className="btn btn-warning">Search</button>
+                  <button className="btn btn-warning">Tìm kiếm</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-
+      <div className="" style={{display:'flex',justifyContent: 'center',gap: '50px'}}>
+        <div className="card text-center bg-success text-white mb-3">
+          <div className="card-body">
+            <h5>Doanh thu giao hàng</h5>
+            <h4 className="display-4">
+              <i className="fas fa-coins" />
+            </h4>
+            <h2>{formatter.format(resulf)}</h2>
+          </div>
+        </div>
+        <div className="card text-center bg-danger text-white mb-3">
+          <div className="card-body">
+            <h5>Doanh thu online</h5>
+            <h4 className="display-4">
+              <i className="fab fa-cc-paypal" />
+            </h4>
+            <h2>{formatter.format(resulf2)}</h2>
+          </div>
+        </div>
+        <div className="card text-center bg-primary text-white mb-3">
+          <div className="card-body">
+            <h5>Tổng doanh thu</h5>
+            <h4 className="display-4">
+              <i className="far fa-money-bill-alt" />
+            </h4>
+            <h2>{formatter.format(resulf3)}</h2>
+          </div>
+        </div>
+      </div>
       <section id="users">
         <div className="container">
           <div className="row">
@@ -127,7 +163,7 @@ const Orders = () => {
                                 onChange={(e) =>
                                   updateStatustAdmin(e, order._id)
                                 }
-                                className="block w-full px-2 py-1 text-sm outline-none rounded-md form-select focus:shadow-none leading-5 h-12 bg-[#24262D] dark:bg-[#F4F5F7] border-[1px] border-gray-600 dark:border-gray-300 text-gray-200 dark:text-black"
+                                className="browser-default custom-select"
                                 name="orderStatus"
                                 dangerouslySetInnerHTML={{
                                   __html: statusHtml(
@@ -142,7 +178,7 @@ const Orders = () => {
                         <td>
                           <Link
                             to={`/orderDetailsAdmin/${order._id}`}
-                            className="btn btn-secondary"
+                            className="btn btn-secondary bg-primary text-white"
                           >
                             <i className="fas fa-angle-double-right" /> Chi tiết
                           </Link>
