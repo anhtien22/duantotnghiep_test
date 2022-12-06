@@ -105,6 +105,13 @@ userSchema.post('save', function (error, doc, next) {
   }
 })
 
+// Compare Password
+
+userSchema.methods.comparePassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
+
+
 userSchema.methods.getResetPasswordToken = function () {
 
   // Generaying Token -- Tạo mã thông báo

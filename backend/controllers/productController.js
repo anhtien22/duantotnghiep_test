@@ -122,7 +122,7 @@ export const getProduct = async (req, res) => {
 // @access Private : Admin
 export const updateProductDetails = async (req, res) => {
   const updates = Object.keys(req.body)
-  const allowedUpdates = ['name', 'sku', 'category', 'price', 'description']
+  const allowedUpdates = ['name', 'sku', 'category', 'price', 'description', 'Stock']
   const isValidOperation = updates.every(update =>
     allowedUpdates.includes(update)
   )

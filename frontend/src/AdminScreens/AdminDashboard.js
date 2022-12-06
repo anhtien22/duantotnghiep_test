@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import productContext from '../context/product/productContext'
 import categoryContext from '../context/category/categoryContext'
 import userContext from '../context/user/UserContext'
+import OrderContext from '../context/orders/orderContext'
 
 
 const AdminDashboard = () => {
@@ -13,10 +14,23 @@ const AdminDashboard = () => {
   const cContext = useContext(categoryContext)
   const pContext = useContext(productContext)
   const uContext = useContext(userContext)
+  const oContext = useContext(OrderContext)
   const { getProducts, products } = pContext
   const { getCategories, categories } = cContext
   const { getAllUsers, allUsers } = uContext
+  const { getAllOrders, orders } = oContext
+  const resulf = orders.reduce((r, index) => {
+    if (index.paymentResult.status === "Successfully") {
+      if (index.orderItems.length) {
+        const total = index.orderItems.reduce((count, item) => {
+          return (count += item.price * item.quantity);
+        }, 0);
 
+        return (r += total);
+      }
+    }
+    return r;
+  }, 0);
   // const limit = 5
   const skip = 0
   // const [skip, setSkip] = useState(0)
@@ -39,12 +53,16 @@ const AdminDashboard = () => {
     getAllUsers(skip, '', '')
     // eslint-disable-next-line
   }, []);
+  useEffect(() => {
+    getAllOrders(skip, '', '')
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div>
       <Navbar />
       <div>
-        {/* HEADER */}
+        {/* HEADER */ }
         <header id="main-header" className="py-2 bg-primary text-white">
           <div className="container">
             <div className="row">
@@ -57,7 +75,7 @@ const AdminDashboard = () => {
             </div>
           </div>
         </header>
-        {/* ACTIONS */}
+        {/* ACTIONS */ }
         <section id="actions" className="py-4 mb-4 bg-light">
           <div className="container">
             <div className="row">
@@ -89,7 +107,7 @@ const AdminDashboard = () => {
             </div>
           </div>
         </section>
-        {/* POSTS */}
+        {/* POSTS */ }
         <section id="posts">
           <div className="container">
             <div className="row">
@@ -109,25 +127,25 @@ const AdminDashboard = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {products.map((product, i) => (
-                        <tr key={product._id}>
-                          <td>{i + 1}</td>
-                          <td>{product.name}</td>
-                          <td>{formatter.format(product.price)}</td>
+                      { products.map((product, i) => (
+                        <tr key={ product._id }>
+                          <td>{ i + 1 }</td>
+                          <td>{ product.name }</td>
+                          <td>{ formatter.format(product.price) }</td>
                           <td>
-                            {new Date(product.createdAt).toLocaleDateString()}
+                            { new Date(product.createdAt).toLocaleDateString() }
                           </td>
                           <td>
                             <Link
-                              to={`/productDetailsAdmin/${product._id}`}
+                              to={ `/productDetailsAdmin/${product._id}` }
                               className="btn btn-secondary"
                             >
-                              <i className="fas fa-angle-double-right" />{" "}
+                              <i className="fas fa-angle-double-right" />{ " " }
                               Details
                             </Link>
                           </td>
                         </tr>
-                      ))}
+                      )) }
                     </tbody>
                   </table>
                   <div className="text-center my-3">
@@ -142,12 +160,12 @@ const AdminDashboard = () => {
                   <div className="card-body">
                     <h3>Sản phẩm</h3>
                     <h4 className="display-4">
-                      <i className="fas fa-pencil-alt" /> {products.length}
+                      <i className="fas fa-pencil-alt" /> { products.length }
                     </h4>
                     <Link
                       to="/products"
                       className="btn btn-outline-light btn-sm">
-                     Xem
+                      Xem
                     </Link>
                   </div>
                 </div>
@@ -155,12 +173,12 @@ const AdminDashboard = () => {
                   <div className="card-body">
                     <h3>Danh mục</h3>
                     <h4 className="display-4">
-                      <i className="fas fa-folder" /> {categories.length}
+                      <i className="fas fa-folder" /> { categories.length }
                     </h4>
                     <Link
                       to="/categories"
                       className="btn btn-outline-light btn-sm">
-                     Xem
+                      Xem
                     </Link>
                   </div>
                 </div>
@@ -168,8 +186,19 @@ const AdminDashboard = () => {
                   <div className="card-body">
                     <h3>Tài khoản</h3>
                     <h4 className="display-4">
-                      <i className="fas fa-users" /> {allUsers.length}
+                      <i className="fas fa-users" /> { allUsers.length }
                     </h4>
+                    <Link to="/users" className="btn btn-outline-light btn-sm">
+                      Xem
+                    </Link>
+                  </div>
+                </div>
+                <div className="card text-center bg-warning text-white mb-3">
+                  <div className="card-body">
+                    <h3>Doanh Thu</h3>
+                    <p className="display-4">
+                      <i className="fas fa-users" /> { formatter.format(resulf) }
+                    </p>
                     <Link to="/users" className="btn btn-outline-light btn-sm">
                       Xem
                     </Link>
@@ -193,7 +222,7 @@ const AdminDashboard = () => {
         </section>
       </div>
 
-      {/* <Footer /> */}
+      {/* <Footer /> */ }
 
       <div>
         <AddProductModal />

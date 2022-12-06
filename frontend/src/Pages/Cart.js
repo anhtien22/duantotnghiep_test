@@ -26,10 +26,10 @@ const Cart = () => {
   return (
     <>
       <Breadcrumb pageName="Cart" />
-      {isEmpty ? (
+      { isEmpty ? (
         <div className="text-center my-5">
           <h2 className=" my-3">Giỏ Hàng Bạn Đang Trống</h2>
-          <button onClick={() => navigate("/shop")}>Trở Lại Shop</button>
+          <button onClick={ () => navigate("/shop") }>Trở Lại Shop</button>
         </div>
       ) : (
         <div className="site-section">
@@ -37,9 +37,9 @@ const Cart = () => {
             <div className="row mb-5">
               <form className="col-md-12" method="post">
                 <div className="site-blocks-table">
-                <h4>
-                    Giỏ hàng có : ({totalUniqueItems}) loại sản phẩm và tổng số lượng sản phẩm là : ({' '}
-                    {totalItems}) trong giỏ hàng.
+                  <h4>
+                    Giỏ hàng có : ({ totalUniqueItems }) loại sản phẩm và tổng số lượng sản phẩm là : ({ ' ' }
+                    { totalItems }) trong giỏ hàng.
                   </h4>
                   <table className="table table-bordered">
                     <thead>
@@ -56,29 +56,29 @@ const Cart = () => {
                     <tbody>
                       {
                         <>
-                          {items.map((item) => (
-                            <tr key={item._id}>
+                          { items.map((item) => (
+                            <tr key={ item._id }>
                               <td className="product-thumbnail">
-                                <Link to={`/shopSingle/${item._id}`}>
+                                <Link to={ `/shopSingle/${item._id}` }>
                                   <img
-                                    src={item.image}
+                                    src={ item.image }
                                     alt="img"
                                     className="img-fluid"
                                   />
                                 </Link>
                               </td>
                               <td className="product-name">
-                                <h2 className="h5 text-black">{item.name}</h2>
+                                <h2 className="h5 text-black">{ item.name }</h2>
                               </td>
-                              <td>${item.price}</td>
+                              <td>${ item.price }</td>
                               <td>
                                 <div
                                   className="input-group mb-3"
-                                  style={{ maxWidth: "120px" }}
+                                  style={ { maxWidth: "120px" } }
                                 >
                                   <div className="input-group-prepend">
                                     <button
-                                      onClick={() =>
+                                      onClick={ () =>
                                         updateItemQuantity(
                                           item.id,
                                           item.quantity - 1
@@ -93,9 +93,10 @@ const Cart = () => {
                                   <input
                                     type="text"
                                     className="form-control text-center"
-                                    value={item.quantity}
+                                    value={ item.quantity }
                                     placeholder=""
-                                    onChange={(e) =>
+                                    disabled
+                                    onChange={ (e) =>
                                       updateItemQuantity(
                                         item.id,
                                         e.target.value
@@ -105,7 +106,7 @@ const Cart = () => {
                                   />
                                   <div className="input-group-append">
                                     <button
-                                      onClick={() =>
+                                      onClick={ () =>
                                         updateItemQuantity(
                                           item.id,
                                           item.quantity + 1
@@ -113,23 +114,26 @@ const Cart = () => {
                                       }
                                       className="btn btn-outline-primary js-btn-plus"
                                       type="button"
+                                      disabled={
+                                        item.quantity >= item.Stock
+                                      }
                                     >
                                       &#43;
                                     </button>
                                   </div>
                                 </div>
                               </td>
-                              <td>${item.itemTotal}</td>
+                              <td>${ item.itemTotal }</td>
                               <td>
                                 <button
-                                  onClick={() => removeItem(item.id)}
+                                  onClick={ () => removeItem(item.id) }
                                   className="btn btn-danger btn-sm"
                                 >
                                   Xóa
                                 </button>
                               </td>
                             </tr>
-                          ))}
+                          )) }
                         </>
                       }
                     </tbody>
@@ -143,9 +147,9 @@ const Cart = () => {
                 <div className="row mb-5">
                   <div className="col-md-6 mb-3 mb-md-0">
                     <button
-                      onClick={() => emptyCart()}
+                      onClick={ () => emptyCart() }
                       className="btn btn-warning btn-sm btn-block">
-                      Xóa Tất Cả 
+                      Xóa Tất Cả
                     </button>
                   </div>
                   <div className="col-md-6">
@@ -193,7 +197,7 @@ const Cart = () => {
                         <span className="text-black">Tổng : </span>
                       </div>
                       <div className="col-md-6 text-right">
-                        <strong className="text-black">${cartTotal}.00</strong>
+                        <strong className="text-black">${ cartTotal }.00</strong>
                       </div>
                     </div>
 
@@ -201,7 +205,7 @@ const Cart = () => {
                       <div className="col-md-12">
                         <button
                           className="btn btn-primary btn-lg py-3 btn-block"
-                          onClick={() =>
+                          onClick={ () =>
                             navigate(user ? '/checkout' : '/login')
                           }>
                           Tiến hành thanh toán
@@ -214,7 +218,7 @@ const Cart = () => {
             </div>
           </div>
         </div>
-      )}
+      ) }
     </>
   );
 };

@@ -35,7 +35,7 @@ const ProfileScreen = () => {
   });
   return (
     <>
-      {/* ACTIONS */}
+      {/* ACTIONS */ }
       <section id="actions" className="py-4 mb-4 bg-light">
         <div className="container">
           <div className="row">
@@ -45,20 +45,20 @@ const ProfileScreen = () => {
               </Link>
             </div>
             <div className="col-md-4">
-              <button disabled className="btn btn-success btn-block">
+              <Link to="/profile/updatepassword" className="btn btn-success btn-block">
                 <i className="fas fa-lock" /> Đổi mật khẩu
-              </button>
+              </Link>
             </div>
             <div className="col-md-4">
               <button disabled className="btn btn-danger btn-block">
-                <i className="fas fa-trash" /> 
-Xóa tài khoản
+                <i className="fas fa-trash" />
+                Xóa tài khoản
               </button>
             </div>
           </div>
         </div>
       </section>
-      {/* PROFILE */}
+      {/* PROFILE */ }
       <section id="profile" className="my-5">
         <div className="container">
           <div className="row">
@@ -68,15 +68,15 @@ Xóa tài khoản
                   <h4>Chỉnh sửa hồ sơ</h4>
                 </div>
                 <div className="card-body">
-                  <form onSubmit={handleSubmit}>
+                  <form onSubmit={ handleSubmit }>
                     <div className="form-group">
                       <label htmlFor="name">Tên</label>
                       <input
                         type="text"
                         name="name"
-                        onChange={handleChange}
+                        onChange={ handleChange }
                         className="form-control"
-                        value={userInfo.name}
+                        value={ userInfo.name }
                       />
                     </div>
                     <div className="form-group">
@@ -85,8 +85,8 @@ Xóa tài khoản
                         type="email"
                         className="form-control"
                         name="email"
-                        onChange={handleChange}
-                        value={userInfo.email}
+                        onChange={ handleChange }
+                        value={ userInfo.email }
                       />
                     </div>
 
@@ -127,18 +127,18 @@ Xóa tài khoản
                     </tr>
                   </thead>
                   <tbody>
-                    {myOrders.length > 0 ? (
+                    { myOrders.length > 0 ? (
                       myOrders.map((order) => (
-                        <tr key={order._id}>
-                          <td>{order._id}</td>
-                          <td>{order.orderItems.length} item(s)</td>
-                          <td>{formatter.format(order.totalPrice)}</td>
+                        <tr key={ order._id }>
+                          <td>{ order._id }</td>
+                          <td>{ order.orderItems.length } item(s)</td>
+                          <td>{ formatter.format(order.totalPrice) }</td>
                           <td>
-                            {new Date(order.createdAt).toLocaleDateString()}
+                            { new Date(order.createdAt).toLocaleDateString() }
                           </td>
                           <td>
                             <Link
-                              to={`/myOrderDetails/${order._id}`}
+                              to={ `/myOrderDetails/${order._id}` }
                               className="btn btn-secondary"
                             >
                               <i className="fas fa-angle-double-right" /> Chi
@@ -149,13 +149,13 @@ Xóa tài khoản
                       ))
                     ) : (
                       <tr>
-                        <td colSpan={4}>
+                        <td colSpan={ 4 }>
                           <h3 className="text-center">
-                            Bạn chưa có đơn hàng nào{" "}
+                            Bạn chưa có đơn hàng nào{ " " }
                           </h3>
                         </td>
                       </tr>
-                    )}
+                    ) }
                   </tbody>
                 </table>
               </div>

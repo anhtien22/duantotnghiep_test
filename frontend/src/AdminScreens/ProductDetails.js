@@ -21,6 +21,7 @@ const ProductDetails = () => {
     category: '',
     price: '',
     description: '',
+    Stock: '',
   })
 
   const [image, setImage] = useState(null)
@@ -44,8 +45,8 @@ const ProductDetails = () => {
   // console.log(product)
   const handleSaveChanges = () => {
     // console.log(product)
-    const { name, sku, category, price, description } = product
-    updateProductDetails(id, name, sku, category, price, description)
+    const { name, sku, category, price, description, Stock } = product
+    updateProductDetails(id, name, sku, category, price, description, Stock)
   }
 
 
@@ -91,7 +92,7 @@ const ProductDetails = () => {
             </div>
             <div className="col-md-4">
               <button className="btn btn-danger btn-block"
-                onClick={() => deleteSaveChanges(id)}>
+                onClick={ () => deleteSaveChanges(id) }>
                 <i className="fas fa-trash" /> Xóa sản phẩm
               </button>
             </div>
@@ -157,6 +158,16 @@ const ProductDetails = () => {
                       className="form-control"
                     />
                   </div>
+                  <div className="form-group">
+                    <label htmlFor="Stock">Stock</label>
+                    <input
+                      type="text"
+                      name="Stock"
+                      onChange={ handleChange }
+                      value={ product.Stock }
+                      className="form-control"
+                    />
+                  </div>
 
                   <div className="form-group">
                     <label htmlFor="body">Mô tả</label>
@@ -205,10 +216,10 @@ const ProductDetails = () => {
                   // value={product.description}
                   />
                   <label htmlFor="image" className="custom-file-label">
-                   Chọn tập tin
+                    Chọn tập tin
                   </label>
                 </div>
-                {/* <small className="form-text text-muted">Max Size 3mb</small> */}
+                {/* <small className="form-text text-muted">Max Size 3mb</small> */ }
               </div>
               <button
                 className="btn btn-primary btn-block"

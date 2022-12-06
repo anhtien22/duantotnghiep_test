@@ -33,18 +33,6 @@ const productSchema = mongoose.Schema(
       type: String,
       required: [true, 'Hình ảnh được yêu cầu'],
     },
-    discount: {
-      type: Number,
-      default: 0
-    },
-    new: {
-      type: Boolean,
-      default: true
-    },
-    saleCount: {
-      type: Number,
-      default: 0
-    },
     ratings: {
       type: Number,
       default: 0,

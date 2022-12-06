@@ -24,6 +24,9 @@ import MyOrderDetails from './Pages/MyOrderDetails'
 import ProductDetails from './AdminScreens/ProductDetails'
 import OrderDetails from './AdminScreens/OrderDetails'
 import UserDetails from './AdminScreens/UserDetails'
+import ForgotPassword from './Pages/ForgotPassword'
+import ResetPassword from './Pages/ResetPassword'
+import UpdatePassword from './Pages/UpdatePassword'
 
 function App() {
   return (
@@ -51,7 +54,13 @@ function App() {
 
         <Route path="/signup" element={ <SignupScreen /> } />
 
+        <Route path="/forgotpassword" element={ <ForgotPassword /> } />
+
+        <Route path="password/resetPassword/:token" element={ <ResetPassword /> } />
+
         <Route path="/profile" element={ <ProfileScreen /> } />
+
+        <Route path="/profile/updatepassword" element={ <UpdatePassword /> } />
 
         <Route path="/myOrderDetails/:id" element={ <MyOrderDetails /> } />
 

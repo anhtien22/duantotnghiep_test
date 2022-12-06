@@ -55,7 +55,7 @@ const Orders = () => {
   return (
     <>
       <Navbar />
-      {/* HEADER */}
+      {/* HEADER */ }
       <header id="main-header" className="py-2 bg-warning text-white">
         <div className="container">
           <div className="row">
@@ -68,11 +68,11 @@ const Orders = () => {
         </div>
       </header>
 
-      {/* SEARCH */}
+      {/* SEARCH */ }
       <section id="search" className="py-4 mb-4 bg-light">
         <div className="container">
           <div className="row">
-            <div>Doanh thu: {formatter.format(resulf)}</div>
+            <div>Doanh thu: { formatter.format(resulf) }</div>
             <div className="col-md-6 ml-auto">
               <div className="input-group">
                 <input
@@ -110,45 +110,45 @@ const Orders = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {orders.map((order, index) => (
-                      <tr key={order._id}>
-                        <td>{index + 1}</td>
-                        <td>{order.user?.name}</td>
+                    { orders.map((order, index) => (
+                      <tr key={ order._id }>
+                        <td>{ index + 1 }</td>
+                        <td>{ order.user?.name }</td>
                         <td>
-                          {new Date(order.createdAt).toLocaleDateString()}
+                          { new Date(order.createdAt).toLocaleDateString() }
                         </td>
-                        <td>{formatter.format(order.totalPrice)}</td>
+                        <td>{ formatter.format(order.totalPrice) }</td>
                         <td className="px-4 py-3">
                           <div className="flex-grow w-full">
-                            {order.paymentResult.status === "COMPLETED" ? (
+                            { order.paymentResult.status === "COMPLETED" ? (
                               "Đã thanh toán online"
                             ) : (
                               <select
-                                onChange={(e) =>
+                                onChange={ (e) =>
                                   updateStatustAdmin(e, order._id)
                                 }
                                 className="block w-full px-2 py-1 text-sm outline-none rounded-md form-select focus:shadow-none leading-5 h-12 bg-[#24262D] dark:bg-[#F4F5F7] border-[1px] border-gray-600 dark:border-gray-300 text-gray-200 dark:text-black"
                                 name="orderStatus"
-                                dangerouslySetInnerHTML={{
+                                dangerouslySetInnerHTML={ {
                                   __html: statusHtml(
                                     order.paymentResult.status
                                   ),
-                                }}
+                                } }
                               ></select>
-                            )}
+                            ) }
                           </div>
                         </td>
 
                         <td>
                           <Link
-                            to={`/orderDetailsAdmin/${order._id}`}
+                            to={ `/orderDetailsAdmin/${order._id}` }
                             className="btn btn-secondary"
                           >
                             <i className="fas fa-angle-double-right" /> Chi tiết
                           </Link>
                         </td>
                       </tr>
-                    ))}
+                    )) }
                   </tbody>
                 </table>
               </div>

@@ -9,6 +9,7 @@ import {
   readProfile,
   registerUser,
   resetPassword,
+  updatePassword,
   updateProfile,
   updateUserRole,
 } from '../controllers/userController.js'
@@ -25,8 +26,9 @@ router.post("/password/forgot", forgotPassword);
 
 router.put("/password/reset/:token", resetPassword);
 
-
 router.get('/profile', auth, readProfile)
+
+router.put("/profile/updatepassword", updatePassword);
 
 router.patch('/profile', auth, updateProfile)
 

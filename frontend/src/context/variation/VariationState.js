@@ -20,7 +20,7 @@ function clean(obj) {
 // Category State
 // ------------------------------------------
 const VariationState = props => {
-  const [variations, setVariations] = useState([])
+  const [variation, setVariations] = useState([])
   const [variationsError, setVariationsError] = useState(null)
   const [variationsLoading, setVariationsLoading] = useState(false)
   const [variationsMessage, setVariationsMessage] = useState(null)
@@ -60,7 +60,7 @@ const VariationState = props => {
       }
       setVariationsLoading(true)
       await axios.post('api/variation/add', variationBody, { headers })
-      setVariations([...variations, variationBody])
+      setVariations([...variation, variationBody])
       setVariationsMessage({
         variant: 'success',
         message: 'variation added successfully!',
@@ -77,7 +77,7 @@ const VariationState = props => {
     try {
       setVariationsLoading(true)
       const { data } = await axios.get('api/variation/getAll')
-      setVariations(data.variations)
+      setVariations(data.variation)
       setVariationsLoading(false)
       setVariationsError(null)
     } catch (err) {
@@ -89,7 +89,7 @@ const VariationState = props => {
   const getOneVariation = async id => {
     try {
       const { data } = await axios.get(`/api/variation/${id}`)
-      return data.variations
+      return data.variation
     } catch (err) {
       errorHandler(err)
     }
@@ -118,7 +118,7 @@ const VariationState = props => {
   return (
     <VariationContext.Provider
       value={ {
-        variations,
+        variation,
         variationsError,
         variationsLoading,
         variationsMessage,

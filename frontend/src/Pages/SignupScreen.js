@@ -37,11 +37,11 @@ const SignupScreen = () => {
             <div className="row"></div>
           </div>
         </section>
-        {/* Signup */}
+        {/* Signup */ }
         <section id="Signup">
           <div className="container">
             <p className="text-center">
-              Bạn có sẳn tài khoản chưa? <Link to="/login">Đăng ký</Link>
+              Bạn có sẳn tài khoản chưa? <Link to="/login">Đăng Nhập</Link>
             </p>
             <div className="row">
               <div className="col-md-6 mx-auto">
@@ -50,35 +50,35 @@ const SignupScreen = () => {
                     <h4>Tài khoản đăng ký</h4>
                   </div>
                   <div className="card-body">
-                    <form onSubmit={handleSignup}>
+                    <form onSubmit={ handleSignup }>
                       <div className="form-group">
                         <label htmlFor="name">Tên</label>
                         <input
-                          onChange={handleChange}
+                          onChange={ handleChange }
                           type="text"
                           className="form-control"
                           name="name"
-                          value={userDetails.name}
+                          value={ userDetails.name }
                         />
                       </div>
                       <div className="form-group">
                         <label htmlFor="email">Email</label>
                         <input
-                          onChange={handleChange}
+                          onChange={ handleChange }
                           type="text"
                           className="form-control"
                           name="email"
-                          value={userDetails.email}
+                          value={ userDetails.email }
                         />
                       </div>
                       <div className="form-group">
                         <label htmlFor="password">Mật khẩu</label>
                         <input
-                          onChange={handleChange}
+                          onChange={ handleChange }
                           type="password"
                           className="form-control"
                           name="password"
-                          value={userDetails.password}
+                          value={ userDetails.password }
                         />
                       </div>
                       <input

@@ -96,9 +96,9 @@ export const updateOrder = async (req, res, next) => {
       error: "You have already Successfully this order",
     });
   }
-  // order.orderItems.forEach(async (o) => {
-  //   await updateStock(o.product, o.quantity);
-  // });
+  order.orderItems.forEach(async (o) => {
+    await updateStock(o.product, o.quantity);
+  });
   order.paymentResult.status = req.body.status;
 
   if (req.body.status === "Successfully") {

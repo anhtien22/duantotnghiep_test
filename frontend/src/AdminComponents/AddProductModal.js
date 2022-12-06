@@ -14,21 +14,9 @@ const AddProductModal = () => {
   const cContext = useContext(CategoryContext)
   const { categories, getCategories } = cContext
   console.log("categories", categories);
-  // variation context
-  const vContext = useContext(VariationContext)
-  const { variations, getVariations } = vContext
-  console.log("variations", variations);
-  const [selectedProductColor, setSelectedProductColor] = useState(
-    variations ? variations[0]?.color : ""
-  );
-  console.log("selectedProductColor", selectedProductColor);
-  const [selectedProductSize, setSelectedProductSize] = useState(
-    variations ? variations[0]?.size[0]?.name : ""
-  );
+
   useEffect(() => {
     getCategories();
-    getVariations();
-
     // eslint-disable-next-line
   }, [])
 
@@ -38,17 +26,17 @@ const AddProductModal = () => {
     category: '',
     price: '',
     description: '',
+    Stock: '',
   })
 
   const [image, setImage] = useState(null)
 
   const handleChange = e => {
     setProduct({ ...product, [e.target.name]: e.target.value })
-
   }
 
   const handleAddproduct = () => {
-    const { name, sku, category, price, description } = product
+    const { name, sku, category, price, description, Stock } = product
     const formData = new FormData()
     formData.append('image', image)
     formData.append('name', name)
@@ -56,6 +44,7 @@ const AddProductModal = () => {
     formData.append('category', category)
     formData.append('price', price)
     formData.append('description', description)
+    formData.append('Stock', Stock)
     console.log('Thêm sản phẩm để chạy')
     addProduct(formData)
     console.log('Thêm sản phẩm chạy')
@@ -65,6 +54,7 @@ const AddProductModal = () => {
       category: '',
       price: '',
       description: '',
+      Stock: '',
     })
     setImage('')
   }
@@ -122,58 +112,6 @@ const AddProductModal = () => {
                   )) }
                 </select>
               </div>
-              { variations ? (
-                <>
-                  <div className="form-group">
-                    <label htmlFor="category">Variation</label>
-
-                    <select
-                      className="form-control"
-                      name="category"
-                      onChange={ handleChange }>
-                      <option value>Select Color</option>
-                      { variations.map(item => (
-                        <option key={ item._id } value={ item.color }
-                          onChange={ () => {
-                            setSelectedProductColor(item.color);
-                            setSelectedProductSize(item.size?.name);
-
-                          } }
-                        >
-                          { item.color }
-                        </option>
-
-                      )) }
-                    </select>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="category">Variation</label>
-                    <select
-                      className="form-control"
-                      name="category"
-                      onChange={ handleChange }>
-                      <option value>Select Size</option>
-                      { variations && variations.map(single => {
-                        return single.color === selectedProductColor
-                          ? single.size.map((singleSize, key) => {
-                            return (
-                              <>
-                                <option key={ singleSize._id } value={ singleSize._id } onChange={ () => {
-                                  setSelectedProductSize(
-                                    singleSize.name
-                                  );
-                                } }>
-                                  { singleSize.name }
-                                </option>
-                              </>
-                            );
-                          })
-                          : "";
-                      }) }
-                    </select>
-                  </div>
-                </>
-              ) : "" }
 
               <div className="form-group">
                 <label htmlFor="price">Giá</label>
@@ -182,6 +120,19 @@ const AddProductModal = () => {
                   name="price"
                   onChange={ handleChange }
                   value={ product.price }
+                  className="form-control"
+                />
+              </div>
+
+
+
+              <div className="form-group">
+                <label htmlFor="price">Stock</label>
+                <input
+                  type="text"
+                  name="Stock"
+                  onChange={ handleChange }
+                  value={ product.Stock }
                   className="form-control"
                 />
               </div>
