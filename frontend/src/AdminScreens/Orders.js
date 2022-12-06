@@ -2,14 +2,15 @@ import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../AdminComponents/Navbar";
 import OrderContext from "../context/orders/orderContext";
-
+import "./or.css";
 const statusOrder = {
   Confirmed: "Đang xác nhận",
   Processing: "Đang giao hàng",
   Successfully: "Đã giao hàng",
   Canceled: "Đã hủy",
-  // COMPLETED: "Đã Thanh toán online",
+  // COMPLETED: "Đã Thanh toán online",[value="COMPLETED"]
 };
+
 const total = (orders, status) =>
   orders.reduce((r, index) => {
     if (index.paymentResult.status === status) {
@@ -31,6 +32,16 @@ const Orders = () => {
   const resulf = total(orders, "Successfully");
   const resulf2 = total(orders, "COMPLETED");
   const resulf3 = resulf + resulf2;
+  // var arrColor = ["#FF0000", "#0000FF", "#FFFF00"];
+  // var arrayLength = arrColor.length;
+
+  // for (var a = 0; a < arrayLength - 1; a++) {
+  //   var option = document.createElement("option");
+  //   option.style.color = arrColor[a];
+  //   option.style.backgroundColor = arrColor[a];
+  //   console.log(option);
+  // }
+
   const statusHtml = (orderStatus) => {
     const index = Object.keys(statusOrder).findIndex(
       (key) => key === orderStatus
@@ -39,14 +50,16 @@ const Orders = () => {
     return Object.keys(statusOrder)
       .map(function (key, i) {
         if (i >= index) {
-          return `<option
-          value="${key}"
+          return `
+            <option 
+          value="${key}"    
           className="text-gray-200 dark:text-slate-800"
         >${statusOrder[key]}</option>`;
         }
+
         return "";
       })
-      .join("");
+      .join(" ");
   };
   const formatter = new Intl.NumberFormat("it-IT", {
     style: "currency",
@@ -130,7 +143,7 @@ const Orders = () => {
                         </td>
                         <td>{formatter.format(order.totalPrice)}</td>
                         <td className="px-4 py-3">
-                          <div className="flex-grow w-full">
+                          <div className="flex-grow w-full online">
                             {order.paymentResult.status === "COMPLETED" ? (
                               "Đã thanh toán online"
                             ) : (
