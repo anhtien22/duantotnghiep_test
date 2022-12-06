@@ -7,7 +7,7 @@ export const addCategory = async (req, res) => {
   try {
     const category = new Category(req.body)
     await category.save()
-    res.status(201).json({ success: true, message: 'Category Added', category })
+    res.status(201).json({ success: true, message: 'Đã thêm danh mục', category })
   } catch (err) {
     res.status(400).json({ success: false, error: err.message })
   }
@@ -34,7 +34,7 @@ export const getCategory = async (req, res) => {
     if (!category) {
       return res
         .status(404)
-        .json({ success: false, error: 'Category not found' })
+        .json({ success: false, error: 'Không tìm thấy danh mục' })
     }
     res.json({ success: true, category })
   } catch (err) {
@@ -52,18 +52,18 @@ export const updateCategory = async (req, res) => {
     allowedUpdates.includes(update)
   )
   if (!isValidOperation) {
-    return res.status(400).json({ success: false, error: 'Invalid updates' })
+    return res.status(400).json({ success: false, error: 'Cập nhật không hợp lệ' })
   }
 
   const category = await Category.findById(req.params.id)
   if (!category) {
-    return res.status(404).json({ success: false, error: 'Category not found' })
+    return res.status(404).json({ success: false, error: 'Không tìm thấy danh mục' })
   }
 
   updates.forEach(update => (category[update] = req.body[update]))
   try {
     await category.save()
-    res.json({ success: true, message: 'Category Updated!', category })
+    res.json({ success: true, message: 'Danh mục được cập nhật!', category })
   } catch (err) {
     res.status(400).json({ success: false, error: err.message })
   }
@@ -78,11 +78,11 @@ export const deleteCategory = async (req, res) => {
     if (!category) {
       return res
         .status(404)
-        .json({ success: false, error: 'Category not found' })
+        .json({ success: false, error: 'Không tìm thấy danh mục' })
     }
 
     await category.remove()
-    res.json({ success: true, message: 'Category deleted' })
+    res.json({ success: true, message: 'Đã xóa danh mục' })
   } catch (err) {
     res.status(400).json({ success: false, error: err.message })
   }

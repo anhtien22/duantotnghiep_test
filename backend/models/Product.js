@@ -4,46 +4,34 @@ const productSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, 'name is a required field'],
-      minLength: [3, 'Please enter a name with atleast 3 characters'],
+      required: [true, 'Vui lòng nhập tên'],
+      minLength: [3, 'Vui lòng nhập tên có ít nhất 3 ký tự'],
       trim: true,
     },
     sku: {
       type: String,
-      required: [true, 'sku is a required field'],
+      required: [true, 'Vui lòng nhập mã sản phẩm'],
       trim: true,
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Category',
-      required: [true, 'category is a required field'],
+      required: [true, 'Vui lòng nhập danh mục'],
     },
     price: {
       type: Number,
-      required: [true, 'price is a required field'],
-      min: [0, 'Price must be a positive number!'],
+      required: [true, 'Vui lòng nhập giá'],
+      min: [0, 'Giá phải là một số dương!'],
     },
     description: {
       type: String,
-      required: [true, 'description is a required field'],
-      minLength: [10, 'Please enter a description with atleast 10 characters'],
+      required: [true, 'Vui lòng nhập mô tả'],
+      minLength: [10, 'Vui lòng nhập mô tả với ít nhất 10 ký tự'],
       trim: true,
     },
     image: {
       type: String,
-      required: [true, 'image is required'],
-    },
-    discount: {
-      type: Number,
-      default: 0
-    },
-    new: {
-      type: Boolean,
-      default: true
-    },
-    saleCount: {
-      type: Number,
-      default: 0
+      required: [true, 'Hình ảnh được yêu cầu'],
     },
     ratings: {
       type: Number,
@@ -52,7 +40,7 @@ const productSchema = mongoose.Schema(
     Stock: {
       type: Number,
       required: [true, "Vui lòng nhập kho sản phẩm"],
-      maxLength: [4, "Cổ phiếu không được vượt quá 4 ký tự"],
+      maxLength: [4, "Số lượng không được vượt quá 4 ký tự"],
       default: 1,
     },
     numOfReviews: {

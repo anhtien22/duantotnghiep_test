@@ -1,30 +1,39 @@
-import React, { useContext, useEffect, useState } from 'react'
-import Breadcrumb from '../components/Breadcrumb'
-import { Link, useParams } from 'react-router-dom'
-import OrderContext from '../context/orders/orderContext'
-
+import React, { useContext, useEffect, useState } from "react";
+import Breadcrumb from "../components/Breadcrumb";
+import { Link, useParams } from "react-router-dom";
+import OrderContext from "../context/orders/orderContext";
+const statusOrder = {
+  Confirmed: "Đang xác nhận",
+  Processing: "Đang giao hàng",
+  Successfully: "Đã giao hàng",
+  Canceled: "Đã hủy",
+  COMPLETED: "Đã Thanh toán online",
+};
 const OrderDetails = () => {
   // for order context
-  const oContext = useContext(OrderContext)
-  const { getOneOrderAdmin } = oContext
+  const oContext = useContext(OrderContext);
+  const { getOneOrderAdmin } = oContext;
 
-  const { id } = useParams()
+  const { id } = useParams();
 
   const [order, setOrder] = useState({
     shippingAddress: {},
     paymentResult: {},
     orderItems: [],
     user: {},
-  })
-
+  });
+  const formatter = new Intl.NumberFormat("it-IT", {
+    style: "currency",
+    currency: "VND",
+  });
   useEffect(() => {
     const fetchOrder = async () => {
-      const result = await getOneOrderAdmin(id)
-      setOrder(result)
-    }
-    fetchOrder()
+      const result = await getOneOrderAdmin(id);
+      setOrder(result);
+    };
+    fetchOrder();
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
   return (
     <>
@@ -33,29 +42,32 @@ const OrderDetails = () => {
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-10 col-xl-8">
-              <div className="card" style={{ borderRadius: '10px' }}>
+              <div className="card" style={{ borderRadius: "10px" }}>
                 <div className="card-header px-4 py-5">
                   <h5 className="text-muted mb-0">
-                    Thanks for your Order,{' '}
-                    <span style={{ color: '#a8729a' }}>{order.user.name}</span>!
+                    Thanks for your Order,{" "}
+                    <span style={{ color: "#a8729a" }}>{order.user?.name}</span>
+                    !
                   </h5>
                 </div>
                 <div className="card-body p-4">
                   <div className="d-flex justify-content-between align-items-center mb-4">
                     <p
                       className="lead fw-normal mb-0"
-                      style={{ color: '#a8729a' }}>
-                      Receipt
+                      style={{ color: "#a8729a" }}
+                    >
+                      Biên nhận
                     </p>
                     <p className="small text-muted mb-0">
-                      Order ID : <b>{id}</b>
+                      ID : <b>{id}</b>
                     </p>
                   </div>
 
-                  {order.orderItems.map(orderItem => (
+                  {order.orderItems.map((orderItem) => (
                     <div
                       key={orderItem._id}
-                      className="card shadow-0 border mb-4">
+                      className="card shadow-0 border mb-4"
+                    >
                       <div className="card-body">
                         <div className="row">
                           <div className="col-md-2">
@@ -79,23 +91,28 @@ const OrderDetails = () => {
                           </div>
                           <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
                             <p className="text-muted mb-0 small">
-                              Qty: {orderItem.quantity}
+                              Số lượng: {orderItem.quantity}
                             </p>
                           </div>
                           <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
                             <p className="text-muted mb-0 small">
-                              Price: ${orderItem.price}
+                              {/* Giá: {orderItem.price} */}
+                              Giá: {formatter.format(orderItem.price)}
                             </p>
                           </div>
                           <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
                             <p className="text-muted mb-0 small">
-                              <b> ${orderItem.itemTotal}</b>
+                              {/* <b> Tiền: {orderItem.itemTotal}</b> */}
+                              <b>
+                                {" "}
+                                Tiền: {formatter.format(orderItem.itemTotal)}
+                              </b>
                             </p>
                           </div>
                         </div>
                         <hr
                           className="mb-4"
-                          style={{ backgroundColor: '#e0e0e0', opacity: 1 }}
+                          style={{ backgroundColor: "#e0e0e0", opacity: 1 }}
                         />
                       </div>
                     </div>
@@ -103,40 +120,42 @@ const OrderDetails = () => {
 
                   <div className="row my-3">
                     <div className="col-md-6">
-                      <h4>Shipping Details</h4>
+                      <h4>Chi tiết giao hàng</h4>
                       <div>
-                        <b>Deliver to: </b> {order.shippingAddress.name} <br />
-                        <b>Phone : </b> {order.shippingAddress.phone} <br />
-                        <b>Sipping Address: </b> {order.shippingAddress.address}
-                        , {order.shippingAddress.city},{' '}
+                        <b>GIoa hàng cho: </b> {order.shippingAddress.name}{" "}
+                        <br />
+                        <b>Số điện thoại : </b> {order.shippingAddress.phone}{" "}
+                        <br />
+                        <b>Địa chỉ: </b> {order.shippingAddress.address},{" "}
+                        {order.shippingAddress.city},{" "}
                         {order.shippingAddress.country} <br />
-                        <b>Postal Code:</b> {order.shippingAddress.postalCode}
+                        <b>Mã :</b> {order.shippingAddress.postalCode}
                       </div>
                     </div>
                     <div className="col-md-6 border-left">
                       <div className="">
-                        <h4>Order Details</h4>
+                        <h4>Chi tiết đơn</h4>
                         <div>
-                          <b>Order Date</b> :{' '}
+                          <b>Ngày đặt hàng</b> :{" "}
                           {new Date(order.createdAt).toLocaleDateString()}
                         </div>
                         <div>
-                          <b>Payment Method</b> : {order.paymentMethod}
+                          <b>Thanh toán</b> : {order.paymentMethod}
                         </div>
                         <div>
-                          <b>Payment Status</b> : {order.paymentResult.status}
+                          <b>Trạng thái</b> :{" "}
+                          {statusOrder[order.paymentResult.status]}
                         </div>
-                        {order.paymentMethod === 'paypal' && (
+                        {order.paymentMethod === "paypal" && (
                           <div>
-                            <b>Transaction Id</b> : {order.paymentResult.id}{' '}
-                            <br />
-                            <b>Payment Time</b> :{' '}
+                            <b>Id</b> : {order.paymentResult.id} <br />
+                            <b>THời gian thanh toán</b> :{" "}
                             {new Date(
                               order.paymentResult.update_time
-                            ).toLocaleString()}{' '}
+                            ).toLocaleString()}{" "}
                             <br />
-                            <b>Payer Email</b> :{' '}
-                            {order.paymentResult.email_address}{' '}
+                            <b>Địa chỉ email</b> :{" "}
+                            {order.paymentResult.email_address}{" "}
                           </div>
                         )}
                         <div className="col-md-6"></div>
@@ -146,13 +165,17 @@ const OrderDetails = () => {
                   <div
                     className="card-footer border-0 px-4 py-5"
                     style={{
-                      backgroundColor: '#a8729a',
-                      borderBottomLeftRadius: '10px',
-                      borderBottomRightRadius: '10px',
-                    }}>
+                      backgroundColor: "#a8729a",
+                      borderBottomLeftRadius: "10px",
+                      borderBottomRightRadius: "10px",
+                    }}
+                  >
                     <h5 className="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">
-                      Order Total :{' '}
-                      <span className="h2 mb-0 ms-2"> ${order.totalPrice}</span>
+                      Tổng tiền :
+                      <span className="h2 mb-0 ms-2">
+                        {/* {order.totalPrice} */}
+                        {formatter.format(order.totalPrice)}
+                      </span>
                     </h5>
                   </div>
                 </div>
@@ -162,7 +185,7 @@ const OrderDetails = () => {
         </div>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default OrderDetails
+export default OrderDetails;

@@ -28,7 +28,7 @@ const UserDetails = () => {
               <div className="card" style={ { borderRadius: '10px' } }>
                 <div className="card-header px-4 py-5">
                   <h5 className="text-muted mb-0">
-                    Thanks for your,{ ' ' }
+                    Xin chào,{ ' ' }
                     <span style={ { color: '#a8729a' } }>{ user.name }</span>!
                   </h5>
                 </div>
@@ -37,7 +37,7 @@ const UserDetails = () => {
                     <p
                       className="lead fw-normal mb-0"
                       style={ { color: '#a8729a' } }>
-                      Receipt
+                      Biên nhận
                     </p>
                     <p className="small text-muted mb-0">
                       User ID : <b>{ id }</b>

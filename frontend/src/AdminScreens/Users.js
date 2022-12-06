@@ -28,7 +28,7 @@ const Users = () => {
             <div className="row">
               <div className="col-md-6">
                 <h1>
-                  <i className="fas fa-users" /> Users
+                  <i className="fas fa-users" /> Tài khoản
                 </h1>
               </div>
             </div>
@@ -43,10 +43,10 @@ const Users = () => {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Search Users..."
+                    placeholder="Tìm kiếm người dùng..."
                   />
                   <div className="input-group-append">
-                    <button className="btn btn-warning">Search</button>
+                    <button className="btn btn-warning">Tìm kiếm</button>
                   </div>
                 </div>
               </div>
@@ -60,15 +60,15 @@ const Users = () => {
               <div className="col">
                 <div className="card">
                   <div className="card-header">
-                    <h4>Latest Users</h4>
+                    <h4>Tài khoản mới nhất</h4>
                   </div>
                   <table className="table table-striped">
                     <thead className="thead-dark">
                       <tr>
                         <th>#</th>
-                        <th>Name</th>
+                        <th>Tên</th>
                         <th>Email</th>
-                        <th>Joining Date</th>
+                        <th>Ngày</th>
                         <th />
                       </tr>
                     </thead>
@@ -80,7 +80,7 @@ const Users = () => {
                           <td>{ user.email }</td>
                           <td>{ new Date(user.createdAt).toLocaleString() }</td>
                           <td>
-                            <Link
+                            {/* <Link
                               to={ `/usersDetailsAdmin/${user._id}` }
                               className="btn btn-secondary">
                               <button
@@ -89,12 +89,12 @@ const Users = () => {
                               >
                                 <i className="fas fa-angle-double-right" /> Action
                               </button>
-                            </Link>
+                            </Link> */}
                             <button
                               className="btn btn-secondary"
                               // disabled
                               onClick={ () => deleteSaveChanges(user._id) }>
-                              <i className="fas fa-angle-double-right" /> delete
+                              <i className="fas fa-angle-double-right" /> Xóa
                             </button>
 
                           </td>
@@ -113,9 +113,9 @@ const Users = () => {
                     <thead className="thead-dark">
                       <tr>
                         <th>#</th>
-                        <th>Name</th>
+                        <th>Tên</th>
                         <th>Email</th>
-                        <th>Joining Date</th>
+                        <th>Ngày</th>
                         <th />
                       </tr>
                     </thead>
@@ -126,7 +126,7 @@ const Users = () => {
                         <td>admin@gmail.com</td>
                         <td>
                           <a href="details.html" className="btn btn-secondary">
-                            <i className="fas fa-angle-double-right" /> Details
+                            <i className="fas fa-angle-double-right" /> Chi tiết
                           </a>
                         </td>
                       </tr>

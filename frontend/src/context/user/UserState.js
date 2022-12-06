@@ -215,25 +215,86 @@ const UserState = props => {
       errorHandler(err)
     }
   }
-  const deleteOneUserAdmin = async id => {
+  const forgotPassword = async (payload) => {
     try {
+      setUserLoading(true)
+      const config = { headers: { "Content-Type": "application/json" } };
+
+      const { data } = await axios.post("/api/users/password/forgot", {
+        email: payload.email
+      },
+        config
+      );
+      console.log("data", data);
       setUserLoading(false)
-      const userToken = JSON.parse(localStorage.getItem('userToken'))
+      setUserError(null)
+      return data.user;
+    } catch (err) {
+      errorHandler(err)
+    }
+  };
+
+  const resetPassword = async (token, payload) => {
+    try {
+      setUserLoading(true)
+
+      const config = { headers: { "Content-Type": "application/json" } };
+
+      const { data } = await axios.put(
+        `/api/users/password/reset/${token}`,
+        {
+          password: payload.password,
+          confirmPassword: payload.confirmPassword,
+        },
+        config
+      );
+      console.log("data", data);
+
+      setUserLoading(false)
+      setUserError(null)
+      return data.user;
+
+    } catch (err) {
+      errorHandler(err)
+
+    }
+  };
+
+  const updatePassword = async (payload) => {
+    try {
+      // setUserLoading(true)
+      console.log("payload", payload);
       const headers = {
         Authorization: `Bearer ${userToken && userToken}`,
-      }
-      await axios.delete(`/api/users/admin/user/${id}`, { headers })
-      setUserMessage({
-        variant: 'success',
-        message: 'User details delete!',
-      })
-      setUserLoading(true)
-      setUserError(null)
-      // getCategories()
+        "Content-Type": "application/json",
+      };
+
+      // const res = await fetch(
+      //   `/api/users/profile/updatepassword`,
+      //   {
+      //     oldPassword: payload.oldPassword,
+      //     newPassword: payload.newPassword,
+      //     confirmPassword: payload.confirmPassword,
+      //   },
+      //   config
+      // );
+      const res = await fetch(`/api/users/profile/updatepassword`, {
+        method: "PUT",
+        headers,
+        body: JSON.stringify({
+          oldPassword: payload.oldPassword,
+          newPassword: payload.newPassword,
+          confirmPassword: payload.confirmPassword,
+        }),
+      });
+      console.log("data", res);
+      // setUserLoading(false)
+      // setUserError(null)
+      // return data.user;
     } catch (err) {
-      errorHandler(err, 'could not delete user details')
+      errorHandler(err)
     }
-  }
+  };
 
   return (
     <UserContext.Provider
@@ -251,7 +312,9 @@ const UserState = props => {
         getAllUsers,
         deleteProfile,
         getOneUserAdmin,
-        deleteOneUserAdmin
+        forgotPassword,
+        resetPassword,
+        updatePassword
       } }>
       { props.children }
     </UserContext.Provider>

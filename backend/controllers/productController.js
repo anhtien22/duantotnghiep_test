@@ -10,7 +10,7 @@ import { errorHandler } from '../middleware/errorMiddleware.js'
 export const addProduct = async (req, res) => {
   const date = new Date()
   try {
-    if (!req.file) throw new Error('please upload an image')
+    if (!req.file) throw new Error('Xin vui lòng tải ảnh lên')
 
     fs.access('uploads', err => {
       if (err) {
@@ -27,7 +27,7 @@ export const addProduct = async (req, res) => {
       .toFile(`uploads/${date.getTime()}${req.file.originalname}`)
 
     await product.save()
-    res.status(201).json({ success: true, message: 'product added', product })
+    res.status(201).json({ success: true, message: 'Thêm sản phẩm', product })
   } catch (err) {
     if (req.file) {
       fs.unlinkSync(
@@ -109,7 +109,7 @@ export const getProduct = async (req, res) => {
     if (!product) {
       return res
         .status(404)
-        .json({ success: false, error: 'Product not found' })
+        .json({ success: false, error: 'Sản phẩm không có' })
     }
     res.json({ success: true, product })
   } catch (err) {
@@ -122,23 +122,23 @@ export const getProduct = async (req, res) => {
 // @access Private : Admin
 export const updateProductDetails = async (req, res) => {
   const updates = Object.keys(req.body)
-  const allowedUpdates = ['name', 'sku', 'category', 'price', 'description']
+  const allowedUpdates = ['name', 'sku', 'category', 'price', 'description', 'Stock']
   const isValidOperation = updates.every(update =>
     allowedUpdates.includes(update)
   )
   if (!isValidOperation) {
-    return res.status(400).json({ success: false, error: 'Invalid updates' })
+    return res.status(400).json({ success: false, error: 'Cập nhật không hợp lệ' })
   }
 
   const product = await Product.findById(req.params.id)
   if (!product) {
-    return res.status(404).json({ success: false, error: 'Product not found' })
+    return res.status(404).json({ success: false, error: 'Sản phẩm không có' })
   }
 
   updates.forEach(update => (product[update] = req.body[update]))
   try {
     await product.save()
-    res.json({ success: true, message: 'Product Updated!', product })
+    res.json({ success: true, message: 'Sản phẩm được cập nhật!', product })
   } catch (err) {
     res.status(400).json({ success: false, error: err.message })
   }
@@ -154,10 +154,10 @@ export const updateProductImage = async (req, res) => {
     if (!product) {
       return res
         .status(404)
-        .json({ success: false, error: 'Product not found' })
+        .json({ success: false, error: 'Sản phẩm không có' })
     }
 
-    if (!req.file) throw new Error('please upload an image')
+    if (!req.file) throw new Error('xin vui lòng tải hình ảnh lên')
     fs.access('uploads', err => {
       if (err) {
         fs.mkdirSync('/uploads')
@@ -171,7 +171,7 @@ export const updateProductImage = async (req, res) => {
 
     product.image = `uploads/${date.getTime()}${req.file.originalname}`
     await product.save()
-    res.json({ success: true, message: 'Image updated', image: product.image })
+    res.json({ success: true, message: 'Hình ảnh được cập nhật', image: product.image })
   } catch (err) {
     if (req.file) {
       fs.unlinkSync(
@@ -191,10 +191,10 @@ export const deleteProduct = async (req, res) => {
     if (!product) {
       return res
         .status(404)
-        .json({ success: false, error: 'Product not found' })
+        .json({ success: false, error: 'Sản phẩm không có' })
     }
     await product.remove()
-    res.json({ success: true, message: 'product deleted' })
+    res.json({ success: true, message: 'Sản phẩm đã bị xóa' })
   } catch (err) {
     res.status(400).json({ success: false, error: err.message })
   }
@@ -237,7 +237,7 @@ export const createProductReview = async (req, res, next) => {
 export const getProductReviews = async (req, res, next) => {
   const product = await Product.findById(req.query.id);
   if (!product) {
-    return next(new errorHandler("Product not found", 404))
+    return next(new errorHandler("Sản phẩm không có", 404))
   }
   res.status(200).json({
     success: true,
@@ -249,7 +249,7 @@ export const getProductReviews = async (req, res, next) => {
 export const deleteReview = async (req, res, next) => {
   const product = await Product.findById(req.query.productId);
   if (!product) {
-    return next(new errorHandler("Product not found", 404))
+    return next(new errorHandler("Sản phẩm không có", 404))
   }
 
   const reviews = product.reviews.filter(rev => rev._id.toString() !== req.query.id.toString());

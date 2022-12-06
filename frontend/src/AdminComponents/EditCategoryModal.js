@@ -34,11 +34,11 @@ const EditCategoryModal = props => {
 
       <Modal show={show} style={{ zIndex: '9999' }} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Sửa danh mục</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="form-group">
-            <label htmlFor="title">Title</label>
+            <label htmlFor="title">Danh mục</label>
             <input
               type="text"
               name="title"
@@ -50,10 +50,10 @@ const EditCategoryModal = props => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Đóng
           </Button>
           <Button variant="primary" onClick={handleSave}>
-            Save Changes
+           Lưu thay đổi
           </Button>
         </Modal.Footer>
       </Modal>
