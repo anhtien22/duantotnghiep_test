@@ -211,7 +211,7 @@ const OdersState = (props) => {
 
   return (
     <OrderContext.Provider
-      value={{
+      value={ {
         placeOrder,
         orders,
         ordersError,
@@ -223,9 +223,9 @@ const OdersState = (props) => {
         getOneOrder,
         getOneOrderAdmin,
         updateStatustAdmin,
-      }}
+      } }
     >
-      {props.children}
+      { props.children }
     </OrderContext.Provider>
   );
 };

@@ -33,6 +33,8 @@ const AdminDashboard = () => {
   }, 0);
   // const limit = 5
   const skip = 0
+
+  const limit = 5;
   // const [skip, setSkip] = useState(0)
   // const [keyWord, setKeyWord] = useState('')
   // const [category, setCategory] = useState('')
@@ -55,6 +57,8 @@ const AdminDashboard = () => {
   }, []);
   useEffect(() => {
     getAllOrders(skip, '', '')
+    // eslint-disable-next-line
+    getProducts(limit, skip, "", "");
     // eslint-disable-next-line
   }, []);
 

@@ -102,8 +102,8 @@ const Checkout = () => {
                     type="text"
                     className="form-control"
                     name="name"
-                    value={shippingAddress.name}
-                    onChange={handleChange}
+                    value={ shippingAddress.name }
+                    onChange={ handleChange }
                   />
                 </div>
 
@@ -115,8 +115,8 @@ const Checkout = () => {
                     type="number"
                     className="form-control"
                     name="phone"
-                    value={shippingAddress.phone}
-                    onChange={handleChange}
+                    value={ shippingAddress.phone }
+                    onChange={ handleChange }
                   />
                 </div>
 
@@ -129,10 +129,10 @@ const Checkout = () => {
                       className="form-control"
                       id="c_address"
                       name="address"
-                      cols={30}
-                      rows={5}
-                      value={shippingAddress.address}
-                      onChange={handleChange}
+                      cols={ 30 }
+                      rows={ 5 }
+                      value={ shippingAddress.address }
+                      onChange={ handleChange }
                       placeholder="Street address"
                     ></textarea>
                   </div>
@@ -146,34 +146,34 @@ const Checkout = () => {
                     type="text"
                     className="form-control"
                     name="city"
-                    value={shippingAddress.city}
-                    onChange={handleChange}
+                    value={ shippingAddress.city }
+                    onChange={ handleChange }
                   />
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="c_country" className="text-black">
-                  Huyện/Phường <span className="text-danger">*</span>
+                    Huyện/Phường <span className="text-danger">*</span>
                   </label>
                   <input
                     type="text"
                     className="form-control"
                     name="country"
-                    value={shippingAddress.country}
-                    onChange={handleChange}
+                    value={ shippingAddress.country }
+                    onChange={ handleChange }
                   />
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="c_country" className="text-black">
-                  Mã bưu điện <span className="text-danger">*</span>
+                    Mã bưu điện <span className="text-danger">*</span>
                   </label>
                   <input
                     type="number"
                     className="form-control"
                     name="postalCode"
-                    value={shippingAddress.postalCode}
-                    onChange={handleChange}
+                    value={ shippingAddress.postalCode }
+                    onChange={ handleChange }
                   />
                 </div>
               </div>
@@ -186,32 +186,32 @@ const Checkout = () => {
                     <table className="table site-block-order-table mb-5">
                       <thead>
                         <tr>
-                        <th>Sản Phẩm</th>
+                          <th>Sản Phẩm</th>
                           <th>Giá</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {items.map((item) => (
-                          <tr key={item._id}>
+                        { items.map((item) => (
+                          <tr key={ item._id }>
                             <td>
-                              {item.name} <strong className="mx-2">x</strong>{" "}
-                              {item.quantity}
+                              { item.name } <strong className="mx-2">x</strong>{ " " }
+                              { item.quantity }
                             </td>
-                            <td>${item.itemTotal}.00</td>
+                            <td>${ item.itemTotal }.00</td>
                           </tr>
-                        ))}
+                        )) }
                         <tr>
                           <td className="text-black font-weight-bold">
                             <strong>Tổng :</strong>
                           </td>
-                          <td className="text-black">${cartTotal}.00</td>
+                          <td className="text-black">${ cartTotal }.00</td>
                         </tr>
                         <tr>
                           <td className="text-black font-weight-bold">
                             <strong>Order Total</strong>
                           </td>
                           <td className="text-black font-weight-bold">
-                            <strong>${cartTotal}.00</strong>
+                            <strong>${ cartTotal }.00</strong>
                           </td>
                         </tr>
                       </tbody>
@@ -219,12 +219,12 @@ const Checkout = () => {
 
                     <div className="form-group my-5">
                       <label className="text-black">
-                      Phương thức thanh toán <span className="text-danger">*</span>
+                        Phương thức thanh toán <span className="text-danger">*</span>
                       </label>
                       <select
                         className="form-control"
                         name="paymentMethod"
-                        onChange={(e) => setPaymentMethod(e.target.value)}
+                        onChange={ (e) => setPaymentMethod(e.target.value) }
                       >
                         <option value="">Lựa chọn</option>
                         <option value="cod">Thanh toán khi nhận hàng</option>
@@ -233,15 +233,15 @@ const Checkout = () => {
                     </div>
 
                     <div className="form-group">
-                      {paymentMethod === "paypal" ? (
+                      { paymentMethod === "paypal" ? (
                         !sdkReady ? (
                           <Loader />
                         ) : (
                           <PayPalButton
                             currency="USD"
-                            amount={cartTotal}
+                            amount={ cartTotal }
                             // onSuccess={handlePlaceOrder}
-                            onSuccess={async (details, data) => {
+                            onSuccess={ async (details, data) => {
                               // alert(
                               //   'Transaction completed by ' +
                               //     details.payer.name.given_name
@@ -264,24 +264,24 @@ const Checkout = () => {
                                   email_address: details.payer.email_address,
                                 }
                               );
-                            }}
+                            } }
                           />
                         )
                       ) : (
                         <button
                           className="btn btn-primary btn-lg py-3 btn-block"
-                          onClick={handlePlaceOrder}
+                          onClick={ handlePlaceOrder }
                         >
                           Tiến hành đặt hàng
                         </button>
-                      )}
+                      ) }
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          {/* </form> */}
+          {/* </form> */ }
         </div>
       </div>
     </>
