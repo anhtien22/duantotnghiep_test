@@ -83,44 +83,54 @@ const Orders = () => {
   useEffect(() => {
     getAllOrders();
   }, []);
-  return (
-    <>
-      <Navbar />
-      {/* HEADER */}
-      <header id="main-header" className="py-2 bg-warning text-white">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6">
-              <h1>
-                <i className="fas fa-users" /> Orders
-              </h1>
+  const item4 = orders.map((i) => {
+    let arr = [];
+    if (i.paymentResult.status === "Canceled") {
+      arr.push(i.paymentResult.status);
+    }
+    return arr;
+  });
+  const count4 = item4.filter((g) => g[0] === "Canceled");
+  if (orders.length) {
+    return (
+      <>
+        <Navbar />
+        {/* HEADER */}
+        <header id="main-header" className="py-2 bg-warning text-white">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-6">
+                <h1>
+                  <i className="fas fa-users" /> Orders
+                </h1>
+              </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* SEARCH */}
-      <section id="search" className="py-4 mb-4 bg-light">
-        <div className="container">
-          <div className="row">
-            <div>Doanh thu giao hàng: {formatter.format(resulf)}</div>
-            <Link to={`/orderAdmin/cod`} className="btn btn-secondary">
-              <i className="fas fa-angle-double-right" /> Chi tiết
-            </Link>
-            <div>
-              Doanh thu đã thanh toán online: {formatter.format(resulf2)}
-              <Link to={`/orderAdmin/online`} className="btn btn-secondary">
+        {/* SEARCH */}
+        <section id="search" className="py-4 mb-4 bg-light">
+          <div className="container">
+            <div className="row">
+              <div>Doanh thu giao hàng: {formatter.format(resulf)}</div>
+              <Link to={`/orderAdmin/cod`} className="btn btn-secondary">
                 <i className="fas fa-angle-double-right" /> Chi tiết
               </Link>
-            </div>
-            <div>Tổng doanh thu : {formatter.format(resulf3)}</div>
-            <div>
-              Đã hủy
-              <Link to={`/orderAdmin/canceled`} className="btn btn-secondary">
-                <i className="fas fa-angle-double-right" /> Chi tiết
-              </Link>
-            </div>
-            {/* <div className="col-md-6 ml-auto">
+              <div>
+                Doanh thu đã thanh toán online: {formatter.format(resulf2)}
+                <Link to={`/orderAdmin/online`} className="btn btn-secondary">
+                  <i className="fas fa-angle-double-right" /> Chi tiết
+                </Link>
+              </div>
+              <div>Tổng doanh thu : {formatter.format(resulf3)}</div>
+              <div>
+                Đã hủy
+                <Link to={`/orderAdmin/canceled`} className="btn btn-secondary">
+                  <i className="fas fa-angle-double-right" /> Chi tiết
+                </Link>
+                <h2>{""}</h2>
+              </div>
+              {/* <div className="col-md-6 ml-auto">Canceled
               <div className="input-group">
                 <input
                   type="text"
@@ -132,97 +142,103 @@ const Orders = () => {
                 </div>
               </div>
             </div> */}{" "}
-            <div className="col-md-6 ml-auto">
-              <Form className="d-flex" onSubmit={handleSearchSubmit}>
-                <FormControl
-                  type="search"
-                  placeholder="Mã đơn hàng"
-                  className="me-2"
-                  aria-label="Search"
-                  minLength={3}
-                  size="sm"
-                  value={keyWord}
-                  onChange={handleChange}
-                />
-                <button type="submit" className="btn btn-secondary mx-3">
-                  Search
-                </button>
-              </Form>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="users">
-        <div className="container">
-          <div className="row">
-            <div className="col">
-              <div className="card">
-                <div className="card-header">
-                  <h4>Đơn đặt hàng mới nhất </h4>
-                </div>
-                <table className="table table-striped">
-                  <thead className="thead-dark">
-                    <tr>
-                      <th>Mã</th>
-                      <th>Tên người dùng</th>
-                      <th>Ngày đặt hàng</th>
-                      <th>Tiền </th>
-                      <th>Trạng thái</th>
-                      <th>Xem thêm</th>
-                      <th />
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {orders.map((order, index) => (
-                      <tr key={order._id}>
-                        {/* <td>{index + 1}</td> */}
-                        <td>{order._id}</td>
-                        <td>{order.user?.name}</td>
-                        <td>
-                          {new Date(order.createdAt).toLocaleDateString()}
-                        </td>
-                        <td>{formatter.format(order.totalPrice)}</td>
-                        <td className="px-4 py-3">
-                          <div className="flex-grow w-full online">
-                            {order.paymentResult.status === "COMPLETED" ? (
-                              "Đã thanh toán online"
-                            ) : (
-                              <select
-                                onChange={(e) =>
-                                  updateStatustAdmin(e, order._id)
-                                }
-                                className="block w-full px-2 py-1 text-sm outline-none rounded-md form-select focus:shadow-none leading-5 h-12 bg-[#24262D] dark:bg-[#F4F5F7] border-[1px] border-gray-600 dark:border-gray-300 text-gray-200 dark:text-black"
-                                name="orderStatus"
-                                dangerouslySetInnerHTML={{
-                                  __html: statusHtml(
-                                    order.paymentResult.status
-                                  ),
-                                }}
-                              ></select>
-                            )}
-                          </div>
-                        </td>
-
-                        <td>
-                          <Link
-                            to={`/orderDetailsAdmin/${order._id}`}
-                            className="btn btn-secondary"
-                          >
-                            <i className="fas fa-angle-double-right" /> Chi tiết
-                          </Link>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+              <div className="col-md-6 ml-auto">
+                <Form className="d-flex" onSubmit={handleSearchSubmit}>
+                  <FormControl
+                    type="search"
+                    placeholder="Mã đơn hàng"
+                    className="me-2"
+                    aria-label="Search"
+                    minLength={3}
+                    size="sm"
+                    value={keyWord}
+                    onChange={handleChange}
+                  />
+                  <button type="submit" className="btn btn-secondary mx-3">
+                    Search
+                  </button>
+                </Form>
               </div>
             </div>
           </div>
-        </div>{" "}
-      </section>
-    </>
-  );
+        </section>
+
+        <section id="users">
+          <div className="container">
+            <div className="row">
+              <div className="col">
+                <div className="card">
+                  <div className="card-header">
+                    <h4>Đơn đặt hàng mới nhất </h4>
+                  </div>
+                  <table className="table table-striped">
+                    <thead className="thead-dark">
+                      <tr>
+                        <th>Mã</th>
+                        <th>Tên người dùng</th>
+                        <th>Ngày đặt hàng</th>
+                        <th>Tiền </th>
+                        <th>Trạng thái</th>
+                        <th>Xem thêm</th>
+                        <th />
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {orders.map((order, index) => (
+                        <tr key={order._id}>
+                          {/* <td>{index + 1}</td> */}
+                          <td>{order._id}</td>
+                          <td>{order.user?.name}</td>
+                          <td>
+                            {new Date(order.createdAt).toLocaleDateString()}
+                          </td>
+                          <td>{formatter.format(order.totalPrice)}</td>
+                          <td className="px-4 py-3">
+                            <div className="flex-grow w-full online">
+                              {order.paymentResult.status === "COMPLETED" ? (
+                                "Đã thanh toán online"
+                              ) : (
+                                <select
+                                  onChange={(e) =>
+                                    updateStatustAdmin(e, order._id)
+                                  }
+                                  className="block w-full px-2 py-1 text-sm outline-none rounded-md form-select focus:shadow-none leading-5 h-12 bg-[#24262D] dark:bg-[#F4F5F7] border-[1px] border-gray-600 dark:border-gray-300 text-gray-200 dark:text-black"
+                                  name="orderStatus"
+                                  dangerouslySetInnerHTML={{
+                                    __html: statusHtml(
+                                      order.paymentResult.status
+                                    ),
+                                  }}
+                                ></select>
+                              )}
+                            </div>
+                          </td>
+
+                          <td>
+                            <Link
+                              to={`/orderDetailsAdmin/${order._id}`}
+                              className="btn btn-secondary"
+                            >
+                              <i className="fas fa-angle-double-right" /> Chi
+                              tiết
+                            </Link>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>{" "}
+        </section>
+      </>
+    );
+  } else {
+    <>
+      <div>Đơn hàng trống</div>
+    </>;
+  }
 };
 
 export default Orders;
