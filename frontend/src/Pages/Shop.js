@@ -54,6 +54,11 @@ const Shop = () => {
     setSkip(skip + limit)
   }
 
+  const formatter = new Intl.NumberFormat("it-IT", {
+    style: "currency",
+    currency: "VND",
+  });
+
   return (
     <>
       <Breadcrumb pageName="Shop" />
@@ -112,7 +117,7 @@ const Shop = () => {
                           { product.category.title }
                         </p>
                         <p className="text-primary font-weight-bold">
-                          ${ product.price }
+                        {formatter.format(product.price)}
                         </p>
                       </div>
                     </div>
@@ -229,7 +234,7 @@ const Shop = () => {
                         />
                       </figure>
                       <div className="text">
-                        <span className="text-uppercase">Bộ sưu tập</span>
+                        <span className="text-uppercase">Collections</span>
                         <h3>Women</h3>
                       </div>
                     </a>
@@ -247,7 +252,7 @@ const Shop = () => {
                         />
                       </figure>
                       <div className="text">
-                        <span className="text-uppercase">Bộ sưu tập</span>
+                        <span className="text-uppercase">Collections</span>
                         <h3>Children</h3>
                       </div>
                     </a>
@@ -265,7 +270,7 @@ const Shop = () => {
                         />
                       </figure>
                       <div className="text">
-                        <span className="text-uppercase">Bộ sưu tập</span>
+                        <span className="text-uppercase">Collections</span>
                         <h3>Men</h3>
                       </div>
                     </a>

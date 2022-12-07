@@ -16,6 +16,11 @@ const FeaturedProducts = () => {
   const [category, setCategory] = useState('')
   const [totalResults, setTotalResults] = useState(0)
 
+  const formatter = new Intl.NumberFormat("it-IT", {
+    style: "currency",
+    currency: "VND",
+  });
+
   useEffect(() => {
     const populateProducts = async () => {
       setTotalResults(await getProducts(limit, skip, keyWord, category))
@@ -29,7 +34,7 @@ const FeaturedProducts = () => {
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-7 site-section-heading text-center pt-4">
-            <h2>Featured Products</h2>
+            <h2>Sản phẩm mới</h2>
           </div>
           <div className="row mb-5">
                 { products.map(product => (
@@ -57,7 +62,7 @@ const FeaturedProducts = () => {
                           { product.category.title }
                         </p>
                         <p className="text-primary font-weight-bold">
-                          ${ product.price }
+                        {formatter.format(product.price)}
                         </p>
                       </div>
                     </div>
