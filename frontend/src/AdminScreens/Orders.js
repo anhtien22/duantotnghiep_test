@@ -1,8 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../AdminComponents/Navbar";
 import OrderContext from "../context/orders/orderContext";
 import "./or.css";
+import SweetPagination from "sweetpagination";
+import { Form, FormControl } from "react-bootstrap";
 const statusOrder = {
   Confirmed: "Đang xác nhận",
   Processing: "Đang giao hàng",
@@ -29,19 +31,10 @@ const Orders = () => {
   // for order context
   const oContext = useContext(OrderContext);
   const { getAllOrders, orders, updateStatustAdmin } = oContext;
+
   const resulf = total(orders, "Successfully");
   const resulf2 = total(orders, "COMPLETED");
   const resulf3 = resulf + resulf2;
-  // var arrColor = ["#FF0000", "#0000FF", "#FFFF00"];
-  // var arrayLength = arrColor.length;
-
-  // for (var a = 0; a < arrayLength - 1; a++) {
-  //   var option = document.createElement("option");
-  //   option.style.color = arrColor[a];
-  //   option.style.backgroundColor = arrColor[a];
-  //   console.log(option);
-  // }
-
   const statusHtml = (orderStatus) => {
     const index = Object.keys(statusOrder).findIndex(
       (key) => key === orderStatus
@@ -61,15 +54,35 @@ const Orders = () => {
       })
       .join(" ");
   };
+
   const formatter = new Intl.NumberFormat("it-IT", {
     style: "currency",
     currency: "VND",
   });
+  const limit = 6;
+  const [keyWord, setKeyWord] = useState("");
+  useEffect(() => {
+    // getAllOrders();
+    const orderseacrh = async () => {
+      await getAllOrders(limit, keyWord);
+    };
+    orderseacrh();
+  }, [limit]);
+  const handleChange = (e) => {
+    setKeyWord(e.target.value);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+
+    const orderseacrh = async () => {
+      await getAllOrders(limit, keyWord);
+    };
+    orderseacrh();
+  };
   useEffect(() => {
     getAllOrders();
-    // eslint-disable-next-line
   }, []);
-
   return (
     <>
       <Navbar />
@@ -91,13 +104,23 @@ const Orders = () => {
         <div className="container">
           <div className="row">
             <div>Doanh thu giao hàng: {formatter.format(resulf)}</div>
-
+            <Link to={`/orderAdmin/cod`} className="btn btn-secondary">
+              <i className="fas fa-angle-double-right" /> Chi tiết
+            </Link>
             <div>
               Doanh thu đã thanh toán online: {formatter.format(resulf2)}
+              <Link to={`/orderAdmin/online`} className="btn btn-secondary">
+                <i className="fas fa-angle-double-right" /> Chi tiết
+              </Link>
             </div>
             <div>Tổng doanh thu : {formatter.format(resulf3)}</div>
-
-            <div className="col-md-6 ml-auto">
+            <div>
+              Đã hủy
+              <Link to={`/orderAdmin/canceled`} className="btn btn-secondary">
+                <i className="fas fa-angle-double-right" /> Chi tiết
+              </Link>
+            </div>
+            {/* <div className="col-md-6 ml-auto">
               <div className="input-group">
                 <input
                   type="text"
@@ -108,6 +131,23 @@ const Orders = () => {
                   <button className="btn btn-warning">Search</button>
                 </div>
               </div>
+            </div> */}{" "}
+            <div className="col-md-6 ml-auto">
+              <Form className="d-flex" onSubmit={handleSearchSubmit}>
+                <FormControl
+                  type="search"
+                  placeholder="Mã đơn hàng"
+                  className="me-2"
+                  aria-label="Search"
+                  minLength={3}
+                  size="sm"
+                  value={keyWord}
+                  onChange={handleChange}
+                />
+                <button type="submit" className="btn btn-secondary mx-3">
+                  Search
+                </button>
+              </Form>
             </div>
           </div>
         </div>
@@ -124,7 +164,7 @@ const Orders = () => {
                 <table className="table table-striped">
                   <thead className="thead-dark">
                     <tr>
-                      <th>#</th>
+                      <th>Mã</th>
                       <th>Tên người dùng</th>
                       <th>Ngày đặt hàng</th>
                       <th>Tiền </th>
@@ -136,7 +176,8 @@ const Orders = () => {
                   <tbody>
                     {orders.map((order, index) => (
                       <tr key={order._id}>
-                        <td>{index + 1}</td>
+                        {/* <td>{index + 1}</td> */}
+                        <td>{order._id}</td>
                         <td>{order.user?.name}</td>
                         <td>
                           {new Date(order.createdAt).toLocaleDateString()}
@@ -178,7 +219,7 @@ const Orders = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div>{" "}
       </section>
     </>
   );

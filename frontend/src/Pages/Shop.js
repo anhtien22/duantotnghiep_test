@@ -1,58 +1,57 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Form, FormControl, Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import Breadcrumb from '../components/Breadcrumb'
-import CategoryContext from '../context/category/categoryContext'
-import productContext from '../context/product/productContext'
+import React, { useContext, useEffect, useState } from "react";
+import { Form, FormControl, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import Breadcrumb from "../components/Breadcrumb";
+import CategoryContext from "../context/category/categoryContext";
+import productContext from "../context/product/productContext";
 
 const Shop = () => {
   // for product context
-  const pContext = useContext(productContext)
-  const { getProducts, products } = pContext
+  const pContext = useContext(productContext);
+  const { getProducts, products } = pContext;
 
   console.log("products", products);
   // for category context
-  const cContext = useContext(CategoryContext)
-  const { categories, getCategories } = cContext
+  const cContext = useContext(CategoryContext);
+  const { categories, getCategories } = cContext;
 
-  const limit = 6
-  const [skip, setSkip] = useState(0)
-  const [keyWord, setKeyWord] = useState('')
-  const [category, setCategory] = useState('')
-  const [totalResults, setTotalResults] = useState(0)
-
+  const limit = 6;
+  const [skip, setSkip] = useState(0);
+  const [keyWord, setKeyWord] = useState("");
+  const [category, setCategory] = useState("");
+  const [totalResults, setTotalResults] = useState(0);
   useEffect(() => {
     const populateProducts = async () => {
-      setTotalResults(await getProducts(limit, skip, keyWord, category))
-    }
-    populateProducts()
-    getCategories()
+      setTotalResults(await getProducts(limit, skip, keyWord, category));
+    };
+    populateProducts();
+    getCategories();
     // eslint-disable-next-line
-  }, [skip, limit, category])
+  }, [skip, limit, category]);
 
-  const handleChange = e => {
-    setKeyWord(e.target.value)
-  }
+  const handleChange = (e) => {
+    setKeyWord(e.target.value);
+  };
 
-  const handleSearchSubmit = e => {
-    e.preventDefault()
-    setSkip(0)
-    setCategory('')
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    setSkip(0);
+    setCategory("");
     const populateProducts = async () => {
-      setTotalResults(await getProducts(limit, skip, keyWord, category))
-    }
-    populateProducts()
-  }
+      setTotalResults(await getProducts(limit, skip, keyWord, category));
+    };
+    populateProducts();
+  };
 
   const handlePreviousClick = async () => {
     if (skip > 0) {
-      setSkip(skip - limit)
+      setSkip(skip - limit);
     }
-  }
+  };
 
   const handleNextClick = async () => {
-    setSkip(skip + limit)
-  }
+    setSkip(skip + limit);
+  };
 
   return (
     <>
@@ -67,16 +66,16 @@ const Shop = () => {
                     <h2 className="text-black h5">Shop All</h2>
                   </div>
                   <div className="d-flex">
-                    <Form className="d-flex" onSubmit={ handleSearchSubmit }>
+                    <Form className="d-flex" onSubmit={handleSearchSubmit}>
                       <FormControl
                         type="search"
                         placeholder="Search products"
                         className="me-2"
                         aria-label="Search"
-                        minLength={ 3 }
+                        minLength={3}
                         size="sm"
-                        value={ keyWord }
-                        onChange={ handleChange }
+                        value={keyWord}
+                        onChange={handleChange}
                       />
                       <button type="submit" className="btn btn-secondary mx-3">
                         Search
@@ -87,16 +86,17 @@ const Shop = () => {
               </div>
 
               <div className="row mb-5">
-                { products.map(product => (
+                {products.map((product) => (
                   <div
                     className="col-sm-6 col-lg-4 mb-4"
                     data-aos="fade-up"
-                    key={ product._id }>
+                    key={product._id}
+                  >
                     <div className="block-4 text-center border">
                       <figure className="block-4-image">
-                        <Link to={ `/shopSingle/${product._id}` }>
+                        <Link to={`/shopSingle/${product._id}`}>
                           <img
-                            src={ product.image }
+                            src={product.image}
                             alt="placeholder"
                             className="img-fluid"
                           />
@@ -104,20 +104,20 @@ const Shop = () => {
                       </figure>
                       <div className="block-4-text p-4">
                         <h3>
-                          <Link to={ `/shopSingle/${product._id}` }>
-                            { product.name }
+                          <Link to={`/shopSingle/${product._id}`}>
+                            {product.name}
                           </Link>
                         </h3>
                         <p className="mb-0 text-secondary">
-                          { product.category.title }
+                          {product.category.title}
                         </p>
                         <p className="text-primary font-weight-bold">
-                          ${ product.price }
+                          ${product.price}
                         </p>
                       </div>
                     </div>
                   </div>
-                )) }
+                ))}
               </div>
 
               <div className="row" data-aos="fade-up">
@@ -126,16 +126,17 @@ const Shop = () => {
                     <Button
                       variant="success"
                       size="sm"
-                      onClick={ handlePreviousClick }
-                      disabled={ skip < 1 }>
+                      onClick={handlePreviousClick}
+                      disabled={skip < 1}
+                    >
                       &larr; Previous
                     </Button>
 
                     <div className="text-center mx-2">
-                      Page-{ skip / limit + 1 },
+                      Page-{skip / limit + 1},
                       <span className="text-muted">
-                        { ' ' }
-                        Showing { products.length } out of { totalResults }{ ' ' }
+                        {" "}
+                        Showing {products.length} out of {totalResults}{" "}
                         products.
                       </span>
                     </div>
@@ -143,8 +144,9 @@ const Shop = () => {
                     <Button
                       variant="success"
                       size="sm"
-                      onClick={ handleNextClick }
-                      disabled={ totalResults - skip <= limit }>
+                      onClick={handleNextClick}
+                      disabled={totalResults - skip <= limit}
+                    >
                       Next &rarr;
                     </Button>
                   </div>
@@ -161,29 +163,31 @@ const Shop = () => {
                   <li className="mb-1">
                     <button
                       className="d-flex btn btn-secondary"
-                      onClick={ () => {
-                        setCategory('')
-                        setSkip(0)
-                      } }>
+                      onClick={() => {
+                        setCategory("");
+                        setSkip(0);
+                      }}
+                    >
                       <span>All</span>
                       {/* <span className="text-black ml-auto">
                         ({totalResults})
                       </span> */}
                     </button>
                   </li>
-                  { categories.map(cate => (
-                    <li className="mb-1" key={ cate._id }>
+                  {categories.map((cate) => (
+                    <li className="mb-1" key={cate._id}>
                       <button
                         className="d-flex btn btn-secondary"
-                        onClick={ () => {
-                          setCategory(cate._id)
-                          setSkip(0)
-                        } }>
-                        <span>{ cate.title }</span>
-                        {/* <span className="text-black ml-auto">(2,220)</span> */ }
+                        onClick={() => {
+                          setCategory(cate._id);
+                          setSkip(0);
+                        }}
+                      >
+                        <span>{cate.title}</span>
+                        {/* <span className="text-black ml-auto">(2,220)</span> */}
                       </button>
                     </li>
-                  )) }
+                  ))}
                 </ul>
               </div>
 
@@ -217,7 +221,8 @@ const Shop = () => {
                   <div
                     className="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0"
                     data-aos="fade"
-                    data-aos-delay="">
+                    data-aos-delay=""
+                  >
                     <a className="block-2-item" href="/">
                       <figure className="image">
                         <img
@@ -235,7 +240,8 @@ const Shop = () => {
                   <div
                     className="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0"
                     data-aos="fade"
-                    data-aos-delay="100">
+                    data-aos-delay="100"
+                  >
                     <a className="block-2-item" href="/">
                       <figure className="image">
                         <img
@@ -253,7 +259,8 @@ const Shop = () => {
                   <div
                     className="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0"
                     data-aos="fade"
-                    data-aos-delay="200">
+                    data-aos-delay="200"
+                  >
                     <a className="block-2-item" href="/">
                       <figure className="image">
                         <img
@@ -275,7 +282,7 @@ const Shop = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Shop
+export default Shop;

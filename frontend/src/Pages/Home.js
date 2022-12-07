@@ -1,20 +1,22 @@
-import React from 'react'
-import FeaturedProducts from '../components/FeaturedProducts'
+import React from "react";
+import FeaturedProducts from "../components/FeaturedProducts";
 
 const Home = () => {
   return (
     <>
       <div
         className="site-blocks-cover"
-        style={{ backgroundImage: 'url(images/hero_1.jpg)' }}
-        data-aos="fade">
+        style={{ backgroundImage: "url(images/hero_1.jpg)" }}
+        data-aos="fade"
+      >
         <div className="container">
           <div
             className="
               row
               align-items-start align-items-md-center
               justify-content-end
-            ">
+            "
+          >
             <div className="col-md-5 text-center text-md-left pt-5 pt-md-0">
               <h1 className="mb-2">Finding Your Perfect Shoes</h1>
               <div className="intro-text text-center text-md-left">
@@ -40,7 +42,8 @@ const Home = () => {
             <div
               className="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4"
               data-aos="fade-up"
-              data-aos-delay="">
+              data-aos-delay=""
+            >
               <div className="icon mr-4 align-self-start">
                 <span className="icon-truck"></span>
               </div>
@@ -56,7 +59,8 @@ const Home = () => {
             <div
               className="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4"
               data-aos="fade-up"
-              data-aos-delay="100">
+              data-aos-delay="100"
+            >
               <div className="icon mr-4 align-self-start">
                 <span className="icon-refresh2"></span>
               </div>
@@ -72,7 +76,8 @@ const Home = () => {
             <div
               className="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4"
               data-aos="fade-up"
-              data-aos-delay="200">
+              data-aos-delay="200"
+            >
               <div className="icon mr-4 align-self-start">
                 <span className="icon-help"></span>
               </div>
@@ -95,7 +100,8 @@ const Home = () => {
             <div
               className="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0"
               data-aos="fade"
-              data-aos-delay="">
+              data-aos-delay=""
+            >
               <a className="block-2-item" href="/">
                 <figure className="image">
                   <img src="images/women.jpg" alt="" className="img-fluid" />
@@ -109,7 +115,8 @@ const Home = () => {
             <div
               className="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0"
               data-aos="fade"
-              data-aos-delay="100">
+              data-aos-delay="100"
+            >
               <a className="block-2-item" href="/">
                 <figure className="image">
                   <img src="images/children.jpg" alt="" className="img-fluid" />
@@ -123,7 +130,8 @@ const Home = () => {
             <div
               className="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0"
               data-aos="fade"
-              data-aos-delay="200">
+              data-aos-delay="200"
+            >
               <a className="block-2-item" href="/">
                 <figure className="image">
                   <img src="images/men.jpg" alt="" className="img-fluid" />
@@ -180,7 +188,7 @@ const Home = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
