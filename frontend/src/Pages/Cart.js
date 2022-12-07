@@ -23,13 +23,19 @@ const Cart = () => {
   } = useCart();
 
   console.log("items", items);
+
+  const formatter = new Intl.NumberFormat("it-IT", {
+    style: "currency",
+    currency: "VND",
+  });
+
   return (
     <>
       <Breadcrumb pageName="Cart" />
       {isEmpty ? (
         <div className="text-center my-5">
-          <h2 className=" my-3">Giỏ Hàng Bạn Đang Trống</h2>
-          <button onClick={() => navigate("/shop")}>Trở Lại Shop</button>
+          <h2 className=" my-3">Giỏ của bạn trống</h2>
+          <button onClick={() => navigate("/shop")}>Quay trở lại</button>
         </div>
       ) : (
         <div className="site-section">
@@ -44,7 +50,7 @@ const Cart = () => {
                   <table className="table table-bordered">
                     <thead>
                       <tr>
-                        <th className="product-thumbnail">Ảnh</th>
+                        <th className="product-thumbnail">Hình ảnh</th>
                         <th className="product-name">Sản Phẩm</th>
                         <th className="product-price">Giá</th>
                         <th className="product-quantity">Số Lượng</th>
@@ -70,7 +76,7 @@ const Cart = () => {
                               <td className="product-name">
                                 <h2 className="h5 text-black">{item.name}</h2>
                               </td>
-                              <td>${item.price}</td>
+                              <td> {formatter.format(item.price)}</td>                            
                               <td>
                                 <div
                                   className="input-group mb-3"
@@ -119,7 +125,7 @@ const Cart = () => {
                                   </div>
                                 </div>
                               </td>
-                              <td>${item.itemTotal}</td>
+                              <td>{formatter.format(item.itemTotal)}</td>
                               <td>
                                 <button
                                   onClick={() => removeItem(item.id)}
@@ -144,24 +150,26 @@ const Cart = () => {
                   <div className="col-md-6 mb-3 mb-md-0">
                     <button
                       onClick={() => emptyCart()}
-                      className="btn btn-warning btn-sm btn-block">
-                      Xóa Tất Cả 
+                      className="btn btn-warning btn-sm btn-block"
+                    >
+                      Giỏ hàng trống
                     </button>
                   </div>
                   <div className="col-md-6">
                     <Link
                       to="/shop"
-                      className="btn btn-outline-primary btn-sm btn-block">
-                      Tiếp Tục Mua
+                      className="btn btn-outline-primary btn-sm btn-block"
+                    >
+                      Tiếp tục mua sắm
                     </Link>
                   </div>
                 </div>
                 <div className="row">
                   <div className="col-md-12">
                     <label className="text-black h4" htmlFor="coupon">
-                      Giảm giá
+                    Phiếu mua hàng
                     </label>
-                    <p>Nhập mã giảm giá vào đây nếu bạn có </p>
+                    <p>Nhập mã phiếu giảm giá của bạn nếu bạn có.</p>
                   </div>
                   <div className="col-md-8 mb-3 mb-md-0">
                     <input
@@ -173,7 +181,7 @@ const Cart = () => {
                   </div>
                   <div className="col-md-4">
                     <button className="btn btn-primary btn-sm">
-                      Chấp Nhận
+                    Áp dụng phiếu giảm giá
                     </button>
                   </div>
                 </div>
@@ -184,16 +192,24 @@ const Cart = () => {
                     <div className="row">
                       <div className="col-md-12 text-right border-bottom mb-5">
                         <h3 className="text-black h4 text-uppercase text-center">
-                          Tổng
+                          Tổng số giỏ hàng
                         </h3>
+                      </div>
+                    </div>
+                    <div className="row mb-3">
+                      <div className="col-md-6">
+                        <span className="text-black">Tổng phụ</span>
+                      </div>
+                      <div className="col-md-6 text-right">
+                        <strong className="text-black">{formatter.format(cartTotal)}.00</strong>
                       </div>
                     </div>
                     <div className="row mb-5">
                       <div className="col-md-6">
-                        <span className="text-black">Tổng : </span>
+                        <span className="text-black">Tổng cộng</span>
                       </div>
                       <div className="col-md-6 text-right">
-                        <strong className="text-black">${cartTotal}.00</strong>
+                        <strong className="text-black">{formatter.format(cartTotal)}.00</strong>
                       </div>
                     </div>
 
@@ -202,9 +218,10 @@ const Cart = () => {
                         <button
                           className="btn btn-primary btn-lg py-3 btn-block"
                           onClick={() =>
-                            navigate(user ? '/checkout' : '/login')
-                          }>
-                          Tiến hành thanh toán
+                            navigate(user ? "/checkout" : "/login")
+                          }
+                        >
+                        Tiến hành kiểm tra
                         </button>
                       </div>
                     </div>

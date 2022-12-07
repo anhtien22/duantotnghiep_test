@@ -23,7 +23,10 @@ const ShopSingle = () => {
     fetctProduct();
     // eslint-disable-next-line
   }, []);
-
+  const formatter = new Intl.NumberFormat("it-IT", {
+    style: "currency",
+    currency: "VND",
+  });
   return (
     <>
       <Breadcrumb pageName={product.name} />
@@ -42,7 +45,7 @@ const ShopSingle = () => {
                 </small>
               </p>
               <p>
-                <strong className="text-primary h4">${product.price}</strong>
+                <strong className="text-primary h4">{formatter.format(product.price)}</strong>
               </p>
 
               <div className="mb-5">

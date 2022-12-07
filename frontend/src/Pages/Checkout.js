@@ -84,7 +84,10 @@ const Checkout = () => {
   const handlePlaceOrder = () => {
     placeOrder(orderItems, shippingAddress, paymentMethod, cartTotal);
   };
-
+  const formatter = new Intl.NumberFormat("it-IT", {
+    style: "currency",
+    currency: "VND",
+  });
   return (
     <>
       <Breadcrumb pageName="Checkout" />
@@ -197,21 +200,22 @@ const Checkout = () => {
                               {item.name} <strong className="mx-2">x</strong>{" "}
                               {item.quantity}
                             </td>
-                            <td>${item.itemTotal}.00</td>
+                            <td>{formatter.format(item.itemTotal)}</td>
                           </tr>
                         ))}
                         <tr>
                           <td className="text-black font-weight-bold">
                             <strong>Tổng :</strong>
                           </td>
-                          <td className="text-black">${cartTotal}.00</td>
+                          <td className="text-black">{formatter.format(cartTotal)}</td>
+                          
                         </tr>
                         <tr>
                           <td className="text-black font-weight-bold">
                             <strong>Order Total</strong>
                           </td>
                           <td className="text-black font-weight-bold">
-                            <strong>${cartTotal}.00</strong>
+                            <strong>{formatter.format(cartTotal)}</strong>
                           </td>
                         </tr>
                       </tbody>
