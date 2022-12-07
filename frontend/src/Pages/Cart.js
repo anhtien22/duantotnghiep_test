@@ -29,6 +29,7 @@ const Cart = () => {
     currency: "VND",
   });
 
+  console.log("items", items);
   return (
     <>
       <Breadcrumb pageName="Cart" />

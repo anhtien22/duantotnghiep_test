@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../AdminComponents/Navbar";
 import OrderContext from "../context/orders/orderContext";
-
+import "./or.css";
 const statusOrder = {
   Confirmed: "Đang xác nhận",
   Processing: "Đang giao hàng",
@@ -155,7 +155,7 @@ const Orders = () => {
                         </td>
                         <td>{formatter.format(order.totalPrice)}</td>
                         <td className="px-4 py-3">
-                          <div className="flex-grow w-full">
+                          <div className="flex-grow w-full online">
                             {order.paymentResult.status === "COMPLETED" ? (
                               "Đã thanh toán online"
                             ) : (
@@ -163,7 +163,7 @@ const Orders = () => {
                                 onChange={(e) =>
                                   updateStatustAdmin(e, order._id)
                                 }
-                                className="browser-default custom-select"
+                                className="block w-full px-2 py-1 text-sm outline-none rounded-md form-select focus:shadow-none leading-5 h-12 bg-[#24262D] dark:bg-[#F4F5F7] border-[1px] border-gray-600 dark:border-gray-300 text-gray-200 dark:text-black"
                                 name="orderStatus"
                                 dangerouslySetInnerHTML={{
                                   __html: statusHtml(
