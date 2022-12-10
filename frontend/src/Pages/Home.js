@@ -9,6 +9,7 @@ import 'swiper/components/navigation/navigation.min.css'
 import 'swiper/components/pagination/pagination.min.css'
 import "../../src/App.css";
 import SwiperCore, { Navigation, Pagination, Autoplay, EffectFade } from 'swiper';
+import { Link } from 'react-router-dom';
 
 SwiperCore.use([Navigation, Pagination, Autoplay, EffectFade]);
 
@@ -31,45 +32,45 @@ const Home = ({ strings }) => {
         onSlideChange={ () => console.log('slide change') }
       >
         <SwiperSlide>
-          <a href="http://localhost:3000/shop" className="link">
+          <Link to={ "/shop" } className="link">
             <img src="images/Baner/Baner1.png" alt="" />
-          </a>
+          </Link>
         </SwiperSlide>
 
         <SwiperSlide>
-          <a href="http://localhost:3000/shop" className="link">
+          <Link to={ "/shop" } className="link">
             <img src="images/Baner/Baner2.png" alt="" />
-          </a>
+          </Link>
         </SwiperSlide>
 
         <SwiperSlide>
-          <a href="http://localhost:3000/shop" className="link">
+          <Link to={ "/shop" } className="link">
             <img src="images/Baner/Baner3.png" alt="" />
-          </a>
+          </Link>
         </SwiperSlide>
 
         <SwiperSlide>
-          <a href="http://localhost:3000/shop" className="link">
+          <Link to={ "/shop" } className="link">
             <img src="images/Baner/Baner4.png" alt="" />
-          </a>
+          </Link>
         </SwiperSlide>
 
         <SwiperSlide>
-          <a href="http://localhost:3000/shop" className="link">
+          <Link to={ "/shop" } className="link">
             <img src="images/Baner/Baner5.png" alt="" />
-          </a>
+          </Link>
         </SwiperSlide>
 
         <SwiperSlide>
-          <a href="http://localhost:3000/shop" className="link">
+          <Link to={ "/shop" } className="link">
             <img src="images/Baner/Baner6.png" alt="" />
-          </a>
+          </Link>
         </SwiperSlide>
 
         <SwiperSlide>
-          <a href="http://localhost:3000/shop" className="link">
+          <Link to={ "/shop" } className="link">
             <img src="images/Baner/Baner7.png" alt="" />
-          </a>
+          </Link>
         </SwiperSlide>
       </Swiper>
 

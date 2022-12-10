@@ -203,7 +203,7 @@ const AdminDashboard = () => {
                     <p className="display-4">
                       <i className="fas fa-users" /> { formatter.format(resulf) }
                     </p>
-                    <Link to="/users" className="btn btn-outline-light btn-sm">
+                    <Link to="/orders" className="btn btn-outline-light btn-sm">
                       Xem
                     </Link>
                   </div>

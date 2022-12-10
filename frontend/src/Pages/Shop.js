@@ -190,10 +190,10 @@ const Shop = () => {
 
             <div className="col-md-3 order-1 mb-5 mb-md-0">
               <div className="border p-4 rounded mb-4">
-                <h3 className="mb-3 h6 text-uppercase text-black d-block">
+                {/* <h3 className="mb-3 h6 text-uppercase text-black d-block">
                   Danh Mục
-                </h3>
-                <div className="cont">
+                </h3> */}
+                {/* <div className="cont">
                   <label className="container">Tất cả
                     <input type="radio" checked="checked" name="radio" onClick={ () => {
                       setCategory('')
@@ -210,45 +210,46 @@ const Shop = () => {
                       <span className="checkmark" key={ cate._id }></span>
                     </label>
                   )) }
-                </div>
-                <div className="border p-4 rounded mb-4">
-                  <div className="mb-4">
-                    <h3 className="mb-3 h6 text-uppercase text-black d-block">
-                      Filter by Price
-                    </h3>
-                    <div id="slider-range" className="border-primary">
-                      <ul className="list-unstyled mb-0">
-                        <li className="mb-1">
-                          <button
-                            className="d-flex btn btn-secondary"
-                            onClick={ () => {
-                              setCategory('')
-                              setSkip(0)
-                            } }>
-                            <span>Tất cả</span>
-                            {/* <span className="text-black ml-auto">
+                </div> */}
+                {/* <div className="mb-4"> */ }
+                <h3 className="mb-3 h6 text-uppercase text-black d-block">
+                  Danh Mục
+                </h3>
+                {/* <div id="slider-range" className="border-primary"> */ }
+                <ul className="list-unstyled mb-0">
+                  <li className="mb-1">
+                    <button
+                      className="d-flex btn btn-secondary"
+                      onClick={ () => {
+                        setCategory('')
+                        setSkip(0)
+                      } }>
+                      <span>Tất cả</span>
+                      {/* <span className="text-black ml-auto">
                         ({totalResults})
                       </span> */}
-                          </button>
-                        </li>
-                        { categories.map((cate) => (
-                          <li className="mb-1" key={ cate._id }>
-                            <button
-                              className="d-flex btn btn-secondary"
-                              onClick={ () => {
-                                setCategory(cate._id);
-                                setSkip(0);
-                              } }
-                            >
-                              <span>{ cate.title }</span>
-                              {/* <span className="text-black ml-auto">(2,220)</span> */ }
-                            </button>
-                          </li>
-                        )) }
-                      </ul>
-                    </div>
+                    </button>
+                  </li>
+                  { categories.map((cate) => (
+                    <li className="mb-1" key={ cate._id }>
+                      <button
+                        className="d-flex btn btn-secondary"
+                        onClick={ () => {
+                          setCategory(cate._id);
+                          setSkip(0);
+                        } }
+                      >
+                        <span>{ cate.title }</span>
+                        {/* <span className="text-black ml-auto">(2,220)</span> */ }
+                      </button>
+                    </li>
+                  )) }
+                </ul>
+                {/* </div> */ }
 
-                  </div>
+                {/* </div> */ }
+                <div className="border p-4 rounded mb-4">
+
                   <input
                     type="text"
                     name="text"

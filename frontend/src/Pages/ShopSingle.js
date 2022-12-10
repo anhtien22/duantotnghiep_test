@@ -14,8 +14,8 @@ const ShopSingle = () => {
 
   const { id } = useParams();
   const [product, setProduct] = useState({ brand: {} });
-
-
+  const [productReview, setProductReview] = useState("")
+  console.log("productReview", productReview);
   // comment 
   const [rating, setRating] = useState(1);
   const [comment, setComment] = useState("");
@@ -35,6 +35,7 @@ const ShopSingle = () => {
     const fetctProduct = async () => {
       const fetchedProduct = await getOneProduct(id);
       setProduct(fetchedProduct);
+      setProductReview(fetchedProduct)
     };
     fetctProduct();
     // eslint-disable-next-line
@@ -144,8 +145,8 @@ const ShopSingle = () => {
               <h1>Comments</h1>
               <div className="comment mt-4 text-justify float-left">
 
-                { product.reviews &&
-                  product.reviews.map((review) => (
+                { productReview.reviews &&
+                  productReview.reviews.map((review) => (
                     <>
                       <h4>{ review.name }</h4>
                       <span>{ review.createdAt }</span>
