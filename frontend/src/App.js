@@ -31,6 +31,7 @@ import UpdatePassword from './Pages/UpdatePassword'
 import { multilanguage, loadLanguages } from "redux-multilanguage";
 import { connect } from "react-redux";
 
+<<<<<<< HEAD
 function App(props) {
   useEffect(() => {
     props.dispatch(
@@ -42,6 +43,12 @@ function App(props) {
       })
     );
   });
+=======
+// import 'swiper/swiper-bundle.min.css'
+// import "../public/css/style.css";
+
+function App() {
+>>>>>>> 27d0d06a5ada362d361b1f99fb3f1aaf9150001d
   return (
     <main className="site-wrap">
       <Misc />

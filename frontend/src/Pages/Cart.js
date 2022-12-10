@@ -26,119 +26,174 @@ const Cart = () => {
   return (
     <>
       <Breadcrumb pageName="Cart" />
-      { isEmpty ? (
+      {isEmpty ? (
         <div className="text-center my-5">
           <h2 className=" my-3">Giỏ Hàng Bạn Đang Trống</h2>
-          <button onClick={ () => navigate("/shop") }>Trở Lại Shop</button>
+          <button onClick={() => navigate("/shop")}>Trở Lại Shop</button>
         </div>
       ) : (
         <div className="site-section">
           <div className="container">
             <div className="row mb-5">
               <form className="col-md-12" method="post">
-                <div className="site-blocks-table">
+                {/* <div className="site-blocks-table"> */}
                   <h4>
-                    Giỏ hàng có : ({ totalUniqueItems }) loại sản phẩm và tổng số lượng sản phẩm là : ({ ' ' }
-                    { totalItems }) trong giỏ hàng.
+                    Giỏ hàng có : ({totalUniqueItems}) loại sản phẩm và tổng số lượng sản phẩm là : ({' '}
+                    {totalItems}) trong giỏ hàng.
                   </h4>
-                  <table className="table table-bordered">
+
+
+                  <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th className="product-thumbnail">Ảnh</th>
-                        <th className="product-name">Sản Phẩm</th>
-                        <th className="product-price">Giá</th>
-                        <th className="product-quantity">Số Lượng</th>
-                        <th className="product-total">Tổng</th>
-                        <th className="product-remove"></th>
+                        <th scope="col" id="anh">Ảnh</th>
+                        <th scope="col">Sản Phẩm</th>
+                        <th scope="col">Giá</th>
+                        <th scope="col">Số Lượng</th>
+                        <th scope="col">Tổng</th>
+                        <th scope="col"></th>
                       </tr>
                     </thead>
 
                     <tbody>
                       {
                         <>
-                          { items.map((item) => (
-                            <tr key={ item._id }>
-                              <td className="product-thumbnail">
-                                <Link to={ `/shopSingle/${item._id}` }>
-                                  <img
-                                    src={ item.image }
-                                    alt="img"
-                                    className="img-fluid"
-                                  />
+                          {items.map((item) => (
+                            <tr key={item._id}>
+                              <td scope="row">
+                                <Link to={`/shopSingle/${item._id}`}>
+                                  <img src={item.image} alt="img" className="img-fluid" id="img3" />
                                 </Link>
                               </td>
-                              <td className="product-name">
-                                <h2 className="h5 text-black">{ item.name }</h2>
-                              </td>
-                              <td>${ item.price }</td>
-                              <td>
-                                <div
-                                  className="input-group mb-3"
-                                  style={ { maxWidth: "120px" } }
-                                >
+                              <td>{item.name}</td>
+                              <td>${item.price}</td>
+                              <td id="sl">
+                                <div className="input-group mb-3" style={{ maxWidth: "120px" }}>
                                   <div className="input-group-prepend">
-                                    <button
-                                      onClick={ () =>
-                                        updateItemQuantity(
-                                          item.id,
-                                          item.quantity - 1
-                                        )
-                                      }
-                                      className="btn btn-outline-primary js-btn-minus"
-                                      type="button"
-                                    >
+                                    <button onClick={() => updateItemQuantity( item.id, item.quantity - 1)} className="btn btn-outline-primary js-btn-minus" type="button">
                                       &minus;
                                     </button>
                                   </div>
-                                  <input
-                                    type="text"
-                                    className="form-control text-center"
-                                    value={ item.quantity }
-                                    placeholder=""
-                                    disabled
-                                    onChange={ (e) =>
-                                      updateItemQuantity(
-                                        item.id,
-                                        e.target.value
-                                      )
-                                    }
-                                    aria-describedby="button-addon1"
-                                  />
+                                  <input type="text" className="form-control text-center" value={item.quantity} placeholder="" disabled onChange={(e) => updateItemQuantity( item.id, e.target.value)} aria-describedby="button-addon1"/>
                                   <div className="input-group-append">
-                                    <button
-                                      onClick={ () =>
-                                        updateItemQuantity(
-                                          item.id,
-                                          item.quantity + 1
-                                        )
-                                      }
-                                      className="btn btn-outline-primary js-btn-plus"
-                                      type="button"
-                                      disabled={
-                                        item.quantity >= item.Stock
-                                      }
-                                    >
+                                    <button onClick={() => updateItemQuantity( item.id, item.quantity + 1 )} className="btn btn-outline-primary js-btn-plus" type="button" disabled={ item.quantity >= item.Stock }>
                                       &#43;
                                     </button>
                                   </div>
                                 </div>
                               </td>
-                              <td>${ item.itemTotal }</td>
+                              <td>${item.itemTotal}</td>
                               <td>
-                                <button
-                                  onClick={ () => removeItem(item.id) }
-                                  className="btn btn-danger btn-sm"
-                                >
-                                  Xóa
-                                </button>
+                              <button onClick={() => removeItem(item.id)} className="delete"><iconify-icon icon="ic:round-delete-forever"></iconify-icon></button>
                               </td>
                             </tr>
-                          )) }
+                          ))}
                         </>
                       }
                     </tbody>
                   </table>
-                </div>
+
+
+
+
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                {/* </div> */}
               </form>
             </div>
 
@@ -147,7 +202,7 @@ const Cart = () => {
                 <div className="row mb-5">
                   <div className="col-md-6 mb-3 mb-md-0">
                     <button
-                      onClick={ () => emptyCart() }
+                      onClick={() => emptyCart()}
                       className="btn btn-warning btn-sm btn-block">
                       Xóa Tất Cả
                     </button>
@@ -197,7 +252,7 @@ const Cart = () => {
                         <span className="text-black">Tổng : </span>
                       </div>
                       <div className="col-md-6 text-right">
-                        <strong className="text-black">${ cartTotal }.00</strong>
+                        <strong className="text-black">${cartTotal}.00</strong>
                       </div>
                     </div>
 
@@ -205,7 +260,7 @@ const Cart = () => {
                       <div className="col-md-12">
                         <button
                           className="btn btn-primary btn-lg py-3 btn-block"
-                          onClick={ () =>
+                          onClick={() =>
                             navigate(user ? '/checkout' : '/login')
                           }>
                           Tiến hành thanh toán
@@ -218,7 +273,7 @@ const Cart = () => {
             </div>
           </div>
         </div>
-      ) }
+      )}
     </>
   );
 };
