@@ -18,6 +18,11 @@ const productSchema = mongoose.Schema(
       ref: 'Category',
       required: [true, 'Vui lòng nhập danh mục'],
     },
+    brand: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Brand',
+      required: [true, 'Vui lòng nhập thương hiệu'],
+    },
     price: {
       type: Number,
       required: [true, 'Vui lòng nhập giá'],

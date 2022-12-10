@@ -5,11 +5,11 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import CategoryState from './context/category/CategoryState'
 import ProductState from './context/product/ProductState'
+import BrandState from './context/brand/BrandState'
 import UserState from './context/user/UserState'
 import OrderState from './context/orders/OrderState'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { CartProvider } from 'react-use-cart'
-import VariationState from './context/variation/VariationState'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -17,13 +17,13 @@ ReactDOM.render(
       <Router>
         <UserState>
           <OrderState>
-            <CategoryState>
-              <VariationState>
+            <BrandState>
+              <CategoryState>
                 <ProductState>
                   <App />
                 </ProductState>
-              </VariationState>
-            </CategoryState>
+              </CategoryState>
+            </BrandState>
           </OrderState>
         </UserState>
       </Router>

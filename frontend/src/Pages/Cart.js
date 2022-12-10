@@ -202,7 +202,7 @@ const Cart = () => {
                         <span className="text-black">Tổng phụ</span>
                       </div>
                       <div className="col-md-6 text-right">
-                        <strong className="text-black">{formatter.format(cartTotal)}.00</strong>
+                        <strong className="text-black">{formatter.format(cartTotal)}</strong>
                       </div>
                     </div>
                     <div className="row mb-5">
@@ -210,7 +210,7 @@ const Cart = () => {
                         <span className="text-black">Tổng cộng</span>
                       </div>
                       <div className="col-md-6 text-right">
-                        <strong className="text-black">{formatter.format(cartTotal)}.00</strong>
+                        <strong className="text-black">{formatter.format(cartTotal)}</strong>
                       </div>
                     </div>
 

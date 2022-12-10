@@ -91,7 +91,7 @@ const Users = () => {
                               </button>
                             </Link> */}
                             <button
-                              className="btn btn-secondary"
+                              className="btn btn-secondary bg-danger text-white"
                               // disabled
                               onClick={ () => deleteSaveChanges(user._id) }>
                               <i className="fas fa-angle-double-right" /> Xóa
@@ -125,7 +125,7 @@ const Users = () => {
                         <td>Admin</td>
                         <td>admin@gmail.com</td>
                         <td>
-                          <a href="details.html" className="btn btn-secondary">
+                          <a href="details.html" className="btn btn-secondary bg-primary text-white">
                             <i className="fas fa-angle-double-right" /> Chi tiết
                           </a>
                         </td>

@@ -9,7 +9,7 @@ const ShopSingle = () => {
   const [quantity, setQuantity] = useState(1);
 
   const { id } = useParams();
-  const [product, setProduct] = useState({ category: {} });
+  const [product, setProduct] = useState({ brand: {} });
 
   // for product context
   const pContext = useContext(productContext);
@@ -41,7 +41,7 @@ const ShopSingle = () => {
               <p>{product.description}</p>
               <p>
                 <small className="text-secondary">
-                  {product.category.title}
+                  Thương hiệu: {product.brand.local}
                 </small>
               </p>
               <p>
@@ -95,6 +95,7 @@ const ShopSingle = () => {
                   Thêm vào giỏ
                 </Link>
               </p>
+              <small>Mã sản phẩm: {product.sku}</small>
             </div>
           </div>
         </div>

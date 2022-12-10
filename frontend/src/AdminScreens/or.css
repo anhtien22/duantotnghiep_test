@@ -1,11 +1,11 @@
 [value="Successfully"] {
-  color: red !important;
+  color: rgb(224, 4, 4) !important;
 }
 [value="Canceled"] {
   color: cyan !important;
 }
 [value="Processing"] {
-  color: purple !important;
+  color: rgb(167, 6, 167) !important;
 }
 [value="Confirmed"] {
   color: lawngreen !important;

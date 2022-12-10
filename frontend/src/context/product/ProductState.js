@@ -51,18 +51,18 @@ const ProductState = props => {
   }
 
   // get all Products
-  const getProducts = async (limit, skip, keyword, category) => {
+  const getProducts = async (limit, skip, keyword, category, brand) => {
     try {
       setProductsLoading(true)
       const { data } = await axios.get(`/api/products/getAll`, {
-        params: { limit, skip, keyword, category },
+        params: { limit, skip, keyword, category, brand },
       })
       setProducts(data.products)
       setProductsLoading(false)
       setProductsError(null)
       return data.totalResults
     } catch (err) {
-      errorHandler(err, 'Không thể nhận được sản phẩm')
+      errorHandler(err, 'không thể nhận được sản phẩm')
     }
   }
 
@@ -90,28 +90,6 @@ const ProductState = props => {
     }
   }
 
-// Delete prdouct 
-const deleteProduct = async id  => {
-  try {
-    setProductsLoading(true)
-    const userToken = JSON.parse(localStorage.getItem('userToken'))
-    const headers = {
-      Authorization: `Bearer ${userToken && userToken}`,
-      'Content-Type': 'multipart/form-data',
-    }
-    const { data } = await axios.delete(`/api/products/${id}`, { headers })
-    setProductsMessage({
-      variant: 'success',
-      message: 'Xóa thành công!',
-    })
-    setProductsLoading(false)
-    setProductsError(null)
-    return data.product
-  } catch (err) {
-    errorHandler(err, 'Không tìm thấy sản phẩm')
-  }
-}
-
   // get one product
   const getOneProduct = async id => {
     try {
@@ -131,6 +109,7 @@ const deleteProduct = async id  => {
     name,
     sku,
     category,
+    brand,
     price,
     description
   ) => {
@@ -144,6 +123,7 @@ const deleteProduct = async id  => {
         name,
         sku,
         category,
+        brand,
         price,
         description,
       })
@@ -159,8 +139,27 @@ const deleteProduct = async id  => {
       errorHandler(err, 'Không thể cập nhật chi tiết sản phẩm')
     }
   }
-  // Delete prdouct Image
-
+// Delete prdouct 
+  const deleteProduct = async id  => {
+    try {
+      setProductsLoading(true)
+      const userToken = JSON.parse(localStorage.getItem('userToken'))
+      const headers = {
+        Authorization: `Bearer ${userToken && userToken}`,
+        'Content-Type': 'multipart/form-data',
+      }
+      const { data } = await axios.delete(`/api/products/${id}`, { headers })
+      setProductsMessage({
+        variant: 'success',
+        message: 'Xóa thành công!',
+      })
+      setProductsLoading(false)
+      setProductsError(null)
+      return data.product
+    } catch (err) {
+      errorHandler(err, 'Không tìm thấy sản phẩm')
+    }
+  }
 
   // Update prdouct Image
   const updateProductImage = async (id, formData) => {
@@ -190,7 +189,7 @@ const deleteProduct = async id  => {
 
   return (
     <ProductContext.Provider
-      value={ {
+      value={{
         products,
         productsError,
         productsLoading,
@@ -202,8 +201,8 @@ const deleteProduct = async id  => {
         updateProductImage,
         deleteProduct,
         errorHandler,
-      } }>
-      { props.children }
+      }}>
+      {props.children}
     </ProductContext.Provider>
   )
 }

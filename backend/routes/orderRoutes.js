@@ -3,6 +3,7 @@ import {
   getAllOrders,
   getMyOrders,
   getOneOrder,
+  getAllHot,
   getOneOrderAdmin,
   placeOrder,
   updateOrder,
@@ -15,6 +16,8 @@ const router = express.Router();
 router.post("/new", auth, placeOrder);
 
 router.get("/getAll", getAllOrders);
+
+router.get("/getHot", getAllHot);
 
 router.get("/myOrders", auth, getMyOrders);
 

@@ -8,7 +8,7 @@ const checkAdmin = (req, res, next) => {
   } catch (err) {
     res
       .status(401)
-      .json({ success: false, error: 'Not authorized as an admin!' })
+      .json({ success: false, error: 'Không được ủy quyền với tư cách là quản trị viên!' })
   }
 }
 

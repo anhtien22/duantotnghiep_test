@@ -20,6 +20,7 @@ router.post('/add', upload.single('image'), addProduct)
 
 router.get('/getAll', getAllProducts)
 
+
 router.get('/:id', getProduct)
 
 router.patch('/:id', auth, checkAdmin, updateProductDetails)

@@ -48,8 +48,8 @@ const Header = () => {
                   text-center
                 ">
               <div className="site-logo">
-                <Link to="/" className="js-logo-clone">
-                  Shoppers
+                <Link to="/">
+                  Men4Men
                 </Link>
               </div>
             </div>
@@ -61,7 +61,6 @@ const Header = () => {
                     <li>
                       <Link to="/adminDashboard">
                         <i className="fas fa-user-cog text-info"></i> Admin
-                        Dashboard
                       </Link>
                     </li>
                   )}
@@ -76,7 +75,7 @@ const Header = () => {
                       <li>
                         <Link to="/" onClick={logoutHandler}>
                           <i className="fas fa-sign-out-alt text-warning"></i>{' '}
-                          Logout
+                          Đăng xuất
                         </Link>
                       </li>
                     </>
@@ -84,13 +83,13 @@ const Header = () => {
                     <>
                       <li>
                         <Link to="/login">
-                          Login{' '}
+                          Đăng nhập{' '}
                           <i className="fas fa-sign-in-alt text-primary"></i>
                         </Link>
                       </li>
                       <li>
                         <Link to="/signup">
-                          Signup{' '}
+                          Đăng ký{' '}
                           <i className="fas fa-user-plus text-primary"></i>
                         </Link>
                       </li>

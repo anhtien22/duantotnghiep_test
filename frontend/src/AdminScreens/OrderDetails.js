@@ -45,7 +45,7 @@ const OrderDetails = () => {
               <div className="card" style={{ borderRadius: "10px" }}>
                 <div className="card-header px-4 py-5">
                   <h5 className="text-muted mb-0">
-                    Thanks for your Order,{" "}
+                    Đơn hàng của,{" "}
                     <span style={{ color: "#a8729a" }}>{order.user?.name}</span>
                     !
                   </h5>
@@ -84,11 +84,11 @@ const OrderDetails = () => {
                               <b>{orderItem.name}</b>
                             </p>
                           </div>
-                          <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
+                          {/* <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
                             <p className="text-muted mb-0 small">
                               {orderItem.description}
                             </p>
-                          </div>
+                          </div> */}
                           <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
                             <p className="text-muted mb-0 small">
                               Số lượng: {orderItem.quantity}
@@ -122,7 +122,7 @@ const OrderDetails = () => {
                     <div className="col-md-6">
                       <h4>Chi tiết giao hàng</h4>
                       <div>
-                        <b>GIoa hàng cho: </b> {order.shippingAddress.name}{" "}
+                        <b>Giao hàng cho: </b> {order.shippingAddress.name}{" "}
                         <br />
                         <b>Số điện thoại : </b> {order.shippingAddress.phone}{" "}
                         <br />
@@ -149,7 +149,7 @@ const OrderDetails = () => {
                         {order.paymentMethod === "paypal" && (
                           <div>
                             <b>Id</b> : {order.paymentResult.id} <br />
-                            <b>THời gian thanh toán</b> :{" "}
+                            <b>Thời gian thanh toán</b> :{" "}
                             {new Date(
                               order.paymentResult.update_time
                             ).toLocaleString()}{" "}

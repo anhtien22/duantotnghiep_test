@@ -102,10 +102,7 @@ export const getAllProducts = async (req, res) => {
 // @access Public
 export const getProduct = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id).populate(
-      'category',
-      'title'
-    )
+    const product = await Product.findById(req.params.id).populate('category','title').populate('brand','local')
     if (!product) {
       return res
         .status(404)
@@ -122,7 +119,7 @@ export const getProduct = async (req, res) => {
 // @access Private : Admin
 export const updateProductDetails = async (req, res) => {
   const updates = Object.keys(req.body)
-  const allowedUpdates = ['name', 'sku', 'category', 'price', 'description']
+  const allowedUpdates = ['name', 'sku', 'category', 'brand', 'price', 'description']
   const isValidOperation = updates.every(update =>
     allowedUpdates.includes(update)
   )

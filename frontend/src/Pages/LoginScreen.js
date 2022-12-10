@@ -37,7 +37,7 @@ const LoginScreen = () => {
         <section id="login">
           <div className="container">
             <p className="text-center">
-            Don't have an accout? <Link to="/signup">Đăng ký</Link>
+            Không có tài khoản? <Link to="/signup">Đăng ký</Link>
             </p>
             <div className="row">
               <div className="col-md-6 mx-auto">
