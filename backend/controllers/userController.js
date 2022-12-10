@@ -97,7 +97,7 @@ export const forgotPassword = async (req, res, next) => {
     email: req.body.email
   });
   if (!user) {
-    return res.status(404).json({ error: 'User not found' })
+    return res.status(404).json({ error: 'Không tìm thấy người dùng' })
   }
 
   // Get ResetPassword Token
@@ -160,8 +160,8 @@ export const resetPassword = async (req, res, next) => {
   res.status(200).json({ success: true, user, token })
 };
 
-export const updatePassword = async (req, res) => {
-  const user = await User.findById(req.user.id);
+export const updatePassword = async (req, res, next) => {
+  const user = await User.findById(req.user._id).select("+password");
 
   const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
 

@@ -190,6 +190,32 @@ const ProductState = props => {
     }
   }
 
+  const newReview = async (payload) => {
+    try {
+      console.log(payload);
+      setProductsLoading(true)
+
+      const { data } = await axios.put("/api/products/review",
+        {
+          comment: payload.comment,
+          rating: payload.rating,
+          productId: payload.productId,
+          user: payload.user,
+          name: payload.name
+        });
+      console.log("res", data);
+
+
+      setProductsLoading(false)
+      // setProductsError(null)
+      // return data
+
+    } catch (error) {
+      errorHandler(error, 'Bình luận thất bại')
+    }
+  };
+
+
 
   return (
     <ProductContext.Provider
@@ -205,6 +231,7 @@ const ProductState = props => {
         updateProductImage,
         deleteProduct,
         errorHandler,
+        newReview
       } }>
       { props.children }
     </ProductContext.Provider>

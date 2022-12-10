@@ -4,16 +4,16 @@ const Loader = () => {
   return (
     <div
       className="loader"
-      style={{
-        width: '10vw',
-        height: '10vw',
+      style={ {
+        width: '3vw',
+        height: '3vw',
         margin: 'auto',
         display: 'block',
         position: 'fixed',
-        top: '30%',
-        left: '45%',
+        top: '50%',
+        left: '50%',
         zIndex: '10000',
-      }}></div>
+      } }></div>
   )
 }
 

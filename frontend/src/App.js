@@ -1,5 +1,6 @@
+import PropTypes from "prop-types";
 import './App.css'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import { Routes, Route } from 'react-router-dom'
@@ -27,8 +28,20 @@ import UserDetails from './AdminScreens/UserDetails'
 import ForgotPassword from './Pages/ForgotPassword'
 import ResetPassword from './Pages/ResetPassword'
 import UpdatePassword from './Pages/UpdatePassword'
+import { multilanguage, loadLanguages } from "redux-multilanguage";
+import { connect } from "react-redux";
 
-function App() {
+function App(props) {
+  useEffect(() => {
+    props.dispatch(
+      loadLanguages({
+        languages: {
+          en: require("./translations/english.json"),
+          vn: require("./translations/vn.json")
+        }
+      })
+    );
+  });
   return (
     <main className="site-wrap">
       <Misc />
@@ -84,5 +97,7 @@ function App() {
     </main>
   )
 }
-
-export default App
+App.propTypes = {
+  dispatch: PropTypes.func
+};
+export default connect()(multilanguage(App));

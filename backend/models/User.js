@@ -29,6 +29,7 @@ const userSchema = mongoose.Schema(
       required: [true, 'Vui lòng nhập mật khẩu của bạn'],
       minLength: [6, 'Mật khẩu phải có độ dài ít nhất 6 ký tự!'],
       trim: true,
+      select: true,
       validate(pass) {
         if (pass.toLowerCase().includes('password')) {
           throw new Error(

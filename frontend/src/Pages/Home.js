@@ -1,12 +1,13 @@
 import React from 'react'
+import { multilanguage } from 'redux-multilanguage';
 import FeaturedProducts from '../components/FeaturedProducts'
 
-const Home = () => {
+const Home = ({ strings }) => {
   return (
     <>
       <div
         className="site-blocks-cover"
-        style={{ backgroundImage: 'url(images/ANH_1.jpg)' }}
+        style={ { backgroundImage: 'url(images/ANH_1.jpg)' } }
         data-aos="fade">
         <div className="container">
           <div
@@ -16,15 +17,15 @@ const Home = () => {
               justify-content-end
             ">
             <div className="col-md-5 text-center text-md-left pt-5 pt-md-0">
-              <h1 className="mb-2" style={{color:'#472D2D'}}>Grand Launching</h1>
+              <h1 className="mb-2" style={ { color: '#472D2D' } }>Grand Launching</h1>
               <div className="intro-text text-center text-md-left">
-                <p className="mb-4" style={{color:'#472D2D'}}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                <p className="mb-4" style={ { color: '#472D2D' } }>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                   Phasellus at iaculis quam. Integer accumsan tincidunt
                   fringilla.
                 </p>
                 <p>
-                  <a href="http://localhost:3000/shop" className="btn btn-sm btn-primary" style={{background:'black',border:'black'}}>
+                  <a href="http://localhost:3000/shop" className="btn btn-sm btn-primary" style={ { background: 'black', border: 'black' } }>
                     Shop Now
                   </a>
                 </p>
@@ -47,7 +48,7 @@ const Home = () => {
               <div className="text">
                 <h2 className="text-uppercase">MIỄN PHÍ VẬN CHUYỂN</h2>
                 <p>
-                Shop sẽ hỗ trợ giao sản phẩm cho các đơn hàng trên 500k và các đơn hàng mua lần đầu tại shop .
+                  Shop sẽ hỗ trợ giao sản phẩm cho các đơn hàng trên 500k và các đơn hàng mua lần đầu tại shop .
                 </p>
               </div>
             </div>
@@ -61,7 +62,7 @@ const Home = () => {
               <div className="text">
                 <h2 className="text-uppercase">MIỄN PHÍ HOÀN TRẢ</h2>
                 <p>
-                Theo các điều lệ được quy định trong Điều khoản dịch vụ, Shop đảm bảo quyền lợi của Người mua .
+                  Theo các điều lệ được quy định trong Điều khoản dịch vụ, Shop đảm bảo quyền lợi của Người mua .
                 </p>
               </div>
             </div>
@@ -75,7 +76,7 @@ const Home = () => {
               <div className="text">
                 <h2 className="text-uppercase">HỖ TRỢ KHÁCH HÀNG</h2>
                 <p>
-                Hỗ trợ 24/7 bất cứ lúc nào mà khách hàng cần hỗ trợ đáp ứng các câu hỏi và thắc mắc của khách hàng.
+                  Hỗ trợ 24/7 bất cứ lúc nào mà khách hàng cần hỗ trợ đáp ứng các câu hỏi và thắc mắc của khách hàng.
                 </p>
               </div>
             </div>
@@ -177,4 +178,5 @@ const Home = () => {
   )
 }
 
-export default Home
+export default multilanguage(Home);
+

@@ -24,7 +24,6 @@ app.use('/api/products', productRoutes)
 app.use('/api/category', categoryRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/orders', orderRoutes)
-app.use('/api/variation', variationRoutes)
 // app.use('/api/upload', uploadRoutes)
 
 const __dirname = path.resolve()

@@ -228,9 +228,14 @@ const UserState = props => {
       console.log("data", data);
       setUserLoading(false)
       setUserError(null)
+      setUserMessage({
+        variant: 'success',
+        message: `${data.message}`,
+      })
       return data.user;
     } catch (err) {
-      errorHandler(err)
+      errorHandler({ err })
+
     }
   };
 
@@ -252,10 +257,16 @@ const UserState = props => {
 
       setUserLoading(false)
       setUserError(null)
+      setUserMessage({
+        variant: 'success',
+        message: 'Bạn đã đổi mật khẩu thành công!',
+      })
       return data.user;
 
-    } catch (err) {
-      errorHandler(err)
+    } catch (error) {
+      // if (payload.password !== payload.confirmPassword) {
+      errorHandler(error)
+      // }
 
     }
   };
@@ -264,30 +275,31 @@ const UserState = props => {
     try {
       // setUserLoading(true)
       console.log("payload", payload);
-      // const headers = {
-      //   Authorization: `Bearer ${userToken && userToken}`,
-      //   "Content-Type": "application/json",
-      // };
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        }
+      };
 
-      // const res = await fetch(
-      //   `/api/users/profile/updatepassword`,
-      //   {
-      //     oldPassword: payload.oldPassword,
-      //     newPassword: payload.newPassword,
-      //     confirmPassword: payload.confirmPassword,
-      //   },
-      //   config
-      // );
-      const res = await fetch(`/api/users/profile/updatepassword`, {
-        method: "PATCH",
-        headers,
-        body: JSON.stringify({
+      const { data } = await axios.put(
+        `/api/users/profile/updatepassword`,
+        {
           oldPassword: payload.oldPassword,
           newPassword: payload.newPassword,
           confirmPassword: payload.confirmPassword,
-        }),
-      });
-      console.log("data", res);
+        },
+        config
+      );
+      // const res = await fetch(`/api/users/profile/updatepassword`, {
+      //   method: "PATCH",
+      //   headers,
+      //   body: JSON.stringify({
+      //     oldPassword: payload.oldPassword,
+      //     newPassword: payload.newPassword,
+      //     confirmPassword: payload.confirmPassword,
+      //   }),
+      // });
+      console.log("data", data);
       // setUserLoading(false)
       // setUserError(null)
       // return data.user;

@@ -63,7 +63,7 @@ const productSchema = mongoose.Schema(
         },
         name: {
           type: String,
-          // required: true,
+          required: true,
         },
         rating: {
           type: Number,
@@ -72,6 +72,16 @@ const productSchema = mongoose.Schema(
         comment: {
           type: String,
           required: true,
+        },
+        productId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
+          required: true,
+          index: true,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now,
         },
       },
     ],

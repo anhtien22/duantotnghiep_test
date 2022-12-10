@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Breadcrumb from "../components/Breadcrumb";
 import { Link, useParams } from "react-router-dom";
 import OrderContext from "../context/orders/orderContext";
+import Navbar from "../AdminComponents/Navbar";
 const statusOrder = {
   Confirmed: "Đang xác nhận",
   Processing: "Đang giao hàng",
@@ -37,16 +38,30 @@ const OrderDetails = () => {
 
   return (
     <>
-      <Breadcrumb pageName="Order" />
+      <Navbar />
+      {/* HEADER */ }
+      <header id="main-header" className="py-2 bg-warning text-white">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6">
+              <h1>
+                <i className="fas fa-users" /> Đơn hàng
+              </h1>
+            </div>
+          </div>
+        </div>
+      </header>
+
+
       <section className="h-100 gradient-custom">
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-10 col-xl-8">
-              <div className="card" style={{ borderRadius: "10px" }}>
+              <div className="card" style={ { borderRadius: "10px" } }>
                 <div className="card-header px-4 py-5">
                   <h5 className="text-muted mb-0">
-                    Thanks for your Order,{" "}
-                    <span style={{ color: "#a8729a" }}>{order.user?.name}</span>
+                    Thanks for your Order,{ " " }
+                    <span style={ { color: "#a8729a" } }>{ order.user?.name }</span>
                     !
                   </h5>
                 </div>
@@ -54,26 +69,26 @@ const OrderDetails = () => {
                   <div className="d-flex justify-content-between align-items-center mb-4">
                     <p
                       className="lead fw-normal mb-0"
-                      style={{ color: "#a8729a" }}
+                      style={ { color: "#a8729a" } }
                     >
                       Biên nhận
                     </p>
                     <p className="small text-muted mb-0">
-                      ID : <b>{id}</b>
+                      ID : <b>{ id }</b>
                     </p>
                   </div>
 
-                  {order.orderItems.map((orderItem) => (
+                  { order.orderItems.map((orderItem) => (
                     <div
-                      key={orderItem._id}
+                      key={ orderItem._id }
                       className="card shadow-0 border mb-4"
                     >
                       <div className="card-body">
                         <div className="row">
                           <div className="col-md-2">
-                            <Link to={`/shopSingle/${orderItem.product}`}>
+                            <Link to={ `/shopSingle/${orderItem.product}` }>
                               <img
-                                src={orderItem.image}
+                                src={ orderItem.image }
                                 className="img-fluid"
                                 alt="Phone"
                               />
@@ -81,100 +96,100 @@ const OrderDetails = () => {
                           </div>
                           <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
                             <p className="text-muted mb-0">
-                              <b>{orderItem.name}</b>
+                              <b>{ orderItem.name }</b>
                             </p>
                           </div>
                           <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
                             <p className="text-muted mb-0 small">
-                              {orderItem.description}
+                              { orderItem.description }
                             </p>
                           </div>
                           <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
                             <p className="text-muted mb-0 small">
-                              Số lượng: {orderItem.quantity}
+                              Số lượng: { orderItem.quantity }
                             </p>
                           </div>
                           <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
                             <p className="text-muted mb-0 small">
-                              {/* Giá: {orderItem.price} */}
-                              Giá: {formatter.format(orderItem.price)}
+                              {/* Giá: {orderItem.price} */ }
+                              Giá: { formatter.format(orderItem.price) }
                             </p>
                           </div>
                           <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
                             <p className="text-muted mb-0 small">
-                              {/* <b> Tiền: {orderItem.itemTotal}</b> */}
+                              {/* <b> Tiền: {orderItem.itemTotal}</b> */ }
                               <b>
-                                {" "}
-                                Tiền: {formatter.format(orderItem.itemTotal)}
+                                { " " }
+                                Tiền: { formatter.format(orderItem.itemTotal) }
                               </b>
                             </p>
                           </div>
                         </div>
                         <hr
                           className="mb-4"
-                          style={{ backgroundColor: "#e0e0e0", opacity: 1 }}
+                          style={ { backgroundColor: "#e0e0e0", opacity: 1 } }
                         />
                       </div>
                     </div>
-                  ))}
+                  )) }
 
                   <div className="row my-3">
                     <div className="col-md-6">
                       <h4>Chi tiết giao hàng</h4>
                       <div>
-                        <b>GIoa hàng cho: </b> {order.shippingAddress.name}{" "}
+                        <b>GIoa hàng cho: </b> { order.shippingAddress.name }{ " " }
                         <br />
-                        <b>Số điện thoại : </b> {order.shippingAddress.phone}{" "}
+                        <b>Số điện thoại : </b> { order.shippingAddress.phone }{ " " }
                         <br />
-                        <b>Địa chỉ: </b> {order.shippingAddress.address},{" "}
-                        {order.shippingAddress.city},{" "}
-                        {order.shippingAddress.country} <br />
-                        <b>Mã :</b> {order.shippingAddress.postalCode}
+                        <b>Địa chỉ: </b> { order.shippingAddress.address },{ " " }
+                        { order.shippingAddress.city },{ " " }
+                        { order.shippingAddress.country } <br />
+                        <b>Mã :</b> { order.shippingAddress.postalCode }
                       </div>
                     </div>
                     <div className="col-md-6 border-left">
                       <div className="">
                         <h4>Chi tiết đơn</h4>
                         <div>
-                          <b>Ngày đặt hàng</b> :{" "}
-                          {new Date(order.createdAt).toLocaleDateString()}
+                          <b>Ngày đặt hàng</b> :{ " " }
+                          { new Date(order.createdAt).toLocaleDateString() }
                         </div>
                         <div>
-                          <b>Thanh toán</b> : {order.paymentMethod}
+                          <b>Thanh toán</b> : { order.paymentMethod }
                         </div>
                         <div>
-                          <b>Trạng thái</b> :{" "}
-                          {statusOrder[order.paymentResult.status]}
+                          <b>Trạng thái</b> :{ " " }
+                          { statusOrder[order.paymentResult.status] }
                         </div>
-                        {order.paymentMethod === "paypal" && (
+                        { order.paymentMethod === "paypal" && (
                           <div>
-                            <b>Id</b> : {order.paymentResult.id} <br />
-                            <b>THời gian thanh toán</b> :{" "}
-                            {new Date(
+                            <b>Id</b> : { order.paymentResult.id } <br />
+                            <b>THời gian thanh toán</b> :{ " " }
+                            { new Date(
                               order.paymentResult.update_time
-                            ).toLocaleString()}{" "}
+                            ).toLocaleString() }{ " " }
                             <br />
-                            <b>Địa chỉ email</b> :{" "}
-                            {order.paymentResult.email_address}{" "}
+                            <b>Địa chỉ email</b> :{ " " }
+                            { order.paymentResult.email_address }{ " " }
                           </div>
-                        )}
+                        ) }
                         <div className="col-md-6"></div>
                       </div>
                     </div>
                   </div>
                   <div
                     className="card-footer border-0 px-4 py-5"
-                    style={{
+                    style={ {
                       backgroundColor: "#a8729a",
                       borderBottomLeftRadius: "10px",
                       borderBottomRightRadius: "10px",
-                    }}
+                    } }
                   >
                     <h5 className="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">
                       Tổng tiền :
                       <span className="h2 mb-0 ms-2">
-                        {/* {order.totalPrice} */}
-                        {formatter.format(order.totalPrice)}
+                        {/* {order.totalPrice} */ }
+                        { formatter.format(order.totalPrice) }
                       </span>
                     </h5>
                   </div>

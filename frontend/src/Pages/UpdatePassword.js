@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import UserContext from '../context/user/UserContext';
 
 const UpdatePassword = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -11,7 +11,6 @@ const UpdatePassword = () => {
 
   const uContext = useContext(UserContext);
   const { updatePassword } = uContext;
-
   const updatePasswordSubmit = (e) => {
     e.preventDefault();
 
@@ -39,35 +38,31 @@ const UpdatePassword = () => {
                 <div className="card-body">
                   <form onSubmit={ updatePasswordSubmit }>
                     <div className="form-group">
-                      <label htmlFor="password">Mật khẩu cũ</label>
+                      <label htmlFor="oldPassword">Mật khẩu cũ</label>
                       <input
                         onChange={ (e) => setOldPassword(e.target.value) }
                         type="password"
                         className="form-control"
-                        name="password"
                         value={ oldPassword }
                       />
-
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="password">Mật khẩu mới</label>
+                      <label htmlFor="newPassword">Mật khẩu mới</label>
                       <input
                         onChange={ (e) => setNewPassword(e.target.value) }
                         type="password"
                         className="form-control"
-                        name="newPassword"
                         value={ newPassword }
                       />
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="password">Nhập mật khẩu mới</label>
+                      <label htmlFor="confirmPassword">Nhập mật khẩu mới</label>
                       <input
                         onChange={ (e) => setConfirmPassword(e.target.value) }
                         type="password"
                         className="form-control"
-                        name="confirmPassword"
                         value={ confirmPassword }
                       />
                     </div>

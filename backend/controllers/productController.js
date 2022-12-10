@@ -207,6 +207,7 @@ export const createProductReview = async (req, res, next) => {
     name,
     rating: Number(rating),
     comment,
+    productId
   };
   const product = await Product.findById(productId);
   const isReviewed = product.reviews.find(rev => rev.user === req.user?._id)
@@ -214,7 +215,10 @@ export const createProductReview = async (req, res, next) => {
     product.reviews.forEach(rev => {
       if (rev.user === req.user?._id)
         rev.rating = rating,
-          rev.comment = comment;
+          rev.comment = comment,
+          rev.name = name,
+          rev.user = user,
+          rev.productId = productId;
     });
   } else {
     product.reviews.push(review);
@@ -235,19 +239,23 @@ export const createProductReview = async (req, res, next) => {
 };
 // Get All review of a Product
 export const getProductReviews = async (req, res, next) => {
-  const product = await Product.findById(req.query.id);
+
+  const product = await Product.findById(req.params.id);
+
   if (!product) {
-    return next(new errorHandler("Sản phẩm không có", 404))
+    // return next(new ErrorHander("Product not found", 404));
+    return res.status(404).json({ success: false, error: 'Sản phẩm không có' })
   }
+
   res.status(200).json({
     success: true,
     reviews: product.reviews,
-  })
+  });
 };
-
 // Delete review
 export const deleteReview = async (req, res, next) => {
   const product = await Product.findById(req.query.productId);
+  console.log(product);
   if (!product) {
     return next(new errorHandler("Sản phẩm không có", 404))
   }

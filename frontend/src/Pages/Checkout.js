@@ -6,12 +6,14 @@ import OrderContext from "../context/orders/orderContext";
 import axios from "axios";
 import { PayPalButton } from "react-paypal-button-v2";
 import Loader from "../components/Loader";
+import UserContext from "../context/user/UserContext";
 
 const Checkout = () => {
   const navigate = useNavigate();
-
+  const uContext = useContext(UserContext);
+  const { user } = uContext;
   const [shippingAddress, setShippingAddress] = useState({
-    name: "",
+    name: user.name,
     phone: "",
     address: "",
     city: "",
@@ -30,6 +32,8 @@ const Checkout = () => {
   // for order context
   const oContext = useContext(OrderContext);
   const { placeOrder } = oContext;
+  // user context
+
 
   const handleChange = (e) => {
     setShippingAddress({ ...shippingAddress, [e.target.name]: e.target.value });
@@ -104,6 +108,7 @@ const Checkout = () => {
                     name="name"
                     value={ shippingAddress.name }
                     onChange={ handleChange }
+                  // defaultValue={ shippingAddress.name }
                   />
                 </div>
 

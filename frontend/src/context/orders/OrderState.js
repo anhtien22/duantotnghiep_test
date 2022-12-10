@@ -81,6 +81,7 @@ const OdersState = (props) => {
       };
       setOrdersLoading(true);
       await axios.post("api/orders/new", orderBody, { headers });
+      console.log("orderBody", orderBody);
       // localStorage.removeItem('react-use-cart')
       emptyCart();
       navigate("/thankYou");
