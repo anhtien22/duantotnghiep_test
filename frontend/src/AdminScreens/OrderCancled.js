@@ -43,7 +43,7 @@ const OrderCancled = () => {
   return orders ? (
     <>
       <Navbar />
-      {/* HEADER */}
+      {/* HEADER */ }
       <header id="main-header" className="py-2 bg-warning text-white">
         <div className="container">
           <div className="row">
@@ -56,7 +56,7 @@ const OrderCancled = () => {
         </div>
       </header>
 
-      {/* SEARCH */}
+      {/* SEARCH */ }
       <section id="search" className="py-4 mb-4 bg-light">
         <div className="container">
           <div className="row">
@@ -90,7 +90,7 @@ const OrderCancled = () => {
           </div>
         </div>
       </section>
-      <div className="" style={{ display: 'flex', justifyContent: 'center', gap: '50px' }}>
+      <div className="" style={ { display: 'flex', justifyContent: 'center', gap: '50px' } }>
 
         <div className="card text-center bg-success text-white mb-3">
           <div className="card-body">
@@ -98,8 +98,8 @@ const OrderCancled = () => {
             <h4 className="display-4">
               <i className="fas fa-coins" />
             </h4>
-            <h2>{formatter.format(resulf)}</h2>
-            <Link to={`/orderAdmin/cod`} className="btn btn-outline-light btn-sm">
+            <h2>{ formatter.format(resulf) }</h2>
+            <Link to={ `/orderAdmin/cod` } className="btn btn-outline-light btn-sm">
               Chi tiết
             </Link>
           </div>
@@ -111,8 +111,8 @@ const OrderCancled = () => {
             <h4 className="display-4">
               <i className="fab fa-cc-paypal" />
             </h4>
-            <h2>{formatter.format(resulf2)}</h2>
-            <Link to={`/orderAdmin/online`} className="btn btn-outline-light btn-sm">
+            <h2>{ formatter.format(resulf2) }</h2>
+            <Link to={ `/orderAdmin/online` } className="btn btn-outline-light btn-sm">
               Chi tiết
             </Link>
           </div>
@@ -126,7 +126,7 @@ const OrderCancled = () => {
             <h4 className="display-4">
               <i className="fas fa-window-close" />
             </h4>
-            <h2>{cance.length}</h2>
+            <h2>{ cance.length }</h2>
           </div>
         </div>
 
@@ -136,8 +136,8 @@ const OrderCancled = () => {
             <h4 className="display-4">
               <i className="far fa-money-bill-alt" />
             </h4>
-            <h2>{formatter.format(resulf3)}</h2>
-            <Link to={`/orders`} className="btn btn-outline-light btn-sm">
+            <h2>{ formatter.format(resulf3) }</h2>
+            <Link to={ `/orders` } className="btn btn-outline-light btn-sm">
               Chi tiết
             </Link>
           </div>
@@ -165,27 +165,27 @@ const OrderCancled = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {orders.map((order, index) =>
+                    { orders.map((order, index) =>
                       order.paymentResult.status === "Canceled" ? (
-                        <tr key={order._id}>
-                          {/* <td>{index + 1}</td> */}
-                          <td>{order._id}</td>
-                          <td>{order.user?.name}</td>
+                        <tr key={ order._id }>
+                          {/* <td>{index + 1}</td> */ }
+                          <td>{ order._id }</td>
+                          <td>{ order.user?.name }</td>
                           <td>
-                            {new Date(order.createdAt).toLocaleDateString()}
+                            { new Date(order.createdAt).toLocaleDateString() }
                           </td>
-                          <td>{formatter.format(order.totalPrice)}</td>
+                          <td>{ formatter.format(order.totalPrice) }</td>
                           <td className="px-4 py-3">
                             <div className="flex-grow w-full online">
-                              {order.paymentResult.status === "Canceled"
+                              { order.paymentResult.status === "Canceled"
                                 ? "Đã Hủy"
-                                : ""}
+                                : "" }
                             </div>
                           </td>
 
                           <td>
                             <Link
-                              to={`/orderDetailsAdmin/${order._id}`}
+                              to={ `/orderDetailsAdmin/${order._id}` }
                               className="btn btn-secondary bg-primary text-white"
                             >
                               <i className="fas fa-angle-double-right" /> Chi
@@ -196,7 +196,7 @@ const OrderCancled = () => {
                       ) : (
                         ""
                       )
-                    )}
+                    ) }
                   </tbody>
                 </table>
               </div>

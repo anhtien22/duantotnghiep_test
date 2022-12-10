@@ -43,7 +43,7 @@ const OrderOnline = () => {
   return orders ? (
     <>
       <Navbar />
-      {/* HEADER */}
+      {/* HEADER */ }
       <header id="main-header" className="py-2 bg-warning text-white">
         <div className="container">
           <div className="row">
@@ -56,7 +56,7 @@ const OrderOnline = () => {
         </div>
       </header>
 
-      {/* SEARCH */}
+      {/* SEARCH */ }
       <section id="search" className="py-4 mb-4 bg-light">
         <div className="container">
           <div className="row">
@@ -93,8 +93,8 @@ const OrderOnline = () => {
           </div>
         </div>
       </section>
-      <div className="" style={{ display: 'flex', justifyContent: 'center', gap: '50px' }}>
-       
+      <div className="" style={ { display: 'flex', justifyContent: 'center', gap: '50px' } }>
+
 
         <div className="card text-center bg-success text-white mb-3">
           <div className="card-body">
@@ -102,8 +102,8 @@ const OrderOnline = () => {
             <h4 className="display-4">
               <i className="fas fa-coins" />
             </h4>
-            <h2>{formatter.format(resulf)}</h2>
-            <Link to={`/orderAdmin/cod`} className="btn btn-outline-light btn-sm">
+            <h2>{ formatter.format(resulf) }</h2>
+            <Link to={ `/orderAdmin/cod` } className="btn btn-outline-light btn-sm">
               Chi tiết
             </Link>
           </div>
@@ -115,7 +115,7 @@ const OrderOnline = () => {
             <h4 className="display-4">
               <i className="fab fa-cc-paypal" />
             </h4>
-            <h2>{formatter.format(resulf2)}</h2>
+            <h2>{ formatter.format(resulf2) }</h2>
           </div>
         </div>
 
@@ -125,8 +125,8 @@ const OrderOnline = () => {
             <h4 className="display-4">
               <i className="fas fa-window-close" />
             </h4>
-            <h2>{cance.length}</h2>
-            <Link to={`/orderAdmin/canceled`} className="btn btn-outline-light btn-sm">
+            <h2>{ cance.length }</h2>
+            <Link to={ `/orderAdmin/canceled` } className="btn btn-outline-light btn-sm">
               Chi tiết
             </Link>
           </div>
@@ -138,8 +138,8 @@ const OrderOnline = () => {
             <h4 className="display-4">
               <i className="far fa-money-bill-alt" />
             </h4>
-            <h2>{formatter.format(resulf3)}</h2>
-            <Link to={`/orders`} className="btn btn-outline-light btn-sm">
+            <h2>{ formatter.format(resulf3) }</h2>
+            <Link to={ `/orders` } className="btn btn-outline-light btn-sm">
               Chi tiết
             </Link>
           </div>
@@ -166,27 +166,27 @@ const OrderOnline = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {orders.map((order, index) =>
+                    { orders.map((order, index) =>
                       order.paymentMethod === "paypal" ? (
-                        <tr key={order._id}>
-                          {/* <td>{index + 1}</td> */}
-                          <td>{order._id}</td>
-                          <td>{order.user?.name}</td>
+                        <tr key={ order._id }>
+                          {/* <td>{index + 1}</td> */ }
+                          <td>{ order._id }</td>
+                          <td>{ order.user?.name }</td>
                           <td>
-                            {new Date(order.createdAt).toLocaleDateString()}
+                            { new Date(order.createdAt).toLocaleDateString() }
                           </td>
-                          <td>{formatter.format(order.totalPrice)}</td>
+                          <td>{ formatter.format(order.totalPrice) }</td>
                           <td className="px-4 py-3">
                             <div className="flex-grow w-full online">
-                              {order.paymentResult.status === "COMPLETED"
+                              { order.paymentResult.status === "COMPLETED"
                                 ? "Đã thanh toán online"
-                                : ""}
+                                : "" }
                             </div>
                           </td>
 
                           <td>
                             <Link
-                              to={`/orderDetailsAdmin/${order._id}`}
+                              to={ `/orderDetailsAdmin/${order._id}` }
                               className="btn btn-secondary bg-primary text-white"
                             >
                               <i className="fas fa-angle-double-right" /> Chi
@@ -197,7 +197,7 @@ const OrderOnline = () => {
                       ) : (
                         ""
                       )
-                    )}
+                    ) }
                   </tbody>
                 </table>
               </div>

@@ -40,11 +40,11 @@ const OrderCod = () => {
     return arr;
   });
   const cance = canceled.filter((g) => g[0] === "Canceled");
-  
+
   return orders ? (
     <>
       <Navbar />
-      {/* HEADER */}
+      {/* HEADER */ }
       <header id="main-header" className="py-2 bg-warning text-white">
         <div className="container">
           <div className="row">
@@ -57,7 +57,7 @@ const OrderCod = () => {
         </div>
       </header>
 
-      {/* SEARCH */}
+      {/* SEARCH */ }
       <section id="search" className="py-4 mb-4 bg-light">
         <div className="container">
           <div className="row">
@@ -93,15 +93,15 @@ const OrderCod = () => {
           </div>
         </div>
       </section>
-      <div className="" style={{ display: 'flex', justifyContent: 'center', gap: '50px' }}>
-      
-      <div className="card text-center bg-success text-white mb-3">
+      <div className="" style={ { display: 'flex', justifyContent: 'center', gap: '50px' } }>
+
+        <div className="card text-center bg-success text-white mb-3">
           <div className="card-body">
             <h5>Doanh thu giao hàng</h5>
             <h4 className="display-4">
               <i className="fas fa-coins" />
             </h4>
-            <h2>{formatter.format(resulf)}</h2>
+            <h2>{ formatter.format(resulf) }</h2>
           </div>
         </div>
 
@@ -111,8 +111,8 @@ const OrderCod = () => {
             <h4 className="display-4">
               <i className="fab fa-cc-paypal" />
             </h4>
-            <h2>{formatter.format(resulf2)}</h2>
-            <Link to={`/orderAdmin/online`} className="btn btn-outline-light btn-sm">
+            <h2>{ formatter.format(resulf2) }</h2>
+            <Link to={ `/orderAdmin/online` } className="btn btn-outline-light btn-sm">
               Chi tiết
             </Link>
           </div>
@@ -124,8 +124,8 @@ const OrderCod = () => {
             <h4 className="display-4">
               <i className="fas fa-window-close" />
             </h4>
-            <h2>{cance.length}</h2>
-            <Link to={`/orderAdmin/canceled`} className="btn btn-outline-light btn-sm">
+            <h2>{ cance.length }</h2>
+            <Link to={ `/orderAdmin/canceled` } className="btn btn-outline-light btn-sm">
               Chi tiết
             </Link>
           </div>
@@ -137,8 +137,8 @@ const OrderCod = () => {
             <h4 className="display-4">
               <i className="far fa-money-bill-alt" />
             </h4>
-            <h2>{formatter.format(resulf3)}</h2>
-            <Link to={`/orders`} className="btn btn-outline-light btn-sm">
+            <h2>{ formatter.format(resulf3) }</h2>
+            <Link to={ `/orders` } className="btn btn-outline-light btn-sm">
               Chi tiết
             </Link>
           </div>
@@ -166,16 +166,16 @@ const OrderCod = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {orders.map((order, index) =>
+                    { orders.map((order, index) =>
                       order.paymentResult.status === "Successfully" ? (
-                        <tr key={order._id}>
-                          {/* <td>{index + 1}</td> */}
-                          <td>{order._id}</td>
-                          <td>{order.user?.name}</td>
+                        <tr key={ order._id }>
+                          {/* <td>{index + 1}</td> */ }
+                          <td>{ order._id }</td>
+                          <td>{ order.user?.name }</td>
                           <td>
-                            {new Date(order.createdAt).toLocaleDateString()}
+                            { new Date(order.createdAt).toLocaleDateString() }
                           </td>
-                          <td>{formatter.format(order.totalPrice)}</td>
+                          <td>{ formatter.format(order.totalPrice) }</td>
                           <td className="px-4 py-3">
                             <div className="flex-grow w-full online">
                               Đã giao hàng
@@ -184,7 +184,7 @@ const OrderCod = () => {
 
                           <td>
                             <Link
-                              to={`/orderDetailsAdmin/${order._id}`}
+                              to={ `/orderDetailsAdmin/${order._id}` }
                               className="btn btn-secondary bg-primary text-white"
                             >
                               <i className="fas fa-angle-double-right" /> Chi
@@ -195,7 +195,7 @@ const OrderCod = () => {
                       ) : (
                         ""
                       )
-                    )}
+                    ) }
                   </tbody>
                 </table>
               </div>
