@@ -28,6 +28,9 @@ import ForgotPassword from './Pages/ForgotPassword'
 import ResetPassword from './Pages/ResetPassword'
 import UpdatePassword from './Pages/UpdatePassword'
 
+// import 'swiper/swiper-bundle.min.css'
+// import "../public/css/style.css";
+
 function App() {
   return (
     <main className="site-wrap">

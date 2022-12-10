@@ -30,8 +30,8 @@ const ShopSingle = () => {
       <div className="site-section">
         <div className="container">
           <div className="row">
-            <div className="col-md-6">
-              <img src={ product.image } alt="img" className="img-fluid" />
+            <div className="col-md-6" id="img">
+              <img src={ product.image } alt="img" id="img2" className="img-fluid" />
             </div>
             <div className="col-md-6">
               <h2 className="text-black">{ product.name }</h2>

@@ -19,7 +19,7 @@ const Header = () => {
 
   return (
     <header className="site-navbar" role="banner">
-      <div className="site-navbar-top">
+      <div className="site-navbar">
         <div className="container">
           <div className="row align-items-center">
             <div
@@ -33,24 +33,17 @@ const Header = () => {
                 <span className="icon icon-search2"></span>
                 <input
                   type="text"
-                  className="form-control border-0"
+                  className="form-control border-2"
                   placeholder="Search"
                 />
               </form>
             </div>
 
-            <div
-              className="
-                  col-12
-                  mb-3 mb-md-0
-                  col-md-4
-                  order-1 order-md-2
-                  text-center
-                ">
-              <div className="site-logo">
-                <Link to="/" className="js-logo-clone">
-                  Shoppers
-                </Link>
+            <div className="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
+              <div className="logo">
+                <a href='/'>
+                  <img src="images/logo6.png" alt="placeholder"></img>
+                </a>
               </div>
             </div>
 
@@ -60,8 +53,7 @@ const Header = () => {
                   {user && user.role === 'admin' && (
                     <li>
                       <Link to="/adminDashboard">
-                        <i className="fas fa-user-cog text-info"></i> Admin
-                        Dashboard
+                        <i className="fas fa-user-cog text-info"></i> Dashboard
                       </Link>
                     </li>
                   )}

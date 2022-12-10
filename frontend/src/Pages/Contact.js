@@ -9,7 +9,7 @@ const Contact = () => {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <h2 className="h3 mb-3 text-black">Get In Touch</h2>
+              <h2 className="h3 mb-3 text-black">Gửi liên hệ về cho MEN4MEN</h2>
             </div>
             <div className="col-md-7">
               <form action="#" method="post">
@@ -17,7 +17,7 @@ const Contact = () => {
                   <div className="form-group row">
                     <div className="col-md-6">
                       <label htmlFor="c_fname" className="text-black">
-                        First Name <span className="text-danger">*</span>
+                       Nhập tên <span className="text-danger">*</span>
                       </label>
                       <input
                         type="text"
@@ -28,7 +28,7 @@ const Contact = () => {
                     </div>
                     <div className="col-md-6">
                       <label htmlFor="c_lname" className="text-black">
-                        Last Name <span className="text-danger">*</span>
+                        Nhập họ <span className="text-danger">*</span>
                       </label>
                       <input
                         type="text"
@@ -55,7 +55,7 @@ const Contact = () => {
                   <div className="form-group row">
                     <div className="col-md-12">
                       <label htmlFor="c_subject" className="text-black">
-                        Subject{" "}
+                        Chủ đề{" "}
                       </label>
                       <input
                         type="text"
@@ -69,7 +69,7 @@ const Contact = () => {
                   <div className="form-group row">
                     <div className="col-md-12">
                       <label htmlFor="c_message" className="text-black">
-                        Message{" "}
+                        Nội dung{" "}
                       </label>
                       <textarea
                         name="c_message"
@@ -85,7 +85,7 @@ const Contact = () => {
                       <input
                         type="submit"
                         className="btn btn-primary btn-lg btn-block"
-                        value="Send Message"
+                        value="Gửi liên hệ"
                       />
                     </div>
                   </div>
@@ -95,26 +95,26 @@ const Contact = () => {
             <div className="col-md-5 ml-auto">
               <div className="p-4 border mb-3">
                 <span className="d-block text-primary h6 text-uppercase">
-                  New York
+                  Địa chỉ
                 </span>
                 <p className="mb-0">
-                  203 Fake St. Mountain View, San Francisco, California, USA
+                Tòa P , Công Viên Phần Mềm Quang Trung , Q.12 TP.HCM
                 </p>
               </div>
               <div className="p-4 border mb-3">
                 <span className="d-block text-primary h6 text-uppercase">
-                  London
+                  Điện thoại
                 </span>
                 <p className="mb-0">
-                  203 Fake St. Mountain View, San Francisco, California, USA
+                +84 999 999 999
                 </p>
               </div>
               <div className="p-4 border mb-3">
                 <span className="d-block text-primary h6 text-uppercase">
-                  Canada
+                  Email
                 </span>
                 <p className="mb-0">
-                  203 Fake St. Mountain View, San Francisco, California, USA
+                duantotnghiep@domain.com
                 </p>
               </div>
             </div>
