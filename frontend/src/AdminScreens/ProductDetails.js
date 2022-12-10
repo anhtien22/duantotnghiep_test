@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import CategoryContext from '../context/category/categoryContext'
+import BrandContext from '../context/brand/brandContext'
 import productContext from '../context/product/productContext'
+
 
 const ProductDetails = () => {
   // for product context
@@ -11,14 +13,17 @@ const ProductDetails = () => {
   const cContext = useContext(CategoryContext)
   const { categories, getCategories } = cContext
 
-  const { id } = useParams()
+  const bContext = useContext(BrandContext)
+  const { brands, getBrands } = bContext
 
+  const { id } = useParams()
   const [imageFile, setImageFile] = useState('')
 
   const [product, setProduct] = useState({
     name: '',
     sku: '',
     category: '',
+    brand: '',
     price: '',
     description: '',
     Stock: '',
@@ -35,6 +40,7 @@ const ProductDetails = () => {
     }
     fetchProduct()
     getCategories()
+    getBrands()
     // eslint-disable-next-line
   }, [])
 
@@ -45,11 +51,9 @@ const ProductDetails = () => {
   // console.log(product)
   const handleSaveChanges = () => {
     // console.log(product)
-    const { name, sku, category, price, description, Stock } = product
-    updateProductDetails(id, name, sku, category, price, description, Stock)
+    const { name, sku, category, brand, price, description, Stock } = product
+    updateProductDetails(id, name, sku, category, brand, price, description, Stock)
   }
-
-
   const deleteSaveChanges = (id) => {
     // console.log(product)
     deleteProduct(id)
@@ -63,7 +67,7 @@ const ProductDetails = () => {
     const imagePath = await updateProductImage(id, formData)
     setImage(imagePath)
 
-    console.log('Cập nhật hình ảnh sản phẩm')
+    console.log('Cập nhật hình ảnh sản phẩm chạy')
 
     setImageFile(null)
   }
@@ -80,7 +84,7 @@ const ProductDetails = () => {
               <Link
                 to="/adminDashboard"
                 className="btn btn-secondary btn-block">
-                <i className="fas fa-arrow-left" /> Quay lại trang
+                <i className="fas fa-arrow-left" /> Trở về trang
               </Link>
             </div>
             <div className="col-md-4">
@@ -106,7 +110,7 @@ const ProductDetails = () => {
             <div className="col-md-8">
               <div className="card">
                 <div className="card-header">
-                  <h4>Chỉnh sửa sản phẩm</h4>
+                  <h4>Sửa sản phẩm</h4>
                 </div>
                 <div className="card-body">
                   <div className="form-group">
@@ -143,6 +147,23 @@ const ProductDetails = () => {
                       { categories.map(item => (
                         <option key={ item._id } value={ item._id }>
                           { item.title }
+                        </option>
+                      )) }
+                    </select>
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="brand">Thương hiệu</label>
+                    <select
+                      className="form-control"
+                      name="brand"
+                      onChange={ handleChange }>
+                      <option value={ product.brand._id }>
+                        { product.brand.local }
+                      </option>
+                      { brands.map(item => (
+                        <option key={ item._id } value={ item._id }>
+                          { item.local }
                         </option>
                       )) }
                     </select>
@@ -204,7 +225,7 @@ const ProductDetails = () => {
               <h3 className="text-center">Hình ảnh</h3>
               <img src={ image } alt="" className="d-block img-fluid mb-3" />
               <div className="form-group">
-                <label htmlFor="image">Tải lên hình ảnh</label>
+                <label htmlFor="image">Tải hình ảnh</label>
                 <div className="custom-file">
                   <input
                     type="file"
@@ -216,10 +237,10 @@ const ProductDetails = () => {
                   // value={product.description}
                   />
                   <label htmlFor="image" className="custom-file-label">
-                    Chọn tập tin
+                    Chọn hình ảnh
                   </label>
                 </div>
-                {/* <small className="form-text text-muted">Max Size 3mb</small> */ }
+                <small className="form-text text-muted">Max Size 3mb</small>
               </div>
               <button
                 className="btn btn-primary btn-block"

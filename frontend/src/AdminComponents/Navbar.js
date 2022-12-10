@@ -34,6 +34,11 @@ const Navbar = () => {
                 </Link>
               </li>
               <li className="nav-item px-2">
+                <Link to="/brands" className="nav-link">
+                  Thương hiệu
+                </Link>
+              </li>
+              <li className="nav-item px-2">
                 <Link to="/users" className="nav-link">
                   Tài khoản
                 </Link>

@@ -5,6 +5,7 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import CategoryState from './context/category/CategoryState'
 import ProductState from './context/product/ProductState'
+import BrandState from './context/brand/BrandState'
 import UserState from './context/user/UserState'
 import OrderState from './context/orders/OrderState'
 import { BrowserRouter as Router } from 'react-router-dom'
@@ -28,13 +29,15 @@ ReactDOM.render(
         <Router>
           <UserState>
             <OrderState>
-              <CategoryState>
-                <VariationState>
-                  <ProductState>
-                    <App />
-                  </ProductState>
-                </VariationState>
-              </CategoryState>
+              <BrandState>
+                <CategoryState>
+                  <VariationState>
+                    <ProductState>
+                      <App />
+                    </ProductState>
+                  </VariationState>
+                </CategoryState>
+              </BrandState>
             </OrderState>
           </UserState>
         </Router>

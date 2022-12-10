@@ -192,7 +192,7 @@ const UserState = props => {
       setUser(null)
       setUserError(null)
       setUserLoading(false)
-      setUserMessage({ variant: 'danger', message: 'Profile deleted' })
+      setUserMessage({ variant: 'danger', message: 'Đã xóa hồ sơ' })
       navigate('/login')
     } catch (err) {
       errorHandler(err)

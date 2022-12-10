@@ -140,7 +140,7 @@ const Products = () => {
                         <td>
                           <Link
                             to={ `/productDetailsAdmin/${product._id}` }
-                            className="btn btn-secondary">
+                            className="btn btn-secondary bg-primary text-white">
                             <i className="fas fa-angle-double-right" /> Chi tiết
                           </Link>
                         </td>

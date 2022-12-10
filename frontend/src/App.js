@@ -28,10 +28,13 @@ import UserDetails from './AdminScreens/UserDetails'
 import ForgotPassword from './Pages/ForgotPassword'
 import ResetPassword from './Pages/ResetPassword'
 import UpdatePassword from './Pages/UpdatePassword'
+import Brands from './AdminScreens/Brands'
+import OrderOnline from "./AdminScreens/OrderOnline";
+import OrderCod from "./AdminScreens/OrderCod";
+import OrderCancled from "./AdminScreens/OrderCancled";
 import { multilanguage, loadLanguages } from "redux-multilanguage";
 import { connect } from "react-redux";
 
-<<<<<<< HEAD
 function App(props) {
   useEffect(() => {
     props.dispatch(
@@ -43,12 +46,7 @@ function App(props) {
       })
     );
   });
-=======
-// import 'swiper/swiper-bundle.min.css'
-// import "../public/css/style.css";
 
-function App() {
->>>>>>> 27d0d06a5ada362d361b1f99fb3f1aaf9150001d
   return (
     <main className="site-wrap">
       <Misc />
@@ -90,6 +88,8 @@ function App() {
 
         <Route path="/categories" element={ <Categories /> } />
 
+        <Route path="/brands" element={ <Brands /> } />
+
         <Route path="/users" element={ <Users /> } />
 
         <Route path="/usersDetailsAdmin/:id" element={ <UserDetails /> } />
@@ -99,10 +99,13 @@ function App() {
         <Route path="/productDetailsAdmin/:id" element={ <ProductDetails /> } />
 
         <Route path="/orderDetailsAdmin/:id" element={ <OrderDetails /> } />
+        <Route path="/orderAdmin/online" element={ <OrderOnline /> } />
+        <Route path="/orderAdmin/cod" element={ <OrderCod /> } />
+        <Route path="/orderAdmin/canceled" element={ <OrderCancled /> } />
       </Routes>
       <Footer />
     </main>
-  )
+  );
 }
 App.propTypes = {
   dispatch: PropTypes.func

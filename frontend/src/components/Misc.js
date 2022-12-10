@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import CategoryContext from '../context/category/categoryContext'
+import BrandContext from '../context/brand/brandContext'
 import OrderContext from '../context/orders/orderContext'
 import productContext from '../context/product/productContext'
 import UserContext from '../context/user/UserContext'
@@ -14,6 +15,10 @@ const Misc = () => {
   // for category context
   const cContext = useContext(CategoryContext)
   const { categoriesError, categoriesLoading, categoriesMessage } = cContext
+
+  // for brand context
+  const bContext = useContext(BrandContext)
+  const { brandsError, brandsLoading, brandsMessage } = bContext
 
   // for user context
   const uContext = useContext(UserContext)
@@ -48,6 +53,19 @@ const Misc = () => {
       {categoriesMessage && (
         <AlertMessage variant={categoriesMessage.variant}>
           {categoriesMessage.message}
+        </AlertMessage>
+      )}
+
+      {/* for Brands  */}
+      {brandsLoading && <Loader />}
+      {brandsError && (
+        <AlertMessage variant={brandsError.variant}>
+          {brandsError.message}
+        </AlertMessage>
+      )}
+      {brandsMessage && (
+        <AlertMessage variant={brandsMessage.variant}>
+          {brandsMessage.message}
         </AlertMessage>
       )}
 

@@ -1,59 +1,59 @@
 import { Button, Modal } from 'react-bootstrap'
 import React, { useContext, useEffect, useState } from 'react'
-import CategoryContext from '../context/category/categoryContext'
+import BrandContext from '../context/brand/brandContext'
 
-const EditCategoryModal = props => {
+const EditBrandModal = props => {
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
-  const context = useContext(CategoryContext)
-  const { updateCategory } = context
+  const context = useContext(BrandContext)
+  const { updateBrand } = context
 
-  const [category, setCategory] = useState({ title: '' })
+  const [brand, setBrand] = useState({ local: '' })
 
   useEffect(() => {
-    setCategory({ title: props.category.title })
+    setBrand({ local: props.brand.local })
     // eslint-disable-next-line
   }, [])
 
   const handleChange = e => {
-    setCategory({ ...category, [e.target.name]: e.target.value })
+    setBrand({ ...brand, [e.target.name]: e.target.value })
   }
 
   const handleSave = () => {
-    updateCategory(props.category._id, category.title, category.image)
+    updateBrand(props.brand._id, brand.local, brand.image)
     setShow(false)
   }
 
   return (
     <>
-      <Button variant="secondary" className="mx-2 bg-success text-white" onClick={handleShow}>
-        <i className="fas fa-edit" /> Sửa
+      <Button variant="secondary" className="mx-2" onClick={handleShow}>
+        <i className="fas fa-edit" /> Edit
       </Button>
 
       <Modal show={show} style={{ zIndex: '9999' }} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Sửa danh mục</Modal.Title>
+          <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="form-group">
-            <label htmlFor="title">Danh mục</label>
+            <label htmlFor="title">Title</label>
             <input
               type="text"
-              name="title"
+              name="local"
               className="form-control"
-              value={category.title}
+              value={brand.local}
               onChange={handleChange}
             />
           </div>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Đóng
+            Close
           </Button>
           <Button variant="primary" onClick={handleSave}>
-           Lưu thay đổi
+            Save Changes
           </Button>
         </Modal.Footer>
       </Modal>
@@ -61,4 +61,4 @@ const EditCategoryModal = props => {
   )
 }
 
-export default EditCategoryModal
+export default EditBrandModal

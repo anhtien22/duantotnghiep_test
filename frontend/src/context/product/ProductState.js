@@ -51,18 +51,18 @@ const ProductState = props => {
   }
 
   // get all Products
-  const getProducts = async (limit, skip, keyword, category) => {
+  const getProducts = async (limit, skip, keyword, category, brand) => {
     try {
       setProductsLoading(true)
       const { data } = await axios.get(`/api/products/getAll`, {
-        params: { limit, skip, keyword, category },
+        params: { limit, skip, keyword, category, brand },
       })
       setProducts(data.products)
       setProductsLoading(false)
       setProductsError(null)
       return data.totalResults
     } catch (err) {
-      errorHandler(err, 'Không thể nhận được sản phẩm')
+      errorHandler(err, 'không thể nhận được sản phẩm')
     }
   }
 
@@ -131,6 +131,7 @@ const ProductState = props => {
     name,
     sku,
     category,
+    brand,
     price,
     description,
     Stock
@@ -145,6 +146,7 @@ const ProductState = props => {
         name,
         sku,
         category,
+        brand,
         price,
         description,
         Stock,
@@ -161,8 +163,6 @@ const ProductState = props => {
       errorHandler(err, 'Không thể cập nhật chi tiết sản phẩm')
     }
   }
-  // Delete prdouct Image
-
 
   // Update prdouct Image
   const updateProductImage = async (id, formData) => {

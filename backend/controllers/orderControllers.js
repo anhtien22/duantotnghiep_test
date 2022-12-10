@@ -28,6 +28,16 @@ export const getAllOrders = async (req, res) => {
   }
 };
 
+export const getAllHot = async (req, res) => {
+  try {
+    const orders = await Order.find( )
+    
+    res.status(200).json({ success: true, orders: orders.orderItems  });
+  } catch (err) {
+    res.status(400).json({ success: false, error: err.message });
+  }
+};
+
 // @desc Get my orders
 // @route GET '/api/orders/myOrders'
 // @access Private : User
@@ -88,12 +98,12 @@ export const updateOrder = async (req, res, next) => {
   if (!order) {
     return res
       .status(404)
-      .json({ success: false, error: "Order not found with this Id" });
+      .json({ success: false, error: "Đơn hàng không tìm thấy Id" });
   }
   if (order.paymentResult.status === "Successfully") {
     return res.status(400).json({
       success: false,
-      error: "You have already Successfully this order",
+      error: "Bạn đã thực hiện thành công đơn hàng này",
     });
   }
   order.orderItems.forEach(async (o) => {

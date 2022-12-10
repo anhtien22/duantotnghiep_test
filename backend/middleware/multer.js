@@ -24,7 +24,7 @@ function checkFileType(file, cb) {
   if (extname && mimetype) {
     return cb(null, true)
   } else {
-    cb(new Error('Please upload an image file!'))
+    cb(new Error('Vui lòng tải lên một tập tin hình ảnh!'))
   }
 }
 

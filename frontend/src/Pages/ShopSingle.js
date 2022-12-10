@@ -13,7 +13,7 @@ const ShopSingle = () => {
   const [quantity, setQuantity] = useState(1);
 
   const { id } = useParams();
-  const [product, setProduct] = useState({ category: {} });
+  const [product, setProduct] = useState({ brand: {} });
 
 
   // comment 
@@ -47,6 +47,10 @@ const ShopSingle = () => {
     newReview(payload);
   };
 
+  const formatter = new Intl.NumberFormat("it-IT", {
+    style: "currency",
+    currency: "VND",
+  });
   return (
     <>
       <Breadcrumb pageName={ product.name } />
@@ -61,11 +65,11 @@ const ShopSingle = () => {
               <p>{ product.description }</p>
               <p>
                 <small className="text-secondary">
-                  { product.category.title }
+                  Thương hiệu: { product.brand.local }
                 </small>
               </p>
               <p>
-                <strong className="text-primary h4">${ product.price }</strong>
+                <strong className="text-primary h4">{ formatter.format(product.price) }</strong>
               </p>
 
               <div className="mb-5">
@@ -128,6 +132,7 @@ const ShopSingle = () => {
                   </button>
                 </>) }
               </p>
+              <small>Mã sản phẩm: { product.sku }</small>
             </div>
           </div>
         </div>

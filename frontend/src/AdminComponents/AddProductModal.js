@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
 import CategoryContext from '../context/category/categoryContext'
+import BrandContext from '../context/brand/brandContext'
 import productContext from '../context/product/productContext'
-import VariationContext from '../context/variation/variationContext'
+
+
 
 const AddProductModal = () => {
-
-
   // for product context
   const pContext = useContext(productContext)
   const { addProduct } = pContext
@@ -14,9 +14,13 @@ const AddProductModal = () => {
   const cContext = useContext(CategoryContext)
   const { categories, getCategories } = cContext
   console.log("categories", categories);
+  // for brands context
+  const bContext = useContext(BrandContext)
+  const { brands, getBrands } = bContext
 
   useEffect(() => {
-    getCategories();
+    getCategories()
+    getBrands()
     // eslint-disable-next-line
   }, [])
 
@@ -24,6 +28,7 @@ const AddProductModal = () => {
     name: '',
     sku: '',
     category: '',
+    brand: '',
     price: '',
     description: '',
     Stock: '',
@@ -36,22 +41,24 @@ const AddProductModal = () => {
   }
 
   const handleAddproduct = () => {
-    const { name, sku, category, price, description, Stock } = product
+    const { name, sku, category, brand, price, description, Stock } = product
     const formData = new FormData()
     formData.append('image', image)
     formData.append('name', name)
     formData.append('sku', sku)
     formData.append('category', category)
+    formData.append('brand', brand)
     formData.append('price', price)
     formData.append('description', description)
     formData.append('Stock', Stock)
     console.log('Thêm sản phẩm để chạy')
     addProduct(formData)
-    console.log('Thêm sản phẩm chạy')
+    console.log('Add product ran')
     setProduct({
       name: '',
       sku: '',
       category: '',
+      brand: '',
       price: '',
       description: '',
       Stock: '',
@@ -69,7 +76,7 @@ const AddProductModal = () => {
         <div className="modal-dialog modal-lg">
           <div className="modal-content">
             <div className="modal-header bg-primary text-white">
-              <h5 className="modal-title">Thêm sản phẩm</h5>
+              <h5 className="modal-title">Add Product</h5>
               <button className="close" data-dismiss="modal">
                 <span>×</span>
               </button>
@@ -77,7 +84,7 @@ const AddProductModal = () => {
             {/* <form onSubmit={handleAddproduct}> */ }
             <div className="modal-body">
               <div className="form-group">
-                <label htmlFor="name">Tên sản phẩm</label>
+                <label htmlFor="name">Product Name</label>
                 <input
                   type="text"
                   name="name"
@@ -88,7 +95,7 @@ const AddProductModal = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="sku">Mã sản phẩm</label>
+                <label htmlFor="sku">SKU</label>
                 <input
                   type="text"
                   name="sku"
@@ -99,7 +106,7 @@ const AddProductModal = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="category">Danh mục</label>
+                <label htmlFor="category">Category</label>
                 <select
                   className="form-control"
                   name="category"
@@ -114,7 +121,22 @@ const AddProductModal = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="price">Giá</label>
+                <label htmlFor="brand">Brand</label>
+                <select
+                  className="form-control"
+                  name="brand"
+                  onChange={ handleChange }>
+                  <option value>Select Brand</option>
+                  { brands.map(item => (
+                    <option key={ item._id } value={ item._id }>
+                      { item.local }
+                    </option>
+                  )) }
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="price">Pirce</label>
                 <input
                   type="text"
                   name="price"
@@ -138,7 +160,7 @@ const AddProductModal = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="body">Mô tả</label>
+                <label htmlFor="body">Description</label>
                 <textarea
                   className="form-control"
                   name="description"
@@ -148,7 +170,7 @@ const AddProductModal = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="image">Tải hình ảnh</label>
+                <label htmlFor="image">Upload Image</label>
                 <div className="custom-file">
                   <input
                     type="file"
@@ -160,10 +182,11 @@ const AddProductModal = () => {
                   // value={product.description}
                   />
                   <label htmlFor="image" className="custom-file-label">
-                    Chọn hình ảnh
+                    Choose File
                   </label>
                 </div>
                 {/* <small className="form-text text-muted">Max Size 3mb</small> */ }
+                <small className="form-text text-muted">Max Size 3mb</small>
               </div>
             </div>
             <div className="modal-footer">
