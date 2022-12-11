@@ -1,24 +1,24 @@
-import express from 'express'
-import auth from '../middleware/auth.js'
-import checkAdmin from '../middleware/checkAdmin.js'
+import express from "express";
+import auth from "../middleware/auth.js";
+import checkAdmin from "../middleware/checkAdmin.js";
 import {
   addCategory,
   deleteCategory,
   getAllCategories,
   getCategory,
   updateCategory,
-} from '../controllers/categoryController.js'
+} from "../controllers/categoryController.js";
 
-const router = express.Router()
+const router = express.Router();
 
-router.post('/add', addCategory)
+router.post("/add", addCategory);
 
-router.get('/getAll', getAllCategories)
+router.get("/getAll", getAllCategories);
 
-router.get('/:id', getCategory)
+router.get("/:id", getCategory);
 
-router.patch('/:id', auth, checkAdmin, updateCategory)
+router.patch("/:id", auth, checkAdmin, updateCategory);
 
-router.delete('/:id', auth, checkAdmin, deleteCategory)
+router.delete("/:id", auth, checkAdmin, deleteCategory);
 
-export default router
+export default router;

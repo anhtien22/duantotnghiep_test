@@ -9,6 +9,7 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 
 import productRoutes from './routes/productRoutes.js'
 import categoryRoutes from './routes/categoryRoutes.js'
+import brandRoutes from './routes/brandRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
 import variationRoutes from './routes/variationRoutes.js'
@@ -22,9 +23,9 @@ app.use(cors());
 
 app.use('/api/products', productRoutes)
 app.use('/api/category', categoryRoutes)
+app.use('/api/brand', brandRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/orders', orderRoutes)
-app.use('/api/variation', variationRoutes)
 // app.use('/api/upload', uploadRoutes)
 
 const __dirname = path.resolve()

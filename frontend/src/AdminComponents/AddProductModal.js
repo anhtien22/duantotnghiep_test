@@ -1,6 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import CategoryContext from '../context/category/categoryContext'
+import BrandContext from '../context/brand/brandContext'
 import productContext from '../context/product/productContext'
+
+
 
 const AddProductModal = () => {
   // for product context
@@ -10,9 +13,14 @@ const AddProductModal = () => {
   // for category context
   const cContext = useContext(CategoryContext)
   const { categories, getCategories } = cContext
+  console.log("categories", categories);
+  // for brands context
+  const bContext = useContext(BrandContext)
+  const { brands, getBrands } = bContext
 
   useEffect(() => {
     getCategories()
+    getBrands()
     // eslint-disable-next-line
   }, [])
 
@@ -20,13 +28,12 @@ const AddProductModal = () => {
     name: '',
     sku: '',
     category: '',
+    brand: '',
     price: '',
     description: '',
-    discount: '',
-    saleCount: '',
     Stock: '',
-    variation: '',
   })
+
   const [image, setImage] = useState(null)
 
   const handleChange = e => {
@@ -34,31 +41,27 @@ const AddProductModal = () => {
   }
 
   const handleAddproduct = () => {
-    const { name, sku, category, price, description, discount, saleCount, Stock, variation } = product
+    const { name, sku, category, brand, price, description, Stock } = product
     const formData = new FormData()
     formData.append('image', image)
     formData.append('name', name)
     formData.append('sku', sku)
     formData.append('category', category)
+    formData.append('brand', brand)
     formData.append('price', price)
     formData.append('description', description)
-    formData.append('discount', discount)
-    formData.append('saleCount', saleCount)
     formData.append('Stock', Stock)
-    formData.append('variation', variation)
-    console.log('Add product to run')
+    console.log('Thêm sản phẩm để chạy')
     addProduct(formData)
     console.log('Add product ran')
     setProduct({
       name: '',
       sku: '',
       category: '',
+      brand: '',
       price: '',
       description: '',
-      discount: '',
-      saleCount: '',
       Stock: '',
-      variation: '',
     })
     setImage('')
   }
@@ -108,7 +111,7 @@ const AddProductModal = () => {
                   className="form-control"
                   name="category"
                   onChange={ handleChange }>
-                  <option value>Select Category</option>
+                  <option value>Chọn danh mục</option>
                   { categories.map(item => (
                     <option key={ item._id } value={ item._id }>
                       { item.title }
@@ -118,15 +121,15 @@ const AddProductModal = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="category">Category</label>
+                <label htmlFor="brand">Brand</label>
                 <select
                   className="form-control"
-                  name="category"
+                  name="brand"
                   onChange={ handleChange }>
-                  <option value>Select Category</option>
-                  { categories.map(item => (
+                  <option value>Select Brand</option>
+                  { brands.map(item => (
                     <option key={ item._id } value={ item._id }>
-                      { item.title }
+                      { item.local }
                     </option>
                   )) }
                 </select>
@@ -139,6 +142,19 @@ const AddProductModal = () => {
                   name="price"
                   onChange={ handleChange }
                   value={ product.price }
+                  className="form-control"
+                />
+              </div>
+
+
+
+              <div className="form-group">
+                <label htmlFor="price">Stock</label>
+                <input
+                  type="text"
+                  name="Stock"
+                  onChange={ handleChange }
+                  value={ product.Stock }
                   className="form-control"
                 />
               </div>
@@ -169,6 +185,7 @@ const AddProductModal = () => {
                     Choose File
                   </label>
                 </div>
+                {/* <small className="form-text text-muted">Max Size 3mb</small> */ }
                 <small className="form-text text-muted">Max Size 3mb</small>
               </div>
             </div>
@@ -178,7 +195,7 @@ const AddProductModal = () => {
                 type="submit"
                 data-dismiss="modal"
                 onClick={ handleAddproduct }>
-                Add Product
+                Thêm sản phẩm
               </button>
             </div>
             {/* </form> */ }

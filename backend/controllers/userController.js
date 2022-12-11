@@ -50,18 +50,18 @@ export const readProfile = async (req, res) => {
 // @access Private : user
 export const updateProfile = async (req, res) => {
   const updates = Object.keys(req.body)
-  const allowedUpdates = ['name', 'email', 'password']
+  const allowedUpdates = ['name', 'email']
   const isValidOperation = updates.every(update =>
     allowedUpdates.includes(update)
   )
   if (!isValidOperation) {
-    return res.status(400).json({ error: 'Invalid updates' })
+    return res.status(400).json({ error: 'Cập nhật không hợp lệ' })
   }
 
   updates.forEach(update => (req.user[update] = req.body[update]))
   try {
     await req.user.save()
-    res.json({ success: true, message: 'profile updated', user: req.user })
+    res.json({ success: true, message: 'Hồ sơ cá nhân đã cập nhật', user: req.user })
   } catch (e) {
     res.status(400).json({ error: e.message })
   }
@@ -73,7 +73,7 @@ export const updateProfile = async (req, res) => {
 export const deleteProfile = async (req, res) => {
   try {
     await req.user.remove()
-    res.json({ success: true, message: 'user deleted' })
+    res.json({ success: true, message: 'Người dùng đã xóa' })
   } catch (e) {
     res.status(500).json({ success: false, error: e.message })
   }
@@ -97,7 +97,7 @@ export const forgotPassword = async (req, res, next) => {
     email: req.body.email
   });
   if (!user) {
-    return res.status(404).json({ error: 'User not found' })
+    return res.status(404).json({ error: 'Không tìm thấy người dùng' })
   }
 
   // Get ResetPassword Token
@@ -107,7 +107,7 @@ export const forgotPassword = async (req, res, next) => {
     validateBeforeSave: false
   });
 
-  const resetPasswordUrl = `${process.env.FRONTEND_URL}/users/password/reset/${resetToken}`;
+  const resetPasswordUrl = `${process.env.FRONTEND_URL}/password/resetPassword/${resetToken}`;
   const message = `Your password reset token is ttemp :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
 
   try {
@@ -159,6 +159,27 @@ export const resetPassword = async (req, res, next) => {
   const token = await user.generateAuthToken()
   res.status(200).json({ success: true, user, token })
 };
+
+export const updatePassword = async (req, res, next) => {
+  const user = await User.findById(req.user._id).select("+password");
+
+  const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
+
+  if (!isPasswordMatched) {
+    return res.status(400).json({ error: 'Old password is incorrect' })
+  }
+
+  if (req.body.newPassword !== req.body.confirmPassword) {
+    return res.status(400).json({ error: 'password does not match' })
+  }
+
+  user.password = req.body.newPassword;
+
+  await user.save();
+
+  res.status(200).json({ success: true, user })
+};
+
 
 export const getOneUserAdmin = async (req, res, next) => {
   const user = await User.findById(req.params.id);

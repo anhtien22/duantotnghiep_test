@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import CategoryContext from '../context/category/categoryContext'
+import BrandContext from '../context/brand/brandContext'
 import productContext from '../context/product/productContext'
+
 
 const ProductDetails = () => {
   // for product context
@@ -11,16 +13,20 @@ const ProductDetails = () => {
   const cContext = useContext(CategoryContext)
   const { categories, getCategories } = cContext
 
-  const { id } = useParams()
+  const bContext = useContext(BrandContext)
+  const { brands, getBrands } = bContext
 
+  const { id } = useParams()
   const [imageFile, setImageFile] = useState('')
 
   const [product, setProduct] = useState({
     name: '',
     sku: '',
     category: '',
+    brand: '',
     price: '',
     description: '',
+    Stock: '',
   })
 
   const [image, setImage] = useState(null)
@@ -34,6 +40,7 @@ const ProductDetails = () => {
     }
     fetchProduct()
     getCategories()
+    getBrands()
     // eslint-disable-next-line
   }, [])
 
@@ -44,24 +51,23 @@ const ProductDetails = () => {
   // console.log(product)
   const handleSaveChanges = () => {
     // console.log(product)
-    const { name, sku, category, price, description } = product
-    updateProductDetails(id, name, sku, category, price, description)
+    const { name, sku, category, brand, price, description, Stock } = product
+    updateProductDetails(id, name, sku, category, brand, price, description, Stock)
   }
-  const deleteSaveChanges = () => {
+  const deleteSaveChanges = (id) => {
     // console.log(product)
-    const { name, sku, category, price, description } = product
-    deleteProduct(id, name, sku, category, price, description)
+    deleteProduct(id)
   }
 
   const handleUpdateImage = async () => {
     const formData = new FormData()
     formData.append('image', imageFile)
 
-    console.log('Add product to run')
+    console.log('Thêm sản phẩm để chạy')
     const imagePath = await updateProductImage(id, formData)
     setImage(imagePath)
 
-    console.log('update  product image  ran')
+    console.log('Cập nhật hình ảnh sản phẩm chạy')
 
     setImageFile(null)
   }
@@ -78,20 +84,20 @@ const ProductDetails = () => {
               <Link
                 to="/adminDashboard"
                 className="btn btn-secondary btn-block">
-                <i className="fas fa-arrow-left" /> Back To Dashboard
+                <i className="fas fa-arrow-left" /> Trở về trang
               </Link>
             </div>
             <div className="col-md-4">
               <button
                 className="btn btn-success btn-block"
                 onClick={ handleSaveChanges }>
-                <i className="fas fa-check" /> Save Changes
+                <i className="fas fa-check" /> Lưu thay đổi
               </button>
             </div>
             <div className="col-md-4">
               <button className="btn btn-danger btn-block"
-                onClick={ deleteSaveChanges }>
-                <i className="fas fa-trash" /> Delete Product
+                onClick={ () => deleteSaveChanges(id) }>
+                <i className="fas fa-trash" /> Xóa sản phẩm
               </button>
             </div>
           </div>
@@ -104,11 +110,11 @@ const ProductDetails = () => {
             <div className="col-md-8">
               <div className="card">
                 <div className="card-header">
-                  <h4>Edit Product</h4>
+                  <h4>Sửa sản phẩm</h4>
                 </div>
                 <div className="card-body">
                   <div className="form-group">
-                    <label htmlFor="name">Product Name</label>
+                    <label htmlFor="name">Tên sản phẩm</label>
                     <input
                       type="text"
                       name="name"
@@ -119,7 +125,7 @@ const ProductDetails = () => {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="sku">SKU</label>
+                    <label htmlFor="sku">Mã sản phẩm</label>
                     <input
                       type="text"
                       name="sku"
@@ -130,7 +136,7 @@ const ProductDetails = () => {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="category">Category</label>
+                    <label htmlFor="category">Danh mục</label>
                     <select
                       className="form-control"
                       name="category"
@@ -147,7 +153,24 @@ const ProductDetails = () => {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="price">Pirce</label>
+                    <label htmlFor="brand">Thương hiệu</label>
+                    <select
+                      className="form-control"
+                      name="brand"
+                      onChange={ handleChange }>
+                      <option value={ product.brand._id }>
+                        { product.brand.local }
+                      </option>
+                      { brands.map(item => (
+                        <option key={ item._id } value={ item._id }>
+                          { item.local }
+                        </option>
+                      )) }
+                    </select>
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="price">Giá</label>
                     <input
                       type="text"
                       name="price"
@@ -156,9 +179,19 @@ const ProductDetails = () => {
                       className="form-control"
                     />
                   </div>
+                  <div className="form-group">
+                    <label htmlFor="Stock">Stock</label>
+                    <input
+                      type="text"
+                      name="Stock"
+                      onChange={ handleChange }
+                      value={ product.Stock }
+                      className="form-control"
+                    />
+                  </div>
 
                   <div className="form-group">
-                    <label htmlFor="body">Description</label>
+                    <label htmlFor="body">Mô tả</label>
                     <textarea
                       className="form-control"
                       name="description"
@@ -189,10 +222,10 @@ const ProductDetails = () => {
               </div>
             </div>
             <div className="col-md-4">
-              <h3 className="text-center">Image</h3>
+              <h3 className="text-center">Hình ảnh</h3>
               <img src={ image } alt="" className="d-block img-fluid mb-3" />
               <div className="form-group">
-                <label htmlFor="image">Upload Image</label>
+                <label htmlFor="image">Tải hình ảnh</label>
                 <div className="custom-file">
                   <input
                     type="file"
@@ -204,7 +237,7 @@ const ProductDetails = () => {
                   // value={product.description}
                   />
                   <label htmlFor="image" className="custom-file-label">
-                    Choose File
+                    Chọn hình ảnh
                   </label>
                 </div>
                 <small className="form-text text-muted">Max Size 3mb</small>
@@ -213,7 +246,7 @@ const ProductDetails = () => {
                 className="btn btn-primary btn-block"
                 disabled={ !imageFile }
                 onClick={ handleUpdateImage }>
-                Update Image
+                Cập nhật hình ảnh
               </button>
               {/* <button className="btn btn-danger btn-block">Delete Image</button> */ }
             </div>

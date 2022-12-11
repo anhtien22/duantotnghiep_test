@@ -192,7 +192,7 @@ const UserState = props => {
       setUser(null)
       setUserError(null)
       setUserLoading(false)
-      setUserMessage({ variant: 'danger', message: 'Profile deleted' })
+      setUserMessage({ variant: 'danger', message: 'Đã xóa hồ sơ' })
       navigate('/login')
     } catch (err) {
       errorHandler(err)
@@ -215,25 +215,98 @@ const UserState = props => {
       errorHandler(err)
     }
   }
-  const deleteOneUserAdmin = async id => {
+  const forgotPassword = async (payload) => {
     try {
+      setUserLoading(true)
+      const config = { headers: { "Content-Type": "application/json" } };
+
+      const { data } = await axios.post("/api/users/password/forgot", {
+        email: payload.email
+      },
+        config
+      );
+      console.log("data", data);
       setUserLoading(false)
-      const userToken = JSON.parse(localStorage.getItem('userToken'))
-      const headers = {
-        Authorization: `Bearer ${userToken && userToken}`,
-      }
-      await axios.delete(`/api/users/admin/user/${id}`, { headers })
+      setUserError(null)
       setUserMessage({
         variant: 'success',
-        message: 'User details delete!',
+        message: `${data.message}`,
       })
-      setUserLoading(true)
-      setUserError(null)
-      // getCategories()
+      return data.user;
     } catch (err) {
-      errorHandler(err, 'could not delete user details')
+      errorHandler({ err })
+
     }
-  }
+  };
+
+  const resetPassword = async (token, payload) => {
+    try {
+      setUserLoading(true)
+
+      const config = { headers: { "Content-Type": "application/json" } };
+
+      const { data } = await axios.put(
+        `/api/users/password/reset/${token}`,
+        {
+          password: payload.password,
+          confirmPassword: payload.confirmPassword,
+        },
+        config
+      );
+      console.log("data", data);
+
+      setUserLoading(false)
+      setUserError(null)
+      setUserMessage({
+        variant: 'success',
+        message: 'Bạn đã đổi mật khẩu thành công!',
+      })
+      return data.user;
+
+    } catch (error) {
+      // if (payload.password !== payload.confirmPassword) {
+      errorHandler(error)
+      // }
+
+    }
+  };
+
+  const updatePassword = async (payload) => {
+    try {
+      // setUserLoading(true)
+      console.log("payload", payload);
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        }
+      };
+
+      const { data } = await axios.put(
+        `/api/users/profile/updatepassword`,
+        {
+          oldPassword: payload.oldPassword,
+          newPassword: payload.newPassword,
+          confirmPassword: payload.confirmPassword,
+        },
+        config
+      );
+      // const res = await fetch(`/api/users/profile/updatepassword`, {
+      //   method: "PATCH",
+      //   headers,
+      //   body: JSON.stringify({
+      //     oldPassword: payload.oldPassword,
+      //     newPassword: payload.newPassword,
+      //     confirmPassword: payload.confirmPassword,
+      //   }),
+      // });
+      console.log("data", data);
+      // setUserLoading(false)
+      // setUserError(null)
+      // return data.user;
+    } catch (err) {
+      errorHandler(err)
+    }
+  };
 
   return (
     <UserContext.Provider
@@ -251,7 +324,9 @@ const UserState = props => {
         getAllUsers,
         deleteProfile,
         getOneUserAdmin,
-        deleteOneUserAdmin
+        forgotPassword,
+        resetPassword,
+        updatePassword
       } }>
       { props.children }
     </UserContext.Provider>

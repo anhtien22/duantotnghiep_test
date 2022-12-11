@@ -33,38 +33,39 @@ const LoginScreen = () => {
             <div className="row"></div>
           </div>
         </section>
-        {/* LOGIN */}
+        {/* LOGIN */ }
         <section id="login">
           <div className="container">
             <p className="text-center">
-              Don't have an accout? <Link to="/signup">Signup</Link>
+              Không có tài khoản? <Link to="/signup">Đăng ký</Link> |
+              <Link to="/forgotpassword"> Quên mật khẩu</Link>
             </p>
             <div className="row">
               <div className="col-md-6 mx-auto">
                 <div className="card">
                   <div className="card-header">
-                    <h4>Account Login</h4>
+                    <h4>Đăng nhập tài khoản</h4>
                   </div>
                   <div className="card-body">
-                    <form onSubmit={handleLogin}>
+                    <form onSubmit={ handleLogin }>
                       <div className="form-group">
                         <label htmlFor="email">Email</label>
                         <input
-                          onChange={handleChange}
+                          onChange={ handleChange }
                           type="text"
                           className="form-control"
                           name="email"
-                          value={credentials.email}
+                          value={ credentials.email }
                         />
                       </div>
                       <div className="form-group">
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">Mật khẩu</label>
                         <input
-                          onChange={handleChange}
+                          onChange={ handleChange }
                           type="password"
                           className="form-control"
                           name="password"
-                          value={credentials.password}
+                          value={ credentials.password }
                         />
                       </div>
                       <input

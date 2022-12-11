@@ -18,8 +18,8 @@ export const addVariation = async (req, res) => {
 // @access Public
 export const getAllVariation = async (req, res) => {
   try {
-    const variations = await Variation.find()
-    res.json({ success: true, variations })
+    const variation = await Variation.find()
+    res.json({ success: true, variation })
   } catch (err) {
     res.status(400).json({ success: false, error: err.message })
   }

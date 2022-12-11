@@ -42,7 +42,7 @@ const ProductState = props => {
     } else if (err.request) {
       setProductsError({
         variant: 'danger',
-        message: `${info},  No response from server!`,
+        message: `${info},  Không có phản hồi từ máy chủ!`,
       })
     } else {
       setProductsError({ variant: 'danger', message: err.message })
@@ -51,18 +51,18 @@ const ProductState = props => {
   }
 
   // get all Products
-  const getProducts = async (limit, skip, keyword, category) => {
+  const getProducts = async (limit, skip, keyword, category, brand) => {
     try {
       setProductsLoading(true)
       const { data } = await axios.get(`/api/products/getAll`, {
-        params: { limit, skip, keyword, category },
+        params: { limit, skip, keyword, category, brand },
       })
       setProducts(data.products)
       setProductsLoading(false)
       setProductsError(null)
       return data.totalResults
     } catch (err) {
-      errorHandler(err, 'could not get products')
+      errorHandler(err, 'không thể nhận được sản phẩm')
     }
   }
 
@@ -81,12 +81,34 @@ const ProductState = props => {
       // setProducts([productBody, ...products])
       setProductsMessage({
         variant: 'success',
-        message: 'Product added successfully!',
+        message: 'Đã thêm sản phẩm thành công!',
       })
       setProductsLoading(false)
       setProductsError(null)
     } catch (err) {
-      errorHandler(err, 'Could not add product')
+      errorHandler(err, 'Không thể thêm sản phẩm')
+    }
+  }
+
+  // Delete prdouct 
+  const deleteProduct = async id => {
+    try {
+      setProductsLoading(true)
+      const userToken = JSON.parse(localStorage.getItem('userToken'))
+      const headers = {
+        Authorization: `Bearer ${userToken && userToken}`,
+        'Content-Type': 'multipart/form-data',
+      }
+      const { data } = await axios.delete(`/api/products/${id}`, { headers })
+      setProductsMessage({
+        variant: 'success',
+        message: 'Xóa thành công!',
+      })
+      setProductsLoading(false)
+      setProductsError(null)
+      return data.product
+    } catch (err) {
+      errorHandler(err, 'Không tìm thấy sản phẩm')
     }
   }
 
@@ -109,8 +131,10 @@ const ProductState = props => {
     name,
     sku,
     category,
+    brand,
     price,
-    description
+    description,
+    Stock
   ) => {
     try {
       setProductsLoading(true)
@@ -122,53 +146,21 @@ const ProductState = props => {
         name,
         sku,
         category,
+        brand,
         price,
         description,
+        Stock,
       })
       await axios.patch(`/api/products/${id}`, productBody, { headers })
       setProductsMessage({
         variant: 'success',
-        message: 'Product details updated!',
+        message: 'Chi tiết sản phẩm được cập nhật!',
       })
       setProductsLoading(false)
       setProductsError(null)
       // getCategories()
     } catch (err) {
-      errorHandler(err, 'could not update product details')
-    }
-  }
-  // Delete prdouct Image
-  const deleteProduct = async (
-    id,
-    name,
-    sku,
-    category,
-    price,
-    description
-  ) => {
-    try {
-      setProductsLoading(true)
-      const userToken = JSON.parse(localStorage.getItem('userToken'))
-      const headers = {
-        Authorization: `Bearer ${userToken && userToken}`,
-      }
-      const productBody = clean({
-        name,
-        sku,
-        category,
-        price,
-        description,
-      })
-      await axios.patch(`/api/products/${id}`, productBody, { headers })
-      setProductsMessage({
-        variant: 'success',
-        message: 'Product details delete!',
-      })
-      setProductsLoading(false)
-      setProductsError(null)
-      // getCategories()
-    } catch (err) {
-      errorHandler(err, 'could not delete product details')
+      errorHandler(err, 'Không thể cập nhật chi tiết sản phẩm')
     }
   }
 
@@ -188,15 +180,42 @@ const ProductState = props => {
       )
       setProductsMessage({
         variant: 'success',
-        message: 'Product Image updated!',
+        message: 'Hình ảnh sản phẩm được cập nhật!',
       })
       setProductsLoading(false)
       setProductsError(null)
       return data.image
     } catch (err) {
-      errorHandler(err, 'Could not update image')
+      errorHandler(err, 'Không thể cập nhật hình ảnh')
     }
   }
+
+  const newReview = async (payload) => {
+    try {
+      console.log(payload);
+      setProductsLoading(true)
+
+      const { data } = await axios.put("/api/products/review",
+        {
+          comment: payload.comment,
+          rating: payload.rating,
+          productId: payload.productId,
+          user: payload.user,
+          name: payload.name
+        });
+      console.log("res", data);
+
+
+      setProductsLoading(false)
+      // setProductsError(null)
+      // return data
+
+    } catch (error) {
+      errorHandler(error, 'Bình luận thất bại')
+    }
+  };
+
+
 
   return (
     <ProductContext.Provider
@@ -212,6 +231,7 @@ const ProductState = props => {
         updateProductImage,
         deleteProduct,
         errorHandler,
+        newReview
       } }>
       { props.children }
     </ProductContext.Provider>

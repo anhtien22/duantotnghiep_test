@@ -1,24 +1,32 @@
-import express from 'express'
+import express from "express";
 import {
   getAllOrders,
   getMyOrders,
   getOneOrder,
+  getAllHot,
   getOneOrderAdmin,
   placeOrder,
-} from '../controllers/orderControllers.js'
-import auth from '../middleware/auth.js'
-import checkAdmin from '../middleware/checkAdmin.js'
+  updateOrder,
+} from "../controllers/orderControllers.js";
+import auth from "../middleware/auth.js";
+import checkAdmin from "../middleware/checkAdmin.js";
 
-const router = express.Router()
+const router = express.Router();
 
-router.post('/new', auth, placeOrder)
+router.post("/new", auth, placeOrder);
 
-router.get('/getAll', auth, checkAdmin, getAllOrders)
+router.get("/getAll", getAllOrders);
 
-router.get('/myOrders', auth, getMyOrders)
+router.get("/getHot", getAllHot);
 
-router.get('/myOrders/:id', auth, getOneOrder)
+router.get("/myOrders", auth, getMyOrders);
 
-router.get('/:id', auth, checkAdmin, getOneOrderAdmin)
+router.get("/myOrders/:id", auth, getOneOrder);
 
-export default router
+router.get("/:id", getOneOrderAdmin);
+
+router.put("/admin/order/:id", updateOrder);
+
+router.put("/admin/order/:id", updateOrder);
+
+export default router;

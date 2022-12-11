@@ -20,6 +20,7 @@ router.post('/add', upload.single('image'), addProduct)
 
 router.get('/getAll', getAllProducts)
 
+
 router.get('/:id', getProduct)
 
 router.patch('/:id', auth, checkAdmin, updateProductDetails)
@@ -32,11 +33,11 @@ router.patch(
   updateProductImage
 )
 
-router.delete('/:id', auth, checkAdmin, deleteProduct)
+router.delete('/:id', deleteProduct)
 
 router.put("/review", createProductReview);
 
-router.get("/reviews", getProductReviews);
+router.get("/reviews/:id", getProductReviews);
 
 router.delete("/reviews", deleteReview);
 

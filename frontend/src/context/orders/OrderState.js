@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import OrderContext from './orderContext'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
-import { useCart } from 'react-use-cart'
+import React, { useEffect, useState } from "react";
+import OrderContext from "./orderContext";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "react-use-cart";
 
 // Function for cleaning null, undefined and empty strings values in objects
 function clean(obj) {
@@ -10,52 +10,52 @@ function clean(obj) {
     if (
       obj[propName] === null ||
       obj[propName] === undefined ||
-      obj[propName] === ''
+      obj[propName] === ""
     ) {
-      delete obj[propName]
+      delete obj[propName];
     }
   }
-  return obj
+  return obj;
 }
 
 // ------------------------------------------
 // Orders State
 // ------------------------------------------
-const OdersState = props => {
-  const navigate = useNavigate()
+const OdersState = (props) => {
+  const navigate = useNavigate();
 
-  const { emptyCart } = useCart()
+  const { emptyCart } = useCart();
 
-  const [orders, setOrders] = useState([])
-  const [ordersError, setOrdersError] = useState(null)
-  const [ordersLoading, setOrdersLoading] = useState(false)
-  const [ordersMessage, setOrdersMessage] = useState(null)
-  const [myOrders, setMyOrders] = useState([])
+  const [orders, setOrders] = useState([]);
+  const [ordersError, setOrdersError] = useState(null);
+  const [ordersLoading, setOrdersLoading] = useState(false);
+  const [ordersMessage, setOrdersMessage] = useState(null);
+  const [myOrders, setMyOrders] = useState([]);
 
   useEffect(() => {
     setTimeout(() => {
-      setOrdersError(null)
-      setOrdersMessage(null)
-    }, 3000)
-  }, [ordersError, ordersMessage])
+      setOrdersError(null);
+      setOrdersMessage(null);
+    }, 3000);
+  }, [ordersError, ordersMessage]);
 
   // Error Handler function
   const errorHandler = (err, info) => {
     if (err.response) {
       setOrdersError({
-        variant: 'danger',
+        variant: "danger",
         message: `${info}, ${err.response.data.error}`,
-      })
+      });
     } else if (err.request) {
       setOrdersError({
-        variant: 'danger',
-        message: `${info},  No response from server!`,
-      })
+        variant: "danger",
+        message: `${info},  Không có phản hồi từ máy chủ!`,
+      });
     } else {
-      setOrdersError({ variant: 'danger', message: err.message })
+      setOrdersError({ variant: "danger", message: err.message });
     }
-    setOrdersLoading(false)
-  }
+    setOrdersLoading(false);
+  };
 
   // -----------------------------------------
   // Place new order
@@ -73,112 +73,146 @@ const OdersState = props => {
       paymentMethod,
       totalPrice,
       paymentResult,
-    })
+    });
     try {
-      const userToken = JSON.parse(localStorage.getItem('userToken'))
+      const userToken = JSON.parse(localStorage.getItem("userToken"));
       const headers = {
         Authorization: `Bearer ${userToken && userToken}`,
-      }
-      setOrdersLoading(true)
-      await axios.post('api/orders/new', orderBody, { headers })
+      };
+      setOrdersLoading(true);
+      await axios.post("api/orders/new", orderBody, { headers });
+      console.log("orderBody", orderBody);
       // localStorage.removeItem('react-use-cart')
-      emptyCart()
-      navigate('/thankYou')
+      emptyCart();
+      navigate("/thankYou");
       // setProducts([...products, productBody])
       setOrdersMessage({
-        variant: 'success',
-        message: 'Order placed successfully!',
-      })
-      setOrdersLoading(false)
-      setOrdersError(null)
+        variant: "success",
+        message: "Đặt hàng thành công!",
+      });
+      setOrdersLoading(false);
+      setOrdersError(null);
     } catch (err) {
-      errorHandler(err)
+      errorHandler(err);
     }
-  }
+  };
 
   // -----------------------------------------
   //  Get all orders
   //   ---------------------------------------
   const getAllOrders = async () => {
     try {
-      setOrdersLoading(true)
-      const userToken = JSON.parse(localStorage.getItem('userToken'))
+      setOrdersLoading(true);
+      const userToken = JSON.parse(localStorage.getItem("userToken"));
       const headers = {
         Authorization: `Bearer ${userToken && userToken}`,
-      }
-      const { data } = await axios.get('/api/orders/getAll', { headers })
-      setOrders(data.orders)
-      setOrdersLoading(false)
-      setOrdersError(null)
+      };
+      const { data } = await axios.get("/api/orders/getAll", { headers });
+      setOrders(data.orders);
+      setOrdersLoading(false);
+      setOrdersError(null);
     } catch (err) {
-      errorHandler(err)
+      errorHandler(err);
     }
-  }
+  };
 
   // -----------------------------------------
   //  Get my orders
   //   ---------------------------------------
   const getMyOrders = async () => {
     try {
-      setOrdersLoading(true)
-      const userToken = JSON.parse(localStorage.getItem('userToken'))
+      setOrdersLoading(true);
+      const userToken = JSON.parse(localStorage.getItem("userToken"));
       const headers = {
         Authorization: `Bearer ${userToken && userToken}`,
-      }
-      const { data } = await axios.get('/api/orders/myOrders', { headers })
-      setMyOrders(data.myOrders)
-      setOrdersLoading(false)
-      setOrdersError(null)
+      };
+      const { data } = await axios.get("/api/orders/myOrders", { headers });
+      setMyOrders(data.myOrders);
+      setOrdersLoading(false);
+      setOrdersError(null);
     } catch (err) {
-      errorHandler(err)
+      errorHandler(err);
     }
-  }
+  };
 
   // -----------------------------------------
   //  Get One order
   //   ---------------------------------------
-  const getOneOrder = async id => {
+  const getOneOrder = async (id) => {
     try {
-      setOrdersLoading(true)
-      const userToken = JSON.parse(localStorage.getItem('userToken'))
+      setOrdersLoading(true);
+      const userToken = JSON.parse(localStorage.getItem("userToken"));
       const headers = {
         Authorization: `Bearer ${userToken && userToken}`,
-      }
+      };
       const { data } = await axios.get(`/api/orders/myOrders/${id}`, {
         headers,
-      })
-      setOrdersLoading(false)
-      setOrdersError(null)
-      return data.order
+      });
+      setOrdersLoading(false);
+      setOrdersError(null);
+      return data.order;
     } catch (err) {
-      errorHandler(err)
+      errorHandler(err);
     }
-  }
+  };
 
   // -----------------------------------------
   //  Get One order admin
   //   ---------------------------------------
-  const getOneOrderAdmin = async id => {
+  const getOneOrderAdmin = async (id) => {
     try {
-      setOrdersLoading(true)
-      const userToken = JSON.parse(localStorage.getItem('userToken'))
+      setOrdersLoading(true);
+      const userToken = JSON.parse(localStorage.getItem("userToken"));
       const headers = {
         Authorization: `Bearer ${userToken && userToken}`,
-      }
+      };
       const { data } = await axios.get(`/api/orders/${id}`, {
         headers,
-      })
-      setOrdersLoading(false)
-      setOrdersError(null)
-      return data.order
+      });
+      setOrdersLoading(false);
+      setOrdersError(null);
+      return data.order;
     } catch (err) {
-      errorHandler(err)
+      errorHandler(err);
     }
-  }
+  };
+
+  const updateStatustAdmin = async (e, id) => {
+    const selectHend = e.target.value;
+    console.log(selectHend);
+    const select = e.target
+      .closest("td")
+      .querySelectorAll('[name="orderStatus"] option');
+    const indexSatus = [...select].findIndex((val) => val.value === selectHend);
+    for (let index = 0; index < select.length; index++) {
+      if (index < indexSatus) select[index].remove();
+    }
+    try {
+      setOrdersLoading(true);
+      const userToken = JSON.parse(localStorage.getItem("userToken"));
+      const headers = {
+        Authorization: `Bearer ${userToken && userToken}`,
+        "Content-Type": "application/json",
+      };
+      const res = await fetch(`/api/orders/admin/order/${id}`, {
+        method: "PUT",
+        headers,
+        body: JSON.stringify({ id, status: selectHend }),
+      });
+      console.log(res);
+
+      setOrdersLoading(false);
+      setOrdersError(null);
+      console.log("response", res);
+      return res.json();
+    } catch (err) {
+      errorHandler(err);
+    }
+  };
 
   return (
     <OrderContext.Provider
-      value={{
+      value={ {
         placeOrder,
         orders,
         ordersError,
@@ -189,10 +223,12 @@ const OdersState = props => {
         getMyOrders,
         getOneOrder,
         getOneOrderAdmin,
-      }}>
-      {props.children}
+        updateStatustAdmin,
+      } }
+    >
+      { props.children }
     </OrderContext.Provider>
-  )
-}
+  );
+};
 
-export default OdersState
+export default OdersState;

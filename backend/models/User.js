@@ -29,6 +29,7 @@ const userSchema = mongoose.Schema(
       required: [true, 'Vui lòng nhập mật khẩu của bạn'],
       minLength: [6, 'Mật khẩu phải có độ dài ít nhất 6 ký tự!'],
       trim: true,
+      select: true,
       validate(pass) {
         if (pass.toLowerCase().includes('password')) {
           throw new Error(
@@ -99,11 +100,18 @@ userSchema.pre('save', async function (next) {
 // Middleware function for unique email error
 userSchema.post('save', function (error, doc, next) {
   if (error.name === 'MongoServerError' && error.code === 11000) {
-    next(new Error('Email đã đưa!'))
+    next(new Error('Email tồn tại!'))
   } else {
     next()
   }
 })
+
+// Compare Password
+
+userSchema.methods.comparePassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
+
 
 userSchema.methods.getResetPasswordToken = function () {
 
