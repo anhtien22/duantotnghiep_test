@@ -82,13 +82,28 @@ const Cart = () => {
                                 style={ { maxWidth: "120px" } }
                               >
                                 <div className="input-group-prepend">
-                                  <button onClick={ () => updateItemQuantity(item.id, item.quantity - 1) } className="btn btn-outline-primary js-btn-minus" type="button">
+                                  <button
+                                    onClick={ () => updateItemQuantity(item.id, item.quantity - 1) }
+                                    className="btn btn-outline-primary js-btn-minus"
+                                    type="button"
+                                  >
                                     &minus;
                                   </button>
                                 </div>
-                                <input type="text" className="form-control text-center" value={ item.quantity } placeholder="" disabled onChange={ (e) => updateItemQuantity(item.id, e.target.value) } aria-describedby="button-addon1" />
+                                <input
+                                  type="text"
+                                  className="form-control text-center"
+                                  value={ item.quantity }
+                                  placeholder=""
+                                  disabled
+                                  onChange={ (e) => updateItemQuantity(item.id, e.target.value) }
+                                  aria-describedby="button-addon1" />
                                 <div className="input-group-append">
-                                  <button onClick={ () => updateItemQuantity(item.id, item.quantity + 1) } className="btn btn-outline-primary js-btn-plus" type="button" disabled={ item.quantity >= item.Stock }>
+                                  <button
+                                    onClick={ () => updateItemQuantity(item.id, item.quantity + 1) }
+                                    className="btn btn-outline-primary js-btn-plus"
+                                    type="button"
+                                    disabled={ item.quantity >= item.Stock }>
                                     &#43;
                                   </button>
                                 </div>
