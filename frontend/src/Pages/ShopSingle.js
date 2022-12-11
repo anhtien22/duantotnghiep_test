@@ -66,7 +66,7 @@ const ShopSingle = () => {
               <p>{ product.description }</p>
               <p>
                 <small className="text-secondary">
-                  Thương hiệu: { product.brand.local }
+                  {/* Thương hiệu: { product.brand.local } */ }
                 </small>
               </p>
               <p>

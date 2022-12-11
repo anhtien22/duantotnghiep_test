@@ -57,6 +57,7 @@ const ProductDetails = () => {
   const deleteSaveChanges = (id) => {
     // console.log(product)
     deleteProduct(id)
+
   }
 
   const handleUpdateImage = async () => {

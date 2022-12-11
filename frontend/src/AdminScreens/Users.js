@@ -92,7 +92,7 @@ const Users = () => {
                             </Link> */}
                             <button
                               className="btn btn-secondary bg-danger text-white"
-                              // disabled
+                              disabled
                               onClick={ () => deleteSaveChanges(user._id) }>
                               <i className="fas fa-angle-double-right" /> Xóa
                             </button>
