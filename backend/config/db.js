@@ -1,8 +1,8 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 const connectDB = () => {
   mongoose
-    .connect("mongodb+srv://anhtien27722:123123qQ@cluster0.mns2bti.mongodb.net/duan?retryWrites=true&w=majority", {
+    .connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
