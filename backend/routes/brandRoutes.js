@@ -11,7 +11,7 @@ import {
 
 const router = express.Router()
 
-router.post('/add', auth, checkAdmin, addBrand)
+router.post('/add', addBrand)
 
 router.get('/getAll', getAllBrands)
 
