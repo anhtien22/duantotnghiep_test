@@ -15,7 +15,7 @@ import variationRoutes from './routes/variationRoutes.js'
 // import uploadRoutes from './routes/multer.js'
 const app = express();
 
-dotenv.config({ path: "config/.env" });
+dotenv.config({ path: "backend/config/.env" });
 connectDB();
 
 app.use(express.json())
