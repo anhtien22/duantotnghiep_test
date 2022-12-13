@@ -5,7 +5,6 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "allnpmi": "cd frontend && npm i -f && cd ../ && cd backend && npm i -f",
     "start": "node backend/index",
     "server": "nodemon backend/index",
     "client": "npm start --prefix frontend",

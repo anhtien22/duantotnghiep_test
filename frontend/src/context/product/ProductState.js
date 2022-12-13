@@ -60,7 +60,8 @@ const ProductState = props => {
       setProducts(data.products)
       setProductsLoading(false)
       setProductsError(null)
-      return data.totalResults
+      console.log("data", data)
+      return data
     } catch (err) {
       errorHandler(err, 'không thể nhận được sản phẩm')
     }

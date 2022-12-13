@@ -86,9 +86,9 @@ const Home = ({ strings }) => {
                 <span className="icon-truck"></span>
               </div>
               <div className="text">
-                <h2 className="text-uppercase">MIỄN PHÍ VẬN CHUYỂN</h2>
+                <h2 className="text-uppercase">{ strings["FREE_SHIPPING"] }</h2>
                 <p>
-                  Shop sẽ hỗ trợ giao sản phẩm cho các đơn hàng trên 500k và các đơn hàng mua lần đầu tại shop .
+                  { strings["Shop_Will_Support_Product_Delivery_For_Orders_Over_500000_VND_And_First_Time_Purchase_Orders_At_The_Shop"] }
                 </p>
               </div>
             </div>
@@ -101,9 +101,9 @@ const Home = ({ strings }) => {
                 <span className="icon-refresh2"></span>
               </div>
               <div className="text">
-                <h2 className="text-uppercase">MIỄN PHÍ HOÀN TRẢ</h2>
+                <h2 className="text-uppercase">{ strings["FREE_REFUND"] }</h2>
                 <p>
-                  Theo các điều lệ được quy định trong Điều khoản dịch vụ, Shop đảm bảo quyền lợi của Người mua .
+                  { strings["According_to_the_terms_set_forth_in_the_Terms_of_Service_the_Shop_guarantees_the_interests_of_the_buyer"] }
                 </p>
               </div>
             </div>
@@ -116,9 +116,9 @@ const Home = ({ strings }) => {
                 <span className="icon-help"></span>
               </div>
               <div className="text">
-                <h2 className="text-uppercase">HỖ TRỢ KHÁCH HÀNG</h2>
+                <h2 className="text-uppercase">{ strings["CUSTOMER_SUPPORT"] }</h2>
                 <p>
-                  Hỗ trợ 24/7 bất cứ lúc nào mà khách hàng cần hỗ trợ đáp ứng các câu hỏi và thắc mắc của khách hàng.
+                  { strings["24/7_Support_Anytime_Customer_Needs_Support_Responding_to_Customer_Questions_and_Inquiries"] }
                 </p>
               </div>
             </div>

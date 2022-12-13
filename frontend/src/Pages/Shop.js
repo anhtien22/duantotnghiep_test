@@ -5,6 +5,7 @@ import { useCart } from "react-use-cart";
 import Breadcrumb from "../components/Breadcrumb";
 import CategoryContext from "../context/category/categoryContext";
 import productContext from "../context/product/productContext";
+import { getSortedProducts } from "../helpers/product";
 
 
 const Shop = () => {
@@ -12,7 +13,7 @@ const Shop = () => {
   const pContext = useContext(productContext);
   const { getProducts, products } = pContext;
 
-  console.log("products", products);
+  // console.log("products", products);
   // for category context
   const cContext = useContext(CategoryContext);
   const { categories, getCategories } = cContext;
@@ -24,14 +25,73 @@ const Shop = () => {
   const [totalResults, setTotalResults] = useState(0);
   const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
+
   useEffect(() => {
     const populateProducts = async () => {
-      setTotalResults(await getProducts(limit, skip, keyWord, category));
+      // setTotalResults(await getProducts(limit, skip, keyWord, category));
+      await getProducts(limit, skip, keyWord, category);
     };
     populateProducts();
     getCategories();
     // eslint-disable-next-line
   }, [skip, limit, category]);
+
+  // const priceHighToLow = (value) => {
+  //   const sortProducts = [...products];
+  //   console.log("sortProducts", sortProducts);
+
+  //   if (value === "default") {
+  //     return sortProducts;
+  //   }
+  //   if (value === "priceHighToLow") {
+  //     sortProducts.sort((a, b) => {
+  //       console.log("priceHighToLow", sortProducts);
+  //       return b.price - a.price;
+  //     });
+  //     return sortProducts
+  //   }
+  //   if (value === "priceLowToHigh") {
+  //     sortProducts.sort((a, b) => {
+  //       console.log("priceLowToHigh", sortProducts);
+  //       return a.price - b.price;
+  //     });
+  //   }
+  //   return products;
+  // }
+
+  const [data, setData] = useState([]);
+  console.log("data", data);
+  const [sortType, setSortType] = useState('default');
+  useEffect(() => {
+    const sortArray = type => {
+      const sorted = [...products]
+      const types = {
+        default: 'default',
+        priceHighToLow: 'priceHighToLow',
+        priceLowToHigh: 'priceLowToHigh',
+      };
+      const sortProperty = types[type];
+      if (sortProperty === "default") {
+        return data;
+      }
+      if (sortProperty === "priceHighToLow") {
+        sorted.sort((a, b) => b.price - a.price);
+        // sortProducts.sort((a, b) => {
+        //         console.log("priceHighToLow", sortProducts);
+        //         return b.price - a.price;
+        //       });
+      }
+      if (sortProperty === "priceLowToHigh") {
+        sorted.sort((a, b) => a.price - b.price);
+      }
+      // const sorted = [...products].sort((a, b) => b[sortProperty] - a[sortProperty]);
+      console.log(sorted);
+      setData(sorted);
+    };
+
+    sortArray(sortType);
+  }, [sortType]);
+
 
   const handleChange = (e) => {
     setKeyWord(e.target.value);
@@ -42,7 +102,8 @@ const Shop = () => {
     setSkip(0);
     setCategory("");
     const populateProducts = async () => {
-      setTotalResults(await getProducts(limit, skip, keyWord, category));
+      // setTotalResults(await getProducts(limit, skip, keyWord, category));
+      await getProducts(limit, skip, keyWord, category);
     };
     populateProducts();
   };
@@ -74,7 +135,13 @@ const Shop = () => {
                   <div className="float-md-left mb-4">
 
                     <h2 className="text-black h5">SHOP ALL</h2>
-
+                    <select
+                      onChange={ e => setSortType(e.target.value) }
+                    >
+                      <option value="default">Mặc định</option>
+                      <option value="priceHighToLow">Giá từ cao đến thấp</option>
+                      <option value="priceLowToHigh">Giá từ thấp đến cao</option>
+                    </select>
                   </div>
                   <div className="d-flex">
                     <Form className="d-flex" onSubmit={ handleSearchSubmit }>
@@ -171,7 +238,7 @@ const Shop = () => {
                       Trang -{ skip / limit + 1 },
                       <span className="text-muted">
                         { ' ' }
-                        Hiển thị { products.length } trong số { totalResults }{ ' ' }
+                        Hiển thị { products.length } trong số { products.totalResults }{ ' ' }
                         sản phẩm .
                       </span>
                     </div>
@@ -180,7 +247,7 @@ const Shop = () => {
                       variant="success"
                       size="sm"
                       onClick={ handleNextClick }
-                      disabled={ totalResults - skip <= limit }>
+                      disabled={ products.totalResults - skip <= limit }>
                       Tiếp tục &rarr;
                     </Button>
                   </div>

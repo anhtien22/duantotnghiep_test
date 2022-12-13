@@ -60,49 +60,31 @@ export const getProductCartQuantity = (cartItems, product, color, size) => {
 //get products based on category
 export const getSortedProducts = (products, sortType, sortValue) => {
   if (products && sortType && sortValue) {
-    if (sortType === "category") {
-      return products.filter(
-        product => product.category.filter(single => single === sortValue)[0]
-      );
-    }
-    // if (sortType === "tag") {
-    //   return products.filter(
-    //     product => product.tag.filter(single => single === sortValue)
-    //   );
-    // }
-    if (sortType === "color") {
-      return products.filter(
-        product =>
-          product.variation &&
-          product.variation.filter(single => single.color === sortValue)[0]
-      );
-    }
-    if (sortType === "size") {
-      return products.filter(
-        product =>
-          product.variation &&
-          product.variation.filter(
-            single => single.size.filter(single => single.name === sortValue)[0]
-          )[0]
-      );
-    }
+
+    // console.log("products sort", products);
     if (sortType === "filterSort") {
       let sortProducts = [...products];
+      // console.log("sortProducts", sortProducts);
       if (sortValue === "default") {
+        console.log("default", sortValue);
         return sortProducts;
       }
       if (sortValue === "priceHighToLow") {
         return sortProducts.sort((a, b) => {
+          console.log("priceHighToLow", sortProducts);
           return b.price - a.price;
         });
       }
       if (sortValue === "priceLowToHigh") {
         return sortProducts.sort((a, b) => {
+          console.log("priceLowToHigh", sortValue);
           return a.price - b.price;
         });
       }
     }
   }
+  console.log("products", products);
+
   return products;
 };
 
