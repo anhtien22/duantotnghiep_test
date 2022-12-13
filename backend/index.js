@@ -15,7 +15,7 @@ import variationRoutes from './routes/variationRoutes.js'
 // import uploadRoutes from './routes/multer.js'
 const app = express();
 
-dotenv.config({ path: "backend/config/.env" });
+dotenv.config({ path: "config/.env" });
 connectDB();
 
 app.use(express.json())
@@ -29,7 +29,7 @@ app.use('/api/orders', orderRoutes)
 // app.use('/api/upload', uploadRoutes)
 
 const __dirname = path.resolve()
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
+app.use('/uploads', express.static(path.join(__dirname, './uploads')))
 
 app.get('/', (req, res) => {
   res.send('This is the home page')
