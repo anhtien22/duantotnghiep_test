@@ -15,7 +15,7 @@ import variationRoutes from './routes/variationRoutes.js'
 // import uploadRoutes from './routes/multer.js'
 const app = express();
 
-dotenv.config({ path: "backend/config/.env" });
+dotenv.config({ path: "config/.env" });
 connectDB();
 
 app.use(express.json())
@@ -48,3 +48,5 @@ const port = process.env.PORT;
 app.listen(port, () => {
   console.log(`App is running on port ${port}`);
 })
+
+module.exports = app;
