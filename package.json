@@ -8,6 +8,7 @@
     "node": "14.x"
   },
   "scripts": {
+    "allnpmi": "cd frontend && npm install -f && cd ../ && cd backend && npm install -f",
     "start": "node backend/index.js",
     "server": "nodemon backend/index",
     "client": "npm start --prefix frontend",
