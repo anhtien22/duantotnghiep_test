@@ -8,7 +8,9 @@
     "node": "14.x"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Sayyed Maroof",
   "license": "ISC",
