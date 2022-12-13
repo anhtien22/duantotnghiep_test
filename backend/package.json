@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "node index",
+    "npmi": "npm install",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
