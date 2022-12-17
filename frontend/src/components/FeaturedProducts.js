@@ -1,3 +1,4 @@
+import { Rating } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "react-use-cart";
@@ -26,6 +27,11 @@ const FeaturedProducts = () => {
     getCategories();
     // eslint-disable-next-line
   }, [skip, limit, category]);
+
+  const formatter = new Intl.NumberFormat("it-IT", {
+    style: "currency",
+    currency: "VND",
+  });
   return (
     <div className="site-section block-3 site-blocks-2 bg-light">
       <div className="container">
@@ -34,17 +40,17 @@ const FeaturedProducts = () => {
             <h2>Sản phẩm mới</h2>
           </div>
           <div className="row mb-5">
-            {products.map((product) => (
+            { products.map((product) => (
               <div
                 className="col-sm-6 col-lg-4 mb-4"
                 data-aos="fade-up"
-                key={product._id}
+                key={ product._id }
               >
                 <div className="block-4 text-center border">
                   <figure className="block-4-image">
-                    <Link to={`/shopSingle/${product._id}`}>
+                    <Link to={ `/shopSingle/${product._id}` }>
                       <img
-                        src={product.image}
+                        src={ product.image }
                         alt="placeholder"
                         className="img-fluid"
                       />
@@ -52,25 +58,28 @@ const FeaturedProducts = () => {
                   </figure>
                   <div className="block-4-text p-4">
                     <h3>
-                      <Link to={`/shopSingle/${product._id}`}>
-                        {product.name}
+                      <Link className="text-black font-weight-bold" to={ `/shopSingle/${product._id}` }>
+                        { product.name }
                       </Link>
                     </h3>
                     <p className="mb-0 text-secondary">
-                      {product.category.title}
+                      { product.category.title }
                     </p>
-                    <p className="text-primary font-weight-bold">
-                      ${product.price}
+                    <p className="text-black font-weight-bold">
+                      { formatter.format(product.price) }
+                    </p>
+                    <p className="text-black font-weight-bold">
+                      <Rating name="half-rating-read" defaultValue={ product.ratings } readOnly />
                     </p>
                     <p
-                      className="buy-now btn btn-sm btn-primary"
-                      onClick={() => {
+                      className="buy-now btn btn-sm btn-outline-dark"
+                      onClick={ () => {
                         let item = {
                           ...product,
                           id: product._id,
                         };
                         addItem(item, quantity);
-                      }}
+                      } }
                     >
                       {/* <Link
                         to="/Cart"
@@ -90,7 +99,7 @@ const FeaturedProducts = () => {
                   </div>
                 </div>
               </div>
-            ))}
+            )) }
           </div>
         </div>
       </div>

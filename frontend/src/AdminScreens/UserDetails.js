@@ -28,7 +28,7 @@ const UserDetails = () => {
               <div className="card" style={ { borderRadius: '10px' } }>
                 <div className="card-header px-4 py-5">
                   <h5 className="text-muted mb-0">
-                    Xin chào,{ ' ' }
+                    Xin chào,
                     <span style={ { color: '#a8729a' } }>{ user.name }</span>!
                   </h5>
                 </div>

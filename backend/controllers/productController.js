@@ -89,7 +89,6 @@ export const getAllProducts = async (req, res) => {
       .populate('category', 'title')
       .limit(parseInt(req.query.limit))
       .skip(parseInt(req.query.skip))
-
     return res.json({ success: true, totalResults: results.length, products })
   } catch (err) {
     console.log(err)
@@ -157,7 +156,7 @@ export const updateProductImage = async (req, res) => {
     if (!req.file) throw new Error('xin vui lòng tải hình ảnh lên')
     fs.access('uploads', err => {
       if (err) {
-        fs.mkdirSync('./uploads')
+        fs.mkdirSync('/uploads')
       }
     })
     fs.unlinkSync(path.resolve(product.image))

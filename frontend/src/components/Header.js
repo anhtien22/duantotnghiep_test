@@ -52,28 +52,26 @@ const Header = ({
                 />
               </form> */}
               <div className="dropdown">
-                <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  {currentLanguageCode === "en"
+                <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  { currentLanguageCode === "en"
                     ? "English"
                     : currentLanguageCode === "vn"
-                      ? "Viet Nam"
-                      : ""}
+                      ? "Việt Nam"
+                      : "" }
                 </button>
                 <ul className="dropdown-menu">
                   <li>
-                    <button value="en" onClick={e => changeLanguageTrigger(e)}>
-                      {strings["english"]}
+                    <button className="btn btn-primary w-100" value="en" onClick={ e => changeLanguageTrigger(e) }>
+                      { strings["english"] }
                     </button>
                   </li>
-                  <li>
-                    <button value="vn" onClick={e => changeLanguageTrigger(e)}>
-                      {strings["vietnamese"]}
+                  <li className="text-danger mt-2 ">
+                    <button className="btn btn-danger w-100" value="vn" onClick={ e => changeLanguageTrigger(e) }>
+                      { strings["vietnamese"] }
                     </button>
                   </li>
-
                 </ul>
               </div>
-
             </div>
 
             <div className="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">

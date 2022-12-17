@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../AdminComponents/Navbar";
 import OrderContext from "../context/orders/orderContext";
 import "./or.css";
 // import SweetPagination from "sweetpagination";
 import { Form, FormControl } from "react-bootstrap";
+import Paginator from 'react-hooks-paginator';
 
+import swal from "sweetalert";
 const statusOrder = {
   Confirmed: "Đang xác nhận",
   Processing: "Đang giao hàng",
@@ -35,11 +37,14 @@ const Orders = () => {
   const resulf = total(orders, "Successfully");
   const resulf2 = total(orders, "COMPLETED");
   const resulf3 = resulf + resulf2;
+
+  const navigate = useNavigate();
+  const [keyword, setKeyword] = useState("");
+
   const statusHtml = (orderStatus) => {
     const index = Object.keys(statusOrder).findIndex(
       (key) => key === orderStatus
     );
-
     return Object.keys(statusOrder)
       .map(function (key, i) {
         if (i >= index) {
@@ -52,34 +57,38 @@ const Orders = () => {
       })
       .join("");
   };
+
   const formatter = new Intl.NumberFormat("it-IT", {
     style: "currency",
     currency: "VND",
   });
-  const limit = 6;
-  const [keyWord, setKeyWord] = useState("");
-  useEffect(() => {
-    // getAllOrders();
-    const orderseacrh = async () => {
-      await getAllOrders(limit, keyWord);
-    };
-    orderseacrh();
-  }, [limit]);
-  const handleChange = (e) => {
-    setKeyWord(e.target.value);
-  };
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
+  const pageLimit = 5;
 
-    const orderseacrh = async () => {
-      await getAllOrders(limit, keyWord);
-    };
-    orderseacrh();
-  };
+  const [offset, setOffset] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentData, setCurrentData] = useState([]);
+
   useEffect(() => {
-    getAllOrders();
+    getAllOrders()
   }, []);
+
+  useEffect(() => {
+    setCurrentData(orders.slice(offset, offset + pageLimit));
+  }, [offset, orders]);
+
+  const searchHandler = (e) => {
+    e.preventDefault();
+    if (keyword.trim()) {
+      navigate(`/orders?${keyword}`);
+    } else {
+      navigate(`/orders`)
+    }
+  }
+
+  const handlerSearchChange = (e) => {
+    setKeyword(e.target.value);
+  }
 
   const canceled = orders.map((i) => {
     let arr = [];
@@ -88,6 +97,7 @@ const Orders = () => {
     }
     return arr;
   });
+
   const cance = canceled.filter((g) => g[0] === "Canceled");
 
   return orders ? (
@@ -138,9 +148,9 @@ const Orders = () => {
                   <button className="btn btn-warning">Tìm kiếm</button>
                 </div>
               </div>
-            </div> */}{ " " }
+            </div> */}
             <div className="col-md-6 ml-auto">
-              <Form className="d-flex" onSubmit={ handleSearchSubmit }>
+              <Form className="d-flex" onSubmit={ searchHandler }>
                 <FormControl
                   type="search"
                   placeholder="Mã đơn hàng"
@@ -148,8 +158,7 @@ const Orders = () => {
                   aria-label="Search"
                   minLength={ 3 }
                   size="sm"
-                  value={ keyWord }
-                  onChange={ handleChange }
+                  defaultValue={ keyword } onChange={ handlerSearchChange }
                 />
                 <button type="submit" className="btn btn-secondary mx-3">
                   Tìm kiếm
@@ -159,7 +168,10 @@ const Orders = () => {
           </div>
         </div>
       </section>
-      <div className="" style={ { display: 'flex', justifyContent: 'center', gap: '50px' } }>
+      <div
+        className=""
+        style={ { display: "flex", justifyContent: "center", gap: "50px" } }
+      >
         <div className="card text-center bg-success text-white mb-3">
           <div className="card-body">
             <h5>Doanh thu giao hàng</h5>
@@ -167,7 +179,10 @@ const Orders = () => {
               <i className="fas fa-coins" />
             </h4>
             <h2>{ formatter.format(resulf) }</h2>
-            <Link to={ `/orderAdmin/cod` } className="btn btn-outline-light btn-sm">
+            <Link
+              to={ `/orderAdmin/cod` }
+              className="btn btn-outline-light btn-sm"
+            >
               Chi tiết
             </Link>
           </div>
@@ -180,7 +195,10 @@ const Orders = () => {
               <i className="fab fa-cc-paypal" />
             </h4>
             <h2>{ formatter.format(resulf2) }</h2>
-            <Link to={ `/orderAdmin/online` } className="btn btn-outline-light btn-sm">
+            <Link
+              to={ `/orderAdmin/online` }
+              className="btn btn-outline-light btn-sm"
+            >
               Chi tiết
             </Link>
           </div>
@@ -193,7 +211,10 @@ const Orders = () => {
               <i className="fas fa-window-close" />
             </h4>
             <h2>{ cance.length }</h2>
-            <Link to={ `/orderAdmin/canceled` } className="btn btn-outline-light btn-sm">
+            <Link
+              to={ `/orderAdmin/canceled` }
+              className="btn btn-outline-light btn-sm"
+            >
               Chi tiết
             </Link>
           </div>
@@ -230,9 +251,14 @@ const Orders = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    { orders.map((order, index) => (
+                    { currentData && currentData.filter((value) => {
+                      if (keyword === "") {
+                        return value;
+                      } else if (value._id.toLowerCase().includes(keyword.toLowerCase())) {
+                        return value;
+                      }
+                    }).map((order, index) => (
                       <tr key={ order._id }>
-                        {/* <td>{index + 1}</td> */ }
                         <td>{ order._id }</td>
                         <td>{ order.user?.name }</td>
                         <td>
@@ -245,9 +271,14 @@ const Orders = () => {
                               "Đã thanh toán online"
                             ) : (
                               <select
-                                onChange={ (e) =>
-                                  updateStatustAdmin(e, order._id)
-                                }
+                                onChange={ (e) => {
+                                  updateStatustAdmin(e, order._id);
+                                  swal(
+                                    "Thành Công!",
+                                    "Đã cập nhật trạng thái đơn hàng thành công !",
+                                    "success"
+                                  );
+                                } }
                                 className="block w-full px-2 py-1 text-sm outline-none rounded-md form-select focus:shadow-none leading-5 h-12 bg-[#24262D] dark:bg-[#F4F5F7] border-[1px] border-gray-600 dark:border-gray-300 text-gray-200 dark:text-black"
                                 name="orderStatus"
                                 dangerouslySetInnerHTML={ {
@@ -272,13 +303,26 @@ const Orders = () => {
                     )) }
                   </tbody>
                 </table>
+                <Paginator
+                  totalRecords={ orders.length }
+                  pageLimit={ pageLimit }
+                  pageNeighbours={ 2 }
+                  setOffset={ setOffset }
+                  currentPage={ currentPage }
+                  setCurrentPage={ setCurrentPage }
+                  pageContainerClass="mb-0 mt-0 d-flex "
+                  pagePrevText="«"
+                  pageNextText="»"
+                />
               </div>
             </div>
           </div>
-        </div>{ " " }
+        </div>
       </section>
     </>
-  ) : "Đơn hàng trống"
+  ) : (
+    "Đơn hàng trống"
+  );
 };
 
 export default Orders;

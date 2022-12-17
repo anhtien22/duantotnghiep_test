@@ -100,17 +100,22 @@ const OdersState = (props) => {
   // -----------------------------------------
   //  Get all orders
   //   ---------------------------------------
-  const getAllOrders = async () => {
+  const getAllOrders = async (limit, skip, keyword) => {
     try {
       setOrdersLoading(true);
       const userToken = JSON.parse(localStorage.getItem("userToken"));
       const headers = {
         Authorization: `Bearer ${userToken && userToken}`,
       };
-      const { data } = await axios.get("/api/orders/getAll", { headers });
+      const { data } = await axios.get("/api/orders/getAll", {
+        params: { limit, skip, keyword },
+        headers
+      });
+      console.log(data);
       setOrders(data.orders);
       setOrdersLoading(false);
       setOrdersError(null);
+      return data;
     } catch (err) {
       errorHandler(err);
     }

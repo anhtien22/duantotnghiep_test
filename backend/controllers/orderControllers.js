@@ -30,9 +30,9 @@ export const getAllOrders = async (req, res) => {
 
 export const getAllHot = async (req, res) => {
   try {
-    const orders = await Order.find( )
-    
-    res.status(200).json({ success: true, orders: orders.orderItems  });
+    const orders = await Order.find()
+
+    res.status(200).json({ success: true, orders: orders.orderItems });
   } catch (err) {
     res.status(400).json({ success: false, error: err.message });
   }

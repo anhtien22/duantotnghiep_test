@@ -8,7 +8,7 @@ const Navbar = () => {
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark p-0">
         <div className="container">
           <Link to="/adminDashboard" className="navbar-brand">
-         Bảng điều khiển
+            Bảng điều khiển
           </Link>
           <button
             className="navbar-toggler"
@@ -20,7 +20,7 @@ const Navbar = () => {
             <ul className="navbar-nav">
               <li className="nav-item px-2">
                 <Link to="/adminDashboard" className="nav-link active">
-                  Trang chủ
+                  Dashboard
                 </Link>
               </li>
               <li className="nav-item px-2">

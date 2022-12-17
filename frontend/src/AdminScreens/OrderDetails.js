@@ -90,7 +90,7 @@ const OrderDetails = () => {
                               <img
                                 src={ orderItem.image }
                                 className="img-fluid"
-                                alt="Phone"
+                                alt=""
                               />
                             </Link>
                           </div>
@@ -99,11 +99,6 @@ const OrderDetails = () => {
                               <b>{ orderItem.name }</b>
                             </p>
                           </div>
-                          {/* <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
-                            <p className="text-muted mb-0 small">
-                              { orderItem.description }
-                            </p>
-                          </div> */}
                           <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
                             <p className="text-muted mb-0 small">
                               Số lượng: { orderItem.quantity }
@@ -111,15 +106,13 @@ const OrderDetails = () => {
                           </div>
                           <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
                             <p className="text-muted mb-0 small">
-                              {/* Giá: {orderItem.price} */ }
                               Giá: { formatter.format(orderItem.price) }
                             </p>
                           </div>
                           <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
                             <p className="text-muted mb-0 small">
-                              {/* <b> Tiền: {orderItem.itemTotal}</b> */ }
+
                               <b>
-                                { " " }
                                 Tiền: { formatter.format(orderItem.itemTotal) }
                               </b>
                             </p>
@@ -158,7 +151,7 @@ const OrderDetails = () => {
                           <b>Thanh toán</b> : { order.paymentMethod }
                         </div>
                         <div>
-                          <b>Trạng thái</b> :{ " " }
+                          <b>Trạng thái</b>:
                           { statusOrder[order.paymentResult.status] }
                         </div>
                         { order.paymentMethod === "paypal" && (
@@ -167,10 +160,10 @@ const OrderDetails = () => {
                             <b>Thời gian thanh toán</b> :
                             { new Date(
                               order.paymentResult.update_time
-                            ).toLocaleString() }{ " " }
+                            ).toLocaleString() }
                             <br />
-                            <b>Địa chỉ email</b> :{ " " }
-                            { order.paymentResult.email_address }{ " " }
+                            <b>Địa chỉ email</b>:
+                            { order.paymentResult.email_address }
                           </div>
                         ) }
                         <div className="col-md-6"></div>
