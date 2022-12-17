@@ -76,39 +76,19 @@ const Cart = () => {
                               <h2 className="h5 text-black">{ item.name }</h2>
                             </td>
                             <td> { formatter.format(item.price) }</td>
+
                             <td>
-                              <div
-                                className="input-group mb-3"
-                                style={ { maxWidth: "120px" } }
-                              >
+                              <div className="input-group mb-3" style={ { maxWidth: "120px", margin:"auto" } } >
                                 <div className="input-group-prepend">
-                                  <button
-                                    onClick={ () => updateItemQuantity(item.id, item.quantity - 1) }
-                                    className="btn btn-outline-primary js-btn-minus"
-                                    type="button"
-                                  >
-                                    &minus;
-                                  </button>
+                                  <button onClick={ () => updateItemQuantity(item.id, item.quantity - 1) } className="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
                                 </div>
-                                <input
-                                  type="text"
-                                  className="form-control text-center"
-                                  value={ item.quantity }
-                                  placeholder=""
-                                  disabled
-                                  onChange={ (e) => updateItemQuantity(item.id, e.target.value) }
-                                  aria-describedby="button-addon1" />
+                                <input type="text" className="form-control text-center" value={ item.quantity } placeholder="" disabled onChange={ (e) => updateItemQuantity(item.id, e.target.value) } aria-describedby="button-addon1" />
                                 <div className="input-group-append">
-                                  <button
-                                    onClick={ () => updateItemQuantity(item.id, item.quantity + 1) }
-                                    className="btn btn-outline-primary js-btn-plus"
-                                    type="button"
-                                    disabled={ item.quantity >= item.Stock }>
-                                    &#43;
-                                  </button>
+                                  <button onClick={ () => updateItemQuantity(item.id, item.quantity + 1) } className="btn btn-outline-primary js-btn-plus" type="button" disabled={ item.quantity >= item.Stock }>&#43;</button>
                                 </div>
                               </div>
                             </td>
+
                             <td>{ formatter.format(item.itemTotal) }</td>
                             <td>
                               <button onClick={ () => removeItem(item.id) } className="delete"><iconify-icon icon="ic:round-delete-forever"></iconify-icon></button>
