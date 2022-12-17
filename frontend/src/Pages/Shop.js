@@ -28,8 +28,8 @@ const Shop = () => {
 
   useEffect(() => {
     const populateProducts = async () => {
-      // setTotalResults(await getProducts(limit, skip, keyWord, category));
-      await getProducts(limit, skip, keyWord, category);
+      setTotalResults(await getProducts(limit, skip, keyWord, category));
+      // await getProducts(limit, skip, keyWord, category);
     };
     populateProducts();
     getCategories();
@@ -102,8 +102,8 @@ const Shop = () => {
     setSkip(0);
     setCategory("");
     const populateProducts = async () => {
-      // setTotalResults(await getProducts(limit, skip, keyWord, category));
-      await getProducts(limit, skip, keyWord, category);
+      setTotalResults(await getProducts(limit, skip, keyWord, category));
+      // await getProducts(limit, skip, keyWord, category);
     };
     populateProducts();
   };
@@ -132,7 +132,7 @@ const Shop = () => {
             <div className="col-md-9 order-2">
               <div className="row">
                 <div className="col-md-12 mb-5 d-flex justify-content-between">
-                  <div className="float-md-left mb-4">
+                  <div className=" col-md-6 float-md-left mb-4">
 
                     <h2 className="text-black h5">SHOP ALL</h2>
                     <select
@@ -143,21 +143,19 @@ const Shop = () => {
                       <option value="priceLowToHigh">Giá từ thấp đến cao</option>
                     </select>
                   </div>
-                  <div className="d-flex">
+                  <div className="col-md-6 ">
                     <Form className="d-flex" onSubmit={ handleSearchSubmit }>
                       <FormControl
                         type="search"
                         placeholder="Search products"
-                        className="me-2"
+                        className="me-2 "
                         aria-label="Search"
-                        minLength={ 3 }
                         size="sm"
                         value={ keyWord }
                         onChange={ handleChange }
                       />
-                      <button type="submit" className="btn btn-secondary mx-3">
-                        Search
-                      </button>
+
+                      <button type="submit" className="btn btn-secondary ">Search</button>
                     </Form>
                   </div>
                 </div>
@@ -182,18 +180,18 @@ const Shop = () => {
                       </figure>
                       <div className="block-4-text p-4">
                         <h3>
-                          <Link to={ `/shopSingle/${product._id}` }>
+                          <Link className="text-black font-weight-bold" to={ `/shopSingle/${product._id}` }>
                             { product.name }
                           </Link>
                         </h3>
                         <p className="mb-0 text-secondary">
                           { product.category.title }
                         </p>
-                        <p className="text-primary font-weight-bold">
+                        <p className="text-black font-weight-bold">
                           { formatter.format(product.price) }
                         </p>
                         <p
-                          className="buy-now btn btn-sm btn-primary"
+                          className="buy-now btn btn-sm btn-outline-dark"
                           onClick={ () => {
                             let item = {
                               ...product,
@@ -238,7 +236,7 @@ const Shop = () => {
                       Trang -{ skip / limit + 1 },
                       <span className="text-muted">
                         { ' ' }
-                        Hiển thị { products.length } trong số { products.totalResults }{ ' ' }
+                        Hiển thị { products.length } trong số { totalResults }{ ' ' }
                         sản phẩm .
                       </span>
                     </div>
@@ -247,7 +245,7 @@ const Shop = () => {
                       variant="success"
                       size="sm"
                       onClick={ handleNextClick }
-                      disabled={ products.totalResults - skip <= limit }>
+                      disabled={ totalResults - skip <= limit }>
                       Tiếp tục &rarr;
                     </Button>
                   </div>
@@ -315,7 +313,7 @@ const Shop = () => {
                 {/* </div> */ }
 
                 {/* </div> */ }
-                <div className="border p-4 rounded mb-4">
+                {/* <div className="border p-4 rounded mb-4">
 
                   <input
                     type="text"
@@ -324,7 +322,7 @@ const Shop = () => {
                     className="form-control border-0 pl-0 bg-white"
                     disabled=""
                   />
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

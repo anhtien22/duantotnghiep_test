@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../AdminComponents/Navbar";
 import OrderContext from "../context/orders/orderContext";
 import "./or.css";
 // import SweetPagination from "sweetpagination";
 import { Form, FormControl } from "react-bootstrap";
+import Paginator from 'react-hooks-paginator';
 
 const statusOrder = {
   Confirmed: "Đang xác nhận",
@@ -35,11 +36,14 @@ const Orders = () => {
   const resulf = total(orders, "Successfully");
   const resulf2 = total(orders, "COMPLETED");
   const resulf3 = resulf + resulf2;
+
+  const navigate = useNavigate();
+  const [keyword, setKeyword] = useState("");
+
   const statusHtml = (orderStatus) => {
     const index = Object.keys(statusOrder).findIndex(
       (key) => key === orderStatus
     );
-
     return Object.keys(statusOrder)
       .map(function (key, i) {
         if (i >= index) {
@@ -52,34 +56,38 @@ const Orders = () => {
       })
       .join("");
   };
+
   const formatter = new Intl.NumberFormat("it-IT", {
     style: "currency",
     currency: "VND",
   });
-  const limit = 6;
-  const [keyWord, setKeyWord] = useState("");
-  useEffect(() => {
-    // getAllOrders();
-    const orderseacrh = async () => {
-      await getAllOrders(limit, keyWord);
-    };
-    orderseacrh();
-  }, [limit]);
-  const handleChange = (e) => {
-    setKeyWord(e.target.value);
-  };
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
+  const pageLimit = 5;
 
-    const orderseacrh = async () => {
-      await getAllOrders(limit, keyWord);
-    };
-    orderseacrh();
-  };
+  const [offset, setOffset] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentData, setCurrentData] = useState([]);
+
   useEffect(() => {
-    getAllOrders();
+    getAllOrders()
   }, []);
+
+  useEffect(() => {
+    setCurrentData(orders.slice(offset, offset + pageLimit));
+  }, [offset, orders]);
+
+  const searchHandler = (e) => {
+    e.preventDefault();
+    if (keyword.trim()) {
+      navigate(`/orders?${keyword}`);
+    } else {
+      navigate(`/orders`)
+    }
+  }
+
+  const handlerSearchChange = (e) => {
+    setKeyword(e.target.value);
+  }
 
   const canceled = orders.map((i) => {
     let arr = [];
@@ -88,6 +96,7 @@ const Orders = () => {
     }
     return arr;
   });
+
   const cance = canceled.filter((g) => g[0] === "Canceled");
 
   return orders ? (
@@ -138,9 +147,9 @@ const Orders = () => {
                   <button className="btn btn-warning">Tìm kiếm</button>
                 </div>
               </div>
-            </div> */}{ " " }
+            </div> */}
             <div className="col-md-6 ml-auto">
-              <Form className="d-flex" onSubmit={ handleSearchSubmit }>
+              <Form className="d-flex" onSubmit={ searchHandler }>
                 <FormControl
                   type="search"
                   placeholder="Mã đơn hàng"
@@ -148,8 +157,7 @@ const Orders = () => {
                   aria-label="Search"
                   minLength={ 3 }
                   size="sm"
-                  value={ keyWord }
-                  onChange={ handleChange }
+                  defaultValue={ keyword } onChange={ handlerSearchChange }
                 />
                 <button type="submit" className="btn btn-secondary mx-3">
                   Tìm kiếm
@@ -230,9 +238,14 @@ const Orders = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    { orders.map((order, index) => (
+                    { currentData && currentData.filter((value) => {
+                      if (keyword === "") {
+                        return value;
+                      } else if (value._id.toLowerCase().includes(keyword.toLowerCase())) {
+                        return value;
+                      }
+                    }).map((order, index) => (
                       <tr key={ order._id }>
-                        {/* <td>{index + 1}</td> */ }
                         <td>{ order._id }</td>
                         <td>{ order.user?.name }</td>
                         <td>
@@ -272,10 +285,21 @@ const Orders = () => {
                     )) }
                   </tbody>
                 </table>
+                <Paginator
+                  totalRecords={ orders.length }
+                  pageLimit={ pageLimit }
+                  pageNeighbours={ 2 }
+                  setOffset={ setOffset }
+                  currentPage={ currentPage }
+                  setCurrentPage={ setCurrentPage }
+                  pageContainerClass="mb-0 mt-0 d-flex "
+                  pagePrevText="«"
+                  pageNextText="»"
+                />
               </div>
             </div>
           </div>
-        </div>{ " " }
+        </div>
       </section>
     </>
   ) : "Đơn hàng trống"

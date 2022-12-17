@@ -54,11 +54,10 @@ function App(props) {
       <Routes>
         <Route path="/" element={ <Home /> } />
 
-        <Route path="/about" element={ <About /> } />
-
         <Route path="/shop" element={ <Shop /> } />
-
         <Route path="/shopSingle/:id" element={ <ShopSingle /> } />
+
+        <Route path="/about" element={ <About /> } />
 
         <Route path="/contact" element={ <Contact /> } />
 
@@ -86,6 +85,8 @@ function App(props) {
 
         <Route path="/products" element={ <Products /> } />
 
+        <Route path="/productDetailsAdmin/:id" element={ <ProductDetails /> } />
+
         <Route path="/categories" element={ <Categories /> } />
 
         <Route path="/brands" element={ <Brands /> } />
@@ -96,11 +97,12 @@ function App(props) {
 
         <Route path="/orders" element={ <Orders /> } />
 
-        <Route path="/productDetailsAdmin/:id" element={ <ProductDetails /> } />
-
         <Route path="/orderDetailsAdmin/:id" element={ <OrderDetails /> } />
+
         <Route path="/orderAdmin/online" element={ <OrderOnline /> } />
+
         <Route path="/orderAdmin/cod" element={ <OrderCod /> } />
+
         <Route path="/orderAdmin/canceled" element={ <OrderCancled /> } />
       </Routes>
       <Footer />
