@@ -5,7 +5,7 @@ import OrderContext from "../context/orders/orderContext";
 import "./or.css";
 // import SweetPagination from "sweetpagination";
 import { Form, FormControl } from "react-bootstrap";
-
+import swal from "sweetalert";
 const statusOrder = {
   Confirmed: "Đang xác nhận",
   Processing: "Đang giao hàng",
@@ -93,7 +93,7 @@ const Orders = () => {
   return orders ? (
     <>
       <Navbar />
-      {/* HEADER */ }
+      {/* HEADER */}
       <header id="main-header" className="py-2 bg-info text-white">
         <div className="container">
           <div className="row">
@@ -106,7 +106,7 @@ const Orders = () => {
         </div>
       </header>
 
-      {/* SEARCH */ }
+      {/* SEARCH */}
       <section id="search" className="py-4 mb-4 bg-light">
         <div className="container">
           <div className="row">
@@ -138,18 +138,18 @@ const Orders = () => {
                   <button className="btn btn-warning">Tìm kiếm</button>
                 </div>
               </div>
-            </div> */}{ " " }
+            </div> */}{" "}
             <div className="col-md-6 ml-auto">
-              <Form className="d-flex" onSubmit={ handleSearchSubmit }>
+              <Form className="d-flex" onSubmit={handleSearchSubmit}>
                 <FormControl
                   type="search"
                   placeholder="Mã đơn hàng"
                   className="me-2"
                   aria-label="Search"
-                  minLength={ 3 }
+                  minLength={3}
                   size="sm"
-                  value={ keyWord }
-                  onChange={ handleChange }
+                  value={keyWord}
+                  onChange={handleChange}
                 />
                 <button type="submit" className="btn btn-secondary mx-3">
                   Tìm kiếm
@@ -159,15 +159,21 @@ const Orders = () => {
           </div>
         </div>
       </section>
-      <div className="" style={ { display: 'flex', justifyContent: 'center', gap: '50px' } }>
+      <div
+        className=""
+        style={{ display: "flex", justifyContent: "center", gap: "50px" }}
+      >
         <div className="card text-center bg-success text-white mb-3">
           <div className="card-body">
             <h5>Doanh thu giao hàng</h5>
             <h4 className="display-4">
               <i className="fas fa-coins" />
             </h4>
-            <h2>{ formatter.format(resulf) }</h2>
-            <Link to={ `/orderAdmin/cod` } className="btn btn-outline-light btn-sm">
+            <h2>{formatter.format(resulf)}</h2>
+            <Link
+              to={`/orderAdmin/cod`}
+              className="btn btn-outline-light btn-sm"
+            >
               Chi tiết
             </Link>
           </div>
@@ -179,8 +185,11 @@ const Orders = () => {
             <h4 className="display-4">
               <i className="fab fa-cc-paypal" />
             </h4>
-            <h2>{ formatter.format(resulf2) }</h2>
-            <Link to={ `/orderAdmin/online` } className="btn btn-outline-light btn-sm">
+            <h2>{formatter.format(resulf2)}</h2>
+            <Link
+              to={`/orderAdmin/online`}
+              className="btn btn-outline-light btn-sm"
+            >
               Chi tiết
             </Link>
           </div>
@@ -192,8 +201,11 @@ const Orders = () => {
             <h4 className="display-4">
               <i className="fas fa-window-close" />
             </h4>
-            <h2>{ cance.length }</h2>
-            <Link to={ `/orderAdmin/canceled` } className="btn btn-outline-light btn-sm">
+            <h2>{cance.length}</h2>
+            <Link
+              to={`/orderAdmin/canceled`}
+              className="btn btn-outline-light btn-sm"
+            >
               Chi tiết
             </Link>
           </div>
@@ -205,7 +217,7 @@ const Orders = () => {
             <h4 className="display-4">
               <i className="far fa-money-bill-alt" />
             </h4>
-            <h2>{ formatter.format(resulf3) }</h2>
+            <h2>{formatter.format(resulf3)}</h2>
           </div>
         </div>
       </div>
@@ -230,55 +242,62 @@ const Orders = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    { orders.map((order, index) => (
-                      <tr key={ order._id }>
-                        {/* <td>{index + 1}</td> */ }
-                        <td>{ order._id }</td>
-                        <td>{ order.user?.name }</td>
+                    {orders.map((order, index) => (
+                      <tr key={order._id}>
+                        {/* <td>{index + 1}</td> */}
+                        <td>{order._id}</td>
+                        <td>{order.user?.name}</td>
                         <td>
-                          { new Date(order.createdAt).toLocaleDateString() }
+                          {new Date(order.createdAt).toLocaleDateString()}
                         </td>
-                        <td>{ formatter.format(order.totalPrice) }</td>
+                        <td>{formatter.format(order.totalPrice)}</td>
                         <td className="px-4 py-3">
                           <div className="flex-grow w-full online">
-                            { order.paymentResult.status === "COMPLETED" ? (
+                            {order.paymentResult.status === "COMPLETED" ? (
                               "Đã thanh toán online"
                             ) : (
                               <select
-                                onChange={ (e) =>
-                                  updateStatustAdmin(e, order._id)
-                                }
+                                onChange={(e) => {
+                                  updateStatustAdmin(e, order._id);
+                                  swal(
+                                    "Thành Công!",
+                                    "Đã cập nhật trạng thái đơn hàng thành công !",
+                                    "success"
+                                  );
+                                }}
                                 className="block w-full px-2 py-1 text-sm outline-none rounded-md form-select focus:shadow-none leading-5 h-12 bg-[#24262D] dark:bg-[#F4F5F7] border-[1px] border-gray-600 dark:border-gray-300 text-gray-200 dark:text-black"
                                 name="orderStatus"
-                                dangerouslySetInnerHTML={ {
+                                dangerouslySetInnerHTML={{
                                   __html: statusHtml(
                                     order.paymentResult.status
                                   ),
-                                } }
+                                }}
                               ></select>
-                            ) }
+                            )}
                           </div>
                         </td>
 
                         <td>
                           <Link
-                            to={ `/orderDetailsAdmin/${order._id}` }
+                            to={`/orderDetailsAdmin/${order._id}`}
                             className="btn btn-secondary bg-primary text-white"
                           >
                             <i className="fas fa-angle-double-right" /> Chi tiết
                           </Link>
                         </td>
                       </tr>
-                    )) }
+                    ))}
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
-        </div>{ " " }
+        </div>{" "}
       </section>
     </>
-  ) : "Đơn hàng trống"
+  ) : (
+    "Đơn hàng trống"
+  );
 };
 
 export default Orders;
