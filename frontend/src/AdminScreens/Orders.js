@@ -7,6 +7,7 @@ import "./or.css";
 import { Form, FormControl } from "react-bootstrap";
 import Paginator from 'react-hooks-paginator';
 
+import swal from "sweetalert";
 const statusOrder = {
   Confirmed: "Đang xác nhận",
   Processing: "Đang giao hàng",
@@ -167,7 +168,10 @@ const Orders = () => {
           </div>
         </div>
       </section>
-      <div className="" style={ { display: 'flex', justifyContent: 'center', gap: '50px' } }>
+      <div
+        className=""
+        style={ { display: "flex", justifyContent: "center", gap: "50px" } }
+      >
         <div className="card text-center bg-success text-white mb-3">
           <div className="card-body">
             <h5>Doanh thu giao hàng</h5>
@@ -175,7 +179,10 @@ const Orders = () => {
               <i className="fas fa-coins" />
             </h4>
             <h2>{ formatter.format(resulf) }</h2>
-            <Link to={ `/orderAdmin/cod` } className="btn btn-outline-light btn-sm">
+            <Link
+              to={ `/orderAdmin/cod` }
+              className="btn btn-outline-light btn-sm"
+            >
               Chi tiết
             </Link>
           </div>
@@ -188,7 +195,10 @@ const Orders = () => {
               <i className="fab fa-cc-paypal" />
             </h4>
             <h2>{ formatter.format(resulf2) }</h2>
-            <Link to={ `/orderAdmin/online` } className="btn btn-outline-light btn-sm">
+            <Link
+              to={ `/orderAdmin/online` }
+              className="btn btn-outline-light btn-sm"
+            >
               Chi tiết
             </Link>
           </div>
@@ -201,7 +211,10 @@ const Orders = () => {
               <i className="fas fa-window-close" />
             </h4>
             <h2>{ cance.length }</h2>
-            <Link to={ `/orderAdmin/canceled` } className="btn btn-outline-light btn-sm">
+            <Link
+              to={ `/orderAdmin/canceled` }
+              className="btn btn-outline-light btn-sm"
+            >
               Chi tiết
             </Link>
           </div>
@@ -258,9 +271,14 @@ const Orders = () => {
                               "Đã thanh toán online"
                             ) : (
                               <select
-                                onChange={ (e) =>
-                                  updateStatustAdmin(e, order._id)
-                                }
+                                onChange={ (e) => {
+                                  updateStatustAdmin(e, order._id);
+                                  swal(
+                                    "Thành Công!",
+                                    "Đã cập nhật trạng thái đơn hàng thành công !",
+                                    "success"
+                                  );
+                                } }
                                 className="block w-full px-2 py-1 text-sm outline-none rounded-md form-select focus:shadow-none leading-5 h-12 bg-[#24262D] dark:bg-[#F4F5F7] border-[1px] border-gray-600 dark:border-gray-300 text-gray-200 dark:text-black"
                                 name="orderStatus"
                                 dangerouslySetInnerHTML={ {
@@ -302,7 +320,9 @@ const Orders = () => {
         </div>
       </section>
     </>
-  ) : "Đơn hàng trống"
+  ) : (
+    "Đơn hàng trống"
+  );
 };
 
 export default Orders;
