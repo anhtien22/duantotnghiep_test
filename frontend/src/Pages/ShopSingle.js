@@ -6,59 +6,23 @@ import { useCart } from "react-use-cart";
 import UserContext from "../context/user/UserContext";
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
-import Paginator from "react-hooks-paginator";
-
-import { football } from "./data";
-import Pagination from "./Pagination";
-import './test.css'
+import Paginator from 'react-hooks-paginator';
 
 const ShopSingle = () => {
-
-
-
-  const pageSize = 5;
-  const pageLength = football.length / pageSize;
-  const [page, setPage] = useState(1);
-  const [list, setList] = useState(football.slice(page - 1, page * pageSize));
-
-  const handlePage = (thePage) => {
-    setPage(thePage);
-    const t = football.slice((thePage - 1) * pageSize, thePage * pageSize);
-    setList(t);
-  };
-
-  const prevHandler = (thePage) => {
-    if (thePage === 1) {
-      handlePage(1);
-    } else {
-      handlePage(Number(thePage) - 1);
-    }
-  };
-
-  const nextHandler = (thePage, thePageLength) => {
-    if (thePage < thePageLength) {
-      handlePage(Number(thePage) + 1);
-    }
-  };
-
-
-
-
-
-
-
-
-
 
   const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
 
   const { id } = useParams();
   const [product, setProduct] = useState({ brand: {} });
-  const pageLimit = 4;
+
+  const pageLimit = 2;
+
   const [offset, setOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [productReview, setProductReview] = useState([]);
+
+// 
   const [rating, setRating] = useState(1);
   const [comment, setComment] = useState("");
 
@@ -72,14 +36,18 @@ const ShopSingle = () => {
   const userContext = useContext(UserContext)
   const { user } = userContext
 
+  // useEffect(() => {
+    // getOneProduct()
+  // }, []);
+
   useEffect(() => {
     const fetctProduct = async () => {
       const fetchedProduct = await getOneProduct(id);
       setProduct(fetchedProduct);
-      setProductReview(fetchedProduct.reviews.slice(offset, offset + pageLimit))
+      setProductReview(fetchedProduct.reviews.slice(offset, offset + pageLimit));
     };
     fetctProduct();
-    // eslint-disable-next-line
+  
   }, [offset]);
 
 
@@ -192,36 +160,10 @@ const ShopSingle = () => {
         </div>
       </div>
       <section>
-
-
-        {list.map((x, i) => {
-          const { long, short, country } = x;
-          return (
-
-            <tr key={i}>
-              <td>{long}</td>
-              <td className="center">{short}</td>
-              <td>{country}</td>
-            </tr>
-          );
-        })}
-
-        <Pagination
-          page={page}
-          pages={pageLength}
-          onClick={(pageEvent) => {
-            handlePage(pageEvent);
-          }}
-          prevHandler={() => prevHandler(page)}
-          nextHandler={() => nextHandler(page, pageLength)}
-        />
-
-
-
-
         <div className="container">
           <div className="row">
             <div className="col-sm-5 col-md-6 col-12 pb-4">
+
               <h1>Comments</h1>
               { productReview && productReview.map((review, key) => (
                 <div className="comment mt-4 text-justify float-left col-12">
@@ -247,7 +189,10 @@ const ShopSingle = () => {
                   <p>{ review.comment }</p>
                 </div>
               )) }
+
             </div>
+
+            <div>yyyyyyy
             <Paginator
               totalRecords={ productReview.length }
               pageLimit={ pageLimit }
@@ -255,10 +200,10 @@ const ShopSingle = () => {
               setOffset={ setOffset }
               currentPage={ currentPage }
               setCurrentPage={ setCurrentPage }
-              pageContainerClass="mb-0 mt-0 d-flex "
+              pageContainerClass="mb-0 mt-0 d-flex"
               pagePrevText="«"
               pageNextText="»"
-            />
+            /></div>
             <div className="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4">
               <form id="algin-form" onSubmit={reviewSubmitHandler}>
                 <h4>Leave a comment</h4>
@@ -296,8 +241,10 @@ const ShopSingle = () => {
                 ) }
               </form>
             </div>
+            
           </div>
         </div>
+        
       </section>
     </>
   );
