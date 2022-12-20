@@ -23,7 +23,7 @@ router.get('/getAll', getAllProducts)
 
 router.get('/:id', getProduct)
 
-router.patch('/:id', auth, checkAdmin, updateProductDetails)
+router.patch('/:id', updateProductDetails)
 
 router.patch(
   '/:id/updateImage',

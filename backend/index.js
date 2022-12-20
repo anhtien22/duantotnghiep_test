@@ -11,7 +11,6 @@ import categoryRoutes from './routes/categoryRoutes.js'
 import brandRoutes from './routes/brandRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
-import variationRoutes from './routes/variationRoutes.js'
 // import uploadRoutes from './routes/multer.js'
 export const app = express();
 

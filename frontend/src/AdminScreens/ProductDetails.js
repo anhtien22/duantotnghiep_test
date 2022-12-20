@@ -28,13 +28,11 @@ const ProductDetails = () => {
     description: '',
     Stock: '',
   })
-
   const [image, setImage] = useState(null)
 
   useEffect(() => {
     const fetchProduct = async () => {
       const fetchedProduct = await getOneProduct(id)
-      // console.log(fetchedProduct)
       setProduct(fetchedProduct)
       setImage(fetchedProduct.image)
     }
@@ -48,14 +46,11 @@ const ProductDetails = () => {
     setProduct({ ...product, [e.target.name]: e.target.value })
   }
 
-  // console.log(product)
   const handleSaveChanges = () => {
-    // console.log(product)
     const { name, sku, category, brand, price, description, Stock } = product
     updateProductDetails(id, name, sku, category, brand, price, description, Stock)
   }
   const deleteSaveChanges = (id) => {
-    // console.log(product)
     deleteProduct(id)
 
   }
@@ -63,8 +58,8 @@ const ProductDetails = () => {
   const handleUpdateImage = async () => {
     const formData = new FormData()
     formData.append('image', imageFile)
-
-    console.log('Thêm sản phẩm để chạy')
+    const payload = { formData }
+    console.log('Thêm sản phẩm để chạy', formData)
     const imagePath = await updateProductImage(id, formData)
     setImage(imagePath)
 
@@ -72,7 +67,6 @@ const ProductDetails = () => {
 
     setImageFile(null)
   }
-
 
 
   return (

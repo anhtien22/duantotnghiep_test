@@ -53,14 +53,13 @@ const CategoryState = props => {
   // Add new category
   const addCategory = async title => {
     const categoryBody = clean({ title })
-    console.log(categoryBody, ' categoryBody')
     try {
       const userToken = JSON.parse(localStorage.getItem('userToken'))
       const headers = {
         Authorization: `Bearer ${userToken && userToken}`,
       }
       setCategoriesLoading(true)
-      await axios.post('api/category/add', categoryBody, { headers })
+      await axios.post('/api/category/add', categoryBody, { headers })
       // setCategories([...categories, categoryBody])
       setCategoriesMessage({
         variant: 'success',
@@ -78,7 +77,7 @@ const CategoryState = props => {
   const getCategories = async () => {
     try {
       setCategoriesLoading(true)
-      const { data } = await axios.get('api/category/getAll')
+      const { data } = await axios.get('/api/category/getAll')
       setCategories(data.categories)
       setCategoriesLoading(false)
       setCategoriesError(null)
@@ -86,29 +85,29 @@ const CategoryState = props => {
       errorHandler(err)
     }
   }
-  
-// Delete Category
-const deleteCategory = async id  => {
-  try {
-    setCategoriesLoading(true)
-    const userToken = JSON.parse(localStorage.getItem('userToken'))
-    const headers = {
-      Authorization: `Bearer ${userToken && userToken}`,
-      'Content-Type': 'multipart/form-data',
+
+  // Delete Category
+  const deleteCategory = async id => {
+    try {
+      setCategoriesLoading(true)
+      const userToken = JSON.parse(localStorage.getItem('userToken'))
+      const headers = {
+        Authorization: `Bearer ${userToken && userToken}`,
+        'Content-Type': 'multipart/form-data',
+      }
+      const { data } = await axios.delete(`/api/category/${id}`, { headers })
+      setCategoriesMessage({
+        variant: 'success',
+        message: 'Xóa thành công!',
+      })
+      window.location.reload();
+      setCategoriesLoading(false)
+      setCategoriesError(null)
+      return data.categories
+    } catch (err) {
+      errorHandler(err, 'Không tìm thấy sản phẩm')
     }
-    const { data } = await axios.delete(`/api/category/${id}`, { headers })
-    setCategoriesMessage({
-      variant: 'success',
-      message: 'Xóa thành công!',
-    })
-    window.location.reload();
-    setCategoriesLoading(false)
-    setCategoriesError(null)
-    return data.categories
-  } catch (err) {
-    errorHandler(err, 'Không tìm thấy sản phẩm')
   }
-}
 
   // get one category
   const getOneCategory = async id => {
@@ -142,7 +141,7 @@ const deleteCategory = async id  => {
 
   return (
     <CategoryContext.Provider
-      value={{
+      value={ {
         categories,
         categoriesError,
         categoriesLoading,
@@ -152,8 +151,8 @@ const deleteCategory = async id  => {
         deleteCategory,
         getOneCategory,
         updateCategory,
-      }}>
-      {props.children}
+      } }>
+      { props.children }
     </CategoryContext.Provider>
   )
 }

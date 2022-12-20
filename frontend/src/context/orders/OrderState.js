@@ -81,7 +81,6 @@ const OdersState = (props) => {
       };
       setOrdersLoading(true);
       await axios.post("api/orders/new", orderBody, { headers });
-      console.log("orderBody", orderBody);
       // localStorage.removeItem('react-use-cart')
       emptyCart();
       navigate("/thankYou");
@@ -111,7 +110,6 @@ const OdersState = (props) => {
         params: { limit, skip, keyword },
         headers
       });
-      console.log(data);
       setOrders(data.orders);
       setOrdersLoading(false);
       setOrdersError(null);
@@ -184,7 +182,6 @@ const OdersState = (props) => {
 
   const updateStatustAdmin = async (e, id) => {
     const selectHend = e.target.value;
-    console.log(selectHend);
     const select = e.target
       .closest("td")
       .querySelectorAll('[name="orderStatus"] option');
@@ -204,11 +201,9 @@ const OdersState = (props) => {
         headers,
         body: JSON.stringify({ id, status: selectHend }),
       });
-      console.log(res);
 
       setOrdersLoading(false);
       setOrdersError(null);
-      console.log("response", res);
       return res.json();
     } catch (err) {
       errorHandler(err);

@@ -225,7 +225,6 @@ const UserState = props => {
       },
         config
       );
-      console.log("data", data);
       setUserLoading(false)
       setUserError(null)
       setUserMessage({
@@ -253,7 +252,6 @@ const UserState = props => {
         },
         config
       );
-      console.log("data", data);
 
       setUserLoading(false)
       setUserError(null)
@@ -274,7 +272,6 @@ const UserState = props => {
   const updatePassword = async (payload) => {
     try {
       // setUserLoading(true)
-      console.log("payload", payload);
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -299,7 +296,6 @@ const UserState = props => {
       //     confirmPassword: payload.confirmPassword,
       //   }),
       // });
-      console.log("data", data);
       // setUserLoading(false)
       // setUserError(null)
       // return data.user;

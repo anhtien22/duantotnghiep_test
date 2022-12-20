@@ -58,7 +58,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     getAllOrders(skip, '', '')
     // eslint-disable-next-line
-    getProducts(limit, skip, "", "");
+    getProducts(skip, "", "");
     // eslint-disable-next-line
   }, []);
 
@@ -163,7 +163,7 @@ const AdminDashboard = () => {
                 <div className="card text-center bg-primary text-white mb-3">
                   <div className="card-body">
                     <h3>Sản phẩm</h3>
-                    <h4 className="display-4">
+                    <h4>
                       <i className="fas fa-pencil-alt" /> { products.length }
                     </h4>
                     <Link
@@ -176,7 +176,7 @@ const AdminDashboard = () => {
                 <div className="card text-center bg-success text-white mb-3">
                   <div className="card-body">
                     <h3>Danh mục</h3>
-                    <h4 className="display-4">
+                    <h4>
                       <i className="fas fa-folder" /> { categories.length }
                     </h4>
                     <Link
@@ -189,7 +189,7 @@ const AdminDashboard = () => {
                 <div className="card text-center bg-warning text-white mb-3">
                   <div className="card-body">
                     <h3>Tài khoản</h3>
-                    <h4 className="display-4">
+                    <h4 >
                       <i className="fas fa-users" /> { allUsers.length }
                     </h4>
                     <Link to="/users" className="btn btn-outline-light btn-sm">
@@ -197,12 +197,12 @@ const AdminDashboard = () => {
                     </Link>
                   </div>
                 </div>
-                <div className="card text-center bg-warning text-white mb-3">
+                <div className="card text-center bg-info text-white mb-3">
                   <div className="card-body">
                     <h3>Doanh Thu</h3>
-                    <p className="display-4">
-                      <i className="fas fa-users" /> { formatter.format(resulf) }
-                    </p>
+                    <h4>
+                      <i class="fas fa-dollar-sign"></i> { formatter.format(resulf) }
+                    </h4>
                     <Link to="/orders" className="btn btn-outline-light btn-sm">
                       Xem
                     </Link>

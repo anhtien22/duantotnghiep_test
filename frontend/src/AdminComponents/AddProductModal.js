@@ -13,7 +13,6 @@ const AddProductModal = () => {
   // for category context
   const cContext = useContext(CategoryContext)
   const { categories, getCategories } = cContext
-  console.log("categories", categories);
   // for brands context
   const bContext = useContext(BrandContext)
   const { brands, getBrands } = bContext
@@ -51,9 +50,7 @@ const AddProductModal = () => {
     formData.append('price', price)
     formData.append('description', description)
     formData.append('Stock', Stock)
-    console.log('Thêm sản phẩm để chạy')
     addProduct(formData)
-    console.log('Add product ran')
     setProduct({
       name: '',
       sku: '',

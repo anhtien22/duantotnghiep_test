@@ -272,12 +272,29 @@ const Orders = () => {
                             ) : (
                               <select
                                 onChange={ (e) => {
-                                  updateStatustAdmin(e, order._id);
-                                  swal(
-                                    "Thành Công!",
-                                    "Đã cập nhật trạng thái đơn hàng thành công !",
-                                    "success"
-                                  );
+
+                                  // swal(
+                                  //   "Thành Công!",
+                                  //   "Đã cập nhật trạng thái đơn hàng thành công !",
+                                  //   "success"
+                                  // );
+                                  swal({
+                                    title: "Bạn có chắc muốn thay đổi không?",
+                                    // text: "Once deleted, you will not be able to recover this imaginary file!",
+                                    icon: "warning",
+                                    buttons: true,
+                                    dangerMode: true,
+                                  })
+                                    .then((willDelete) => {
+                                      if (willDelete) {
+                                        swal("Đã cập nhật trạng thái đơn hàng thành công!", {
+                                          icon: "success",
+                                        });
+                                        updateStatustAdmin(e, order._id);
+                                      } else {
+                                        window.location.reload();
+                                      }
+                                    });
                                 } }
                                 className="block w-full px-2 py-1 text-sm outline-none rounded-md form-select focus:shadow-none leading-5 h-12 bg-[#24262D] dark:bg-[#F4F5F7] border-[1px] border-gray-600 dark:border-gray-300 text-gray-200 dark:text-black"
                                 name="orderStatus"

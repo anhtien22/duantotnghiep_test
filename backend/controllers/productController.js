@@ -91,7 +91,6 @@ export const getAllProducts = async (req, res) => {
       .skip(parseInt(req.query.skip))
     return res.json({ success: true, totalResults: results.length, products })
   } catch (err) {
-    console.log(err)
     res.status(400).json({ success: false, error: err.message })
   }
 }
@@ -156,7 +155,7 @@ export const updateProductImage = async (req, res) => {
     if (!req.file) throw new Error('xin vui lòng tải hình ảnh lên')
     fs.access('uploads', err => {
       if (err) {
-        fs.mkdirSync('/uploads')
+        fs.mkdirSync('./uploads')
       }
     })
     fs.unlinkSync(path.resolve(product.image))
@@ -251,7 +250,6 @@ export const getProductReviews = async (req, res, next) => {
 // Delete review
 export const deleteReview = async (req, res, next) => {
   const product = await Product.findById(req.query.productId);
-  console.log(product);
   if (!product) {
     return next(new errorHandler("Sản phẩm không có", 404))
   }

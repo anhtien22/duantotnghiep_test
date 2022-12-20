@@ -48,6 +48,11 @@ const Navbar = () => {
                   Đơn hàng
                 </Link>
               </li>
+              <li className="nav-item px-2">
+                <Link to="/reviews" className="nav-link">
+                  Bình luận
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
