@@ -6,6 +6,7 @@ import { changeLanguage, multilanguage } from 'redux-multilanguage'
 import PropTypes from "prop-types";
 // import { useDispatch } from 'react-redux'
 
+
 const Header = ({
   currentLanguageCode,
   dispatch,
@@ -83,64 +84,73 @@ const Header = ({
 
             <div className="col-6 col-md-4 order-3 order-md-3 text-right">
 
-              <div className="site-top-icons">
 
-                <ul>
-                  { user && user.role === 'admin' && (
+              <div className="dropdown2">
+                {user ? (
+                  <>
+                    <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Helo {user.name}</button>
+                  </>
+                  ):(<button></button>)
+                }
+                <ul className="dropdown-menu">
+                  <ul>
+                    {user && user.role === 'admin' && (
+                      <li>
+                        <Link to="/adminDashboard">
+                          <i class='fas fa-user-cog'>&ensp;</i> {strings["ADMIN_DASHBOARD"]}
+                        </Link>
+                      </li>
+                    )}
+                    {user ? (
+                      <>
+                        <li>
+                          <Link to="/profile">
+                            <i class='fas fa-user-edit'>&ensp;</i>
+                            {user.name}
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to="/" onClick={logoutHandler}>
+                            <i class='fas fa-sign-in-alt'> &ensp;</i>
+                            {strings["LOGOUT"]}
+                          </Link>
+                        </li>
+                      </>
+                    ) : (
+                      <>
+                        <li>
+                          <Link to="/login">
+                          <i className="fas fa-sign-in-alt"> &ensp;</i>{strings["LOGIN"]}
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to="/signup">
+                            <i className="fas fa-user-plus">&ensp;</i>{strings["SIGNUP"]}
+                          </Link>
+                        </li>
+                      </>
+                    )}
                     <li>
-                      <Link to="/adminDashboard">
-                        <i className="fas fa-user-cog text-info"></i> { strings["ADMIN_DASHBOARD"] }
+                      <Link to="/cart" className="site-cart">
+                        <span className="icon icon-shopping_cart">&ensp;</span>
+                        {totalUniqueItems && totalUniqueItems > 0 ? (
+                          <span className="count">{totalUniqueItems}</span>
+                        ) : (
+                          ''
+                        )}
                       </Link>
                     </li>
-                  ) }
-                  { user ? (
-                    <>
-                      <li>
-                        <Link to="/profile">
-                          <i className="fas fa-user text-success"></i>
-                          { user.name }
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/" onClick={ logoutHandler }>
-                          <i className="fas fa-sign-out-alt text-warning"></i>
-                          { strings["LOGOUT"] }
-                        </Link>
-                      </li>
-                    </>
-                  ) : (
-                    <>
-                      <li>
-                        <Link to="/login">
-                          { strings["LOGIN"] }
-                          <i className="fas fa-sign-in-alt text-primary"></i>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/signup">
-                          { strings["SIGNUP"] }
-                          <i className="fas fa-user-plus text-primary"></i>
-                        </Link>
-                      </li>
-                    </>
-                  ) }
-
-                  <li>
-                    <Link to="/cart" className="site-cart">
-                      <span className="icon icon-shopping_cart"></span>
-                      { totalUniqueItems && totalUniqueItems > 0 ? (
-                        <span className="count">{ totalUniqueItems }</span>
-                      ) : (
-                        ''
-                      ) }
-                    </Link>
-                  </li>
+                  </ul>
+                </ul>
+              </div>
+              <div className="site-top-icons">
+                <span className='icon'>
                   <li className="d-inline-block d-md-none ml-md-0">
                     <a href="/" className="site-menu-toggle js-menu-toggle">
                       <span className="icon-menu"></span>
                     </a>
                   </li>
-                </ul>
+                </span>
               </div>
             </div>
           </div>
@@ -153,19 +163,72 @@ const Header = ({
           <ul className="site-menu js-clone-nav d-none d-md-block">
             <li className="active">
               <Link to="/">
-                { strings["HOME"] }
+                {strings["HOME"]}
               </Link>
             </li>
             <li>
               <Link to="/shop">
-                { strings["SHOP"] }
+                {strings["SHOP"]}
               </Link>
             </li>
             <li>
               <Link to="/contact">
-                { strings["CONTACT_US"] }
+                {strings["CONTACT_US"]}
               </Link>
             </li>
+
+            <span>
+              <ul>
+                {user && user.role === 'admin' && (
+                  <li>
+                    <Link to="/adminDashboard">
+                      <i class='fas fa-user-cog'>&ensp;</i> {strings["ADMIN_DASHBOARD"]}
+                    </Link>
+                  </li>
+                )}
+                {user ? (
+                  <>
+                    <li>
+                      <Link to="/profile">
+                        <i class='fas fa-user-edit'>&ensp;</i>
+                        {user.name}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/" onClick={logoutHandler}>
+                        <i class='fas fa-sign-in-alt'>&ensp;</i>
+                        {strings["LOGOUT"]}
+                      </Link>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li>
+                      <Link to="/login">
+                      <i className="fas fa-sign-in-alt"> &ensp;</i>{strings["LOGIN"]}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/signup">
+                      <i className="fas fa-user-plus">&ensp;</i>{strings["SIGNUP"]}
+                      </Link>
+                    </li>
+                  </>
+                )}
+                <li>
+                  <Link to="/cart" className="site-cart">
+                    <span className="icon icon-shopping_cart"></span>
+                    {totalUniqueItems && totalUniqueItems > 0 ? (
+                      <span className="count">{totalUniqueItems}</span>
+                    ) : (
+                      ''
+                    )}
+                  </Link>
+                </li>
+              </ul>
+            </span>
+
+
           </ul>
         </div>
       </nav>
