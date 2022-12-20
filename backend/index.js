@@ -28,7 +28,7 @@ const orderRoutes = require('./routes/orderRoutes.js');
 // import orderRoutes from './routes/orderRoutes.js'
 // import uploadRoutes from './routes/multer.js'
 
-dotenv.config({ path: "config/.env" });
+dotenv.config({ path: "backend/config/.env" });
 connectDB();
 
 app.use(express.json())
@@ -44,7 +44,7 @@ app.use('/api/orders', orderRoutes)
 // app.use('/api/upload', uploadRoutes)
 
 var __dirname = path.resolve()
-app.use('/uploads', express.static(path.join(__dirname, './uploads')))
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
 app.use(express.static(path.join(__dirname, '/frontend/build')));
 app.get('*', (req, res) =>
