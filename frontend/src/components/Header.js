@@ -176,7 +176,7 @@ const Header = ({
                 { strings["CONTACT_US"] }
               </Link>
             </li>
-
+            {/* 
             <span>
               <ul>
                 { user && user.role === 'admin' && (
@@ -226,7 +226,7 @@ const Header = ({
                   </Link>
                 </li>
               </ul>
-            </span>
+            </span> */}
 
 
           </ul>
