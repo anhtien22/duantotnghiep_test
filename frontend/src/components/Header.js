@@ -86,33 +86,33 @@ const Header = ({
 
 
               <div className="dropdown2">
-                {user ? (
+                { user ? (
                   <>
-                    <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Helo {user.name}</button>
+                    <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Helo { user.name }</button>
                   </>
-                  ):(<button></button>)
+                ) : (<button></button>)
                 }
                 <ul className="dropdown-menu">
                   <ul>
-                    {user && user.role === 'admin' && (
+                    { user && user.role === 'admin' && (
                       <li>
                         <Link to="/adminDashboard">
-                          <i class='fas fa-user-cog'>&ensp;</i> {strings["ADMIN_DASHBOARD"]}
+                          <i class='fas fa-user-cog'>&ensp;</i> { strings["ADMIN_DASHBOARD"] }
                         </Link>
                       </li>
-                    )}
-                    {user ? (
+                    ) }
+                    { user ? (
                       <>
                         <li>
                           <Link to="/profile">
                             <i class='fas fa-user-edit'>&ensp;</i>
-                            {user.name}
+                            { user.name }
                           </Link>
                         </li>
                         <li>
-                          <Link to="/" onClick={logoutHandler}>
+                          <Link to="/" onClick={ logoutHandler }>
                             <i class='fas fa-sign-in-alt'> &ensp;</i>
-                            {strings["LOGOUT"]}
+                            { strings["LOGOUT"] }
                           </Link>
                         </li>
                       </>
@@ -120,24 +120,24 @@ const Header = ({
                       <>
                         <li>
                           <Link to="/login">
-                          <i className="fas fa-sign-in-alt"> &ensp;</i>{strings["LOGIN"]}
+                            <i className="fas fa-sign-in-alt"> &ensp;</i>{ strings["LOGIN"] }
                           </Link>
                         </li>
                         <li>
                           <Link to="/signup">
-                            <i className="fas fa-user-plus">&ensp;</i>{strings["SIGNUP"]}
+                            <i className="fas fa-user-plus">&ensp;</i>{ strings["SIGNUP"] }
                           </Link>
                         </li>
                       </>
-                    )}
+                    ) }
                     <li>
                       <Link to="/cart" className="site-cart">
                         <span className="icon icon-shopping_cart">&ensp;</span>
-                        {totalUniqueItems && totalUniqueItems > 0 ? (
-                          <span className="count">{totalUniqueItems}</span>
+                        { totalUniqueItems && totalUniqueItems > 0 ? (
+                          <span className="count">{ totalUniqueItems }</span>
                         ) : (
                           ''
-                        )}
+                        ) }
                       </Link>
                     </li>
                   </ul>
@@ -163,41 +163,41 @@ const Header = ({
           <ul className="site-menu js-clone-nav d-none d-md-block">
             <li className="active">
               <Link to="/">
-                {strings["HOME"]}
+                { strings["HOME"] }
               </Link>
             </li>
             <li>
               <Link to="/shop">
-                {strings["SHOP"]}
+                { strings["SHOP"] }
               </Link>
             </li>
             <li>
               <Link to="/contact">
-                {strings["CONTACT_US"]}
+                { strings["CONTACT_US"] }
               </Link>
             </li>
 
             <span>
               <ul>
-                {user && user.role === 'admin' && (
+                { user && user.role === 'admin' && (
                   <li>
                     <Link to="/adminDashboard">
-                      <i class='fas fa-user-cog'>&ensp;</i> {strings["ADMIN_DASHBOARD"]}
+                      <i class='fas fa-user-cog'>&ensp;</i> { strings["ADMIN_DASHBOARD"] }
                     </Link>
                   </li>
-                )}
-                {user ? (
+                ) }
+                { user ? (
                   <>
                     <li>
                       <Link to="/profile">
                         <i class='fas fa-user-edit'>&ensp;</i>
-                        {user.name}
+                        { user.name }
                       </Link>
                     </li>
                     <li>
-                      <Link to="/" onClick={logoutHandler}>
+                      <Link to="/" onClick={ logoutHandler }>
                         <i class='fas fa-sign-in-alt'>&ensp;</i>
-                        {strings["LOGOUT"]}
+                        { strings["LOGOUT"] }
                       </Link>
                     </li>
                   </>
@@ -205,24 +205,24 @@ const Header = ({
                   <>
                     <li>
                       <Link to="/login">
-                      <i className="fas fa-sign-in-alt"> &ensp;</i>{strings["LOGIN"]}
+                        <i className="fas fa-sign-in-alt"> &ensp;</i>{ strings["LOGIN"] }
                       </Link>
                     </li>
                     <li>
                       <Link to="/signup">
-                      <i className="fas fa-user-plus">&ensp;</i>{strings["SIGNUP"]}
+                        <i className="fas fa-user-plus">&ensp;</i>{ strings["SIGNUP"] }
                       </Link>
                     </li>
                   </>
-                )}
+                ) }
                 <li>
                   <Link to="/cart" className="site-cart">
                     <span className="icon icon-shopping_cart"></span>
-                    {totalUniqueItems && totalUniqueItems > 0 ? (
-                      <span className="count">{totalUniqueItems}</span>
+                    { totalUniqueItems && totalUniqueItems > 0 ? (
+                      <span className="count">{ totalUniqueItems }</span>
                     ) : (
                       ''
-                    )}
+                    ) }
                   </Link>
                 </li>
               </ul>
