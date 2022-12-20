@@ -1,13 +1,13 @@
-import Product from '../models/Product.js'
-import sharp from 'sharp'
-import fs from 'fs'
-import path from 'path'
-import { errorHandler } from '../middleware/errorMiddleware.js'
+const Product = require('../models/Product.js');
+const sharp = require('sharp');
+const fs = require('fs');
+const path = require('path');
+const { errorHandler } = require('../middleware/errorMiddleware.js');
 
 // @desc Add new product
 // @route POST '/api/products/add'
 // @access Private : Admin
-export const addProduct = async (req, res) => {
+exports.addProduct = async (req, res) => {
   const date = new Date()
   try {
     if (!req.file) throw new Error('Xin vui lòng tải ảnh lên')
@@ -42,7 +42,7 @@ export const addProduct = async (req, res) => {
 // @route GET '/api/products/getAll'
 // @access Public
 // Allowed queryparams : category, keyword, limit, skip
-export const getAllProducts = async (req, res) => {
+exports.getAllProducts = async (req, res) => {
   try {
     let searchQuery = ''
 
@@ -98,7 +98,7 @@ export const getAllProducts = async (req, res) => {
 // @desc Get One product
 // @route GET '/api/products/:id'
 // @access Public
-export const getProduct = async (req, res) => {
+exports.getProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id).populate('category', 'title').populate('brand', 'local')
     if (!product) {
@@ -115,7 +115,7 @@ export const getProduct = async (req, res) => {
 // @desc Update product details
 // @route PATCH '/api/products/:id'
 // @access Private : Admin
-export const updateProductDetails = async (req, res) => {
+exports.updateProductDetails = async (req, res) => {
   const updates = Object.keys(req.body)
   const allowedUpdates = ['name', 'sku', 'category', 'brand', 'price', 'description', 'Stock']
   const isValidOperation = updates.every(update =>
@@ -142,7 +142,7 @@ export const updateProductDetails = async (req, res) => {
 // @desc Update prouduct image
 // @route PATCH  '/api/products/:id/updateImage'
 // @access Private : Admin
-export const updateProductImage = async (req, res) => {
+exports.updateProductImage = async (req, res) => {
   const date = new Date()
   try {
     const product = await Product.findById(req.params.id)
@@ -180,7 +180,7 @@ export const updateProductImage = async (req, res) => {
 // @desc Delete a product
 // @route DELETE  '/api/products/:id'
 // @access Private : Admin
-export const deleteProduct = async (req, res) => {
+exports.deleteProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id)
     if (!product) {
@@ -195,7 +195,7 @@ export const deleteProduct = async (req, res) => {
   }
 }
 
-export const createProductReview = async (req, res, next) => {
+exports.createProductReview = async (req, res, next) => {
   const { rating, comment, productId, user, name } = req.body
   const review = {
     user,
@@ -233,7 +233,7 @@ export const createProductReview = async (req, res, next) => {
   })
 };
 // Get All review of a Product
-export const getProductReviews = async (req, res, next) => {
+exports.getProductReviews = async (req, res, next) => {
 
   const product = await Product.findById(req.params.id);
 
@@ -248,7 +248,7 @@ export const getProductReviews = async (req, res, next) => {
   });
 };
 // Delete review
-export const deleteReview = async (req, res, next) => {
+exports.deleteReview = async (req, res, next) => {
   const product = await Product.findById(req.query.productId);
   if (!product) {
     return next(new errorHandler("Sản phẩm không có", 404))

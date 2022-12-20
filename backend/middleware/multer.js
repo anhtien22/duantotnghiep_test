@@ -1,5 +1,7 @@
-import path from 'path'
-import multer from 'multer'
+// import path from 'path'
+// import multer from 'multer'
+const path = require('path');
+const multer = require('multer');
 
 // const storage = multer.diskStorage({
 //   destination(req, file, cb) {
@@ -15,7 +17,7 @@ import multer from 'multer'
 
 const storage = multer.memoryStorage()
 
-function checkFileType(file, cb) {
+const checkFileType = (file, cb) => {
   const filetypes = /jpg|jpeg|png/
   const extname = filetypes.test(
     path.extname(file.originalname).toLocaleLowerCase()
@@ -38,4 +40,4 @@ const upload = multer({
   },
 })
 
-export default upload
+module.exports = upload

@@ -1,7 +1,10 @@
-import jwt from 'jsonwebtoken'
-import User from '../models/User.js'
+// import jwt from 'jsonwebtoken'
+const jwt = require('jsonwebtoken');
+const User = require('../models/User.js');
 
-const auth = async (req, res, next) => {
+// import User from '../models/User.js'
+
+exports.auth = async (req, res, next) => {
   try {
     const token = req.header('Authorization').replace('Bearer ', '')
 
@@ -18,4 +21,4 @@ const auth = async (req, res, next) => {
   }
 }
 
-export default auth
+// module.exports = auth

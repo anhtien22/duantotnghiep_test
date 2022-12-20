@@ -1,4 +1,4 @@
-const checkAdmin = (req, res, next) => {
+exports.checkAdmin = (req, res, next) => {
   try {
     if (req.user && req.user.role === 'admin') {
       next()
@@ -12,4 +12,4 @@ const checkAdmin = (req, res, next) => {
   }
 }
 
-export default checkAdmin
+// export default checkAdmin
