@@ -1,10 +1,10 @@
-import Order from "../models/Order.js";
-import Product from "../models/Product.js";
+const Order = require('../models/Order.js');
+const Product = require('../models/Product.js');
 
 // @desc Place new order
 // @route POST '/api/orders/new'
 // @access Private : User/Admin
-export const placeOrder = async (req, res) => {
+exports.placeOrder = async (req, res) => {
   try {
     const order = new Order({ ...req.body, user: req.user._id })
     await order.save()
@@ -17,7 +17,7 @@ export const placeOrder = async (req, res) => {
 // @desc Get all orders
 // @route GET '/api/orders/all'
 // @access Private : Admin
-export const getAllOrders = async (req, res) => {
+exports.getAllOrders = async (req, res) => {
   try {
     const orders = await Order.find({})
       .sort("-createdAt")
@@ -28,7 +28,7 @@ export const getAllOrders = async (req, res) => {
   }
 };
 
-export const getAllHot = async (req, res) => {
+exports.getAllHot = async (req, res) => {
   try {
     const orders = await Order.find()
 
@@ -41,7 +41,7 @@ export const getAllHot = async (req, res) => {
 // @desc Get my orders
 // @route GET '/api/orders/myOrders'
 // @access Private : User
-export const getMyOrders = async (req, res) => {
+exports.getMyOrders = async (req, res) => {
   try {
     const myOrders = await Order.find({ user: req.user._id })
       .sort("-createdAt")
@@ -55,7 +55,7 @@ export const getMyOrders = async (req, res) => {
 // @desc Get One order by id
 // @route GET '/api/orders/myOrders/:id'
 // @access Private : User
-export const getOneOrder = async (req, res) => {
+exports.getOneOrder = async (req, res) => {
   try {
     const order = await Order.findOne({
       _id: req.params.id,
@@ -75,7 +75,7 @@ export const getOneOrder = async (req, res) => {
 // @desc Get One order by id admin
 // @route GET '/api/orders/:id'
 // @access Private : Admin
-export const getOneOrderAdmin = async (req, res) => {
+exports.getOneOrderAdmin = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id).populate(
       "user",
@@ -92,7 +92,7 @@ export const getOneOrderAdmin = async (req, res) => {
   }
 };
 
-export const updateOrder = async (req, res, next) => {
+exports.updateOrder = async (req, res, next) => {
   const order = await Order.findById(req.params.id);
 
   if (!order) {

@@ -1,13 +1,13 @@
-import Brand from '../models/Brand.js'
+const Brand = require('../models/Brand.js');
 
 // @desc Add new category
 // @route POST '/api/category/add'
 // @access Private : Admin
-export const addBrand = async (req, res) => {
+exports.addBrand = async (req, res) => {
   try {
     const brand = new Brand(req.body)
-    await brand .save()
-    res.status(201).json({ success: true, message: 'Thương hiệu đã thêm', brand})
+    await brand.save()
+    res.status(201).json({ success: true, message: 'Thương hiệu đã thêm', brand })
   } catch (err) {
     res.status(400).json({ success: false, error: err.message })
   }
@@ -16,9 +16,9 @@ export const addBrand = async (req, res) => {
 // @desc Get all category
 // @route GET '/api/category/getAll'
 // @access Public
-export const getAllBrands  = async (req, res) => {
+exports.getAllBrands = async (req, res) => {
   try {
-    const brands  = await Brand.find()
+    const brands = await Brand.find()
     res.json({ success: true, brands })
   } catch (err) {
     res.status(400).json({ success: false, error: err.message })
@@ -28,7 +28,7 @@ export const getAllBrands  = async (req, res) => {
 // @desc Get One category
 // @route GET '/api/category/:id'
 // @access Public
-export const getBrand = async (req, res) => {
+exports.getBrand = async (req, res) => {
   try {
     const brand = await Brand.findById(req.params.id)
     if (!brand) {
@@ -45,7 +45,7 @@ export const getBrand = async (req, res) => {
 // @desc Update Category
 // @route PATCH '/api/category/:id'
 // @access Private : Admin
-export const updateBrand = async (req, res) => {
+exports.updateBrand = async (req, res) => {
   const updates = Object.keys(req.body)
   const allowedUpdates = ['local', 'image']
   const isValidOperation = updates.every(update =>
@@ -72,7 +72,7 @@ export const updateBrand = async (req, res) => {
 // @desc Delete a category
 // @route DELETE  '/api/category/:id'
 // @access Private : Admin
-export const deleteBrand= async (req, res) => {
+exports.deleteBrand = async (req, res) => {
   try {
     const brand = await Brand.findById(req.params.id)
     if (!brand) {

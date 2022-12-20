@@ -1,14 +1,20 @@
-import { errorHandler } from '../middleware/errorMiddleware.js'
-import User from '../models/User.js'
+// import { errorHandler } from '../middleware/errorMiddleware.js'
+const errorHandler = require("../middleware/errorMiddleware.js");
+
+// import User from '../models/User.js'
+const User = require('../models/User.js');
 
 // import sendEmail from "../utils/sendEmail";
-import crypto from "crypto";
+// import crypto from "crypto";
+const crypto = require("crypto");
 
-import { sendEmail } from '../utils/sendEmail.js';
+// import { sendEmail } from '../utils/sendEmail.js';
+const sendEmail = require("../utils/sendEmail");
+
 // @desc Register a new user
 // @route POST '/api/users/register'
 // @access Public
-export const registerUser = async (req, res) => {
+exports.registerUser = async (req, res) => {
   try {
     const user = new User(req.body)
     await user.save()
@@ -22,7 +28,7 @@ export const registerUser = async (req, res) => {
 // @desc Login user
 // @route POST '/api/users/login'
 // @access Public
-export const login = async (req, res) => {
+exports.login = async (req, res) => {
   try {
     const user = await User.findByCredentials(req.body.email, req.body.password)
     const token = await user.generateAuthToken()
@@ -35,7 +41,7 @@ export const login = async (req, res) => {
 // @desc Read user profile
 // @route GET '/api/users/profile'
 // @access Private: User
-export const readProfile = async (req, res) => {
+exports.readProfile = async (req, res) => {
   // res.json(req.user)
   const user = await User.findById(req.user.id);
 
@@ -48,7 +54,7 @@ export const readProfile = async (req, res) => {
 // @desc Update user profile
 // @route PATCH '/api/users/profile'
 // @access Private : user
-export const updateProfile = async (req, res) => {
+exports.updateProfile = async (req, res) => {
   const updates = Object.keys(req.body)
   const allowedUpdates = ['name', 'email']
   const isValidOperation = updates.every(update =>
@@ -70,7 +76,7 @@ export const updateProfile = async (req, res) => {
 // @desc Delete user profile
 // @route DELETE '/api/users/profile'
 // @access Private: user
-export const deleteProfile = async (req, res) => {
+exports.deleteProfile = async (req, res) => {
   try {
     await req.user.remove()
     res.json({ success: true, message: 'Người dùng đã xóa' })
@@ -82,7 +88,7 @@ export const deleteProfile = async (req, res) => {
 // @desc Get all users
 // @route DELETE '/api/users/profile'
 // @access Private: Admin
-export const getAllUsers = async (req, res) => {
+exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.find({ role: 'user' }).sort('-createdAt')
     res.json({ success: true, users })
@@ -92,7 +98,7 @@ export const getAllUsers = async (req, res) => {
 }
 
 
-export const forgotPassword = async (req, res, next) => {
+exports.forgotPassword = async (req, res, next) => {
   const user = await User.findOne({
     email: req.body.email
   });
@@ -133,7 +139,7 @@ export const forgotPassword = async (req, res, next) => {
   }
 };
 
-export const resetPassword = async (req, res, next) => {
+exports.resetPassword = async (req, res, next) => {
   // creating token hash
   const resetPasswordToken = crypto.createHash("sha256").update(req.params.token).digest("hex");
 
@@ -160,7 +166,7 @@ export const resetPassword = async (req, res, next) => {
   res.status(200).json({ success: true, user, token })
 };
 
-export const updatePassword = async (req, res, next) => {
+exports.updatePassword = async (req, res, next) => {
   const user = await User.findById(req.user._id).select("+password");
 
   const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
@@ -181,7 +187,7 @@ export const updatePassword = async (req, res, next) => {
 };
 
 
-export const getOneUserAdmin = async (req, res, next) => {
+exports.getOneUserAdmin = async (req, res, next) => {
   const user = await User.findById(req.params.id);
   if (!user) {
     return next(new errorHandler(`User does not exist with ID:${req.params.id}`))
@@ -192,7 +198,7 @@ export const getOneUserAdmin = async (req, res, next) => {
   })
 };
 
-export const updateUserRole = async (req, res, next) => {
+exports.updateUserRole = async (req, res, next) => {
   const newUserData = {
     name: req.body.name,
     email: req.body.email,
@@ -211,7 +217,7 @@ export const updateUserRole = async (req, res, next) => {
 
 };
 
-export const deleteOneUserAdmin = async (req, res, next) => {
+exports.deleteOneUserAdmin = async (req, res, next) => {
 
   const user = await User.findById(req.params.id)
 
