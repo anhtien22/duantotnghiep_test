@@ -10,7 +10,6 @@ import UserState from './context/user/UserState'
 import OrderState from './context/orders/OrderState'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { CartProvider } from 'react-use-cart'
-import VariationState from './context/variation/VariationState'
 import { Provider } from "react-redux";
 import { applyMiddleware, createStore } from "redux";
 import thunk from "redux-thunk";
@@ -31,11 +30,9 @@ ReactDOM.render(
             <OrderState>
               <BrandState>
                 <CategoryState>
-                  <VariationState>
-                    <ProductState>
-                      <App />
-                    </ProductState>
-                  </VariationState>
+                  <ProductState>
+                    <App />
+                  </ProductState>
                 </CategoryState>
               </BrandState>
             </OrderState>

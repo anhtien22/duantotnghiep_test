@@ -34,6 +34,8 @@ import OrderCod from "./AdminScreens/OrderCod";
 import OrderCancled from "./AdminScreens/OrderCancled";
 import { multilanguage, loadLanguages } from "redux-multilanguage";
 import { connect } from "react-redux";
+import Review from "./AdminScreens/Review";
+import ReviewById from "./AdminScreens/ReviewById";
 
 function App(props) {
   useEffect(() => {
@@ -104,6 +106,10 @@ function App(props) {
         <Route path="/orderAdmin/cod" element={ <OrderCod /> } />
 
         <Route path="/orderAdmin/canceled" element={ <OrderCancled /> } />
+
+        <Route path="/reviews" element={ <Review /> } />
+
+        <Route path="/reviews/:id" element={ <ReviewById /> } />
       </Routes>
       <Footer />
     </main>

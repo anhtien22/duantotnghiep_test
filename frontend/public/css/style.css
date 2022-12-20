@@ -66,7 +66,7 @@ a:hover {
   -o-transition: 0.2s all ease-in-out !important;
   transition: 0.2s all ease-in-out !important;
   top: 0;
-  letter-spacing: .05em;
+  /* letter-spacing: .05em; */
 }
 
 .btn:hover,
@@ -91,7 +91,7 @@ a:hover {
 .btn.btn-primary {
   font-size: 17px;
   font-weight: 300;
-  letter-spacing: .2em;
+  /* letter-spacing: .2em; */
 }
 
 .btn:hover {

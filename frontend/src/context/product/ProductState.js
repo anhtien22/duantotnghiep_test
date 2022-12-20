@@ -60,7 +60,6 @@ const ProductState = props => {
       setProducts(data.products)
       setProductsLoading(false)
       setProductsError(null)
-      console.log("data", data)
       return data.totalResults
     } catch (err) {
       errorHandler(err, 'không thể nhận được sản phẩm')
@@ -70,7 +69,6 @@ const ProductState = props => {
   // Add new product
   const addProduct = async fromData => {
     const productBody = clean(fromData)
-    console.log(productBody, ' productBody')
     try {
       const userToken = JSON.parse(localStorage.getItem('userToken'))
       const headers = {
@@ -189,11 +187,10 @@ const ProductState = props => {
     } catch (err) {
       errorHandler(err, 'Không thể cập nhật hình ảnh')
     }
-  }
+  };
 
   const newReview = async (payload) => {
     try {
-      console.log(payload);
       setProductsLoading(true)
 
       const { data } = await axios.put("/api/products/review",
@@ -204,17 +201,30 @@ const ProductState = props => {
           user: payload.user,
           name: payload.name
         });
-      console.log("res", data);
-
 
       setProductsLoading(false)
-      // setProductsError(null)
-      // return data
+      setProductsError(null)
+      return data
 
     } catch (error) {
       errorHandler(error, 'Bình luận thất bại')
     }
   };
+
+
+  const getAllReviews = async (id) => {
+    try {
+      setProductsLoading(true)
+      const { data } = await axios.get(`/api/products/reviews/${id}`);
+
+      setProductsLoading(false)
+      setProductsError(null)
+      return data
+    } catch (error) {
+      errorHandler(error)
+    }
+  };
+
 
 
 
@@ -232,7 +242,8 @@ const ProductState = props => {
         updateProductImage,
         deleteProduct,
         errorHandler,
-        newReview
+        newReview,
+        getAllReviews
       } }>
       { props.children }
     </ProductContext.Provider>

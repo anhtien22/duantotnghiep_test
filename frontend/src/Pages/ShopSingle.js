@@ -6,15 +6,20 @@ import { useCart } from "react-use-cart";
 import UserContext from "../context/user/UserContext";
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
-import Paginator from "react-hooks-paginator";
-
+// import Paginator from "react-hooks-paginator";
+// import Typography from '@mui/material/Typography';
+// import Pagination from '@mui/material/Pagination';
+// import Stack from '@mui/material/Stack';
+import usePagination from "../helpers/Pagination";
+// import { Box, List, Tag, ListItem, Divider } from "@chakra-ui/core";
+import { Pagination } from "@material-ui/lab";
 const ShopSingle = () => {
   const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
 
   const { id } = useParams();
   const [product, setProduct] = useState({ brand: {} });
-  const pageLimit = 4;
+  const pageLimit = 3;
   const [offset, setOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [productReview, setProductReview] = useState([]);
@@ -22,6 +27,16 @@ const ShopSingle = () => {
   const [comment, setComment] = useState("");
 
   console.log("productReview", productReview);
+
+  const [page, setPage] = useState(1);
+  const PER_PAGE = 5;
+  const count = Math.ceil(productReview.length / PER_PAGE);
+  const data = usePagination(productReview, PER_PAGE);
+
+  const handleChange = (e, p) => {
+    setPage(p);
+    data.jump(p);
+  };
 
   // for product context
   const pContext = useContext(productContext);
@@ -35,7 +50,7 @@ const ShopSingle = () => {
     const fetctProduct = async () => {
       const fetchedProduct = await getOneProduct(id);
       setProduct(fetchedProduct);
-      setProductReview(fetchedProduct.reviews.slice(offset, offset + pageLimit))
+      setProductReview(fetchedProduct.reviews)
     };
     fetctProduct();
     // eslint-disable-next-line
@@ -110,16 +125,10 @@ const ShopSingle = () => {
                   </div>
                 </div>
               </div>
-              <div>
-                <p>Tổng lượt đánh giá: { product.ratings }</p>
-                <Box
-                  sx={ {
-                    '& > legend': { mt: 1 },
-                  } }
-                >
-                  <Rating name="half-rating-read" defaultValue={ product.ratings } readOnly />
-                </Box>
-              </div>
+
+              <p>Tổng lượt đánh giá: { product?.ratings }</p>
+              <Rating readOnly defaultValue={ product.ratings } precision={ 0.5 } />
+
               <p>
                 { product.Stock >= 0 ? (<>
                   <Link
@@ -152,22 +161,21 @@ const ShopSingle = () => {
         <div className="container">
           <div className="row">
             <div className="col-sm-5 col-md-6 col-12 pb-4">
-              <h1>Comments</h1>
-              { productReview && productReview.map((review, key) => (
+              <h2>Đánh giá sản phẩm</h2>
+              { data.currentData().map((review, key) => (
+
                 <div className="comment mt-4 text-justify float-left col-12">
+
                   <h4>{ review.name }</h4>
-                  <Box
-                    sx={ {
-                      '& > legend': { mt: 1 },
-                    } }
-                  >
+                  <Box>
+
                     <Rating
                       name="rating"
                       defaultValue={ review.rating }
                       readOnly
                     />
-
                   </Box>
+
                   <span className="text-secondary">
                     { new Date(
                       review.createdAt
@@ -177,8 +185,9 @@ const ShopSingle = () => {
                   <p>{ review.comment }</p>
                 </div>
               )) }
+
             </div>
-            <Paginator
+            {/* <Paginator
               totalRecords={ productReview.length }
               pageLimit={ pageLimit }
               pageNeighbours={ 2 }
@@ -188,18 +197,17 @@ const ShopSingle = () => {
               pageContainerClass="mb-0 mt-0 d-flex "
               pagePrevText="«"
               pageNextText="»"
-            />
+            /> */}
+
             <div className="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4">
               <form id="algin-form" onSubmit={ reviewSubmitHandler }>
                 <h4>Leave a comment</h4>
                 { user ? (<>
+
                   <div className="form-group">
                     <label>Your rating:</label>
-                    <Box
-                      sx={ {
-                        '& > legend': { mt: 1 },
-                      } }
-                    >
+                    <Box>
+
                       <Rating
                         name="rating"
                         value={ rating }
@@ -208,24 +216,32 @@ const ShopSingle = () => {
                         } }
                       />
                     </Box>
-                    <label for="message">Message</label>
+
+                    <label htmlFor="message">Message</label>
                     <textarea
-                      name="msg" msg
+                      name="msg"
                       cols="30"
                       rows="5"
-                      maxlength={ 200 }
                       className="form-control"
                       required
                       value={ comment }
                       onChange={ (e) => setComment(e.target.value) }
                     ></textarea>
                   </div>
-                  <input type="submit" />
+                  <input className="btn btn-secondary" type="submit" />
                 </>) : (
                   <p>Bạn cần đăng nhập để bình luận <Link to="/login">tại đây</Link></p>
                 ) }
               </form>
             </div>
+            <Pagination
+              count={ count }
+              size="large"
+              page={ page }
+              variant="outlined"
+              shape="rounded"
+              onChange={ handleChange }
+            />
           </div>
         </div>
       </section>

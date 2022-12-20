@@ -28,25 +28,25 @@ const BrandState = props => {
 
   useEffect(() => {
     setTimeout(() => {
-        setBrandsError(null)
-        setBrandsMessage(null)
+      setBrandsError(null)
+      setBrandsMessage(null)
     }, 3000)
   }, [brandsError, brandsMessage])
 
   // Error Handler function
   const errorHandler = (err, info) => {
     if (err.response) {
-        setBrandsError({
+      setBrandsError({
         variant: 'danger',
         message: `${info}, ${err.response.data.error}`,
       })
     } else if (err.request) {
-        setBrandsError({
+      setBrandsError({
         variant: 'danger',
         message: `${info},  Không có phản hồi từ máy chủ!`,
       })
     } else {
-        setBrandsError({ variant: 'danger', message: err.message })
+      setBrandsError({ variant: 'danger', message: err.message })
     }
     setBrandsLoading(false)
   }
@@ -60,7 +60,7 @@ const BrandState = props => {
         Authorization: `Bearer ${userToken && userToken}`,
       }
       setBrandsLoading(true)
-      await axios.post('api/brand/add', brandBody, { headers })
+      await axios.post('/api/brand/add', brandBody, { headers })
       setBrands([...brands, brandBody])
       setBrandsMessage({
         variant: 'success',
@@ -77,9 +77,9 @@ const BrandState = props => {
   // get all categories
   const getBrands = async (limit, skip, keyword) => {
     try {
-        setBrandsLoading(true)
-      const { data } = await axios.get('api/brand/getAll', {
-        params: { limit, skip, keyword},
+      setBrandsLoading(true)
+      const { data } = await axios.get('/api/brand/getAll', {
+        params: { limit, skip, keyword },
       })
       setBrands(data.brands)
       setBrandsLoading(false)
@@ -89,28 +89,28 @@ const BrandState = props => {
     }
   }
 
-// Delete Category
-const deleteBrand = async id  => {
-  try {
-    setBrandsLoading(true)
-    const userToken = JSON.parse(localStorage.getItem('userToken'))
-    const headers = {
-      Authorization: `Bearer ${userToken && userToken}`,
-      'Content-Type': 'multipart/form-data',
+  // Delete Category
+  const deleteBrand = async id => {
+    try {
+      setBrandsLoading(true)
+      const userToken = JSON.parse(localStorage.getItem('userToken'))
+      const headers = {
+        Authorization: `Bearer ${userToken && userToken}`,
+        'Content-Type': 'multipart/form-data',
+      }
+      const { data } = await axios.delete(`/api/brand/${id}`, { headers })
+      setBrandsLoading(false)
+      setBrandsError(null)
+      setBrandsMessage({
+        variant: 'success',
+        message: 'Xóa thành công!',
+      })
+      window.location.reload();
+      return data.categories
+    } catch (err) {
+      errorHandler(err, 'Không tìm thấy sản phẩm')
     }
-    const { data } = await axios.delete(`/api/brand/${id}`, { headers })
-    setBrandsLoading(false)
-    setBrandsError(null)
-    setBrandsMessage({
-      variant: 'success',
-      message: 'Xóa thành công!',
-    })
-    window.location.reload();
-    return data.categories
-  } catch (err) {
-    errorHandler(err, 'Không tìm thấy sản phẩm')
   }
-}
 
   // get one category
   const getOneBrand = async id => {
@@ -144,7 +144,7 @@ const deleteBrand = async id  => {
 
   return (
     <BrandContext.Provider
-      value={{
+      value={ {
         brands,
         brandsError,
         brandsLoading,
@@ -154,8 +154,8 @@ const deleteBrand = async id  => {
         deleteBrand,
         getOneBrand,
         updateBrand,
-      }}>
-      {props.children}
+      } }>
+      { props.children }
     </BrandContext.Provider>
   )
 }

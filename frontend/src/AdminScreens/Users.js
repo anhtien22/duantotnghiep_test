@@ -14,7 +14,6 @@ const Users = () => {
     // eslint-disable-next-line
   }, [])
   const deleteSaveChanges = (id) => {
-    // console.log(product)
     // const { name, sku, category, price, description } = user
     deleteOneUserAdmin(id)
   }

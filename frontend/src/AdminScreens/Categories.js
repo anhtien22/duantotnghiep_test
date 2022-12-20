@@ -20,7 +20,6 @@ const Categories = () => {
 
   //delete catagory
   const deleteSaveChanges = (id) => {
-    // console.log(product)
     deleteCategory(id)
   }
   return (
@@ -28,7 +27,7 @@ const Categories = () => {
       <Navbar />
 
       <div>
-        {/* HEADER */}
+        {/* HEADER */ }
         <header id="main-header" className="py-2 bg-success text-white">
           <div className="container">
             <div className="row">
@@ -40,7 +39,7 @@ const Categories = () => {
             </div>
           </div>
         </header>
-        {/* SEARCH */}
+        {/* SEARCH */ }
         <section id="search" className="py-4 mb-4 bg-light">
           <div className="container">
             <div className="row">
@@ -69,7 +68,7 @@ const Categories = () => {
             </div>
           </div>
         </section>
-        {/* CATEGORIES */}
+        {/* CATEGORIES */ }
         <section id="categories">
           <div className="container">
             <div className="row">
@@ -88,25 +87,25 @@ const Categories = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {categories.map((category, i) => (
-                        <tr key={category._id}>
-                          <td>{i + 1}</td>
-                          <td>{category.title}</td>
+                      { categories.map((category, i) => (
+                        <tr key={ category._id }>
+                          <td>{ i + 1 }</td>
+                          <td>{ category.title }</td>
                           <td>
-                            {new Date(category.createdAt).toLocaleDateString()}
+                            { new Date(category.createdAt).toLocaleDateString() }
                           </td>
                           <td>
                             {/* <button className="btn btn-secondary">
                               <i className="fas fa-angle-double-right" />{" "}
                               Details
                             </button> */}
-                            <EditCategoryModal category={category} />
-                            <Button variant="danger" className="mx-2" onClick={() => deleteSaveChanges(category._id)}>
+                            <EditCategoryModal category={ category } />
+                            <Button variant="danger" className="mx-2" onClick={ () => deleteSaveChanges(category._id) }>
                               <i className="fas fa-trash" /> Xóa
                             </Button>
                           </td>
                         </tr>
-                      ))}
+                      )) }
                     </tbody>
                   </table>
                 </div>
@@ -115,7 +114,7 @@ const Categories = () => {
           </div>
         </section>
       </div>
-      {/* <Footer /> */}
+      {/* <Footer /> */ }
     </div>
   )
 }

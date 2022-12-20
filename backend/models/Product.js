@@ -52,13 +52,6 @@ const productSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
-    variation: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Variation',
-        required: true,
-      }
-    ],
     reviews: [
       {
         user: {
@@ -79,9 +72,10 @@ const productSchema = mongoose.Schema(
           required: true,
         },
         productId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Product",
-          required: true,
+          // type: mongoose.Schema.Types.ObjectId,
+          // ref: "Product",
+          // required: true,
+          type: String,
           index: true,
         },
         createdAt: {

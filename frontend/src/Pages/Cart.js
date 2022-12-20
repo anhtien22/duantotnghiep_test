@@ -22,14 +22,12 @@ const Cart = () => {
     items,
   } = useCart();
 
-  console.log("items", items);
 
   const formatter = new Intl.NumberFormat("it-IT", {
     style: "currency",
     currency: "VND",
   });
 
-  console.log("items", items);
   return (
     <>
       <Breadcrumb pageName="Cart" />
