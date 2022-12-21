@@ -43,20 +43,21 @@ app.use('/api/users', userRoutes)
 app.use('/api/orders', orderRoutes)
 // app.use('/api/upload', uploadRoutes)
 
+app.get('/', (req, res) => {
+  res.send('This is the home page')
+})
+
 var __dirname = path.resolve()
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
+
+app.get('/api/config/paypal', (req, res) =>
+  res.send(process.env.PAYPAL_CLIENT_ID)
+)
 
 app.use(express.static(path.join(__dirname, '/frontend/build')));
 app.get('*', (req, res) =>
   res.sendFile(path.join(__dirname, '/frontend/build/index.html'))
 );
-app.get('/', (req, res) => {
-  res.send('This is the home page')
-})
-
-app.get('/api/config/paypal', (req, res) =>
-  res.send(process.env.PAYPAL_CLIENT_ID)
-)
 
 app.use(notFound)
 app.use(errorHandler)

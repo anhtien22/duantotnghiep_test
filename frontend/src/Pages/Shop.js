@@ -58,38 +58,38 @@ const Shop = () => {
   //   return products;
   // }
 
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
 
-  const [sortType, setSortType] = useState("default");
-  useEffect(() => {
-    const sortArray = (type) => {
-      const sorted = products;
-      const types = {
-        default: "default",
-        priceHighToLow: "priceHighToLow",
-        priceLowToHigh: "priceLowToHigh",
-      };
-      const sortProperty = types[type];
-      if (sortProperty === "default") {
-        return data;
-      }
-      if (sortProperty === "priceHighToLow") {
-        sorted.sort((a, b) => b.price - a.price);
-        // sortProducts.sort((a, b) => {
-        //         console.log("priceHighToLow", sortProducts);
-        //         return b.price - a.price;
-        //       });
-      }
-      if (sortProperty === "priceLowToHigh") {
-        sorted.sort((a, b) => a.price - b.price);
-      }
-      // const sorted = [...products].sort((a, b) => b[sortProperty] - a[sortProperty]);
-      console.log(sorted);
-      setData(sorted);
-    };
+  // const [sortType, setSortType] = useState("default");
+  // useEffect(() => {
+  //   const sortArray = (type) => {
+  //     const sorted = products;
+  //     const types = {
+  //       default: "default",
+  //       priceHighToLow: "priceHighToLow",
+  //       priceLowToHigh: "priceLowToHigh",
+  //     };
+  //     const sortProperty = types[type];
+  //     if (sortProperty === "default") {
+  //       return data;
+  //     }
+  //     if (sortProperty === "priceHighToLow") {
+  //       sorted.sort((a, b) => b.price - a.price);
+  //       // sortProducts.sort((a, b) => {
+  //       //         console.log("priceHighToLow", sortProducts);
+  //       //         return b.price - a.price;
+  //       //       });
+  //     }
+  //     if (sortProperty === "priceLowToHigh") {
+  //       sorted.sort((a, b) => a.price - b.price);
+  //     }
+  //     // const sorted = [...products].sort((a, b) => b[sortProperty] - a[sortProperty]);
+  //     console.log(sorted);
+  //     setData(sorted);
+  //   };
 
-    sortArray(sortType);
-  }, [sortType]);
+  //   sortArray(sortType);
+  // }, [sortType]);
 
   const handleChange = (e) => {
     setKeyWord(e.target.value);
@@ -120,7 +120,7 @@ const Shop = () => {
     style: "currency",
     currency: "VND",
   });
-  const [price, setPrice] = useState("0");
+  const [price, setPrice] = useState(0);
   const handleInput = (e) => {
     setPrice(e.target.value);
   };
@@ -137,7 +137,7 @@ const Shop = () => {
                 <div className="col-md-12 mb-5 d-flex justify-content-between">
                   <div className=" col-md-6 float-md-left mb-4">
                     <h2 className="text-black h5">SHOP ALL</h2>
-                    <select onChange={(e) => setSortType(e.target.value)}>
+                    {/* <select onChange={ (e) => setSortType(e.target.value) }>
                       <option value="default">Mặc định</option>
                       <option value="priceHighToLow">
                         Giá từ cao đến thấp
@@ -145,18 +145,18 @@ const Shop = () => {
                       <option value="priceLowToHigh">
                         Giá từ thấp đến cao
                       </option>
-                    </select>
+                    </select> */}
                   </div>
                   <div className="col-md-6 ">
-                    <Form className="d-flex" onSubmit={handleSearchSubmit}>
+                    <Form className="d-flex" onSubmit={ handleSearchSubmit }>
                       <FormControl
                         type="search"
                         placeholder="Search products"
                         className="me-2 "
                         aria-label="Search"
                         size="sm"
-                        value={keyWord}
-                        onChange={handleChange}
+                        value={ keyWord }
+                        onChange={ handleChange }
                       />
 
                       <button type="submit" className="btn btn-secondary ">
@@ -168,7 +168,7 @@ const Shop = () => {
               </div>
 
               <div className="row mb-5">
-                {filterProduct
+                { filterProduct
                   .filter((filterProduct) => {
                     return filterProduct.price >= parseInt(price, 10);
                   })
@@ -176,13 +176,13 @@ const Shop = () => {
                     <div
                       className="col-sm-6 col-lg-4 mb-4"
                       data-aos="fade-up"
-                      key={product._id}
+                      key={ product._id }
                     >
                       <div className="block-4 text-center border">
                         <figure className="block-4-image">
-                          <Link to={`/shopSingle/${product._id}`}>
+                          <Link to={ `/shopSingle/${product._id}` }>
                             <img
-                              src={product.image}
+                              src={ product.image }
                               alt="placeholder"
                               className="img-fluid"
                             />
@@ -192,26 +192,26 @@ const Shop = () => {
                           <h3>
                             <Link
                               className="text-black font-weight-bold"
-                              to={`/shopSingle/${product._id}`}
+                              to={ `/shopSingle/${product._id}` }
                             >
-                              {product.name}
+                              { product.name }
                             </Link>
                           </h3>
                           <p className="mb-0 text-secondary">
-                            {product.category.title}
+                            { product.category.title }
                           </p>
                           <p className="text-black font-weight-bold">
-                            {formatter.format(product.price)}
+                            { formatter.format(product.price) }
                           </p>
                           <p
                             className="buy-now btn btn-sm btn-outline-dark"
-                            onClick={() => {
+                            onClick={ () => {
                               let item = {
                                 ...product,
                                 id: product._id,
                               };
                               addItem(item, quantity);
-                            }}
+                            } }
                           >
                             {/* <Link
                         to="/Cart"
@@ -231,7 +231,7 @@ const Shop = () => {
                         </div>
                       </div>
                     </div>
-                  ))}
+                  )) }
               </div>
 
               <div className="row" data-aos="fade-up">
@@ -240,17 +240,17 @@ const Shop = () => {
                     <Button
                       variant="success"
                       size="sm"
-                      onClick={handlePreviousClick}
-                      disabled={skip < 1}
+                      onClick={ handlePreviousClick }
+                      disabled={ skip < 1 }
                     >
                       &larr; Trước
                     </Button>
 
                     <div className="text-center mx-2">
-                      Trang -{skip / limit + 1},
+                      Trang -{ skip / limit + 1 },
                       <span className="text-muted">
-                        {" "}
-                        Hiển thị {products.length} trong số {totalResults} sản
+                        { " " }
+                        Hiển thị { products.length } trong số { totalResults } sản
                         phẩm .
                       </span>
                     </div>
@@ -258,8 +258,8 @@ const Shop = () => {
                     <Button
                       variant="success"
                       size="sm"
-                      onClick={handleNextClick}
-                      disabled={totalResults - skip <= limit}
+                      onClick={ handleNextClick }
+                      disabled={ totalResults - skip <= limit }
                     >
                       Tiếp tục &rarr;
                     </Button>
@@ -291,19 +291,19 @@ const Shop = () => {
                     </label>
                   )) }
                 </div> */}
-                {/* <div className="mb-4"> */}
+                {/* <div className="mb-4"> */ }
                 <h3 className="mb-3 h6 text-uppercase text-black d-block">
                   Danh Mục
                 </h3>
-                {/* <div id="slider-range" className="border-primary"> */}
+                {/* <div id="slider-range" className="border-primary"> */ }
                 <ul className="list-unstyled mb-0">
                   <li className="mb-1">
                     <button
                       className="d-flex btn btn-secondary"
-                      onClick={() => {
+                      onClick={ () => {
                         setCategory("");
                         setSkip(0);
-                      }}
+                      } }
                     >
                       <span>Tất cả</span>
                       {/* <span className="text-black ml-auto">
@@ -311,28 +311,28 @@ const Shop = () => {
                       </span> */}
                     </button>
                   </li>
-                  {categories.map((cate) => (
-                    <li className="mb-1" key={cate._id}>
+                  { categories.map((cate) => (
+                    <li className="mb-1" key={ cate._id }>
                       <button
                         className="d-flex btn btn-secondary"
-                        onClick={() => {
+                        onClick={ () => {
                           setCategory(cate._id);
                           setSkip(0);
-                        }}
+                        } }
                       >
-                        <span>{cate.title}</span>
-                        {/* <span className="text-black ml-auto">(2,220)</span> */}
+                        <span>{ cate.title }</span>
+                        {/* <span className="text-black ml-auto">(2,220)</span> */ }
                       </button>
                     </li>
-                  ))}
+                  )) }
                 </ul>
                 <div className="App">
-                  <input type="range" onInput={handleInput} />
-                  <h4>Filter Price: {price}</h4>
+                  <p>Filter Price: { price }</p>
+                  <input type="range" onInput={ handleInput } />
                 </div>
-                {/* </div> */}
+                {/* </div> */ }
 
-                {/* </div> */}
+                {/* </div> */ }
                 {/* <div className="border p-4 rounded mb-4">
 
                   <input

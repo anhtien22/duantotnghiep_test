@@ -74,6 +74,7 @@ const Checkout = () => {
       };
       document.body.appendChild(script);
     };
+    console.log("paymentMethod", paymentMethod);
     if (paymentMethod === "paypal") {
       // addPaypalScript()
       if (!window.paypal) {
