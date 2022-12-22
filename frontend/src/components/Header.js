@@ -30,14 +30,14 @@ const Header = ({
 
     // navigate('/login')
   }
-  
-  
+
+
   // eslint-disable-next-line no-undef
   ScrollOut({
     cssProps: true,
     threshold: 0.2
   });
-  
+
 
   return (
     <header className="site-navbar" role="banner" data-scroll>
@@ -96,9 +96,9 @@ const Header = ({
               <div className="dropdown2">
                 { user ? (
                   <>
-                    <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Hello {user.name}</button>
+                    <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Hello { user.name }</button>
                   </>
-                  ):(<button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Hello ?</button>)
+                ) : (<button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Hello ?</button>)
                 }
                 <ul className="dropdown-menu">
                   <ul>
@@ -128,7 +128,7 @@ const Header = ({
                       <>
                         <li>
                           <Link to="/login">
-                          <i className="fa fa-user"> &ensp;</i>{strings["LOGIN"]}
+                            <i className="fa fa-user"> &ensp;</i>{ strings["LOGIN"] }
                           </Link>
                         </li>
                         <li>
@@ -137,18 +137,18 @@ const Header = ({
                           </Link>
                         </li>
                       </>
-                    )}
+                    ) }
                   </ul>
                 </ul>
                 &ensp;&ensp;
-                <div  className='box2'>
+                <div className='box2'>
                   <Link to="/cart" className="site-cart">
                     <span className="icon icon-shopping_cart">&ensp;</span>
-                    {totalUniqueItems && totalUniqueItems > 0 ? (
-                      <span className="count">{totalUniqueItems}</span>
+                    { totalUniqueItems && totalUniqueItems > 0 ? (
+                      <span className="count">{ totalUniqueItems }</span>
                     ) : (
                       ''
-                    )}
+                    ) }
                   </Link>
                 </div>
 
