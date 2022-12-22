@@ -29,7 +29,7 @@ const EditCategoryModal = props => {
   return (
     <>
       <Button variant="secondary" className="mx-2 bg-success text-white" onClick={handleShow}>
-        <i className="fas fa-edit" /> Sửa
+        <i className="fas fa-edit" /> 
       </Button>
 
       <Modal show={show} style={{ zIndex: '9999' }} onHide={handleClose}>

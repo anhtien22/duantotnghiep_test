@@ -131,12 +131,12 @@ const Shop = () => {
   return (
     <>
       <Breadcrumb pageName="Shop" />
-      <div className="site-section">
+      <div className="site-section-shop">
         <div className="container">
           <div className="row mb-5">
             <div className="col-md-9 order-2">
               <div className="row">
-                <div className="col-md-12 mb-5 d-flex justify-content-between">
+                <div className="col-md-12 mb-5 d-flex justify-content-between" id="rowshop">
                   <div className=" col-md-6 float-md-left mb-4">
                     <h2 className="text-black h5">SHOP ALL</h2>
                     {/* <select onChange={ (e) => setSortType(e.target.value) }>
@@ -149,16 +149,16 @@ const Shop = () => {
                       </option>
                     </select> */}
                   </div>
-                  <div className="col-md-6 ">
-                    <Form className="d-flex" onSubmit={ handleSearchSubmit }>
+                  <div className="col-md-6 " id="search">
+                    <Form className="d-flex" onSubmit={handleSearchSubmit}>
                       <FormControl
                         type="search"
                         placeholder="Search products"
                         className="me-2 "
                         aria-label="Search"
                         size="sm"
-                        value={ keyWord }
-                        onChange={ handleChange }
+                        value={keyWord}
+                        onChange={handleChange}
                       />
 
                       <button type="submit" className="btn btn-secondary ">
@@ -169,74 +169,42 @@ const Shop = () => {
                 </div>
               </div>
 
-              <div className="row mb-5">
-                { products
-                  .filter((filterProduct) => {
-                    return filterProduct.price >= parseInt(price, 10);
-                  })
-                  .map((product) => (
-                    <div
-                      className="col-sm-6 col-lg-4 mb-4"
-                      data-aos="fade-up"
-                      key={ product._id }
-                    >
-                      <div className="block-4 text-center border">
+              <div className="row mb-5" id="shopproducts">
+                {products.filter((filterProduct) => {
+                  return filterProduct.price >= parseInt(price, 10);
+                }).map((product) => (
+                  <div
+                    className="col-sm-6 col-lg-4 mb-4"
+                    data-aos="fade-up"
+                    key={product._id}
+                  >
+                    <div className="block-4 text-center border">
+                      <div className="box-image">
                         <figure className="block-4-image">
-                          <Link to={ `/shopSingle/${product._id}` }>
-                            <img
-                              src={ product.image }
-                              alt="placeholder"
-                              className="img-fluid"
-                            />
+                          <Link to={`/shopSingle/${product._id}`}>
+                            <img src={product.image} alt="placeholder" className="img-fluid" />
                           </Link>
+                          <button class="deroul_titre" onClick={() => {
+                            let item = {
+                              ...product,
+                              id: product._id,
+                            };
+                            if (addToast) {
+                              addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
+                            }
+                            addItem(item, quantity);
+                          }}>Mua ngay</button>
+                          <p className="deroul_soustitre">{product.category.title}</p>
                         </figure>
-                        <div className="block-4-text p-4">
-                          <h3>
-                            <Link
-                              className="text-black font-weight-bold"
-                              to={ `/shopSingle/${product._id}` }
-                            >
-                              { product.name }
-                            </Link>
-                          </h3>
-                          <p className="mb-0 text-secondary">
-                            { product.category.title }
-                          </p>
-                          <p className="text-black font-weight-bold">
-                            { formatter.format(product.price) }
-                          </p>
-                          <p
-                            className="buy-now btn btn-sm btn-outline-dark"
-                            onClick={ () => {
-                              let item = {
-                                ...product,
-                                id: product._id,
-                              };
-                              if (addToast) {
-                                addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
-                              }
-                              addItem(item, quantity);
-                            } }
-                          >
-                            {/* <Link
-                        to="/Cart"
-                        className="buy-now btn btn-sm btn-primary"
-                        onClick={() => {
-                          let item = {
-                            ...product,
-                            id: product._id,
-                          };
-                          addItem(item, quantity);
-                        }}
-                      >
-                        Add To Cart
-                      </Link> */}
-                            add cart
-                          </p>
-                        </div>
+                      </div>
+                      <div className="block-4-text p-4">
+                        <p id="name"><Link to={`/shopSingle/${product._id}`}>{product.name}</Link>
+                        </p>
+                        <p id="price">{formatter.format(product.price)}</p>
                       </div>
                     </div>
-                  )) }
+                  </div>
+                ))}
               </div>
 
               <div className="row" data-aos="fade-up">
@@ -245,33 +213,33 @@ const Shop = () => {
                     <Button
                       variant="success"
                       size="sm"
-                      onClick={ handlePreviousClick }
-                      disabled={ skip < 1 }
+                      onClick={handlePreviousClick}
+                      disabled={skip < 1}
                     >
                       &larr; Trước
                     </Button>
 
                     <div className="text-center mx-2">
-                      Trang -{ skip / limit + 1 },
+                      Trang -{skip / limit + 1},
                       <span className="text-muted">
-                        { " " }
-                        Hiển thị { products.length } trong số { totalResults } sản
+                        {" "}
+                        Hiển thị {products.length} trong số {totalResults} sản
                         phẩm .
-                      </span>
-                    </div>
+                      </span >
+                    </div >
 
                     <Button
                       variant="success"
                       size="sm"
-                      onClick={ handleNextClick }
-                      disabled={ totalResults - skip <= limit }
+                      onClick={handleNextClick}
+                      disabled={totalResults - skip <= limit}
                     >
                       Tiếp tục &rarr;
                     </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
+                  </div >
+                </div >
+              </div >
+            </div >
 
             <div className="col-md-3 order-1 mb-5 mb-md-0">
               <div className="border p-4 rounded mb-4">
@@ -296,19 +264,19 @@ const Shop = () => {
                     </label>
                   )) }
                 </div> */}
-                {/* <div className="mb-4"> */ }
+                {/* <div className="mb-4"> */}
                 <h3 className="mb-3 h6 text-uppercase text-black d-block">
                   Danh Mục
                 </h3>
-                {/* <div id="slider-range" className="border-primary"> */ }
+                {/* <div id="slider-range" className="border-primary"> */}
                 <ul className="list-unstyled mb-0">
                   <li className="mb-1">
                     <button
                       className="d-flex btn btn-secondary"
-                      onClick={ () => {
+                      onClick={() => {
                         setCategory("");
                         setSkip(0);
-                      } }
+                      }}
                     >
                       <span>Tất cả</span>
                       {/* <span className="text-black ml-auto">
@@ -316,45 +284,50 @@ const Shop = () => {
                       </span> */}
                     </button>
                   </li>
-                  { categories.map((cate) => (
-                    <li className="mb-1" key={ cate._id }>
+                  {categories.map((cate) => (
+                    <li className="mb-1" key={cate._id}>
                       <button
                         className="d-flex btn btn-secondary"
-                        onClick={ () => {
+                        onClick={() => {
                           setCategory(cate._id);
                           setSkip(0);
-                        } }
+                        }}
                       >
-                        <span>{ cate.title }</span>
-                        {/* <span className="text-black ml-auto">(2,220)</span> */ }
+                        <span>{cate.title}</span>
+                        {/* <span className="text-black ml-auto">(2,220)</span> */}
                       </button>
                     </li>
-                  )) }
+                  ))}
                 </ul>
                 <div className="App">
-                  <p>Filter Price: { price }</p>
-                  <input type="range" onInput={ handleInput } />
+                  <p>Filter Price: {price}</p>
+                  <input type="range" onInput={handleInput} />
                 </div>
-                {/* </div> */ }
+                {/* </div> */}
 
-                {/* </div> */ }
-                {/* <div className="border p-4 rounded mb-4">
 
-                  <input
-                    type="text"
-                    name="text"
-                    id="amount"
-                    className="form-control border-0 pl-0 bg-white"
-                    disabled=""
-                  />
-                </div> */}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+                <section id="sidebar">
+                  <div className="py-2 border-bottom ml-3">
+                    <h6 className="font-weight-bold">Danh Mục</h6>
+                    <div id="orange"><span className="fa fa-minus"></span></div>
+                    <form>
+                      <div className="form-group" onClick={() => { setCategory(''); setSkip(0) }}>
+                        <label for="artisan">Tất cả</label>
+                      </div>
+                      {categories.map((cate) => (
+                        <div className="form-group" onClick={() => { setCategory(cate._id); setSkip(0); }}>
+                          <label for="breakfast">{cate.title}</label>
+                        </div>
+                      ))}
+                    </form>
+                  </div>
+                </section>
+              </div >
+            </div >
+          </div >
+        </div >
+        </div >
+      </>
+      );
 };
-
 export default Shop;

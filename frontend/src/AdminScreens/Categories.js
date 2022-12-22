@@ -27,7 +27,7 @@ const Categories = () => {
       <Navbar />
 
       <div>
-        {/* HEADER */ }
+        {/* HEADER */}
         <header id="main-header" className="py-2 bg-success text-white">
           <div className="container">
             <div className="row">
@@ -39,10 +39,10 @@ const Categories = () => {
             </div>
           </div>
         </header>
-        {/* SEARCH */ }
+        {/* SEARCH */}
         <section id="search" className="py-4 mb-4 bg-light">
           <div className="container">
-            <div className="row">
+            <div className="row" id="boxx2">
               <div className="col-md-6">
                 <a
                   href="/"
@@ -54,21 +54,23 @@ const Categories = () => {
                 <AddCategoryModal />
               </div>
               <div className="col-md-6 ml-auto">
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Tìm kiếm danh mục..."
-                  />
-                  <div className="input-group-append">
-                    <button className="btn btn-success">Tìm kiếm</button>
+                <form>
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Tìm kiếm danh mục..." 
+                    />
+                    <div className="input-group-append">
+                      <button className="btn btn-success" type="submit">Tìm kiếm</button>
+                    </div>
                   </div>
-                </div>
+                </form>
               </div>
             </div>
           </div>
         </section>
-        {/* CATEGORIES */ }
+        {/* CATEGORIES */}
         <section id="categories">
           <div className="container">
             <div className="row">
@@ -77,44 +79,44 @@ const Categories = () => {
                   <div className="card-header">
                     <h4>Danh mục mới nhất</h4>
                   </div>
-                  <table className="table table-striped">
-                    <thead className="thead-dark">
-                      <tr>
-                        <th>#</th>
-                        <th>Tiêu đề</th>
-                        <th>Ngày</th>
-                        <th />
-                      </tr>
-                    </thead>
-                    <tbody>
-                      { categories.map((category, i) => (
-                        <tr key={ category._id }>
-                          <td>{ i + 1 }</td>
-                          <td>{ category.title }</td>
-                          <td>
-                            { new Date(category.createdAt).toLocaleDateString() }
-                          </td>
-                          <td>
-                            {/* <button className="btn btn-secondary">
-                              <i className="fas fa-angle-double-right" />{" "}
-                              Details
-                            </button> */}
-                            <EditCategoryModal category={ category } />
-                            <Button variant="danger" className="mx-2" onClick={ () => deleteSaveChanges(category._id) }>
-                              <i className="fas fa-trash" /> Xóa
-                            </Button>
-                          </td>
-                        </tr>
-                      )) }
-                    </tbody>
-                  </table>
+                  <div className="content table-responsive table-full-width">
+                    <table className="table table-hover">
+                      <thead>
+                        <th className="product-mahang1">#</th>
+                        <th className="product-tenhang">Tiêu đề</th>
+                        <th className="product-logo">Ngày</th>
+                        <th></th>
+                      </thead>
+                      <tbody>
+                        {
+                          <>
+                            {categories.map((category, i) => (
+                              <tr key={category._id}>
+                                <td className="product-mahang1">
+                                  {i + 1}
+                                </td>
+                                <td className="product-tenhang">{category.title}</td>
+                                <td className="product-logo">{new Date(category.createdAt).toLocaleDateString()}</td>
+                                <td>
+                                  <EditCategoryModal category={category} />
+                                  <Button variant="danger" className="mx-2" onClick={() => deleteSaveChanges(category._id)}>
+                                    <i className="fas fa-trash" /> 
+                                  </Button>
+                                </td>
+                              </tr>
+                            ))}
+                          </>
+                        }
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
       </div>
-      {/* <Footer /> */ }
+      {/* <Footer /> */}
     </div>
   )
 }

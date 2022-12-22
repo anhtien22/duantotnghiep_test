@@ -27,7 +27,7 @@ const Brands = () => {
       <Navbar />
 
       <div>
-        {/* HEADER */ }
+        {/* HEADER */}
         <header id="main-header" className="py-2 bg-secondary text-white">
           <div className="container">
             <div className="row">
@@ -39,10 +39,10 @@ const Brands = () => {
             </div>
           </div>
         </header>
-        {/* SEARCH */ }
+        {/* SEARCH */}
         <section id="search" className="py-4 mb-4 bg-light">
           <div className="container">
-            <div className="row">
+            <div className="row" id='boxx2'>
               <div className="col-md-6">
                 <a
                   href="/"
@@ -68,7 +68,7 @@ const Brands = () => {
             </div>
           </div>
         </section>
-        {/* CATEGORIES */ }
+        {/* CATEGORIES */}
         <section id="brands">
           <div className="container">
             <div className="row">
@@ -77,44 +77,45 @@ const Brands = () => {
                   <div className="card-header">
                     <h4>Danh mục mới nhất</h4>
                   </div>
-                  <table className="table table-striped">
-                    <thead className="thead-dark">
-                      <tr>
-                        <th>#</th>
-                        <th>Tiêu đề</th>
-                        <th>Ngày</th>
-                        <th />
-                      </tr>
-                    </thead>
-                    <tbody>
-                      { brands.map((brand, i) => (
-                        <tr key={ brand._id }>
-                          <td>{ i + 1 }</td>
-                          <td>{ brand.local }</td>
-                          <td>
-                            { new Date(brand.createdAt).toLocaleDateString() }
-                          </td>
-                          <td>
-                            {/* <button className="btn btn-secondary">
-                              <i className="fas fa-angle-double-right" />{" "}
-                              Details
-                            </button> */}
-                            <EditBrandModal brand={ brand } />
-                            <Button variant="danger" className="mx-2" onClick={ () => deleteSaveChanges(brand._id) }>
-                              <i className="fas fa-trash" /> Xóa
-                            </Button>
-                          </td>
-                        </tr>
-                      )) }
-                    </tbody>
-                  </table>
+
+                  <div className="content table-responsive table-full-width">
+                    <table className="table table-hover">
+                      <thead>
+                        <th className="product-mahang1">#</th>
+                        <th className="product-tenhang">Tiêu đề</th>
+                        <th className="product-logo">Ngày</th>
+                        <th></th>
+                      </thead>
+                      <tbody>
+                        {
+                          <>
+                            {brands.map((brand, i) => (
+                              <tr key={brand._id}>
+                                <td className="product-mahang1">
+                                {i + 1}
+                                </td>
+                                <td className="product-tenhang">{brand.local}</td>
+                                <td className="product-logo">{new Date(brand.createdAt).toLocaleDateString()}</td>
+                                <td>
+                                  <EditBrandModal brand={brand} />
+                                  <Button variant="danger" className="mx-2" onClick={() => deleteSaveChanges(brand._id)}>
+                                    <i className="fas fa-trash" />
+                                  </Button>
+                                </td>
+                              </tr>
+                            ))}
+                          </>
+                        }
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
       </div>
-      {/* <Footer /> */ }
+      {/* <Footer /> */}
     </div>
   )
 }

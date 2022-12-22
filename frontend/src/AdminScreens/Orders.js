@@ -103,7 +103,7 @@ const Orders = () => {
   return orders ? (
     <>
       <Navbar />
-      {/* HEADER */ }
+      {/* HEADER */}
       <header id="main-header" className="py-2 bg-info text-white">
         <div className="container">
           <div className="row">
@@ -116,7 +116,7 @@ const Orders = () => {
         </div>
       </header>
 
-      {/* SEARCH */ }
+      {/* SEARCH */}
       <section id="search" className="py-4 mb-4 bg-light">
         <div className="container">
           <div className="row">
@@ -150,15 +150,15 @@ const Orders = () => {
               </div>
             </div> */}
             <div className="col-md-6 ml-auto">
-              <Form className="d-flex" onSubmit={ searchHandler }>
+              <Form className="d-flex" onSubmit={searchHandler}>
                 <FormControl
                   type="search"
                   placeholder="Mã đơn hàng"
                   className="me-2"
                   aria-label="Search"
-                  minLength={ 3 }
+                  minLength={3}
                   size="sm"
-                  defaultValue={ keyword } onChange={ handlerSearchChange }
+                  defaultValue={keyword} onChange={handlerSearchChange}
                 />
                 <button type="submit" className="btn btn-secondary mx-3">
                   Tìm kiếm
@@ -170,7 +170,7 @@ const Orders = () => {
       </section>
       <div
         className=""
-        style={ { display: "flex", justifyContent: "center", gap: "50px" } }
+        style={{ display: "flex", justifyContent: "center", gap: "50px" }}
       >
         <div className="card text-center bg-success text-white mb-3">
           <div className="card-body">
@@ -178,9 +178,9 @@ const Orders = () => {
             <h4 className="display-4">
               <i className="fas fa-coins" />
             </h4>
-            <h2>{ formatter.format(resulf) }</h2>
+            <h2>{formatter.format(resulf)}</h2>
             <Link
-              to={ `/orderAdmin/cod` }
+              to={`/orderAdmin/cod`}
               className="btn btn-outline-light btn-sm"
             >
               Chi tiết
@@ -194,9 +194,9 @@ const Orders = () => {
             <h4 className="display-4">
               <i className="fab fa-cc-paypal" />
             </h4>
-            <h2>{ formatter.format(resulf2) }</h2>
+            <h2>{formatter.format(resulf2)}</h2>
             <Link
-              to={ `/orderAdmin/online` }
+              to={`/orderAdmin/online`}
               className="btn btn-outline-light btn-sm"
             >
               Chi tiết
@@ -210,9 +210,9 @@ const Orders = () => {
             <h4 className="display-4">
               <i className="fas fa-window-close" />
             </h4>
-            <h2>{ cance.length }</h2>
+            <h2>{cance.length}</h2>
             <Link
-              to={ `/orderAdmin/canceled` }
+              to={`/orderAdmin/canceled`}
               className="btn btn-outline-light btn-sm"
             >
               Chi tiết
@@ -226,7 +226,7 @@ const Orders = () => {
             <h4 className="display-4">
               <i className="far fa-money-bill-alt" />
             </h4>
-            <h2>{ formatter.format(resulf3) }</h2>
+            <h2>{formatter.format(resulf3)}</h2>
           </div>
         </div>
       </div>
@@ -238,95 +238,92 @@ const Orders = () => {
                 <div className="card-header">
                   <h4>Đơn đặt hàng mới nhất </h4>
                 </div>
-                <table className="table table-striped">
-                  <thead className="thead-dark">
-                    <tr>
-                      <th>Mã</th>
-                      <th>Tên người dùng</th>
-                      <th>Ngày đặt hàng</th>
-                      <th>Tiền </th>
-                      <th>Trạng thái</th>
-                      <th>Xem thêm</th>
-                      <th />
-                    </tr>
-                  </thead>
-                  <tbody>
-                    { currentData && currentData.filter((value) => {
-                      if (keyword === "") {
-                        return value;
-                      } else if (value._id.toLowerCase().includes(keyword.toLowerCase())) {
-                        return value;
+
+                <div className="content table-responsive table-full-width">
+                  <table className="table table-hover">
+                    <thead>
+                      <th className="product-mahang1">Mã</th>
+                      <th className="product-tenhang">Tên người đùng</th>
+                      <th className="product-logo">Ngày đặt hàng</th>
+                      <th className="product-logo">Tiền</th>
+                      <th className="product-logo">Trạng thái</th>
+                      <th className="product-logo">Xem thêm</th>
+                      <th></th>
+                    </thead>
+                    <tbody>
+                      {
+                        <>
+                          {currentData && currentData.filter((value) => {
+                            if (keyword === "") {
+                              return value;
+                            } else if (value._id.toLowerCase().includes(keyword.toLowerCase())) {
+                              return value;
+                            }
+                          }).map((order, index) => (
+                            <tr key={order._id}>
+                              <td className="product-mahang1">{order._id}</td>
+                              <td className="product-tenhang">{order.user?.name}</td>
+                              <td className="product-logo">{new Date(order.createdAt).toLocaleDateString()}</td>
+                              <td>
+                                {formatter.format(order.totalPrice)}
+                              </td>
+                              <td>
+                                <div className="flex-grow w-full online">
+                                  {order.paymentResult.status === "COMPLETED" ? (
+                                    "Đã thanh toán online"
+                                  ) : (
+                                    <select
+                                      onChange={(e) => {
+                                        swal({
+                                          title: "Bạn có chắc muốn thay đổi không?",
+                                          icon: "warning",
+                                          buttons: true,
+                                          dangerMode: true,
+                                        })
+                                          .then((willDelete) => {
+                                            if (willDelete) {
+                                              swal("Đã cập nhật trạng thái đơn hàng thành công!", {
+                                                icon: "success",
+                                              });
+                                              updateStatustAdmin(e, order._id);
+                                            } else {
+                                              window.location.reload();
+                                            }
+                                          });
+                                      }}
+                                      className="block w-full px-2 py-1 text-sm outline-none rounded-md form-select focus:shadow-none leading-5 h-12 bg-[#24262D] dark:bg-[#F4F5F7] border-[1px] border-gray-600 dark:border-gray-300 text-gray-200 dark:text-black"
+                                      name="orderStatus"
+                                      dangerouslySetInnerHTML={{
+                                        __html: statusHtml(
+                                          order.paymentResult.status
+                                        ),
+                                      }}
+                                    ></select>
+                                  )}
+                                </div>
+                              </td>
+                              <td>
+                              <Link
+                                to={`/orderDetailsAdmin/${order._id}`}
+                                className="btn btn-secondary bg-primary text-white"
+                              >
+                                <i className="fas fa-angle-double-right" /> Chi tiết
+                              </Link>
+                              </td>
+                            </tr>
+                          ))}
+                        </>
                       }
-                    }).map((order, index) => (
-                      <tr key={ order._id }>
-                        <td>{ order._id }</td>
-                        <td>{ order.user?.name }</td>
-                        <td>
-                          { new Date(order.createdAt).toLocaleDateString() }
-                        </td>
-                        <td>{ formatter.format(order.totalPrice) }</td>
-                        <td className="px-4 py-3">
-                          <div className="flex-grow w-full online">
-                            { order.paymentResult.status === "COMPLETED" ? (
-                              "Đã thanh toán online"
-                            ) : (
-                              <select
-                                onChange={ (e) => {
-
-                                  // swal(
-                                  //   "Thành Công!",
-                                  //   "Đã cập nhật trạng thái đơn hàng thành công !",
-                                  //   "success"
-                                  // );
-                                  swal({
-                                    title: "Bạn có chắc muốn thay đổi không?",
-                                    // text: "Once deleted, you will not be able to recover this imaginary file!",
-                                    icon: "warning",
-                                    buttons: true,
-                                    dangerMode: true,
-                                  })
-                                    .then((willDelete) => {
-                                      if (willDelete) {
-                                        swal("Đã cập nhật trạng thái đơn hàng thành công!", {
-                                          icon: "success",
-                                        });
-                                        updateStatustAdmin(e, order._id);
-                                      } else {
-                                        window.location.reload();
-                                      }
-                                    });
-                                } }
-                                className="block w-full px-2 py-1 text-sm outline-none rounded-md form-select focus:shadow-none leading-5 h-12 bg-[#24262D] dark:bg-[#F4F5F7] border-[1px] border-gray-600 dark:border-gray-300 text-gray-200 dark:text-black"
-                                name="orderStatus"
-                                dangerouslySetInnerHTML={ {
-                                  __html: statusHtml(
-                                    order.paymentResult.status
-                                  ),
-                                } }
-                              ></select>
-                            ) }
-                          </div>
-                        </td>
-
-                        <td>
-                          <Link
-                            to={ `/orderDetailsAdmin/${order._id}` }
-                            className="btn btn-secondary bg-primary text-white"
-                          >
-                            <i className="fas fa-angle-double-right" /> Chi tiết
-                          </Link>
-                        </td>
-                      </tr>
-                    )) }
-                  </tbody>
-                </table>
+                    </tbody>
+                  </table>
+                </div>
                 <Paginator
-                  totalRecords={ orders.length }
-                  pageLimit={ pageLimit }
-                  pageNeighbours={ 2 }
-                  setOffset={ setOffset }
-                  currentPage={ currentPage }
-                  setCurrentPage={ setCurrentPage }
+                  totalRecords={orders.length}
+                  pageLimit={pageLimit}
+                  pageNeighbours={2}
+                  setOffset={setOffset}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
                   pageContainerClass="mb-0 mt-0 d-flex "
                   pagePrevText="«"
                   pageNextText="»"
@@ -336,6 +333,7 @@ const Orders = () => {
           </div>
         </div>
       </section>
+      <br></br>
     </>
   ) : (
     "Đơn hàng trống"

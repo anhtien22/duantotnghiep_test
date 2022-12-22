@@ -21,7 +21,7 @@ const Users = () => {
     <>
       <Navbar />
       <div>
-        {/* HEADER */ }
+        {/* HEADER */}
         <header id="main-header" className="py-2 bg-warning text-white">
           <div className="container">
             <div className="row">
@@ -33,7 +33,7 @@ const Users = () => {
             </div>
           </div>
         </header>
-        {/* SEARCH */ }
+        {/* SEARCH */}
         <section id="search" className="py-4 mb-4 bg-light">
           <div className="container">
             <div className="row">
@@ -52,7 +52,7 @@ const Users = () => {
             </div>
           </div>
         </section>
-        {/* USERS */ }
+        {/* USERS */}
         <section id="users">
           <div className="container">
             <div className="row">
@@ -61,83 +61,82 @@ const Users = () => {
                   <div className="card-header">
                     <h4>Tài khoản mới nhất</h4>
                   </div>
-                  <table className="table table-striped">
-                    <thead className="thead-dark">
-                      <tr>
-                        <th>#</th>
-                        <th>Tên</th>
-                        <th>Email</th>
-                        <th>Ngày</th>
-                        <th />
-                      </tr>
-                    </thead>
-                    <tbody>
-                      { allUsers.map((user, i) => (
-                        <tr key={ user._id }>
-                          <td>{ i + 1 }</td>
-                          <td>{ user.name }</td>
-                          <td>{ user.email }</td>
-                          <td>{ new Date(user.createdAt).toLocaleString() }</td>
-                          <td>
-                            {/* <Link
-                              to={ `/usersDetailsAdmin/${user._id}` }
-                              className="btn btn-secondary">
-                              <button
-                                className="btn btn-secondary"
-                              // disabled
-                              >
-                                <i className="fas fa-angle-double-right" /> Action
-                              </button>
-                            </Link> */}
-                            <button
-                              className="btn btn-secondary bg-danger text-white"
-                              disabled
-                              onClick={ () => deleteSaveChanges(user._id) }>
-                              <i className="fas fa-angle-double-right" /> Xóa
-                            </button>
 
-                          </td>
-                        </tr>
-                      )) }
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <div className="col">
-                <div className="card">
-                  <div className="card-header">
-                    <h4>All Admins</h4>
+
+                  <div className="content table-responsive table-full-width">
+                    <table className="table table-hover">
+                      <thead>
+                        <th className="product-mahang1">#</th>
+                        <th className="product-tenhang">Tên</th>
+                        <th className="product-logo">Email</th>
+                        <th className="product-logo">Ngày</th>
+                        <th></th>
+                      </thead>
+                      <tbody>
+                        {
+                          <>
+                            {allUsers.map((user, i) => (
+                              <tr key={user._id}>
+                                <td className="product-mahang1">
+                                  {i + 1}
+                                </td>
+                                <td className="product-tenhang">{user.name}</td>
+                                <td className="product-logo">{user.email}</td>
+                                <td>
+                                  {new Date(user.createdAt).toLocaleString()}
+                                </td>
+                                <td>
+                                  <button
+                                    className="btn btn-secondary bg-danger text-white"
+                                    disabled
+                                    onClick={() => deleteSaveChanges(user._id)}>
+                                    <i className="fas fa-trash" />
+                                  </button>
+                                </td>
+                              </tr>
+                            ))}
+                          </>
+                        }
+                      </tbody>
+                    </table>
                   </div>
-                  <table className="table table-striped">
-                    <thead className="thead-dark">
-                      <tr>
-                        <th>#</th>
-                        <th>Tên</th>
-                        <th>Email</th>
-                        <th>Ngày</th>
-                        <th />
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Admin</td>
-                        <td>admin@gmail.com</td>
-                        <td>
-                          <a href="details.html" className="btn btn-secondary bg-primary text-white">
-                            <i className="fas fa-angle-double-right" /> Chi tiết
-                          </a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
                 </div>
               </div>
+              {/* <div className="col"> */}
+                {/* <div className="card"> */}
+                  {/* <div className="card-header"> */}
+                    {/* <h4>All Admins</h4> */}
+                  {/* </div> */}
+                  {/* <table className="table table-striped"> */}
+                    {/* <thead className="thead-dark"> */}
+                      {/* <tr> */}
+                        {/* <th>#</th> */}
+                        {/* <th>Tên</th> */}
+                        {/* <th>Email</th> */}
+                        {/* <th>Ngày</th> */}
+                        {/* <th /> */}
+                      {/* </tr> */}
+                    {/* </thead> */}
+                    {/* <tbody> */}
+                      {/* <tr> */}
+                        {/* <td>1</td> */}
+                        {/* <td>Admin</td> */}
+                        {/* <td>admin@gmail.com</td> */}
+                        {/* <td> */}
+                          {/* <a href="details.html" className="btn btn-secondary bg-primary text-white"> */}
+                            {/* <i className="fas fa-angle-double-right" /> Chi tiết */}
+                          {/* </a> */}
+                        {/* </td> */}
+                      {/* </tr> */}
+                    {/* </tbody> */}
+                  {/* </table> */}
+                {/* </div> */}
+              {/* </div> */}
             </div>
           </div>
         </section>
       </div>
-      {/* <Footer /> */ }
+      {/* <Footer /> */}
     </>
   )
 }

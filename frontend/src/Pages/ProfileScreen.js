@@ -38,7 +38,7 @@ const ProfileScreen = () => {
       {/* ACTIONS */ }
       <section id="actions" className="py-4 mb-4 bg-light">
         <div className="container">
-          <div className="row">
+          <div className="row" id="boxx1">
             <div className="col-md-4">
               <Link to="/" className="btn btn-secondary btn-block">
                 <i className="fas fa-arrow-left" /> Trở về trang chủ
@@ -116,48 +116,56 @@ const ProfileScreen = () => {
                 <div className="card-header">
                   <h4>Đơn đặt hàng</h4>
                 </div>
-                <table className="table table-striped">
-                  <thead className="thead-dark">
-                    <tr>
-                      <th> Id</th>
-                      <th>Số lượng sản phẩm</th>
-                      <th>Tiền đơn</th>
-                      <th>Ngày đặt hàng</th>
-                      <th />
-                    </tr>
-                  </thead>
-                  <tbody>
-                    { myOrders.length > 0 ? (
-                      myOrders.map((order) => (
-                        <tr key={ order._id }>
-                          <td>{ order._id }</td>
-                          <td>{ order.orderItems.length } item(s)</td>
-                          <td>{ formatter.format(order.totalPrice) }</td>
-                          <td>
-                            { new Date(order.createdAt).toLocaleDateString() }
-                          </td>
-                          <td>
-                            <Link
-                              to={ `/myOrderDetails/${order._id}` }
-                              className="btn btn-secondary"
-                            >
-                              <i className="fas fa-angle-double-right" /> Chi
-                              tiết
-                            </Link>
-                          </td>
-                        </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan={ 4 }>
-                          <h3 className="text-center">
-                            Bạn chưa có đơn hàng nào{ " " }
-                          </h3>
-                        </td>
-                      </tr>
-                    ) }
-                  </tbody>
-                </table>
+
+
+                <div className="content table-responsive table-full-width">
+                  <table className="table table-hover">
+                    <thead>
+                      <th className="product-mahang1">Id</th>
+                      <th className="product-tenhang">Số lượng sản phẩm</th>
+                      <th className="product-logo">Tiền đơn</th>
+                      <th className="product-logo">Ngày đặt hàng</th>
+                      <th></th>
+                    </thead>
+                    <tbody>
+                      {
+                        <>
+                          { myOrders.length > 0 ? (
+                            myOrders.map((order) => (
+                            <tr key={ order._id }>
+                              <td className="product-mahang1">
+                              { order._id }
+                              </td>
+                              <td className="product-tenhang">{ order.orderItems.length } item(s)</td>
+                              <td className="product-logo">{ formatter.format(order.totalPrice) }</td>
+                              <td>
+                                { new Date(order.createdAt).toLocaleDateString() }
+                              </td>
+                              <td>
+                              <Link
+                                to={ `/myOrderDetails/${order._id}` }
+                                className="btn btn-secondary"
+                              >
+                                <i className="fas fa-angle-double-right" /> Chi
+                                tiết
+                              </Link>
+                              </td>
+                            </tr>
+                          ))
+                        ) : (
+                          <tr>
+                            <td colSpan={ 4 }>
+                              <h3 className="text-center">
+                                Bạn chưa có đơn hàng nào{ " " }
+                              </h3>
+                            </td>
+                          </tr>
+                        )}
+                        </>
+                      }
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>

@@ -74,7 +74,7 @@ const ProductDetails = () => {
       {/* ACTIONS */ }
       <section id="actions" className="py-4 mb-4 bg-light">
         <div className="container">
-          <div className="row">
+          <div className="row" id='boxx1'>
             <div className="col-md-4">
               <Link
                 to="/adminDashboard"
@@ -101,7 +101,7 @@ const ProductDetails = () => {
       {/* DETAILS */ }
       <section id="details">
         <div className="container">
-          <div className="row">
+          <div className="row" id='boxx1'>
             <div className="col-md-8">
               <div className="card">
                 <div className="card-header">
@@ -194,28 +194,10 @@ const ProductDetails = () => {
                       value={ product.description }
                     />
                   </div>
-
-                  {/* <div className="form-group">
-                    <label htmlFor="image">Upload Image</label>
-                    <div className="custom-file">
-                      <input
-                        type="file"
-                        className="custom-file-input"
-                        id="image"
-                        // onChange={uploadFileHandler}
-                        name="image"
-                        onChange={e => setImage(e.target.files[0])}
-                        // value={product.description}
-                      />
-                      <label htmlFor="image" className="custom-file-label">
-                        Choose File
-                      </label>
-                    </div>
-                    <small className="form-text text-muted">Max Size 3mb</small>
-                  </div> */}
                 </div>
               </div>
             </div>
+            
             <div className="col-md-4">
               <h3 className="text-center">Hình ảnh</h3>
               <img src={ image } alt="" className="d-block img-fluid mb-3" />
@@ -248,6 +230,7 @@ const ProductDetails = () => {
           </div>
         </div>
       </section>
+      <br></br>
     </>
   )
 }

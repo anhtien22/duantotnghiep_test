@@ -153,51 +153,53 @@ const OrderCod = () => {
                 <div className="card-header">
                   <h4>Đơn giao hàng mới nhất </h4>
                 </div>
-                <table className="table table-striped">
-                  <thead className="thead-dark">
-                    <tr>
+
+                <div className="content table-responsive table-full-width">
+                  <table className="table table-hover">
+                    <thead>
                       <th>Mã</th>
                       <th>Tên người dùng</th>
                       <th>Ngày đặt hàng</th>
                       <th>Tiền </th>
                       <th>Trạng thái</th>
                       <th>Xem thêm</th>
-                      <th />
-                    </tr>
-                  </thead>
-                  <tbody>
-                    { orders.map((order, index) =>
-                      order.paymentResult.status === "Successfully" ? (
-                        <tr key={ order._id }>
-                          {/* <td>{index + 1}</td> */ }
-                          <td>{ order._id }</td>
-                          <td>{ order.user?.name }</td>
-                          <td>
-                            { new Date(order.createdAt).toLocaleDateString() }
-                          </td>
-                          <td>{ formatter.format(order.totalPrice) }</td>
-                          <td className="px-4 py-3">
-                            <div className="flex-grow w-full online">
-                              Đã giao hàng
-                            </div>
-                          </td>
-
-                          <td>
-                            <Link
-                              to={ `/orderDetailsAdmin/${order._id}` }
-                              className="btn btn-secondary bg-primary text-white"
-                            >
-                              <i className="fas fa-angle-double-right" /> Chi
-                              tiết
-                            </Link>
-                          </td>
-                        </tr>
-                      ) : (
-                        ""
-                      )
-                    ) }
-                  </tbody>
-                </table>
+                      <th></th>
+                    </thead>
+                    <tbody>
+                      {
+                        <>
+                          { orders.map((order, index) =>
+                            order.paymentResult.status === "Successfully" ? (
+                            <tr key={ order._id }>
+                              <td className="product-mahang1">
+                              { order._id }
+                              </td>
+                              <td className="product-tenhang">{ order.user?.name }</td>
+                              <td className="product-logo"> { new Date(order.createdAt).toLocaleDateString() }</td>
+                              <td>
+                              { formatter.format(order.totalPrice) }
+                              </td>
+                              <td>
+                              <div className="flex-grow w-full online">
+                                Đã giao hàng
+                              </div>
+                              </td>
+                              <td>
+                                <Link
+                                  to={ `/orderDetailsAdmin/${order._id}` }
+                                  className="btn btn-secondary bg-primary text-white"
+                                >
+                                  <i className="fas fa-angle-double-right" /> Chi
+                                  tiết
+                                </Link>
+                              </td>
+                            </tr>
+                          ):(""))}
+                        </>
+                      }
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
