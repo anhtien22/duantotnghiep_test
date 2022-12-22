@@ -20,15 +20,16 @@ const Header = ({
 
   const navigate = useNavigate()
 
-  const { totalUniqueItems } = useCart()
+  const { totalUniqueItems, items } = useCart()
 
   // for user context
   const userContext = useContext(UserContext)
   const { logout, user } = userContext
 
   const logoutHandler = () => {
-    logout()
-    navigate('/login')
+    logout(items)
+
+    // navigate('/login')
   }
 
   return (

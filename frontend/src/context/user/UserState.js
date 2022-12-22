@@ -112,20 +112,23 @@ const UserState = props => {
   // -----------------------------------------------------------------
   // Logout a user
   // -----------------------------------------------------------------
-  const logout = async () => {
+  const logout = async (items) => {
     try {
       setUserLoading(true)
       // await axios.post(`api/users/logout`, null, {
       //   headers,
       // })
+      console.log(items);
       localStorage.removeItem('userInfo')
       localStorage.removeItem('userToken')
       localStorage.removeItem('react-use-cart')
+
       setUser(null)
       setUserError(null)
       setUserLoading(false)
       setUserMessage({ variant: 'dark', message: 'Bạn đã đăng xuất!' })
-      navigate('/login')
+      // navigate('/login')
+      window.location.replace("/login")
     } catch (err) {
       errorHandler(err)
     }

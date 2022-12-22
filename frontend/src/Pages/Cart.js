@@ -22,8 +22,8 @@ const Cart = () => {
     removeItem,
     emptyCart,
     items,
-
   } = useCart();
+  console.log(items);
   const removeItems = (id) => {
     if (addToast) {
       addToast("Đã xóa sản phẩm", { appearance: "success", autoDismiss: true });
