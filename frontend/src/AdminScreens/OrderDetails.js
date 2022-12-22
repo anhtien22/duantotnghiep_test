@@ -179,10 +179,10 @@ const OrderDetails = () => {
                     } }
                   >
                     <h5 className="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">
-                      Tổng tiền :
+                      Tổng tiền : 
                       <span className="h2 mb-0 ms-2">
                         {/* {order.totalPrice} */ }
-                        { formatter.format(order.totalPrice) }
+                         { formatter.format(order.totalPrice) }
                       </span>
                     </h5>
                   </div>

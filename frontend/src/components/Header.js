@@ -4,7 +4,6 @@ import UserContext from '../context/user/UserContext'
 import { useCart } from 'react-use-cart'
 import { changeLanguage, multilanguage } from 'redux-multilanguage'
 import PropTypes from "prop-types";
-// import { useDispatch } from 'react-redux'
 
 
 const Header = ({
@@ -30,9 +29,17 @@ const Header = ({
     logout()
     navigate('/login')
   }
+  
+  
+  // eslint-disable-next-line no-undef
+  ScrollOut({
+    cssProps: true,
+    threshold: 0.2
+  });
+  
 
   return (
-    <header className="site-navbar" role="banner">
+    <header className="site-navbar" role="banner" data-scroll>
       <div className="site-navbar">
         <div className="container">
           <div className="row align-items-center">
@@ -66,7 +73,7 @@ const Header = ({
                     </button>
                   </li>
                   <li className="text-danger mt-2 ">
-                    <button className="btn btn-danger w-100" value="vn" onClick={ e => changeLanguageTrigger(e) }>
+                    <button className="btn btn-primary w-100" value="vn" onClick={ e => changeLanguageTrigger(e) }>
                       { strings["vietnamese"] }
                     </button>
                   </li>
@@ -88,9 +95,9 @@ const Header = ({
               <div className="dropdown2">
                 {user ? (
                   <>
-                    <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Helo {user.name}</button>
+                    <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Hello {user.name}</button>
                   </>
-                  ):(<button></button>)
+                  ):(<button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Hello ?</button>)
                 }
                 <ul className="dropdown-menu">
                   <ul>
@@ -120,7 +127,7 @@ const Header = ({
                       <>
                         <li>
                           <Link to="/login">
-                          <i className="fas fa-sign-in-alt"> &ensp;</i>{strings["LOGIN"]}
+                          <i className="fa fa-user"> &ensp;</i>{strings["LOGIN"]}
                           </Link>
                         </li>
                         <li>
@@ -130,18 +137,20 @@ const Header = ({
                         </li>
                       </>
                     )}
-                    <li>
-                      <Link to="/cart" className="site-cart">
-                        <span className="icon icon-shopping_cart">&ensp;</span>
-                        {totalUniqueItems && totalUniqueItems > 0 ? (
-                          <span className="count">{totalUniqueItems}</span>
-                        ) : (
-                          ''
-                        )}
-                      </Link>
-                    </li>
                   </ul>
                 </ul>
+                &ensp;&ensp;
+                <div  className='box2'>
+                  <Link to="/cart" className="site-cart">
+                    <span className="icon icon-shopping_cart">&ensp;</span>
+                    {totalUniqueItems && totalUniqueItems > 0 ? (
+                      <span className="count">{totalUniqueItems}</span>
+                    ) : (
+                      ''
+                    )}
+                  </Link>
+                </div>
+
               </div>
               <div className="site-top-icons">
                 <span className='icon'>

@@ -29,7 +29,7 @@ const EditBrandModal = props => {
   return (
     <>
       <Button variant="secondary" className="mx-2" onClick={handleShow}>
-        <i className="fas fa-edit" /> Edit
+        <i className="fas fa-edit" />
       </Button>
 
       <Modal show={show} style={{ zIndex: '9999' }} onHide={handleClose}>

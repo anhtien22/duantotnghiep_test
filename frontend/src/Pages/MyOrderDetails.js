@@ -209,7 +209,7 @@ const MyOrderDetails = () => {
                     } }
                   >
                     <h5 className="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">
-                      Tổng tiền:{ "   " }
+                      Tổng tiền:&nbsp;{ "   " }
                       <span className="h2 mb-0 ms-2">
                         { " " }
                         { formatter.format(order.totalPrice) }

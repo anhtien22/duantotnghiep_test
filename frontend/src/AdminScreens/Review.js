@@ -113,49 +113,47 @@ const Review = () => {
                 <div className="card-header">
                   <h4>Danh sách bình luận</h4>
                 </div>
-                <table className="table table-striped">
-                  <thead className="thead-dark">
-                    <tr>
-                      <th>Mã</th>
-                      <th>Tên sản phẩm</th>
-                      <th>Tổng bình luận</th>
-                      <th>Tổng đánh giá</th>
+
+                <div className="content table-responsive table-full-width">
+                  <table className="table table-hover">
+                    <thead>
+                      <th className="product-mahang1">Mã</th>
+                      <th className="product-tenhang">Tên sản phẩm</th>
+                      <th className="product-logo">Tổng bình luận</th>
+                      <th className="product-logo">Tổng đánh giá</th>
                       <th>Thao tác</th>
-                      <th />
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {/* products.reviews && products.reviews.filter((value) => {
-                      if (keyword === "") {
-                        return value;
-                      } else if (value._id.toLowerCase().includes(keyword.toLowerCase())) {
-                        return value;
+                      <th></th>
+                    </thead>
+                    <tbody>
+                      {
+                        <>
+                          { currentData && currentData.filter((value) => {
+                            if (keyword === "") {
+                              return value;
+                            } else if (value._id.toLowerCase().includes(keyword.toLowerCase())) {
+                              return value;
+                            }
+                          }).map((product, index) => (
+                            <tr key={ product._id }>
+                              <td className="product-mahang1">{ product._id }</td>
+                              <td className="product-tenhang">{ product.name }</td>
+                              <td className="product-logo">{ product.numOfReviews }</td>
+                              <td>{ product.ratings }</td>
+                              <td>
+                                <Link
+                                  to={ `/reviews/${product._id}` }
+                                  className="btn btn-secondary bg-primary text-white"
+                                >
+                                  <i className="fas fa-angle-double-right" /> Chi tiết
+                                </Link>
+                              </td>
+                            </tr>
+                          ))}
+                        </>
                       }
-                    }) */}
-                    { currentData && currentData.filter((value) => {
-                      if (keyword === "") {
-                        return value;
-                      } else if (value._id.toLowerCase().includes(keyword.toLowerCase())) {
-                        return value;
-                      }
-                    }).map((product, index) => (
-                      <tr key={ product._id }>
-                        <td>{ product._id }</td>
-                        <td>{ product.name }</td>
-                        <td>{ product.numOfReviews }</td>
-                        <td>{ product.ratings }</td>
-                        <td>
-                          <Link
-                            to={ `/reviews/${product._id}` }
-                            className="btn btn-secondary bg-primary text-white"
-                          >
-                            <i className="fas fa-angle-double-right" /> Chi tiết
-                          </Link>
-                        </td>
-                      </tr>
-                    )) }
-                  </tbody>
-                </table>
+                    </tbody>
+                  </table>
+                </div>
                 <Paginator
                   totalRecords={ products.length }
                   pageLimit={ pageLimit }
@@ -172,6 +170,7 @@ const Review = () => {
           </div>
         </div>
       </section>
+      <br></br>
     </>
   );
 };

@@ -194,37 +194,9 @@ const Home = ({ strings }) => {
             <SwiperSlide><img src="images/Logo/3.png" alt="" /></SwiperSlide>
             <SwiperSlide><img src="images/Logo/4.png" alt="" /></SwiperSlide>
           </Swiper>
-          {/* <div className="row align-items-center"> */ }
-          {/* <div className="col-md-12 col-lg-7 mb-5"> */ }
-          {/* <a href="/"> */ }
-          {/* <img */ }
-          {/* // src="images/model_1.jpg" */ }
-          {/* // alt="placeholder" */ }
-          {/* // className="img-fluid rounded" /> */ }
-          {/* </a> */ }
-          {/* </div> */ }
-          {/* <div className="col-md-12 col-lg-5 text-center pl-md-5"> */ }
-          {/* <h2> */ }
-          {/* <a href="/">50% less in all items</a> */ }
-          {/* </h2> */ }
-          {/* <p className="post-meta mb-4"> */ }
-          {/* By <a href="/">Carl Smith</a> */ }
-          {/* <span className="block-8-sep">&bullet;</span> September 3, 2018 */ }
-          {/* </p> */ }
-          {/* <p> */ }
-          {/* Lorem ipsum dolor sit amet, consectetur adipisicing elit. */ }
-          {/* Quisquam iste dolor accusantium facere corporis ipsum animi */ }
-          {/* deleniti fugiat. Ex, veniam? */ }
-          {/* </p> */ }
-          {/* <p> */ }
-          {/* <a href="/" className="btn btn-primary btn-sm"> */ }
-          {/* Shop Now */ }
-          {/* </a> */ }
-          {/* </p> */ }
-          {/* </div> */ }
-          {/* </div> */ }
         </div>
       </div>
+
     </>
   );
 };
