@@ -43,9 +43,9 @@ app.use('/api/users', userRoutes)
 app.use('/api/orders', orderRoutes)
 // app.use('/api/upload', uploadRoutes)
 
-app.get('/', (req, res) => {
-  res.send('This is the home page')
-})
+// app.get('/', (req, res) => {
+//   res.send('This is the home page')
+// })
 
 var __dirname = path.resolve()
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
