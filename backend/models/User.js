@@ -82,12 +82,22 @@ userSchema.methods.generateAuthToken = async function () {
 // Logging in user by email and password
 userSchema.statics.findByCredentials = async (email, password) => {
   const user = await User.findOne({ email })
+
+  if (!email && !password) {
+    throw new Error('Email hoặc Mật khẩu không hợp lệ!')
+  }
+  if (!email) {
+    throw new Error('Email không hợp lệ!')
+  }
+  if (!password) {
+    throw new Error('Mật khẩu không hợp lệ!')
+  }
   if (!user) {
-    throw new Error('Email hoặc mật khẩu không hợp lệ!')
+    throw new Error('Email không hợp lệ!')
   }
   const isMatch = await bcrypt.compare(password, user.password)
   if (!isMatch) {
-    throw new Error('Email hoặc mật khẩu không hợp lệ!')
+    throw new Error('Mật khẩu không hợp lệ!')
   }
   return user
 }

@@ -45,7 +45,7 @@ const ResetPassword = () => {
                       <label htmlFor="password">Mật khẩu mới</label>
                       <input
                         onChange={ (e) => setPassword(e.target.value) }
-                        type="text"
+                        type="password"
                         className="form-control"
                         name="password"
                         value={ password }
@@ -56,7 +56,7 @@ const ResetPassword = () => {
                       <label htmlFor="password">Nhập mật khẩu mới</label>
                       <input
                         onChange={ (e) => setConfirmPassword(e.target.value) }
-                        type="text"
+                        type="password"
                         className="form-control"
                         name="confirmPassword"
                         value={ confirmPassword }

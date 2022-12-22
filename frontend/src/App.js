@@ -36,6 +36,7 @@ import { multilanguage, loadLanguages } from "redux-multilanguage";
 import { connect } from "react-redux";
 import Review from "./AdminScreens/Review";
 import ReviewById from "./AdminScreens/ReviewById";
+import { ToastProvider } from "react-toast-notifications";
 
 function App(props) {
   useEffect(() => {
@@ -50,69 +51,72 @@ function App(props) {
   });
 
   return (
-    <main className="site-wrap">
-      <Misc />
-      <Header />
-      <Routes>
-        <Route path="/" element={ <Home /> } />
+    <ToastProvider placement="bottom-left">
+      <main className="site-wrap">
+        <Misc />
+        <Header />
+        <Routes>
+          <Route path="/" element={ <Home /> } />
 
-        <Route path="/shop" element={ <Shop /> } />
-        <Route path="/shopSingle/:id" element={ <ShopSingle /> } />
+          <Route path="/shop" element={ <Shop /> } />
+          <Route path="/shopSingle/:id" element={ <ShopSingle /> } />
 
-        <Route path="/about" element={ <About /> } />
+          <Route path="/about" element={ <About /> } />
 
-        <Route path="/contact" element={ <Contact /> } />
+          <Route path="/contact" element={ <Contact /> } />
 
-        <Route path="/cart" element={ <Cart /> } />
+          <Route path="/cart" element={ <Cart /> } />
 
-        <Route path="/Checkout" element={ <Checkout /> } />
+          <Route path="/Checkout" element={ <Checkout /> } />
 
-        <Route path="/thankyou" element={ <ThankYou /> } />
+          <Route path="/thankyou" element={ <ThankYou /> } />
 
-        <Route path="/login" element={ <LoginScreen /> } />
+          <Route path="/login" element={ <LoginScreen /> } />
 
-        <Route path="/signup" element={ <SignupScreen /> } />
+          <Route path="/signup" element={ <SignupScreen /> } />
 
-        <Route path="/forgotpassword" element={ <ForgotPassword /> } />
+          <Route path="/forgotpassword" element={ <ForgotPassword /> } />
 
-        <Route path="password/resetPassword/:token" element={ <ResetPassword /> } />
+          <Route path="password/resetPassword/:token" element={ <ResetPassword /> } />
 
-        <Route path="/profile" element={ <ProfileScreen /> } />
+          <Route path="/profile" element={ <ProfileScreen /> } />
 
-        <Route path="/profile/updatepassword" element={ <UpdatePassword /> } />
+          <Route path="/profile/updatepassword" element={ <UpdatePassword /> } />
 
-        <Route path="/myOrderDetails/:id" element={ <MyOrderDetails /> } />
+          <Route path="/myOrderDetails/:id" element={ <MyOrderDetails /> } />
 
-        <Route path="/adminDashboard" element={ <AdminDashboard /> } />
+          <Route path="/adminDashboard" element={ <AdminDashboard /> } />
 
-        <Route path="/products" element={ <Products /> } />
+          <Route path="/products" element={ <Products /> } />
 
-        <Route path="/productDetailsAdmin/:id" element={ <ProductDetails /> } />
+          <Route path="/productDetailsAdmin/:id" element={ <ProductDetails /> } />
 
-        <Route path="/categories" element={ <Categories /> } />
+          <Route path="/categories" element={ <Categories /> } />
 
-        <Route path="/brands" element={ <Brands /> } />
+          <Route path="/brands" element={ <Brands /> } />
 
-        <Route path="/users" element={ <Users /> } />
+          <Route path="/users" element={ <Users /> } />
 
-        <Route path="/usersDetailsAdmin/:id" element={ <UserDetails /> } />
+          <Route path="/usersDetailsAdmin/:id" element={ <UserDetails /> } />
 
-        <Route path="/orders" element={ <Orders /> } />
+          <Route path="/orders" element={ <Orders /> } />
 
-        <Route path="/orderDetailsAdmin/:id" element={ <OrderDetails /> } />
+          <Route path="/orderDetailsAdmin/:id" element={ <OrderDetails /> } />
 
-        <Route path="/orderAdmin/online" element={ <OrderOnline /> } />
+          <Route path="/orderAdmin/online" element={ <OrderOnline /> } />
 
-        <Route path="/orderAdmin/cod" element={ <OrderCod /> } />
+          <Route path="/orderAdmin/cod" element={ <OrderCod /> } />
 
-        <Route path="/orderAdmin/canceled" element={ <OrderCancled /> } />
+          <Route path="/orderAdmin/canceled" element={ <OrderCancled /> } />
 
-        <Route path="/reviews" element={ <Review /> } />
+          <Route path="/reviews" element={ <Review /> } />
 
-        <Route path="/reviews/:id" element={ <ReviewById /> } />
-      </Routes>
-      <Footer />
-    </main>
+          <Route path="/reviews/:id" element={ <ReviewById /> } />
+        </Routes>
+        <Footer />
+      </main>
+    </ToastProvider>
+
   );
 }
 App.propTypes = {

@@ -65,7 +65,8 @@ const OdersState = (props) => {
     shippingAddress,
     paymentMethod,
     totalPrice,
-    paymentResult
+    paymentResult,
+    addToast
   ) => {
     const orderBody = clean({
       orderItems,
@@ -82,6 +83,9 @@ const OdersState = (props) => {
       setOrdersLoading(true);
       await axios.post("api/orders/new", orderBody, { headers });
       // localStorage.removeItem('react-use-cart')
+      if (addToast) {
+        addToast("Đã xóa sản phẩm", { appearance: "success", autoDismiss: true });
+      }
       emptyCart();
       navigate("/thankYou");
       // setProducts([...products, productBody])
@@ -92,7 +96,7 @@ const OdersState = (props) => {
       setOrdersLoading(false);
       setOrdersError(null);
     } catch (err) {
-      errorHandler(err);
+      console.log(err);
     }
   };
 

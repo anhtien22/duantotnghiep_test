@@ -201,7 +201,7 @@ const AdminDashboard = () => {
                   <div className="card-body">
                     <h3>Doanh Thu</h3>
                     <h4>
-                      <i class="fas fa-dollar-sign"></i> { formatter.format(resulf) }
+                      <i className="fas fa-dollar-sign"></i> { formatter.format(resulf) }
                     </h4>
                     <Link to="/orders" className="btn btn-outline-light btn-sm">
                       Xem

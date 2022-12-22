@@ -6,6 +6,7 @@ import Breadcrumb from "../components/Breadcrumb";
 import CategoryContext from "../context/category/categoryContext";
 import productContext from "../context/product/productContext";
 import { getSortedProducts } from "../helpers/product";
+import { useToasts } from "react-toast-notifications";
 
 const Shop = () => {
   // for product context
@@ -24,6 +25,8 @@ const Shop = () => {
   const [totalResults, setTotalResults] = useState(0);
   const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
+  const { addToast } = useToasts();
+
 
   useEffect(() => {
     const populateProducts = async () => {
@@ -124,7 +127,6 @@ const Shop = () => {
   const handleInput = (e) => {
     setPrice(e.target.value);
   };
-  const filterProduct = [...products];
 
   return (
     <>
@@ -168,7 +170,7 @@ const Shop = () => {
               </div>
 
               <div className="row mb-5">
-                { filterProduct
+                { products
                   .filter((filterProduct) => {
                     return filterProduct.price >= parseInt(price, 10);
                   })
@@ -210,6 +212,9 @@ const Shop = () => {
                                 ...product,
                                 id: product._id,
                               };
+                              if (addToast) {
+                                addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
+                              }
                               addItem(item, quantity);
                             } }
                           >

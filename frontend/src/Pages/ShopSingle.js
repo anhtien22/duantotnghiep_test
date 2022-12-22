@@ -9,8 +9,11 @@ import Rating from '@mui/material/Rating';
 // import Paginator from 'react-hooks-paginator';
 import { Pagination } from "@mui/material";
 import usePagination from "../helpers/Pagination"
+import { useToasts } from "react-toast-notifications";
+
 const ShopSingle = () => {
   const { addItem } = useCart();
+  const { addToast } = useToasts();
   const [quantity, setQuantity] = useState(1);
 
   const { id } = useParams();
@@ -55,7 +58,9 @@ const ShopSingle = () => {
 
   const reviewSubmitHandler = (e) => {
     e.preventDefault();
-
+    if (addToast) {
+      addToast("Cảm ơn bạn đã đánh giá", { appearance: "success", autoDismiss: true });
+    }
     const payload = { rating, comment, productId: product._id, user: user._id, name: user.name };
     newReview(payload);
   };
@@ -124,7 +129,7 @@ const ShopSingle = () => {
                 </div>
               </div>
 
-              <p>Tổng lượt đánh giá: { product?.ratings }</p>
+              <p>Tổng lượt đánh giá: { Math.round(product.ratings * 100) / 100 }</p>
               <Rating readOnly defaultValue={ product.ratings } precision={ 0.5 } />
 
               <p>

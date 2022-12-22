@@ -83,7 +83,9 @@ const UserState = props => {
       navigate('/')
       //   history.push('/')
     } catch (err) {
+      console.log(err.response);
       errorHandler(err)
+
     }
   }
 

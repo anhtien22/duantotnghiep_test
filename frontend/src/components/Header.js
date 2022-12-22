@@ -97,7 +97,7 @@ const Header = ({
                     { user && user.role === 'admin' && (
                       <li>
                         <Link to="/adminDashboard">
-                          <i class='fas fa-user-cog'>&ensp;</i> { strings["ADMIN_DASHBOARD"] }
+                          <i className='fas fa-user-cog'>&ensp;</i> { strings["ADMIN_DASHBOARD"] }
                         </Link>
                       </li>
                     ) }
@@ -105,13 +105,13 @@ const Header = ({
                       <>
                         <li>
                           <Link to="/profile">
-                            <i class='fas fa-user-edit'>&ensp;</i>
+                            <i className='fas fa-user-edit'>&ensp;</i>
                             { user.name }
                           </Link>
                         </li>
                         <li>
                           <Link to="/" onClick={ logoutHandler }>
-                            <i class='fas fa-sign-in-alt'> &ensp;</i>
+                            <i className='fas fa-sign-in-alt'> &ensp;</i>
                             { strings["LOGOUT"] }
                           </Link>
                         </li>
@@ -182,7 +182,7 @@ const Header = ({
                 { user && user.role === 'admin' && (
                   <li>
                     <Link to="/adminDashboard">
-                      <i class='fas fa-user-cog'>&ensp;</i> { strings["ADMIN_DASHBOARD"] }
+                      <i className='fas fa-user-cog'>&ensp;</i> { strings["ADMIN_DASHBOARD"] }
                     </Link>
                   </li>
                 ) }
@@ -190,13 +190,13 @@ const Header = ({
                   <>
                     <li>
                       <Link to="/profile">
-                        <i class='fas fa-user-edit'>&ensp;</i>
+                        <i className='fas fa-user-edit'>&ensp;</i>
                         { user.name }
                       </Link>
                     </li>
                     <li>
                       <Link to="/" onClick={ logoutHandler }>
-                        <i class='fas fa-sign-in-alt'>&ensp;</i>
+                        <i className='fas fa-sign-in-alt'>&ensp;</i>
                         { strings["LOGOUT"] }
                       </Link>
                     </li>
