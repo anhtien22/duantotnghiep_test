@@ -14,7 +14,7 @@ exports.addProduct = async (req, res) => {
 
     fs.access('uploads', err => {
       if (err) {
-        fs.mkdirSync('./uploads')
+        fs.mkdirSync('/uploads')
       }
     })
 
@@ -155,7 +155,7 @@ exports.updateProductImage = async (req, res) => {
     if (!req.file) throw new Error('xin vui lòng tải hình ảnh lên')
     fs.access('uploads', err => {
       if (err) {
-        fs.mkdirSync('./uploads')
+        fs.mkdirSync('/uploads')
       }
     })
     fs.unlinkSync(path.resolve(product.image))

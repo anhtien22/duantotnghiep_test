@@ -31,6 +31,12 @@ exports.registerUser = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const user = await User.findByCredentials(req.body.email, req.body.password)
+    if (!user) {
+      throw new Error('Email và Mật khẩu không hợp lệ!')
+    }
+    if (!req.body.email || !req.body.password) {
+      throw new Error('Email và Mật khẩu không hợp lệ!')
+    }
     const token = await user.generateAuthToken()
     res.status(200).json({ success: true, user, token })
   } catch (e) {

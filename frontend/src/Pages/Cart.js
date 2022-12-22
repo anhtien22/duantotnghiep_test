@@ -3,6 +3,7 @@ import Breadcrumb from "../components/Breadcrumb";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "react-use-cart";
 import UserContext from "../context/user/UserContext";
+import { useToasts } from "react-toast-notifications";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ const Cart = () => {
   // for user context
   const uContext = useContext(UserContext);
   const { user } = uContext;
+  const { addToast } = useToasts();
 
   const {
     isEmpty,
@@ -20,9 +22,20 @@ const Cart = () => {
     removeItem,
     emptyCart,
     items,
+
   } = useCart();
-
-
+  const removeItems = (id) => {
+    if (addToast) {
+      addToast("Đã xóa sản phẩm", { appearance: "success", autoDismiss: true });
+    }
+    removeItem(id)
+  }
+  const emptyCarts = () => {
+    if (addToast) {
+      addToast("Đã xóa giỏ hàng", { appearance: "success", autoDismiss: true });
+    }
+    emptyCart()
+  }
   const formatter = new Intl.NumberFormat("it-IT", {
     style: "currency",
     currency: "VND",
@@ -79,7 +92,7 @@ const Cart = () => {
                               </td>
                               <td>{formatter.format(item.itemTotal)}</td>
                               <td>
-                                <button onClick={() => removeItem(item.id)} className="delete"><i class="fa fa-trash" ></i></button>
+                                <button onClick={() => removeItems(item.id)} className="delete"><i class="fa fa-trash" ></i></button>
                               </td>
 
                             </tr>
@@ -96,7 +109,7 @@ const Cart = () => {
                 <div className="row mb-5">
                   <div className="col-md-6 mb-3 mb-md-0">
                     <button
-                      onClick={() => emptyCart()}
+                      onClick={ () => emptyCarts() }
                       className="btn btn-warning btn-sm btn-block">
                       Xóa Tất Cả
                     </button>

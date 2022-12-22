@@ -9,9 +9,11 @@ import Rating from '@mui/material/Rating';
 // import Paginator from 'react-hooks-paginator';
 import { Pagination } from "@mui/material";
 import usePagination from "../helpers/Pagination"
+import { useToasts } from "react-toast-notifications";
 
 const ShopSingle = () => {
   const { addItem } = useCart();
+  const { addToast } = useToasts();
   const [quantity, setQuantity] = useState(1);
 
   const { id } = useParams();
@@ -56,7 +58,9 @@ const ShopSingle = () => {
 
   const reviewSubmitHandler = (e) => {
     e.preventDefault();
-
+    if (addToast) {
+      addToast("Cảm ơn bạn đã đánh giá", { appearance: "success", autoDismiss: true });
+    }
     const payload = { rating, comment, productId: product._id, user: user._id, name: user.name };
     newReview(payload);
   };
@@ -204,7 +208,7 @@ const ShopSingle = () => {
           <div className="row">
             <div className="col-sm-5 col-md-6 col-12 pb-4">
               <h1>Comments</h1>
-              {data.currentData().map((review, key) => (
+              { data.currentData().map((review, key) => (
                 <div className="comment mt-4 text-justify float-left col-122">
                   <div className="box1">
                     <h4>{review.name}</h4> &ensp;
@@ -221,7 +225,7 @@ const ShopSingle = () => {
                       readOnly
                     />
                   </Box>
-                  <p>{review.comment}</p>
+                  <p>{ review.comment }</p>
                   <hr></hr>
                 </div>
               ))}
@@ -236,22 +240,22 @@ const ShopSingle = () => {
             </div>
 
             <div className="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4">
-              <form id="algin-form" onSubmit={reviewSubmitHandler}>
+              <form id="algin-form" onSubmit={ reviewSubmitHandler }>
                 <h4>Leave a comment</h4>
-                {user ? (<>
+                { user ? (<>
                   <div className="form-group">
                     <label>Your rating:</label>
                     <Box
-                      sx={{
+                      sx={ {
                         '& > legend': { mt: 1 },
-                      }}
+                      } }
                     >
                       <Rating
                         name="rating"
-                        value={rating}
-                        onChange={(event, newValue) => {
+                        value={ rating }
+                        onChange={ (event, newValue) => {
                           setRating(newValue);
-                        }}
+                        } }
                       />
                     </Box>
 

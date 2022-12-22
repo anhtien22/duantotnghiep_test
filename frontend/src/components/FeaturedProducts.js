@@ -6,6 +6,7 @@ import CategoryContext from "../context/category/categoryContext";
 import productContext from "../context/product/productContext";
 import usePagination from "../helpers/Pagination";
 import { Pagination } from "@material-ui/lab";
+import { useToasts } from "react-toast-notifications";
 
 const FeaturedProducts = () => {
   const pContext = useContext(productContext);
@@ -21,6 +22,7 @@ const FeaturedProducts = () => {
   const [totalResults, setTotalResults] = useState(0);
   const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
+  const { addToast } = useToasts();
 
 
   const [page, setPage] = useState(1);
@@ -54,7 +56,7 @@ const FeaturedProducts = () => {
           </div>
           <div className="row mb-5">
             {
-              data.currentData().map((product) => (
+              products.map((product) => (
                 <>
                   { product.ratings >= 3 ? (
                     <>
@@ -95,6 +97,9 @@ const FeaturedProducts = () => {
                                   ...product,
                                   id: product._id,
                                 };
+                                if (addToast) {
+                                  addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
+                                }
                                 addItem(item, quantity);
                               } }
                             >
@@ -121,14 +126,14 @@ const FeaturedProducts = () => {
                 </>
               )
               ) }
-            <Pagination
+            {/* <Pagination
               count={ count }
               size="large"
               page={ page }
               variant="outlined"
               shape="rounded"
               onChange={ handleChange }
-            />
+            /> */}
           </div>
         </div>
       </div>

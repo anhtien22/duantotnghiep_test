@@ -23,4 +23,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.ant-input{
+  width: 100% !important;
+}
 body > iframe[style*="2147483647"]:not([id="webpack-dev-server-client-overlay"]) { display: none; }
