@@ -61,38 +61,29 @@ const Shop = () => {
   //   return products;
   // }
 
-  // const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
 
-  // const [sortType, setSortType] = useState("default");
-  // useEffect(() => {
-  //   const sortArray = (type) => {
-  //     const sorted = [...products];
-  //     const types = {
-  //       default: "default",
-  //       priceHighToLow: "priceHighToLow",
-  //       priceLowToHigh: "priceLowToHigh",
-  //     };
-  //     const sortProperty = types[type];
-  //     if (sortProperty === "default") {
-  //       return data;
-  //     }
-  //     if (sortProperty === "priceHighToLow") {
-  //       sorted.sort((a, b) => b.price - a.price);
-  //       // sortProducts.sort((a, b) => {
-  //       //         console.log("priceHighToLow", sortProducts);
-  //       //         return b.price - a.price;
-  //       //       });
-  //     }
-  //     if (sortProperty === "priceLowToHigh") {
-  //       sorted.sort((a, b) => a.price - b.price);
-  //     }
-  //     // const sorted = [...products].sort((a, b) => b[sortProperty] - a[sortProperty]);
-  //     console.log(sorted);
-  //     setData(sorted);
-  //   };
+  const [sortType, setSortType] = useState();
+  useEffect(() => {
+    const sortArray = (type) => {
+      const sorted = products;
 
-  //   sortArray(sortType);
-  // }, [sortType]);
+      if (type === "priceHighToLow") {
+        sorted.sort((a, b) => b.price - a.price);
+        // sortProducts.sort((a, b) => {
+        //         console.log("priceHighToLow", sortProducts);
+        //         return b.price - a.price;
+        //       });
+      }
+      if (type === "priceLowToHigh") {
+        sorted.sort((a, b) => a.price - b.price);
+      }
+      // const sorted = [...products].sort((a, b) => b[sortProperty] - a[sortProperty]);
+      setData([...sorted]);
+    };
+
+    sortArray(sortType);
+  }, [sortType]);
 
   const handleChange = (e) => {
     setKeyWord(e.target.value);
@@ -133,6 +124,8 @@ const Shop = () => {
   const handleInput = (e) => {
     setPrice(e.target.value);
   };
+  console.log(price);
+  const filterProduct = [...products];
 
   return (
     <>
@@ -145,15 +138,17 @@ const Shop = () => {
                 <div className="col-md-12 mb-5 d-flex justify-content-between" id="rowshop">
                   <div className=" col-md-6 float-md-left mb-4">
                     <h2 className="text-black h5">SHOP ALL</h2>
-                    {/* <select onChange={ (e) => setSortType(e.target.value) }>
-                      <option value="default">Mặc định</option>
+                    <select onChange={ (e) => setSortType(e.target.value) }>
+                      <option disabled value="default">
+                        Sắp xếp
+                      </option>
                       <option value="priceHighToLow">
                         Giá từ cao đến thấp
                       </option>
                       <option value="priceLowToHigh">
                         Giá từ thấp đến cao
                       </option>
-                    </select> */}
+                    </select>
                   </div>
                   <div className="col-md-6 " id="search">
                     <Form className="d-flex" onSubmit={ handleSearchSubmit }>
@@ -175,45 +170,72 @@ const Shop = () => {
                 </div>
               </div>
 
-              <div className="row mb-5" id="shopproducts">
-                {/* products.filter((filterProduct) => {
-                  return filterProduct.price <= price * 1;
-                }) */}
-                {
-                  products &&
-                  products.map((product) => (
-                    <div
-                      className="col-sm-6 col-lg-4 mb-4"
-                      data-aos="fade-up"
-                      key={ product._id }
-                    >
-                      <div className="block-4 text-center border">
-                        <div className="box-image">
+              <div className="row mb-5">
+                { products &&
+                  products
+                    .filter((filterProduct) => {
+                      return filterProduct.price <= price * 1;
+                    })
+                    .map((product) => (
+                      <div
+                        className="col-sm-6 col-lg-4 mb-4"
+                        data-aos="fade-up"
+                        key={ product.name }
+                      >
+                        <div className="block-4 text-center border">
                           <figure className="block-4-image">
                             <Link to={ `/shopSingle/${product._id}` }>
-                              <img src={ product.image } alt="placeholder" className="img-fluid" />
+                              <img
+                                src={ product.image }
+                                alt="placeholder"
+                                className="img-fluid"
+                              />
                             </Link>
-                            <button className="deroul_titre" onClick={ () => {
-                              let item = {
-                                ...product,
-                                id: product._id,
-                              };
-                              if (addToast) {
-                                addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
-                              }
-                              addItem(item, quantity);
-                            } }>Mua ngay</button>
-                            <p className="deroul_soustitre">{ product.category.title }</p>
                           </figure>
-                        </div>
-                        <div className="block-4-text p-4">
-                          <p id="name"><Link to={ `/shopSingle/${product._id}` }>{ product.name }</Link>
-                          </p>
-                          <p id="price">{ formatter.format(product.price) }</p>
+                          <div className="block-4-text p-4">
+                            <h3>
+                              <Link
+                                className="text-black font-weight-bold"
+                                to={ `/shopSingle/${product._id}` }
+                              >
+                                { product.name }
+                              </Link>
+                            </h3>
+                            <p className="mb-0 text-secondary">
+                              { product.category.title }
+                            </p>
+                            <p className="text-black font-weight-bold">
+                              { formatter.format(product.price) }
+                            </p>
+                            <p
+                              className="buy-now btn btn-sm btn-outline-dark"
+                              onClick={ () => {
+                                let item = {
+                                  ...product,
+                                  id: product._id,
+                                };
+                                addItem(item, quantity);
+                              } }
+                            >
+                              {/* <Link
+                        to="/Cart"
+                        className="buy-now btn btn-sm btn-primary"
+                        onClick={() => {
+                          let item = {
+                            ...product,
+                            id: product._id,
+                          };
+                          addItem(item, quantity);
+                        }}
+                      >
+                        Add To Cart
+                      </Link> */}
+                              add cart
+                            </p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  )) }
+                    )) }
               </div>
 
               <div className="row" data-aos="fade-up">
@@ -234,8 +256,8 @@ const Shop = () => {
                         { " " }
                         Hiển thị { products.length } trong số { totalResults } sản
                         phẩm .
-                      </span >
-                    </div >
+                      </span>
+                    </div>
 
                     <Button
                       variant="success"
@@ -245,10 +267,10 @@ const Shop = () => {
                     >
                       Tiếp tục &rarr;
                     </Button>
-                  </div >
-                </div >
-              </div >
-            </div >
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <div className="col-md-3 order-1 mb-5 mb-md-0">
               <div className="border p-4 rounded mb-4">
@@ -334,11 +356,11 @@ const Shop = () => {
                     </form>
                   </div>
                 </section>
-              </div >
-            </div >
-          </div >
-        </div >
-      </div >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
