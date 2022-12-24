@@ -4,6 +4,7 @@ import UserContext from '../context/user/UserContext'
 import { useCart } from 'react-use-cart'
 import { changeLanguage, multilanguage } from 'redux-multilanguage'
 import PropTypes from "prop-types";
+import { useToasts } from "react-toast-notifications";
 
 
 const Header = ({
@@ -18,6 +19,7 @@ const Header = ({
   };
 
   const navigate = useNavigate()
+  const { addToast } = useToasts();
 
   const { totalUniqueItems, items } = useCart()
 
@@ -26,7 +28,8 @@ const Header = ({
   const { logout, user } = userContext
 
   const logoutHandler = () => {
-    logout(items)
+
+    logout(items, addToast, totalUniqueItems)
 
     // navigate('/login')
   }
@@ -186,7 +189,7 @@ const Header = ({
                 { strings["CONTACT_US"] }
               </Link>
             </li>
-            {/* 
+
             <span>
               <ul>
                 { user && user.role === 'admin' && (
@@ -236,7 +239,7 @@ const Header = ({
                   </Link>
                 </li>
               </ul>
-            </span> */}
+            </span>
 
 
           </ul>

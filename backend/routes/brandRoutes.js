@@ -33,7 +33,7 @@ router.route("/getAll").get(getAllBrands);
 router.route("/:id").get(getBrand);
 
 // router.patch('/:id', auth, checkAdmin, updateBrand)
-router.route("/id").patch(auth, checkAdmin, updateBrand);
+router.route("/:id").patch(auth, checkAdmin, updateBrand);
 
 // router.delete('/:id', auth, checkAdmin, deleteBrand)
 router.route("/:id").delete(auth, checkAdmin, deleteBrand);

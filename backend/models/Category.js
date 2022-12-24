@@ -8,11 +8,7 @@ const categorySchema = mongoose.Schema(
       required: [true, 'Vui lòng nhập danh mục'],
       minLength: [3, 'Danh mục phải dài ít nhất 3 ký tự'],
       trim: true,
-    },
-    image: {
-      type: String,
-      // required: true,
-    },
+    }
   },
   { timestamps: true }
 )

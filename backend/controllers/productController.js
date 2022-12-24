@@ -10,6 +10,17 @@ const { errorHandler } = require('../middleware/errorMiddleware.js');
 exports.addProduct = async (req, res) => {
   const date = new Date()
   try {
+    // if (!req.body.name) {
+    //   throw new Error('Bạn chưa nhập tên sản phẩm!')
+    // }
+    // if (!req.body.name) throw new Error('Xin vui lòng nhaapj ten')
+    // if (!req.body.sku) throw new Error('Xin vui lòng max sp')
+    // if (!req.body.name) throw new Error('Xin vui lòng nhaapj ten')
+    // if (!req.body.category) throw new Error('Xin vui lòng chọn danh mục')
+    // if (!req.body.brand) throw new Error('Xin vui lòng chọn thương hiệu')
+    // if (!req.body.price) throw new Error('Xin vui lòng nhập giá')
+    // if (!req.body.Stock) throw new Error('Xin vui lòng nhập số lượng')
+
     if (!req.file) throw new Error('Xin vui lòng tải ảnh lên')
 
     fs.access('uploads', err => {

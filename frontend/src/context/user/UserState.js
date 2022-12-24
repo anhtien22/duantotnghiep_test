@@ -49,6 +49,7 @@ const UserState = props => {
       info = ''
     }
     if (err.response) {
+
       setUserError({
         variant: 'danger',
         message: `${info} ${err.response.data.error}`,
@@ -67,7 +68,7 @@ const UserState = props => {
   // -----------------------------------------------------------------
   // Login user
   // -----------------------------------------------------------------
-  const login = async (email, password) => {
+  const login = async (email, password, addToast) => {
     try {
       setUserLoading(true)
       const { data } = await axios.post(`api/users/login`, {
@@ -79,20 +80,26 @@ const UserState = props => {
       setUser(data.user)
       setUserError(null)
       setUserLoading(false)
-      setUserMessage({ variant: 'success', message: 'Đăng nhập thành công' })
+      // setUserMessage({ variant: 'success', message: 'Đăng nhập thành công' })
       navigate('/')
+      if (addToast) {
+        addToast("Đăng nhập thành công", { appearance: "success", autoDismiss: true });
+      }
       //   history.push('/')
     } catch (err) {
-      console.log(err.response);
-      errorHandler(err)
-
+      // console.log(err);
+      // errorHandler(err)
+      if (addToast) {
+        addToast(`${err.response.data.error}`, { appearance: "error", autoDismiss: true });
+      }
+      setUserLoading(false)
     }
   }
 
   // -----------------------------------------------------------------
   // Signup a new user
   // -----------------------------------------------------------------
-  const signup = async (name, email, password) => {
+  const signup = async (name, email, password, addToast) => {
     try {
       const body = clean({ name, email, password })
       setUserLoading(true)
@@ -102,23 +109,29 @@ const UserState = props => {
       setUser(data.user)
       setUserError(null)
       setUserLoading(false)
-      setUserMessage({ variant: 'success', message: 'Đăng ký thành công' })
+      // setUserMessage({ variant: 'success', message: 'Đăng ký thành công' })
+      if (addToast) {
+        addToast("Đăng ký thành công", { appearance: "success", autoDismiss: true });
+      }
       navigate('/')
     } catch (err) {
-      errorHandler(err)
+      if (addToast) {
+        addToast(`${err.response.data.error}`, { appearance: "error", autoDismiss: true });
+      }
+      setUserLoading(false)
     }
   }
 
   // -----------------------------------------------------------------
   // Logout a user
   // -----------------------------------------------------------------
-  const logout = async (items) => {
+  const logout = async (items, addToast) => {
+
     try {
       setUserLoading(true)
       // await axios.post(`api/users/logout`, null, {
       //   headers,
       // })
-      console.log(items);
       localStorage.removeItem('userInfo')
       localStorage.removeItem('userToken')
       localStorage.removeItem('react-use-cart')
@@ -126,11 +139,18 @@ const UserState = props => {
       setUser(null)
       setUserError(null)
       setUserLoading(false)
-      setUserMessage({ variant: 'dark', message: 'Bạn đã đăng xuất!' })
-      // navigate('/login')
-      window.location.replace("/login")
+      // setUserMessage({ variant: 'dark', message: 'Bạn đã đăng xuất!' })
+      if (addToast) {
+        addToast("Đăng xuất thành công", { appearance: "success", autoDismiss: true });
+      }
+
+      navigate('/login')
+
     } catch (err) {
-      errorHandler(err)
+      if (addToast) {
+        addToast(`${err.response.data.error}`, { appearance: "error", autoDismiss: true });
+      }
+      setUserLoading(false)
     }
   }
 
@@ -152,7 +172,7 @@ const UserState = props => {
   // -----------------------------------------------------------------
   // Edit Profile
   // -----------------------------------------------------------------
-  const editProfile = async (name, email) => {
+  const editProfile = async (name, email, addToast) => {
     try {
       setUserLoading(true)
       const body = clean({ name, email })
@@ -161,13 +181,19 @@ const UserState = props => {
       localStorage.setItem('userInfo', JSON.stringify(data.user))
       setUserError(null)
       setUserLoading(false)
-      setUserMessage({
-        variant: 'success',
-        message: 'Hồ sơ của bạn đã được cập nhật thành công',
-      })
+      // setUserMessage({
+      //   variant: 'success',
+      //   message: 'Hồ sơ của bạn đã được cập nhật thành công',
+      // })
+      if (addToast) {
+        addToast("Hồ sơ của bạn đã được cập nhật thành công", { appearance: "success", autoDismiss: true });
+      }
       return data
     } catch (err) {
-      errorHandler(err, 'Không thể cập nhật hồ sơ của bạn!')
+      if (addToast) {
+        addToast(`${err.response.data.error}`, { appearance: "error", autoDismiss: true });
+      }
+      setUserLoading(false)
     }
   }
 
@@ -203,6 +229,7 @@ const UserState = props => {
       errorHandler(err)
     }
   }
+
   const getOneUserAdmin = async id => {
     try {
       setUserLoading(true)
@@ -220,7 +247,7 @@ const UserState = props => {
       errorHandler(err)
     }
   }
-  const forgotPassword = async (payload) => {
+  const forgotPassword = async (payload, addToast) => {
     try {
       setUserLoading(true)
       const config = { headers: { "Content-Type": "application/json" } };
@@ -232,13 +259,19 @@ const UserState = props => {
       );
       setUserLoading(false)
       setUserError(null)
-      setUserMessage({
-        variant: 'success',
-        message: `${data.message}`,
-      })
-      return data.user;
+      // setUserMessage({
+      //   variant: 'success',
+      //   message: `${data.message}`,
+      // })
+      if (addToast) {
+        addToast(`${data.message}`, { appearance: "success", autoDismiss: true });
+      }
+      // return data.user;
     } catch (err) {
-      errorHandler({ err })
+      if (addToast) {
+        addToast(`${err.response.data.error}`, { appearance: "error", autoDismiss: true });
+      }
+      setUserLoading(false)
 
     }
   };
@@ -274,24 +307,33 @@ const UserState = props => {
     }
   };
 
-  const updatePassword = async (payload) => {
+  const updatePassword = async (payload, addToast) => {
     try {
       // setUserLoading(true)
+      const userToken = JSON.parse(localStorage.getItem('userToken'))
+      // const headers = {
+      //   Authorization: `Bearer ${userToken && userToken}`,
+      // }
+
       const config = {
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${userToken && userToken}`,
         }
       };
+      const body = clean({
+        oldPassword: payload.oldPassword,
+        newPassword: payload.newPassword,
+        confirmPassword: payload.confirmPassword,
+      })
+      console.log("body", body);
 
       const { data } = await axios.put(
-        `/api/users/profile/updatepassword`,
-        {
-          oldPassword: payload.oldPassword,
-          newPassword: payload.newPassword,
-          confirmPassword: payload.confirmPassword,
-        },
+        `api/users/profile/updatepassword`,
+        body,
         config
       );
+      console.log(data);
       // const res = await fetch(`/api/users/profile/updatepassword`, {
       //   method: "PATCH",
       //   headers,
@@ -303,9 +345,16 @@ const UserState = props => {
       // });
       // setUserLoading(false)
       // setUserError(null)
+      if (addToast) {
+        addToast("Đổi mật khẩu thành công", { appearance: "success", autoDismiss: true });
+      }
       // return data.user;
     } catch (err) {
-      errorHandler(err)
+      // console.log(err);
+      if (addToast) {
+        addToast(`${err.response.data.error}`, { appearance: "error", autoDismiss: true });
+      }
+      setUserLoading(false)
     }
   };
 

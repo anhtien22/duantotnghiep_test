@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import UserContext from '../context/user/UserContext'
+import { useToasts } from "react-toast-notifications";
 
 const LoginScreen = () => {
   const navigate = useNavigate()
+  const { addToast } = useToasts();
 
   const [credentials, setCredentials] = useState({ email: '', password: '' })
 
@@ -22,7 +24,8 @@ const LoginScreen = () => {
 
   const handleLogin = e => {
     e.preventDefault()
-    login(credentials.email, credentials.password)
+
+    login(credentials.email, credentials.password, addToast)
   }
 
   return (

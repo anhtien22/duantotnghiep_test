@@ -190,7 +190,7 @@ const AddProductModal = () => {
               <button
                 className="btn btn-primary"
                 type="submit"
-                data-dismiss="modal"
+                // data-dismiss="modal"
                 onClick={ handleAddproduct }>
                 Thêm sản phẩm
               </button>

@@ -27,7 +27,7 @@ const Brands = () => {
       <Navbar />
 
       <div>
-        {/* HEADER */}
+        {/* HEADER */ }
         <header id="main-header" className="py-2 bg-secondary text-white">
           <div className="container">
             <div className="row">
@@ -39,7 +39,7 @@ const Brands = () => {
             </div>
           </div>
         </header>
-        {/* SEARCH */}
+        {/* SEARCH */ }
         <section id="search" className="py-4 mb-4 bg-light">
           <div className="container">
             <div className="row" id='boxx2'>
@@ -68,7 +68,7 @@ const Brands = () => {
             </div>
           </div>
         </section>
-        {/* CATEGORIES */}
+        {/* CATEGORIES */ }
         <section id="brands">
           <div className="container">
             <div className="row">
@@ -83,27 +83,25 @@ const Brands = () => {
                       <thead>
                         <th className="product-mahang1">#</th>
                         <th className="product-tenhang">Tiêu đề</th>
-                        <th className="product-logo">Ngày</th>
                         <th></th>
                       </thead>
                       <tbody>
                         {
                           <>
-                            {brands.map((brand, i) => (
-                              <tr key={brand._id}>
+                            { brands.map((brand, i) => (
+                              <tr key={ brand._id }>
                                 <td className="product-mahang1">
-                                {i + 1}
+                                  { i + 1 }
                                 </td>
-                                <td className="product-tenhang">{brand.local}</td>
-                                <td className="product-logo">{new Date(brand.createdAt).toLocaleDateString()}</td>
+                                <td className="product-tenhang">{ brand.local }</td>
                                 <td>
-                                  <EditBrandModal brand={brand} />
-                                  <Button variant="danger" className="mx-2" onClick={() => deleteSaveChanges(brand._id)}>
+                                  <EditBrandModal brand={ brand } />
+                                  <Button variant="danger" className="mx-2" onClick={ () => deleteSaveChanges(brand._id) }>
                                     <i className="fas fa-trash" />
                                   </Button>
                                 </td>
                               </tr>
-                            ))}
+                            )) }
                           </>
                         }
                       </tbody>
@@ -115,7 +113,7 @@ const Brands = () => {
           </div>
         </section>
       </div>
-      {/* <Footer /> */}
+      {/* <Footer /> */ }
     </div>
   )
 }

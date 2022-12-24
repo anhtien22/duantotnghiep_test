@@ -3,9 +3,12 @@ import { Link, useParams } from 'react-router-dom'
 import CategoryContext from '../context/category/categoryContext'
 import BrandContext from '../context/brand/brandContext'
 import productContext from '../context/product/productContext'
-
+import swal from "sweetalert";
+import { useNavigate } from "react-router-dom";
 
 const ProductDetails = () => {
+  const navigate = useNavigate();
+
   // for product context
   const pContext = useContext(productContext)
   const { getOneProduct, updateProductDetails, updateProductImage, deleteProduct } = pContext
@@ -51,19 +54,38 @@ const ProductDetails = () => {
     updateProductDetails(id, name, sku, category, brand, price, description, Stock)
   }
   const deleteSaveChanges = (id) => {
-    deleteProduct(id)
-
+    swal({
+      title: "Bạn có chắc muốn xóa không?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          setTimeout(() => {
+            deleteProduct(id)
+            navigate("/products")
+          }, 1000)
+          setTimeout(() => {
+            swal({
+              title: "Đã xóa sản phẩm thành công!",
+              icon: "success",
+              buttons: true,
+            });
+          }, 2000)
+        } else {
+          navigate(`/productDetailsAdmin/${id}`)
+        }
+      });
   }
 
   const handleUpdateImage = async () => {
     const formData = new FormData()
     formData.append('image', imageFile)
-    const payload = { formData }
-    console.log('Thêm sản phẩm để chạy', formData)
-    const imagePath = await updateProductImage(id, formData)
-    setImage(imagePath)
 
-    console.log('Cập nhật hình ảnh sản phẩm chạy')
+    const imagePath = await updateProductImage(id, formData)
+
+    setImage(imagePath)
 
     setImageFile(null)
   }
@@ -197,7 +219,7 @@ const ProductDetails = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="col-md-4">
               <h3 className="text-center">Hình ảnh</h3>
               <img src={ image } alt="" className="d-block img-fluid mb-3" />

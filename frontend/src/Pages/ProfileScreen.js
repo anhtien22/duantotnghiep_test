@@ -2,8 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import OrderContext from "../context/orders/orderContext";
 import UserContext from "../context/user/UserContext";
+import { useToasts } from "react-toast-notifications";
+
 
 const ProfileScreen = () => {
+  const { addToast } = useToasts();
+
   // for user context
   const uContext = useContext(UserContext);
   const { user, editProfile } = uContext;
@@ -22,7 +26,7 @@ const ProfileScreen = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    editProfile(userInfo.name, userInfo.email);
+    editProfile(userInfo.name, userInfo.email, addToast);
   };
 
   const [userInfo, setUserInfo] = useState({
@@ -132,35 +136,35 @@ const ProfileScreen = () => {
                         <>
                           { myOrders.length > 0 ? (
                             myOrders.map((order) => (
-                            <tr key={ order._id }>
-                              <td className="product-mahang1">
-                              { order._id }
-                              </td>
-                              <td className="product-tenhang">{ order.orderItems.length } item(s)</td>
-                              <td className="product-logo">{ formatter.format(order.totalPrice) }</td>
-                              <td>
-                                { new Date(order.createdAt).toLocaleDateString() }
-                              </td>
-                              <td>
-                              <Link
-                                to={ `/myOrderDetails/${order._id}` }
-                                className="btn btn-secondary"
-                              >
-                                <i className="fas fa-angle-double-right" /> Chi
-                                tiết
-                              </Link>
+                              <tr key={ order._id }>
+                                <td className="product-mahang1">
+                                  { order._id }
+                                </td>
+                                <td className="product-tenhang">{ order.orderItems.length } item(s)</td>
+                                <td className="product-logo">{ formatter.format(order.totalPrice) }</td>
+                                <td>
+                                  { new Date(order.createdAt).toLocaleDateString() }
+                                </td>
+                                <td>
+                                  <Link
+                                    to={ `/myOrderDetails/${order._id}` }
+                                    className="btn btn-secondary"
+                                  >
+                                    <i className="fas fa-angle-double-right" /> Chi
+                                    tiết
+                                  </Link>
+                                </td>
+                              </tr>
+                            ))
+                          ) : (
+                            <tr>
+                              <td colSpan={ 4 }>
+                                <h3 className="text-center">
+                                  Bạn chưa có đơn hàng nào{ " " }
+                                </h3>
                               </td>
                             </tr>
-                          ))
-                        ) : (
-                          <tr>
-                            <td colSpan={ 4 }>
-                              <h3 className="text-center">
-                                Bạn chưa có đơn hàng nào{ " " }
-                              </h3>
-                            </td>
-                          </tr>
-                        )}
+                          ) }
                         </>
                       }
                     </tbody>

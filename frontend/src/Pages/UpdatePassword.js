@@ -1,9 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import UserContext from '../context/user/UserContext';
+import { useToasts } from "react-toast-notifications";
 
 const UpdatePassword = () => {
   // const navigate = useNavigate();
+  const { addToast } = useToasts();
 
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -15,7 +17,7 @@ const UpdatePassword = () => {
     e.preventDefault();
 
     const payload = { oldPassword, newPassword, confirmPassword };
-    updatePassword(payload);
+    updatePassword(payload, addToast);
     // navigate('/profile')
   };
 

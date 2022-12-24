@@ -110,7 +110,6 @@ const Checkout = () => {
     <>
       <Form
         form={ form }
-        name="register"
         onFinish={ handlePlaceOrder }>
         <Breadcrumb pageName="Checkout" />
         <div className="site-section">
@@ -237,9 +236,9 @@ const Checkout = () => {
                         }
                       ] }
                     >
-                      <Input type="number"
+                      <Input
+                        type="text"
                         name="city"
-
                         className="form-control"
                         value={ shippingAddress.city }
                         onChange={ handleChange } />
@@ -299,13 +298,16 @@ const Checkout = () => {
                         {
                           min: 6,
                           message: 'Mã bưu điện của bạn chưa hợp lệ!',
+                        },
+                        {
+                          max: 6,
+                          message: 'Mã bưu điện của bạn chưa hợp lệ!',
                         }
                       ] }
                     >
                       <Input
                         type="number"
                         name="postalCode"
-
                         className="form-control"
                         value={ shippingAddress.postalCode }
                         maxLength={ 6 }

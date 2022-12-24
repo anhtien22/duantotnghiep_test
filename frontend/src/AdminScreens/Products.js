@@ -56,7 +56,7 @@ const Products = () => {
   return (
     <>
       <Navbar />
-      {/* HEADER */}
+      {/* HEADER */ }
       <header id="main-header" className="py-2 bg-primary text-white">
         <div className="container">
           <div className="row">
@@ -68,7 +68,7 @@ const Products = () => {
           </div>
         </div>
       </header>
-      {/* SEARCH */}
+      {/* SEARCH */ }
       <section id="search" className="py-4 mb-4 bg-light">
         <div className="container">
           <div className="row" id="boxx2">
@@ -83,14 +83,14 @@ const Products = () => {
               <AddProductModal />
             </div>
             <div className="col-md-6 ml-auto" >
-              <form onSubmit={handleSearchSubmit} >
+              <form onSubmit={ handleSearchSubmit } >
                 <div className="input-group">
                   <input
                     type="text"
                     className="form-control"
                     placeholder="Tìm kiếm sản phẩm..."
-                    value={keyWord}
-                    onChange={handleChange}
+                    value={ keyWord }
+                    onChange={ handleChange }
                   />
                   <div className="input-group-append">
                     <button className="btn btn-primary" type="submit">
@@ -103,14 +103,14 @@ const Products = () => {
           </div>
         </div>
       </section>
-      {/* Products */}
+      {/* Products */ }
       <section id="posts">
         <div className="container">
           <div className="row">
             <div className="col">
               <div className="card">
                 <div className="card-header">
-                  <h4>Sản phẩm mới nhất</h4>
+                  <h4>Danh sách sản phẩm</h4>
                 </div>
                 <div className="content table-responsive table-full-width">
                   <table className="table table-hover">
@@ -124,28 +124,28 @@ const Products = () => {
                     <tbody>
                       {
                         <>
-                          {products.map((product, i) => (
-                            <tr key={product._id}>
+                          { products.map((product, i) => (
+                            <tr key={ product._id }>
                               <td className="product-mahang1">
-                                {i + 1}
+                                { i + 1 }
                               </td>
-                              <td className="product-tenhang">{product.name}</td>
-                              <td className="product-logo"> {product.price.toLocaleString("it-IT", {
-                                  style: "currency",
-                                  currency: "VND",
-                                })}</td>
+                              <td className="product-tenhang">{ product.name }</td>
+                              <td className="product-logo"> { product.price.toLocaleString("it-IT", {
+                                style: "currency",
+                                currency: "VND",
+                              }) }</td>
                               <td>
-                                {new Date(product.createdAt).toLocaleDateString()}
+                                { new Date(product.createdAt).toLocaleDateString() }
                               </td>
                               <td>
                                 <Link
-                                  to={`/productDetailsAdmin/${product._id}`}
+                                  to={ `/productDetailsAdmin/${product._id}` }
                                   className="btn btn-secondary bg-primary text-white">
                                   <i className="fas fa-angle-double-right" /> Chi tiết
                                 </Link>
                               </td>
                             </tr>
-                          ))}
+                          )) }
                         </>
                       }
                     </tbody>
@@ -157,15 +157,15 @@ const Products = () => {
                       <Button
                         variant="success"
                         size="sm"
-                        onClick={handlePreviousClick}
-                        disabled={skip < 1}>
+                        onClick={ handlePreviousClick }
+                        disabled={ skip < 1 }>
                         &larr; Trước
                       </Button>
 
                       <div className="text-center mx-2">
-                        Trang-{skip / limit + 1},
+                        Trang-{ skip / limit + 1 },
                         <span className="text-muted">
-                          Hiển thị {products.length} hết {totalResults}
+                          Hiển thị { products.length } hết { totalResults }
                           sản phẩm.
                         </span>
                       </div>
@@ -173,8 +173,8 @@ const Products = () => {
                       <Button
                         variant="success"
                         size="sm"
-                        onClick={handleNextClick}
-                        disabled={totalResults - skip <= limit}>
+                        onClick={ handleNextClick }
+                        disabled={ totalResults - skip <= limit }>
                         Tiếp tục &rarr;
                       </Button>
                     </div>
@@ -185,7 +185,7 @@ const Products = () => {
           </div>
         </div>
       </section>
-      {/* <Footer /> */}
+      {/* <Footer /> */ }
     </>
   );
 };

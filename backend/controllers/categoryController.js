@@ -5,9 +5,35 @@ const Category = require('../models/Category.js');
 // @access Private : Admin
 exports.addCategory = async (req, res) => {
   try {
-    const category = new Category(req.body)
-    await category.save()
-    res.status(201).json({ success: true, message: 'Đã thêm danh mục', category })
+    const category_data = await Category.find();
+    if (category_data.length > 0) {
+      let checkCategory = false;
+      for (let i = 0; i < category_data.length; i++) {
+        if (category_data[i]['title'].toLowerCase() === req.body.title.toLowerCase()) {
+          checkCategory = true;
+          break;
+        }
+      };
+      if (checkCategory == false) {
+        const category = new Category({
+          title: req.body.title
+        })
+
+        await category.save()
+        res.status(200).json({ success: true, category })
+      } else {
+        res.status(200).json({ error: 'Danh mục đã tồn tại' })
+      }
+
+    } else {
+      const category = new Category({
+        title: req.body.title
+      })
+
+      await category.save()
+      res.status(200).json({ success: true, category })
+    }
+
   } catch (err) {
     res.status(400).json({ success: false, error: err.message })
   }

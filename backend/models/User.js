@@ -14,7 +14,7 @@ const userSchema = mongoose.Schema(
     name: {
       type: String,
       required: [true, 'Xin hãy nhập tên của bạn'],
-      minLength: [3, 'Vui lòng nhập tên có ít nhất 3 ký tự'],
+      // minLength: [3, 'Xin hãy nhập tên của bạn'],
       trim: true,
     },
     email: {
@@ -31,7 +31,7 @@ const userSchema = mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, 'Vui lòng nhập mật khẩu của bạn'],
+      required: [true],
       minLength: [6, 'Mật khẩu phải có độ dài ít nhất 6 ký tự!'],
       trim: true,
       select: true,
@@ -115,10 +115,11 @@ userSchema.pre('save', async function (next) {
 // Middleware function for unique email error
 userSchema.post('save', function (error, doc, next) {
   if (error.name === 'MongoServerError' && error.code === 11000) {
-    next(new Error('Email tồn tại!'))
+    next(new Error('Email đã tồn tại!'))
   } else {
     next()
   }
+
 })
 
 // Compare Password

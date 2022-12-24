@@ -53,7 +53,7 @@ router.route("/password/reset/:token").put(resetPassword);
 router.route("/profile").get(auth, readProfile);
 
 // router.put("/profile/updatepassword", updatePassword);
-router.route("/profile/updatepassword").put(updatePassword);
+router.route("/profile/updatepassword").put(auth, updatePassword);
 
 // router.patch('/profile', auth, updateProfile)
 router.route("/profile").patch(auth, updateProfile);

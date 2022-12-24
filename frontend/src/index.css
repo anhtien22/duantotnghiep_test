@@ -26,4 +26,31 @@ code {
 .ant-input{
   width: 100% !important;
 }
+/* .ant-input{
+  border: hidden;
+}
+.ant-input:focus{
+  border: hidden;
+} */
+#password{border:hidden}
+#password:focus{
+  border:hidden !important
+}
+
+[value="Successfully"] {
+  color: rgb(224, 4, 4) !important;
+}
+[value="Canceled"] {
+  color: cyan !important;
+}
+[value="Processing"] {
+  color: rgb(167, 6, 167) !important;
+}
+[value="Confirmed"] {
+  color: lawngreen !important;
+}
+.online {
+  color: blue;
+}
+
 body > iframe[style*="2147483647"]:not([id="webpack-dev-server-client-overlay"]) { display: none; }

@@ -52,13 +52,13 @@ const FeaturedProducts = () => {
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-7 site-section-heading text-center pt-4">
-            <h2>Sản phẩm mới</h2>
+            <h2>Sản phẩm nổi bật</h2>
           </div>
           <div className="row mb-5">
             {
               products.map((product) => (
                 <>
-                  { product.ratings >= 3 ? (
+                  { product.ratings >= 4 ? (
                     <>
                       <div
                         className="col-sm-6 col-lg-4 mb-4"

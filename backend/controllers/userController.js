@@ -17,6 +17,15 @@ const sendEmail = require("../utils/sendEmail");
 exports.registerUser = async (req, res) => {
   try {
     const user = new User(req.body)
+    if (!req.body.name) {
+      throw new Error('Bạn chưa nhập tên!')
+    }
+    if (!req.body.email) {
+      throw new Error('Bạn chưa nhập email!')
+    }
+    if (!req.body.password) {
+      throw new Error('Bạn chưa nhập mật khẩu!')
+    }
     await user.save()
     const token = await user.generateAuthToken()
     res.status(201).json({ success: true, user, token })
@@ -67,7 +76,7 @@ exports.updateProfile = async (req, res) => {
     allowedUpdates.includes(update)
   )
   if (!isValidOperation) {
-    return res.status(400).json({ error: 'Cập nhật không hợp lệ' })
+    return res.status(400).json({ error: 'Cập nhật không thành công' })
   }
 
   updates.forEach(update => (req.user[update] = req.body[update]))
@@ -109,6 +118,7 @@ exports.forgotPassword = async (req, res, next) => {
     email: req.body.email
   });
   if (!user) {
+    // throw new Error('Không tìm thấy người dùng!')
     return res.status(404).json({ error: 'Không tìm thấy người dùng' })
   }
 
@@ -128,7 +138,10 @@ exports.forgotPassword = async (req, res, next) => {
       subject: `Ecommerce Password Recovery`,
       message,
     });
-
+    // if (!user) {
+    //   throw new Error('Không tìm thấy người dùng!')
+    //   // return res.status(404).json({ error: 'Không tìm thấy người dùng' })
+    // }
     res.status(200).json({
       success: true,
       message: `Email sent to ${user.email} successfully`,
@@ -140,6 +153,12 @@ exports.forgotPassword = async (req, res, next) => {
     await user.save({
       validateBeforeSave: false
     });
+
+    // return res.status(500).json({
+    //   success: false,
+    //   message: "email không tồn tại"
+    // })
+    // res.status(500).json({ success: false, error: e.message })
 
     return next(new errorHandler(error.message, 500));
   }
@@ -173,15 +192,20 @@ exports.resetPassword = async (req, res, next) => {
 };
 
 exports.updatePassword = async (req, res, next) => {
-  const user = await User.findById(req.user._id).select("+password");
+  // const user = await User.findById(req.user.id);
 
+  const user = await User.findById(req.user._id).select("+password");
+  console.log("user", user);
   const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
 
   if (!isPasswordMatched) {
+    // throw new Error('Old password is incorrect')
     return res.status(400).json({ error: 'Old password is incorrect' })
   }
 
   if (req.body.newPassword !== req.body.confirmPassword) {
+    // throw new Error('password does not matc')
+
     return res.status(400).json({ error: 'password does not match' })
   }
 
@@ -189,7 +213,7 @@ exports.updatePassword = async (req, res, next) => {
 
   await user.save();
 
-  res.status(200).json({ success: true, user })
+  res.status(200).json({ success: true, message: `Đổi mật khẩu thành công`, user })
 };
 
 

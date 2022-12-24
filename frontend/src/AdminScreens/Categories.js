@@ -27,7 +27,7 @@ const Categories = () => {
       <Navbar />
 
       <div>
-        {/* HEADER */}
+        {/* HEADER */ }
         <header id="main-header" className="py-2 bg-success text-white">
           <div className="container">
             <div className="row">
@@ -39,7 +39,7 @@ const Categories = () => {
             </div>
           </div>
         </header>
-        {/* SEARCH */}
+        {/* SEARCH */ }
         <section id="search" className="py-4 mb-4 bg-light">
           <div className="container">
             <div className="row" id="boxx2">
@@ -59,7 +59,7 @@ const Categories = () => {
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="Tìm kiếm danh mục..." 
+                      placeholder="Tìm kiếm danh mục..."
                     />
                     <div className="input-group-append">
                       <button className="btn btn-success" type="submit">Tìm kiếm</button>
@@ -70,7 +70,7 @@ const Categories = () => {
             </div>
           </div>
         </section>
-        {/* CATEGORIES */}
+        {/* CATEGORIES */ }
         <section id="categories">
           <div className="container">
             <div className="row">
@@ -84,27 +84,26 @@ const Categories = () => {
                       <thead>
                         <th className="product-mahang1">#</th>
                         <th className="product-tenhang">Tiêu đề</th>
-                        <th className="product-logo">Ngày</th>
                         <th></th>
                       </thead>
                       <tbody>
                         {
                           <>
-                            {categories.map((category, i) => (
-                              <tr key={category._id}>
+                            { categories && categories.map((category, i) => (
+                              <tr key={ category._id }>
                                 <td className="product-mahang1">
-                                  {i + 1}
+                                  { i + 1 }
                                 </td>
-                                <td className="product-tenhang">{category.title}</td>
-                                <td className="product-logo">{new Date(category.createdAt).toLocaleDateString()}</td>
+                                <td className="product-tenhang">{ category.title }</td>
+
                                 <td>
-                                  <EditCategoryModal category={category} />
-                                  <Button variant="danger" className="mx-2" onClick={() => deleteSaveChanges(category._id)}>
-                                    <i className="fas fa-trash" /> 
+                                  <EditCategoryModal category={ category } />
+                                  <Button variant="danger" className="mx-2" onClick={ () => deleteSaveChanges(category._id) }>
+                                    <i className="fas fa-trash" />
                                   </Button>
                                 </td>
                               </tr>
-                            ))}
+                            )) }
                           </>
                         }
                       </tbody>
@@ -116,7 +115,7 @@ const Categories = () => {
           </div>
         </section>
       </div>
-      {/* <Footer /> */}
+      {/* <Footer /> */ }
     </div>
   )
 }

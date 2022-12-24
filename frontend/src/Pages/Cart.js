@@ -44,20 +44,20 @@ const Cart = () => {
   return (
     <>
       <Breadcrumb pageName="Cart" />
-      {isEmpty ? (
+      { isEmpty ? (
         <div className="text-center my-5">
           <h2 className=" my-3">Giỏ của bạn trống</h2>
-          <button onClick={() => navigate("/shop")}>Quay trở lại</button>
+          <button onClick={ () => navigate("/shop") }>Quay trở lại</button>
         </div>
       ) : (
         <div className="site-section">
           <div className="container">
             <div className="row mb-5">
               <form className="col-md-12" method="post">
-                {/* <div className="site-blocks-table"> */}
+                {/* <div className="site-blocks-table"> */ }
                 <h4>
-                  Giỏ hàng có : ({totalUniqueItems}) loại sản phẩm và tổng số lượng sản phẩm là : ({' '}
-                  {totalItems}) trong giỏ hàng.
+                  Giỏ hàng có : ({ totalUniqueItems }) loại sản phẩm và tổng số lượng sản phẩm là : ({ ' ' }
+                  { totalItems }) trong giỏ hàng.
                 </h4>
 
 
@@ -74,34 +74,34 @@ const Cart = () => {
                     <tbody>
                       {
                         <>
-                          {items.map((item) => (
-                            <tr key={item._id}>
+                          { items.map((item) => (
+                            <tr key={ item._id }>
                               <td className="product-mahang">
-                                <Link to={`/shopSingle/${item._id}`}>
-                                  <img src={item.image} alt="img" className="img-fluid" id="img3" />
+                                <Link to={ `/shopSingle/${item._id}` }>
+                                  <img src={ item.image } alt="img" className="img-fluid" id="img3" />
                                 </Link>
                               </td>
-                              <td className="product-tenhang">{item.name}</td>
-                              <td className="product-logo">{formatter.format(item.price)}</td>
+                              <td className="product-tenhang">{ item.name }</td>
+                              <td className="product-logo">{ formatter.format(item.price) }</td>
                               <td>
-                                <div class="buttons_added">
-                                  <input class="minus is-form" type="button" value="-" onClick={() => updateItemQuantity(item.id, item.quantity - 1)}/>
-                                  <input aria-label="quantity" class="input-qty" type="number" value={item.quantity} disabled onChange={(e) => updateItemQuantity(item.id, e.target.value)}/>
-                                  <input class="plus is-form" type="button" value="+" onClick={() => updateItemQuantity(item.id, item.quantity + 1)} disabled={item.quantity >= item.Stock}/>
+                                <div className="buttons_added">
+                                  <input className="minus is-form" type="button" value="-" onClick={ () => updateItemQuantity(item.id, item.quantity - 1) } />
+                                  <input aria-label="quantity" className="input-qty" type="number" value={ item.quantity } disabled onChange={ (e) => updateItemQuantity(item.id, e.target.value) } />
+                                  <input className="plus is-form" type="button" value="+" onClick={ () => updateItemQuantity(item.id, item.quantity + 1) } disabled={ item.quantity >= item.Stock } />
                                 </div>
                               </td>
-                              <td>{formatter.format(item.itemTotal)}</td>
+                              <td>{ formatter.format(item.itemTotal) }</td>
                               <td>
-                                <button onClick={() => removeItems(item.id)} className="delete"><i class="fa fa-trash" ></i></button>
+                                <button onClick={ () => removeItems(item.id) } className="delete"><i className="fa fa-trash" ></i></button>
                               </td>
 
                             </tr>
-                          ))}
+                          )) }
                         </>
                       }
                     </tbody>
                   </table>
-                </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+                </div>
               </form>
             </div>
             <div className="row">
@@ -160,7 +160,7 @@ const Cart = () => {
                         <span className="text-black">Tổng phụ</span>
                       </div>
                       <div className="col-md-6 text-right">
-                        <strong className="text-black">{formatter.format(cartTotal)}</strong>
+                        <strong className="text-black">{ formatter.format(cartTotal) }</strong>
                       </div>
                     </div>
                     <div className="row mb-5">
@@ -168,14 +168,14 @@ const Cart = () => {
                         <span className="text-black">Tổng cộng</span>
                       </div>
                       <div className="col-md-6 text-right">
-                        <strong className="text-black">{formatter.format(cartTotal)}</strong>
+                        <strong className="text-black">{ formatter.format(cartTotal) }</strong>
                       </div>
                     </div>
                     <div className="row">
                       <div className="col-md-12">
                         <button
                           className="btn btn-primary btn-lg py-3 btn-block"
-                          onClick={() =>
+                          onClick={ () =>
                             navigate(user ? "/checkout" : "/login")
                           }
                         >
@@ -187,10 +187,10 @@ const Cart = () => {
                 </div>
               </div>
             </div>
-            </div>
           </div>
-        )}
-      </>
-    );
-  };
+        </div>
+      ) }
+    </>
+  );
+};
 export default Cart;

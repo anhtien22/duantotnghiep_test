@@ -1,16 +1,19 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import UserContext from '../context/user/UserContext';
+import { useToasts } from "react-toast-notifications";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("")
+  const { addToast } = useToasts();
+
   const uContext = useContext(UserContext)
   const { forgotPassword } = uContext
 
   const handleForgotPassword = e => {
     e.preventDefault()
     const payload = { email }
-    forgotPassword(payload);
+    forgotPassword(payload, addToast);
   }
 
   return (

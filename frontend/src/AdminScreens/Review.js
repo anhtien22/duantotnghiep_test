@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../AdminComponents/Navbar";
 import OrderContext from "../context/orders/orderContext";
-import "./or.css";
 // import SweetPagination from "sweetpagination";
 import { Form, FormControl } from "react-bootstrap";
 import Paginator from 'react-hooks-paginator';
@@ -148,7 +147,7 @@ const Review = () => {
                                 </Link>
                               </td>
                             </tr>
-                          ))}
+                          )) }
                         </>
                       }
                     </tbody>

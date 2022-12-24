@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import CategoryContext from './categoryContext'
 import axios from 'axios'
+import swal from 'sweetalert'
 
 // Function for cleaning null, undefined and empty strings values in objects
 function clean(obj) {
@@ -51,25 +52,51 @@ const CategoryState = props => {
   }
 
   // Add new category
-  const addCategory = async title => {
-    const categoryBody = clean({ title })
+  const addCategory = async (title, addToast) => {
     try {
       const userToken = JSON.parse(localStorage.getItem('userToken'))
       const headers = {
         Authorization: `Bearer ${userToken && userToken}`,
+        'Content-Type': 'multipart/form-data',
       }
+      const categoryBody = clean({ title })
       setCategoriesLoading(true)
       await axios.post('/api/category/add', categoryBody, { headers })
-      // setCategories([...categories, categoryBody])
-      setCategoriesMessage({
-        variant: 'success',
-        message: 'Danh mục được thêm thành công!',
+      // setCategories(data.category.title)
+      // console.log(categories);
+      // setCategoriesMessage({
+      //   variant: 'success',
+      //   message: 'Danh mục được thêm thành công!',
+      // })
+      swal({
+        title: "Danh mục được thêm thành công!",
+        icon: "success",
       })
-      window.location.reload()
+        .then((value) => {
+          window.location.reload("/categories")
+          // navigate("/products")
+          // swal(`The returned value is: ${value}`);
+        });
+      // setTimeout(() => {
       setCategoriesLoading(false)
       setCategoriesError(null)
+      // if (addToast) {
+      //   addToast("Danh mục được thêm thành công!", { appearance: "success", autoDismiss: true });
+      // }
+      // }, 3000)
+
+      // window.location.reload()
+
     } catch (err) {
-      errorHandler(err)
+      swal({
+        title: `Vui lòng nhập tên danh mục!`,
+        icon: "error",
+      })
+        .then((value) => {
+          // window.location.reload("/products")
+          setCategoriesLoading(false)
+          // swal(`The returned value is: ${value}`);
+        });
     }
   }
 
