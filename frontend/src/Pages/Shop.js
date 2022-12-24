@@ -38,62 +38,6 @@ const Shop = () => {
     // eslint-disable-next-line
   }, [skip, limit, category]);
 
-  // const priceHighToLow = (value) => {
-  //   const sortProducts = [...products];
-  //   console.log("sortProducts", sortProducts);
-
-  //   if (value === "default") {
-  //     return sortProducts;
-  //   }
-  //   if (value === "priceHighToLow") {
-  //     sortProducts.sort((a, b) => {
-  //       console.log("priceHighToLow", sortProducts);
-  //       return b.price - a.price;
-  //     });
-  //     return sortProducts
-  //   }
-  //   if (value === "priceLowToHigh") {
-  //     sortProducts.sort((a, b) => {
-  //       console.log("priceLowToHigh", sortProducts);
-  //       return a.price - b.price;
-  //     });
-  //   }
-  //   return products;
-  // }
-
-  // const [data, setData] = useState([]);
-
-  // const [sortType, setSortType] = useState("default");
-  // useEffect(() => {
-  //   const sortArray = (type) => {
-  //     const sorted = products;
-  //     const types = {
-  //       default: "default",
-  //       priceHighToLow: "priceHighToLow",
-  //       priceLowToHigh: "priceLowToHigh",
-  //     };
-  //     const sortProperty = types[type];
-  //     if (sortProperty === "default") {
-  //       return data;
-  //     }
-  //     if (sortProperty === "priceHighToLow") {
-  //       sorted.sort((a, b) => b.price - a.price);
-  //       // sortProducts.sort((a, b) => {
-  //       //         console.log("priceHighToLow", sortProducts);
-  //       //         return b.price - a.price;
-  //       //       });
-  //     }
-  //     if (sortProperty === "priceLowToHigh") {
-  //       sorted.sort((a, b) => a.price - b.price);
-  //     }
-  //     // const sorted = [...products].sort((a, b) => b[sortProperty] - a[sortProperty]);
-  //     console.log(sorted);
-  //     setData(sorted);
-  //   };
-
-  //   sortArray(sortType);
-  // }, [sortType]);
-
   const handleChange = (e) => {
     setKeyWord(e.target.value);
   };
@@ -179,24 +123,23 @@ const Shop = () => {
                     key={product._id}
                   >
                     <div className="block-4 text-center border">
-                      <div className="box-image">
-                        <figure className="block-4-image">
-                          <Link to={`/shopSingle/${product._id}`}>
-                            <img src={product.image} alt="placeholder" className="img-fluid" />
-                          </Link>
-                          <button class="deroul_titre" onClick={() => {
-                            let item = {
-                              ...product,
-                              id: product._id,
-                            };
-                            if (addToast) {
-                              addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
-                            }
-                            addItem(item, quantity);
-                          }}>Mua ngay</button>
-                          <p className="deroul_soustitre">{product.category.title}</p>
-                        </figure>
+
+                      <div className="product-img">
+                        <Link to={`/shopSingle/${product._id}`}>
+                          <img src={product.image} alt=""/>
+                        </Link>
+                        <div className="btn">                               
+
+                        <i class="icon" onClick={() => { let item = {  ...product, id: product._id,}; if (addToast) {
+                            addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
+                          }
+                          addItem(item, quantity);
+                            }}>Mua Ngay
+                          </i>
+
+                        </div>
                       </div>
+
                       <div className="block-4-text p-4">
                         <p id="name"><Link to={`/shopSingle/${product._id}`}>{product.name}</Link>
                         </p>
@@ -220,12 +163,12 @@ const Shop = () => {
                     </Button>
 
                     <div className="text-center mx-2">
-                      Trang -{skip / limit + 1},
-                      <span className="text-muted">
-                        {" "}
-                        Hiển thị {products.length} trong số {totalResults} sản
-                        phẩm .
-                      </span >
+                      Trang {skip / limit + 1}
+                      {/* <span className="text-muted"> */}
+                        {/* {" "} */}
+                        {/* Hiển thị {products.length} trong số {totalResults} sản */}
+                        {/* phẩm . */}
+                      {/* </span > */}
                     </div >
 
                     <Button
@@ -243,85 +186,29 @@ const Shop = () => {
 
             <div className="col-md-3 order-1 mb-5 mb-md-0">
               <div className="border p-4 rounded mb-4">
-                {/* <h3 className="mb-3 h6 text-uppercase text-black d-block">
-                  Danh Mục
-                </h3> */}
-                {/* <div className="cont">
-                  <label className="container">Tất cả
-                    <input type="radio" checked="checked" name="radio" onClick={ () => {
-                      setCategory('')
-                      setSkip(0)
-                    } } />
-                    <span className="checkmark"></span>
-                  </label>
-                  { categories.map(cate => (
-                    <label className="container"  >{ cate.title }
-                      <input type="radio" name="radio" onClick={ () => {
-                        setCategory(cate._id)
-                        setSkip(0)
-                      } } />
-                      <span className="checkmark" key={ cate._id }></span>
-                    </label>
-                  )) }
-                </div> */}
-                {/* <div className="mb-4"> */}
-                <h3 className="mb-3 h6 text-uppercase text-black d-block">
-                  Danh Mục
-                </h3>
-                {/* <div id="slider-range" className="border-primary"> */}
-                <ul className="list-unstyled mb-0">
-                  <li className="mb-1">
-                    <button
-                      className="d-flex btn btn-secondary"
-                      onClick={() => {
-                        setCategory("");
-                        setSkip(0);
-                      }}
-                    >
-                      <span>Tất cả</span>
-                      {/* <span className="text-black ml-auto">
-                        ({totalResults})
-                      </span> */}
-                    </button>
-                  </li>
-                  {categories.map((cate) => (
-                    <li className="mb-1" key={cate._id}>
-                      <button
-                        className="d-flex btn btn-secondary"
-                        onClick={() => {
-                          setCategory(cate._id);
-                          setSkip(0);
-                        }}
-                      >
-                        <span>{cate.title}</span>
-                        {/* <span className="text-black ml-auto">(2,220)</span> */}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-                <div className="App">
-                  <p>Filter Price: {price}</p>
-                  <input type="range" onInput={handleInput} />
-                </div>
-                {/* </div> */}
-
-
                 <section id="sidebar">
                   <div className="py-2 border-bottom ml-3">
                     <h6 className="font-weight-bold">Danh Mục</h6>
                     <div id="orange"><span className="fa fa-minus"></span></div>
                     <form>
-                      <div className="form-group" onClick={() => { setCategory(''); setSkip(0) }}>
-                        <label for="artisan">Tất cả</label>
+                      <div className="form-group">
+                        <input type="radio" id="male" class="radio-input" name="gender" onClick={() => { setCategory(''); setSkip(0) }} />
+                        <label for="male" class="radio-label">Tất cả</label>
                       </div>
                       {categories.map((cate) => (
-                        <div className="form-group" onClick={() => { setCategory(cate._id); setSkip(0); }}>
-                          <label for="breakfast">{cate.title}</label>
+                        <div className="form-group">
+                          <input type="radio" id="fmale" class="radio-input" name="gender" onClick={() => { setCategory(cate._id); setSkip(0); }}/>
+                          <label for="fmale" class="radio-label">{cate.title}</label>
                         </div>
                       ))}
                     </form>
                   </div>
                 </section>
+                <br></br>
+                <div className="App">
+                  <p>Filter Price: {price}</p>
+                  <input type="range" onInput={handleInput} />
+                </div>
               </div >
             </div >
           </div >

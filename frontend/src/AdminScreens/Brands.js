@@ -96,7 +96,7 @@ const Brands = () => {
                                 </td>
                                 <td className="product-tenhang">{brand.local}</td>
                                 <td className="product-logo">{new Date(brand.createdAt).toLocaleDateString()}</td>
-                                <td>
+                                <td  id='buttonadmin'>
                                   <EditBrandModal brand={brand} />
                                   <Button variant="danger" className="mx-2" onClick={() => deleteSaveChanges(brand._id)}>
                                     <i className="fas fa-trash" />

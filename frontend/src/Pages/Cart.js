@@ -47,7 +47,7 @@ const Cart = () => {
       {isEmpty ? (
         <div className="text-center my-5">
           <h2 className=" my-3">Giỏ của bạn trống</h2>
-          <button onClick={() => navigate("/shop")}>Quay trở lại</button>
+          <button className="btn btn-secondary"  onClick={() => navigate("/shop")}>Quay trở lại</button>
         </div>
       ) : (
         <div className="site-section">
@@ -144,8 +144,10 @@ const Cart = () => {
                     </button>
                   </div>
                 </div>
+                <br></br>
               </div>
-              <div className="col-md-5 pl-5">
+              
+              <div className="col-md-5">
                 <div className="row justify-content-end">
                   <div className="col-md-10">
                     <div className="row">
@@ -155,7 +157,7 @@ const Cart = () => {
                         </h3>
                       </div>
                     </div>
-                    <div className="row mb-3">
+                    <div className="mb-3" id="mb-3">
                       <div className="col-md-6">
                         <span className="text-black">Tổng phụ</span>
                       </div>
@@ -163,7 +165,7 @@ const Cart = () => {
                         <strong className="text-black">{formatter.format(cartTotal)}</strong>
                       </div>
                     </div>
-                    <div className="row mb-5">
+                    <div className="mb-3" id="mb-3">
                       <div className="col-md-6">
                         <span className="text-black">Tổng cộng</span>
                       </div>

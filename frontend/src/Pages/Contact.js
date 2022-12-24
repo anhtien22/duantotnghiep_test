@@ -91,6 +91,7 @@ const Contact = () => {
                   </div>
                 </div>
               </form>
+              <br></br>
             </div>
             <div className="col-md-5 ml-auto">
               <div className="p-4 border mb-3">

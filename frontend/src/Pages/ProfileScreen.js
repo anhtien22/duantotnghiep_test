@@ -61,8 +61,8 @@ const ProfileScreen = () => {
       {/* PROFILE */ }
       <section id="profile" className="my-5">
         <div className="container">
-          <div className="row">
-            <div className="col-md-8">
+          <div className="row" id="profilescreen">
+            <div className="col-md-8" >
               <div className="card">
                 <div className="card-header">
                   <h4>Chỉnh sửa hồ sơ</h4>
@@ -100,24 +100,25 @@ const ProfileScreen = () => {
                   </form>
                 </div>
               </div>
+              <br></br>
             </div>
-            <div className="col-md-3 my-3 ml-auto">
-              <h3>Hình đại diện của bạn</h3>
-              <img
-                src="img/avatar.png"
-                alt=""
-                className="d-block img-fluid mb-3"
-              />
-              <button className="btn btn-primary btn-block">Sửa hình ảnh</button>
-              <button className="btn btn-danger btn-block">Xóa hình ảnh</button>
-            </div>
+            
+            {/* <div className="col-md-3 my-3 ml-auto"> */}
+              {/* <h3>Hình đại diện của bạn</h3> */}
+              {/* <img */}
+                {/* // src="img/avatar.png" */}
+                {/* // alt="" */}
+                {/* // className="d-block img-fluid mb-3" */}
+              {/* // /> */}
+              {/* <button className="btn btn-primary btn-block">Sửa hình ảnh</button> */}
+              {/* <button className="btn btn-danger btn-block">Xóa hình ảnh</button> */}
+            {/* </div> */}
+            
             <div className="col-md-12">
               <div className="card">
                 <div className="card-header">
                   <h4>Đơn đặt hàng</h4>
                 </div>
-
-
                 <div className="content table-responsive table-full-width">
                   <table className="table table-hover">
                     <thead>

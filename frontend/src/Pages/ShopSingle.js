@@ -75,140 +75,55 @@ const ShopSingle = () => {
     <>
       <Breadcrumb pageName={product.name} />
 
-      <div className="site-section">
-        <div className="container">
-        <div className="row">
 
-          <div className="wrapper1">
-            <div className="product-img">
-              <img src={product.image} />
-            </div>
-            <div className="product-info">
-              <div className="product-text">
-                <h1>{product.name}</h1>
-                <h2>Thương hiệu: {product.brand.local}</h2>
-                <p>{product.description}</p>
-              </div>
-              <div className="product-text">
-                <div class="buttons_added">
-                  <input class="minus is-form" type="button" value="-" disabled={quantity < 2} onClick={() => setQuantity(quantity - 1)}/>
-                  <input aria-label="quantity" class="input-qty" type="number" value={quantity} disabled onChange={(e) => setQuantity(e.target.value)}/>
-                  <input class="plus is-form" type="button" value="+" onClick={() => setQuantity(quantity + 1)} disabled={quantity >= product.Stock}/>
-                </div>                
-              </div>
-              <p><span id="in">{formatter.format(product.price)}</span></p>
-              <div className="product-price-btn">
 
-                {product.Stock >= 0 ? (
+      <div class="container11">
+        <div class="imgBx">
+          <img src={product.image} />
+        </div>
+        <div class="details">
+          <div class="content">
+            <h2>{product.name}<br></br>
+              <span>Thương hiệu: {product.brand.local}</span>
+            </h2>
+            <p>ssadasdasdasdasdasssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssasddddddddddddddddddddddddd</p>
+            
+            <p class="product-colors">
+              <input class="minus is-form" type="button" value="-" disabled={quantity < 2} onClick={() => setQuantity(quantity - 1)} />
+              <input aria-label="quantity" class="input-qty" type="number" value={quantity} disabled onChange={(e) => setQuantity(e.target.value)} />
+              <input class="plus is-form" type="button" value="+" onClick={() => setQuantity(quantity + 1)} disabled={quantity >= product.Stock} />
+            </p>
+            
+            
+              {product.Stock >= 0 ? (
                 <>
-                  <div className="danhgia">
-                    <div>Tổng lượt đánh giá: {product?.ratings}</div>
-                    <Rating  name="rating" readOnly defaultValue={product.ratings} precision={0.5} />
-                  </div>
-                  <br></br>
-                  <Link to="/Cart"  onClick={() => { let item = { ...product, id: product._id, }; addItem(item, quantity); }} >
+                    {/* <span>Tổng lượt đánh giá: {product?.ratings}</span> */}
+                    <div id="start">
+                      <h3>{formatter.format(product.price)}</h3>
+                    <Rating name="rating" readOnly defaultValue={product.ratings} precision={0.5} />
+                    </div>
+                  <Link to="/Cart" onClick={() => { let item = { ...product, id: product._id, }; addItem(item, quantity); }} >
                     <button type="button">buy now</button>
-                  </Link>
-                  </>) : (<>
+                  </Link><br></br>
+                  <small>Mã sản phẩm: {product.sku}</small>
+                  
+                </>) : (<>
                   <button className="buy-now btn btn-sm btn-primary">Hết hàng</button>
+                  
                 </>
-                )}
-              </div>
-              
-            </div>
-            <small>Mã sản phẩm: {product.sku}</small>
+                
+              )}
+            
+              {/* <button>Buy Now</button> */}
           </div>
-
-</div>
-
-
-
-
-
-
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
         </div>
       </div>
-
-
-
-
       <section>
         <div className="container">
           <div className="row">
             <div className="col-sm-5 col-md-6 col-12 pb-4">
               <h1>Comments</h1>
-              { data.currentData().map((review, key) => (
+              {data.currentData().map((review, key) => (
                 <div className="comment mt-4 text-justify float-left col-122">
                   <div className="box1">
                     <h4>{review.name}</h4> &ensp;
@@ -225,7 +140,7 @@ const ShopSingle = () => {
                       readOnly
                     />
                   </Box>
-                  <p>{ review.comment }</p>
+                  <p>{review.comment}</p>
                   <hr></hr>
                 </div>
               ))}
@@ -240,22 +155,22 @@ const ShopSingle = () => {
             </div>
 
             <div className="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4">
-              <form id="algin-form" onSubmit={ reviewSubmitHandler }>
+              <form id="algin-form" onSubmit={reviewSubmitHandler}>
                 <h4>Leave a comment</h4>
-                { user ? (<>
+                {user ? (<>
                   <div className="form-group">
                     <label>Your rating:</label>
                     <Box
-                      sx={ {
+                      sx={{
                         '& > legend': { mt: 1 },
-                      } }
+                      }}
                     >
                       <Rating
                         name="rating"
-                        value={ rating }
-                        onChange={ (event, newValue) => {
+                        value={rating}
+                        onChange={(event, newValue) => {
                           setRating(newValue);
-                        } }
+                        }}
                       />
                     </Box>
 

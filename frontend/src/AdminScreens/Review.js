@@ -74,7 +74,7 @@ const Review = () => {
           <div className="row">
             <div className="col-md-6">
               <h1>
-                <i className="fas fa-users" /> Đơn hàng
+                <i className="fas fa-users" /> Bình luận
               </h1>
             </div>
           </div>

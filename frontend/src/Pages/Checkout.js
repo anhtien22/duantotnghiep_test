@@ -126,7 +126,7 @@ const Checkout = () => {
                       rules={ [
                         {
                           required: true,
-                          message: 'Xin vui lòng nhập tên',
+                          message: 'Xin vui lòng nhập tên !',
                         },
                       ] }
                     >
@@ -151,21 +151,19 @@ const Checkout = () => {
                   </div>
 
                   <div className="form-group">
-                    <Form.Item
-                      name="phone"
-                      label="Số điện thoại"
+                    <Form.Item name="phone" label="Số điện thoại"
                       rules={ [
                         {
                           required: true,
-                          message: 'Vui lòng nhập số điện thoại!',
+                          message: 'Vui lòng nhập số điện thoại !',
                         },
                         {
                           min: 10,
-                          message: 'Sô điện thoại không hợp lệ!',
+                          message: 'Sô điện thoại không hợp lệ !',
                         },
                         {
                           max: 10,
-                          message: 'Sô điện thoại không hợp lệ!',
+                          message: 'Sô điện thoại không hợp lệ !',
                         },
                       ] }
                     >
@@ -196,7 +194,7 @@ const Checkout = () => {
                       rules={ [
                         {
                           required: true,
-                          message: 'Vui lòng nhập địa chỉ!',
+                          message: 'Vui lòng nhập địa chỉ !',
                         },
                       ] }
                     >
@@ -206,7 +204,7 @@ const Checkout = () => {
                         showCount maxLength={ 100 }
                         value={ shippingAddress.address }
                         onChange={ handleChange }
-                        placeholder="Street address"
+                        placeholder=""
                       />
                     </Form.Item>
                     {/* <div className="col-md-12">
@@ -233,7 +231,7 @@ const Checkout = () => {
                       rules={ [
                         {
                           required: true,
-                          message: 'Vui lòng nhập thành phố của bạn!',
+                          message: 'Vui lòng nhập thành phố của bạn !',
                         }
                       ] }
                     >
@@ -263,7 +261,7 @@ const Checkout = () => {
                       rules={ [
                         {
                           required: true,
-                          message: 'Vui lòng nhập Huyện/Phường của bạn!',
+                          message: 'Vui lòng nhập Huyện/Phường của bạn !',
                         }
                       ] }
                     >
@@ -294,11 +292,11 @@ const Checkout = () => {
                       rules={ [
                         {
                           required: true,
-                          message: 'Vui lòng nhập mã bưu điện của bạn!',
+                          message: 'Vui lòng nhập mã bưu điện của bạn !',
                         },
                         {
                           min: 6,
-                          message: 'Mã bưu điện của bạn chưa hợp lệ!',
+                          message: 'Mã bưu điện của bạn chưa hợp lệ !',
                         }
                       ] }
                     >
@@ -336,7 +334,7 @@ const Checkout = () => {
                             <th>Giá</th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="check">
                           { items.map((item) => (
                             <tr key={ item._id }>
                               <td>
