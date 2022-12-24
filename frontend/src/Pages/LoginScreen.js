@@ -4,14 +4,13 @@ import UserContext from '../context/user/UserContext'
 import { useToasts } from "react-toast-notifications";
 
 const LoginScreen = () => {
-  const navigate = useNavigate()
-  const { addToast } = useToasts();
-
-  const [credentials, setCredentials] = useState({ email: '', password: '' })
-
   // for user context
   const uContext = useContext(UserContext)
   const { login, user } = uContext
+
+  const [credentials, setCredentials] = useState({ email: '', password: '' })
+  const navigate = useNavigate()
+  const { addToast } = useToasts();
 
   useEffect(() => {
     if (user) navigate('/')

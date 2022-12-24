@@ -5,11 +5,13 @@ import { useNavigate } from 'react-router-dom'
 import { useToasts } from "react-toast-notifications";
 import {
   Form, Input,
-  Select,
 } from 'antd';
 const SignupScreen = () => {
-  const [form] = Form.useForm();
+  // for user context
+  const uContext = useContext(UserContext)
+  const { signup, user } = uContext
 
+  const [form] = Form.useForm();
   const navigate = useNavigate()
   const { addToast } = useToasts();
   const [userDetails, setUserDetails] = useState({
@@ -17,10 +19,6 @@ const SignupScreen = () => {
     email: '',
     password: '',
   })
-
-  // for user context
-  const uContext = useContext(UserContext)
-  const { signup, user } = uContext
 
   useEffect(() => {
     if (user) navigate('/')
@@ -31,8 +29,7 @@ const SignupScreen = () => {
     setUserDetails({ ...userDetails, [e.target.name]: e.target.value })
   }
 
-  const handleSignup = e => {
-    // e.preventDefault()
+  const handleSignup = () => {
     signup(userDetails.name, userDetails.email, userDetails.password, addToast)
   }
 
@@ -77,14 +74,6 @@ const SignupScreen = () => {
                             value={ userDetails.name }
                             onChange={ handleChange } />
                         </Form.Item>
-                        {/* <label htmlFor="name">Tên</label>
-                        <input
-                          onChange={ handleChange }
-                          type="text"
-                          className="form-control"
-                          name="name"
-                          value={ userDetails.name }
-                        /> */}
                       </div>
                       <div className="form-group">
                         <Form.Item
@@ -98,14 +87,6 @@ const SignupScreen = () => {
                             value={ userDetails.email }
                             onChange={ handleChange } />
                         </Form.Item>
-                        {/* <label htmlFor="email">Email</label>
-                        <input
-                          onChange={ handleChange }
-                          type="text"
-                          className="form-control"
-                          name="email"
-                          value={ userDetails.email }
-                        /> */}
                       </div>
                       <div className="form-group">
                         <Form.Item
@@ -119,14 +100,6 @@ const SignupScreen = () => {
                             value={ userDetails.password }
                             onChange={ handleChange } />
                         </Form.Item>
-                        {/* <label htmlFor="password">Mật khẩu</label>
-                        <input
-                          onChange={ handleChange }
-                          type="password"
-                          className="form-control"
-                          name="password"
-                          value={ userDetails.password }
-                        /> */}
                       </div>
                       <button
                         type="submit"

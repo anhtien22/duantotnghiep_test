@@ -4,21 +4,20 @@ import UserContext from '../context/user/UserContext';
 import { useToasts } from "react-toast-notifications";
 
 const UpdatePassword = () => {
-  // const navigate = useNavigate();
+
+  const uContext = useContext(UserContext);
+  const { updatePassword } = uContext;
   const { addToast } = useToasts();
 
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const uContext = useContext(UserContext);
-  const { updatePassword } = uContext;
   const updatePasswordSubmit = (e) => {
     e.preventDefault();
 
     const payload = { oldPassword, newPassword, confirmPassword };
     updatePassword(payload, addToast);
-    // navigate('/profile')
   };
 
   return (
@@ -68,7 +67,6 @@ const UpdatePassword = () => {
                         value={ confirmPassword }
                       />
                     </div>
-
 
                     <input
                       type="submit"

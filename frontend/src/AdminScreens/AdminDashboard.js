@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Navbar from '../AdminComponents/Navbar'
 import AddProductModal from '../AdminComponents/AddProductModal'
 import AddCategoryModal from '../AdminComponents/AddCategoryModal'
@@ -7,6 +7,7 @@ import productContext from '../context/product/productContext'
 import categoryContext from '../context/category/categoryContext'
 import userContext from '../context/user/UserContext'
 import OrderContext from '../context/orders/orderContext'
+import Paginator from 'react-hooks-paginator'
 
 
 const AdminDashboard = () => {
@@ -31,10 +32,18 @@ const AdminDashboard = () => {
     }
     return r;
   }, 0);
-  // const limit = 5
   const skip = 0
 
-  const limit = 5;
+  const pageLimit = 5;
+
+  const [offset, setOffset] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentData, setCurrentData] = useState([]);
+
+
+  useEffect(() => {
+    setCurrentData(products.slice(offset, offset + pageLimit));
+  }, [offset, products]);
   // const [skip, setSkip] = useState(0)
   // const [keyWord, setKeyWord] = useState('')
   // const [category, setCategory] = useState('')
@@ -125,7 +134,7 @@ const AdminDashboard = () => {
                   <div className="content table-responsive table-full-width">
                     <table className="table table-hover">
                       <thead>
-                        <th className="product-mahang1">#</th>
+                        <th className="product-mahang1">Id</th>
                         <th className="product-tenhang">Tên</th>
                         <th className="product-logo">Giá</th>
                         <th className="product-logo">Ngày</th>
@@ -134,10 +143,10 @@ const AdminDashboard = () => {
                       <tbody>
                         {
                           <>
-                            { products.map((product, i) => (
+                            { currentData && currentData.map((product, i) => (
                               <tr key={ product._id }>
                                 <td className="product-mahang1">
-                                  { i + 1 }
+                                  { product._id }
                                 </td>
                                 <td className="product-tenhang">{ product.name }</td>
                                 <td className="product-logo">{ formatter.format(product.price) }</td>
@@ -157,13 +166,23 @@ const AdminDashboard = () => {
                       </tbody>
                     </table>
                     <div className="text-center my-3">
-                      <Link to="/products">
-                        <button className="btn btn-info">Xem tất cả sản phẩm</button>
-                      </Link>
+                      <Paginator
+                        totalRecords={ products.length }
+                        pageLimit={ pageLimit }
+                        pageNeighbours={ 2 }
+                        setOffset={ setOffset }
+                        currentPage={ currentPage }
+                        setCurrentPage={ setCurrentPage }
+                        pageContainerClass="mb-0 mt-0 d-flex justify-content-center align-items-center"
+                        pagePrevText="«"
+                        pageNextText="»"
+                      />
                     </div>
                   </div>
                 </div>
+                <br></br>
               </div>
+
 
               <div className="col-md-3">
                 <div className="card text-center bg-primary text-white mb-3">

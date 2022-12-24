@@ -163,11 +163,11 @@ const Products = () => {
                       </Button>
 
                       <div className="text-center mx-2">
-                        Trang-{ skip / limit + 1 },
-                        <span className="text-muted">
-                          Hiển thị { products.length } hết { totalResults }
-                          sản phẩm.
-                        </span>
+                        Trang { skip / limit + 1 }
+                        {/* <span className="text-muted"> */ }
+                        {/* Hiển thị {products.length} hết {totalResults} */ }
+                        {/* sản phẩm. */ }
+                        {/* </span> */ }
                       </div>
 
                       <Button

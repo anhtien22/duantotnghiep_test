@@ -4,7 +4,6 @@ import FeaturedProducts from '../components/FeaturedProducts'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.min.css'
 import 'swiper/swiper-bundle.min.css'
-
 import 'swiper/components/navigation/navigation.min.css'
 import 'swiper/components/pagination/pagination.min.css'
 import "../../src/App.css";
@@ -77,49 +76,37 @@ const Home = ({ strings }) => {
       <div className="site-section site-section-sm site-blocks-1">
         <div className="container">
           <div className="row">
-            <div
-              className="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4"
-              data-aos="fade-up"
-              data-aos-delay=""
-            >
-              <div className="icon mr-4 align-self-start">
-                <span className="icon-truck"></span>
-              </div>
-              <div className="text">
-                <h2 className="text-uppercase">{ strings["FREE_SHIPPING"] }</h2>
-                <p>
-                  { strings["Shop_Will_Support_Product_Delivery_For_Orders_Over_500000_VND_And_First_Time_Purchase_Orders_At_The_Shop"] }
-                </p>
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+              <div class="list-box d-flex align-items-center">
+                <div class="list-icon">
+                  <i class="fas fa-shipping-fast"></i>
+                </div>
+                <div class="content">
+                  <h3>{ strings["FREE_SHIPPING"] }</h3>
+                  <p>{ strings["Shop_Will_Support_Product_Delivery_For_Orders_Over_500000_VND_And_First_Time_Purchase_Orders_At_The_Shop"] }</p>
+                </div>
               </div>
             </div>
-            <div
-              className="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <div className="icon mr-4 align-self-start">
-                <span className="icon-refresh2"></span>
-              </div>
-              <div className="text">
-                <h2 className="text-uppercase">{ strings["FREE_REFUND"] }</h2>
-                <p>
-                  { strings["According_to_the_terms_set_forth_in_the_Terms_of_Service_the_Shop_guarantees_the_interests_of_the_buyer"] }
-                </p>
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+              <div class="list-box d-flex align-items-center">
+                <div class="list-icon">
+                  <i class="icon-refresh2"></i>
+                </div>
+                <div class="content">
+                  <h3>{ strings["FREE_REFUND"] }</h3>
+                  <p>{ strings["According_to_the_terms_set_forth_in_the_Terms_of_Service_the_Shop_guarantees_the_interests_of_the_buyer"] }</p>
+                </div>
               </div>
             </div>
-            <div
-              className="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              <div className="icon mr-4 align-self-start">
-                <span className="icon-help"></span>
-              </div>
-              <div className="text">
-                <h2 className="text-uppercase">{ strings["CUSTOMER_SUPPORT"] }</h2>
-                <p>
-                  { strings["24/7_Support_Anytime_Customer_Needs_Support_Responding_to_Customer_Questions_and_Inquiries"] }
-                </p>
+            <div class="col-lg-4 col-md-6">
+              <div class="list-box d-flex justify-content-start align-items-center">
+                <div class="list-icon">
+                  <i class="icon-help"></i>
+                </div>
+                <div class="content">
+                  <h3>{ strings["CUSTOMER_SUPPORT"] }</h3>
+                  <p>{ strings["24/7_Support_Anytime_Customer_Needs_Support_Responding_to_Customer_Questions_and_Inquiries"] }</p>
+                </div>
               </div>
             </div>
           </div>
@@ -135,11 +122,11 @@ const Home = ({ strings }) => {
             >
               <a className="block-2-item" href="/">
                 <figure className="image">
-                  <img src="images/6_im.jpg" alt="" className="img-fluid" />
+                  <img src="images/Avatar/thun.png" alt="" className="img-fluid" />
                 </figure>
                 <div className="text">
                   <span className="text-uppercase">Collections</span>
-                  <h3>Women</h3>
+                  <h3>Áo thun</h3>
                 </div>
               </a>
             </div>
@@ -150,26 +137,22 @@ const Home = ({ strings }) => {
             >
               <a className="block-2-item" href="/">
                 <figure className="image">
-                  <img src="images/2_im.jpg" alt="" className="img-fluid" />
+                  <img src="images/Avatar/khoac.png" alt="" className="img-fluid" />
                 </figure>
                 <div className="text">
                   <span className="text-uppercase">Collections</span>
-                  <h3>Children</h3>
+                  <h3>Áo khoác</h3>
                 </div>
               </a>
             </div>
-            <div
-              className="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0"
-              data-aos="fade"
-              data-aos-delay="200"
-            >
+            <div className="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="200">
               <a className="block-2-item" href="/">
                 <figure className="image">
-                  <img src="images/3_im.jpg" alt="" className="img-fluid" />
+                  <img src="images/Avatar/Polo.png" alt="" className="img-fluid" />
                 </figure>
                 <div className="text">
                   <span className="text-uppercase">Collections</span>
-                  <h3>Men</h3>
+                  <h3>Polo</h3>
                 </div>
               </a>
             </div>
@@ -184,7 +167,6 @@ const Home = ({ strings }) => {
               <h2>Brand Cooperation!</h2>
             </div>
           </div>
-
           <Swiper watchSlidesProgress={ true } slidesPerView={ 4 } className="mySwiper">
             <SwiperSlide><img src="images/Logo/3.png" alt="" /></SwiperSlide>
             <SwiperSlide><img src="images/Logo/4.png" alt="" /></SwiperSlide>
@@ -196,7 +178,6 @@ const Home = ({ strings }) => {
           </Swiper>
         </div>
       </div>
-
     </>
   );
 };

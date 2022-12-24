@@ -83,20 +83,20 @@ const OdersState = (props) => {
       setOrdersLoading(true);
       await axios.post("api/orders/new", orderBody, { headers });
       // localStorage.removeItem('react-use-cart')
-      if (addToast) {
-        addToast("Đã xóa sản phẩm", { appearance: "success", autoDismiss: true });
-      }
+
       emptyCart();
       navigate("/thankYou");
       // setProducts([...products, productBody])
-      setOrdersMessage({
-        variant: "success",
-        message: "Đặt hàng thành công!",
-      });
+
+
       setOrdersLoading(false);
       setOrdersError(null);
     } catch (err) {
-      console.log(err);
+      if (addToast) {
+        addToast(`${err.response.data.error}`, { appearance: "error", autoDismiss: true });
+      }
+      setOrdersLoading(false);
+
     }
   };
 

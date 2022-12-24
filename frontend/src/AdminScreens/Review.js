@@ -8,6 +8,7 @@ import Paginator from 'react-hooks-paginator';
 
 import swal from "sweetalert";
 import productContext from "../context/product/productContext";
+import { Rating } from "@mui/material";
 
 
 const Review = () => {
@@ -73,7 +74,7 @@ const Review = () => {
           <div className="row">
             <div className="col-md-6">
               <h1>
-                <i className="fas fa-users" /> Đơn hàng
+                <i className="fas fa-users" /> Bình luận
               </h1>
             </div>
           </div>
@@ -137,7 +138,7 @@ const Review = () => {
                               <td className="product-mahang1">{ product._id }</td>
                               <td className="product-tenhang">{ product.name }</td>
                               <td className="product-logo">{ product.numOfReviews }</td>
-                              <td>{ product.ratings }</td>
+                              <td><Rating name="half-rating-read" defaultValue={ product.ratings } precision={ 0.5 } readOnly /></td>
                               <td>
                                 <Link
                                   to={ `/reviews/${product._id}` }
@@ -160,7 +161,7 @@ const Review = () => {
                   setOffset={ setOffset }
                   currentPage={ currentPage }
                   setCurrentPage={ setCurrentPage }
-                  pageContainerClass="mb-0 mt-0 d-flex "
+                  pageContainerClass="mb-0 mt-0 d-flex"
                   pagePrevText="«"
                   pageNextText="»"
                 />

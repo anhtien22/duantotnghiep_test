@@ -9,7 +9,7 @@ exports.addCategory = async (req, res) => {
     if (category_data.length > 0) {
       let checkCategory = false;
       for (let i = 0; i < category_data.length; i++) {
-        if (category_data[i]['title'].toLowerCase() === req.body.title.toLowerCase()) {
+        if (category_data[i]['title'] === req.body.title) {
           checkCategory = true;
           break;
         }

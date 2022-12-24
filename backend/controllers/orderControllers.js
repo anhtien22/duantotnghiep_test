@@ -7,6 +7,9 @@ const Product = require('../models/Product.js');
 exports.placeOrder = async (req, res) => {
   try {
     const order = new Order({ ...req.body, user: req.user._id })
+    if (!req.body.paymentMethod) {
+      throw new Error('Bạn chưa chọn phương thức thanh toán')
+    }
     await order.save()
     res.status(201).json({ success: true, message: 'Đã đặt hàng', order })
   } catch (err) {

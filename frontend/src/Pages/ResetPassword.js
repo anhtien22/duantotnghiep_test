@@ -3,13 +3,12 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import UserContext from '../context/user/UserContext';
 
 const ResetPassword = () => {
-  const navigate = useNavigate();
+  const uContext = useContext(UserContext)
+  const { resetPassword } = uContext
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const uContext = useContext(UserContext)
   const { token } = useParams();
-
-  const { resetPassword } = uContext
+  const navigate = useNavigate();
 
   const resetPasswordSubmit = (e) => {
     e.preventDefault();
@@ -18,7 +17,6 @@ const ResetPassword = () => {
 
     resetPassword(token, payload);
     navigate('/login')
-
   };
   return (
     <div>
@@ -50,7 +48,6 @@ const ResetPassword = () => {
                         name="password"
                         value={ password }
                       />
-
                     </div>
                     <div className="form-group">
                       <label htmlFor="password">Nhập mật khẩu mới</label>
@@ -61,10 +58,7 @@ const ResetPassword = () => {
                         name="confirmPassword"
                         value={ confirmPassword }
                       />
-
                     </div>
-
-
                     <input
                       type="submit"
                       defaultValue="ForgotPassword"

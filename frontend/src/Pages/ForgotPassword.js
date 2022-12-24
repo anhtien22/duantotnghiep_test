@@ -4,11 +4,11 @@ import UserContext from '../context/user/UserContext';
 import { useToasts } from "react-toast-notifications";
 
 const ForgotPassword = () => {
-  const [email, setEmail] = useState("")
-  const { addToast } = useToasts();
-
   const uContext = useContext(UserContext)
   const { forgotPassword } = uContext
+
+  const [email, setEmail] = useState("")
+  const { addToast } = useToasts();
 
   const handleForgotPassword = e => {
     e.preventDefault()
@@ -48,7 +48,6 @@ const ForgotPassword = () => {
                         value={ email }
                       />
                     </div>
-
                     <input
                       type="submit"
                       defaultValue="ForgotPassword"

@@ -1,16 +1,12 @@
+import { Box, Rating } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
+import Paginator from "react-hooks-paginator";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Navbar from "../AdminComponents/Navbar";
 import productContext from "../context/product/productContext";
 const ReviewById = () => {
   const pContext = useContext(productContext);
   const { getAllReviews } = pContext;
-
-
-
-
-  // const [productId, setProductId] = useState("");
-
   const { id } = useParams();
 
   const [review, setReview] = useState({
@@ -26,23 +22,15 @@ const ReviewById = () => {
     // eslint-disable-next-line
   }, []);
 
-  // const pageLimit = 5;
+  const pageLimit = 2;
 
-  // const [offset, setOffset] = useState(0);
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [currentData, setCurrentData] = useState([]);
+  const [offset, setOffset] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentData, setCurrentData] = useState([]);
 
-  // const productReviewsSubmitHandler = (e) => {
-  //   e.preventDefault();
-  //   getAllReviews(productId);
-  // };
-
-  // useEffect(() => {
-  //   if (productId.length === 24) {
-  //     getAllReviews(productId);
-  //   }
-  // }, []);
-
+  useEffect(() => {
+    setCurrentData(review.reviews.slice(offset, offset + pageLimit));
+  }, [offset, review.reviews]);
   return (
     <>
       <Navbar />
@@ -65,11 +53,6 @@ const ReviewById = () => {
             <div className="col-lg-10 col-xl-8">
               <div className="card" style={ { borderRadius: "10px" } }>
                 <div className="card-header px-4 py-5">
-                  {/* <h5 className="text-muted mb-0">
-                    Đơn hàng của,
-                    <span style={ { color: "#a8729a" } }>{ order.user?.name }</span>
-                    !
-                  </h5> */}
                 </div>
                 <div className="card-body p-4">
                   <div className="d-flex justify-content-between align-items-center mb-4">
@@ -84,32 +67,38 @@ const ReviewById = () => {
                     </p>
                   </div>
 
-                  { review.reviews && review.reviews.map((orderItem) => (
+                  { currentData && currentData.map((reviews) => (
                     <div
-                      key={ orderItem._id }
+                      key={ reviews._id }
                       className="card shadow-0 border mb-4"
                     >
                       <div className="card-body">
                         <div className="row">
                           <div className="col-3">
                             <p>Tên người bình luận</p>
-                            <span>{ orderItem.name }</span>
+                            <span>{ reviews.name }</span>
                           </div>
                           <div className="col-3">
                             <p>Nội dung bình luận</p>
-                            <span>{ orderItem.comment }</span>
+                            <span>{ reviews.comment }</span>
                           </div>
                           <div className="col-3">
                             <p>
                               Đánh giá *
                             </p>
-                            <span>{ orderItem.rating }</span>
+                            <Box>
+                              <Rating
+                                name="rating" size="small"
+                                defaultValue={ reviews.rating }
+                                readOnly
+                              />
+                            </Box>
                           </div>
                           <div className="col-3">
                             <p>
                               Ngày bình luận
                             </p>
-                            <span>{ new Date(orderItem.createdAt).toLocaleString() }</span>
+                            <span>{ new Date(reviews.createdAt).toLocaleString() }</span>
                           </div>
                         </div>
                         <hr
@@ -119,8 +108,19 @@ const ReviewById = () => {
                       </div>
                     </div>
                   )) }
-
+                  <Paginator
+                    totalRecords={ review.reviews.length }
+                    pageLimit={ pageLimit }
+                    pageNeighbours={ 2 }
+                    setOffset={ setOffset }
+                    currentPage={ currentPage }
+                    setCurrentPage={ setCurrentPage }
+                    pageContainerClass="mb-0 mt-0  d-flex justify-content-center align-items-center"
+                    pagePrevText="«"
+                    pageNextText="»"
+                  />
                 </div>
+
               </div>
             </div>
           </div>

@@ -93,7 +93,7 @@ const OrderCod = () => {
           </div>
         </div>
       </section>
-      <div className="" style={ { display: 'flex', justifyContent: 'center', gap: '50px' } }>
+      <div className="boxorders" >
 
         <div className="card text-center bg-success text-white mb-3">
           <div className="card-body">

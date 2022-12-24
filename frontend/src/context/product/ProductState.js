@@ -68,9 +68,11 @@ const ProductState = props => {
         title: `${err}`,
         icon: "error",
         button: "Ok",
-      });
-      setProductsLoading(false)
-      // errorHandler(err, 'không thể nhận được sản phẩm')
+      })
+        .then((value) => {
+          window.location.reload()
+          setProductsLoading(false)
+        });
     }
   }
 
@@ -85,35 +87,24 @@ const ProductState = props => {
       }
       setProductsLoading(true)
       await axios.post('api/products/add', productBody, { headers })
-      // setProducts([productBody, ...products])
-      // setProductsMessage({
-      //   variant: 'success',
-      //   message: 'Đã thêm sản phẩm thành công!',
-      // })
+
       swal({
         title: "Đã thêm sản phẩm thành công!",
         icon: "success",
       })
         .then((value) => {
           window.location.reload("/products")
-          // navigate("/products")
-          // swal(`The returned value is: ${value}`);
         });
       setProductsLoading(false)
       setProductsError(null)
     } catch (err) {
-
       swal({
         title: `Không thể thêm sản phẩm vui lòng nhập đầy đủ thông tin`,
         icon: "error",
       })
         .then((value) => {
-          // window.location.reload("/products")
           setProductsLoading(false)
-
-          // swal(`The returned value is: ${value}`);
         });
-      // errorHandler(err, 'Không thể thêm sản phẩm')
     }
   }
 
@@ -127,11 +118,6 @@ const ProductState = props => {
         'Content-Type': 'multipart/form-data',
       }
       const { data } = await axios.delete(`/api/products/${id}`, { headers })
-
-      // setProductsMessage({
-      //   variant: 'success',
-      //   message: 'Xóa thành công!',
-      // })
       setProductsLoading(false)
       setProductsError(null)
       return data.product
@@ -145,11 +131,8 @@ const ProductState = props => {
             navigate("/products")
           } else {
             navigate("/products")
-
           }
-          // swal(`The returned value is: ${value}`);
         });
-      // errorHandler(err, 'Không tìm thấy sản phẩm')
     }
   }
 
@@ -166,9 +149,11 @@ const ProductState = props => {
         title: `${err}`,
         icon: "error",
         button: "Ok",
-      });
-      setProductsLoading(false)
-      // errorHandler(err)
+      })
+        .then((value) => {
+          window.location.reload(`/shopSingle/${id}`)
+          setProductsLoading(false)
+        });
     }
   }
 
@@ -199,10 +184,6 @@ const ProductState = props => {
         Stock,
       })
       await axios.patch(`/api/products/${id}`, productBody, { headers })
-      // setProductsMessage({
-      //   variant: 'success',
-      //   message: 'Chi tiết sản phẩm được cập nhật!',
-      // })
       swal({
         title: "Bạn có chắc muốn thay đổi không?",
         icon: "warning",
@@ -216,17 +197,14 @@ const ProductState = props => {
             });
             setTimeout(() => {
               navigate("/products")
-              // setProductsLoading(false)
             }, 3000)
 
           } else {
             setProductsLoading(false)
-
             navigate(`/productDetailsAdmin/${id}`)
           }
         });
       setProductsError(null)
-      // getCategories()
     } catch (err) {
       swal({
         title: `${err}`,
@@ -234,9 +212,7 @@ const ProductState = props => {
       })
         .then((value) => {
           navigate("/products")
-          // swal(`The returned value is: ${value}`);
         });
-      // errorHandler(err, 'Không thể cập nhật chi tiết sản phẩm')
     }
   }
 
@@ -259,10 +235,6 @@ const ProductState = props => {
         icon: "success",
         button: "Ok",
       });
-      // setProductsMessage({
-      //   variant: 'success',
-      //   message: 'Hình ảnh sản phẩm được cập nhật!',
-      // })
       setProductsLoading(false)
       setProductsError(null)
       return data.image
@@ -273,14 +245,7 @@ const ProductState = props => {
       })
         .then((value) => {
           navigate(`/productDetailsAdmin/${id}`)
-          // swal(`The returned value is: ${value}`);
         });
-      // swal({
-      //   title: `${err}`,
-      //   icon: "error",
-      //   button: "Ok",
-      // });
-      // errorHandler(err, 'Không thể cập nhật hình ảnh')
     }
   };
 
@@ -306,9 +271,11 @@ const ProductState = props => {
         title: `${error}`,
         icon: "error",
         button: "Ok",
-      });
-      setProductsLoading(false)
-      // errorHandler(error, 'Bình luận thất bại')
+      })
+        .then((value) => {
+          window.location.reload()
+          setProductsLoading(false)
+        });
     }
   };
 
@@ -328,9 +295,7 @@ const ProductState = props => {
       })
         .then((value) => {
           navigate(`/reviews`)
-          // swal(`The returned value is: ${value}`);
         });
-      // errorHandler(error)
     }
   };
 

@@ -15,11 +15,15 @@ import {
 const { Option } = Select
 
 const Checkout = () => {
+  // for order context
+  const oContext = useContext(OrderContext);
+  const { placeOrder } = oContext;
+  const uContext = useContext(UserContext);
+  const { user } = uContext;
+
   const navigate = useNavigate();
   const { addToast } = useToasts();
   const [form] = Form.useForm();
-  const uContext = useContext(UserContext);
-  const { user } = uContext;
   const [shippingAddress, setShippingAddress] = useState({
     name: user.name,
     phone: "",
@@ -28,20 +32,9 @@ const Checkout = () => {
     postalCode: "",
     country: "",
   });
-
   const [orderItems, setOrderItems] = useState([]);
-
   const [paymentMethod, setPaymentMethod] = useState("");
-
-  // const [paymentResult, setPaymentResult] = useState({})
-
   const [sdkReady, setSdkReady] = useState(false);
-
-  // for order context
-  const oContext = useContext(OrderContext);
-  const { placeOrder } = oContext;
-  // user context
-
 
   const handleChange = (e) => {
     setShippingAddress({ ...shippingAddress, [e.target.name]: e.target.value });
@@ -68,12 +61,7 @@ const Checkout = () => {
     setOrderItems(newArr);
     // eslint-disable-next-line
   }, []);
-  const setPaymentMethods = useCallback(
-    (value) => {
-      setPaymentMethod(value)
-    },
-    []
-  )
+
   // for paypal payment method
   useEffect(() => {
     const addPaypalScript = async () => {
@@ -87,7 +75,7 @@ const Checkout = () => {
       };
       document.body.appendChild(script);
     };
-    console.log("paymentMethod", paymentMethod);
+
     if (paymentMethod === "paypal") {
       // addPaypalScript()
       if (!window.paypal) {
@@ -100,7 +88,17 @@ const Checkout = () => {
   }, [paymentMethod]);
 
   const handlePlaceOrder = () => {
+    if (paymentMethod === "") {
+      if (addToast) {
+        addToast(`Bạn chưa chọn phương thức thanh toán`, { appearance: "error", autoDismiss: true });
+      }
+    }
     placeOrder(orderItems, shippingAddress, paymentMethod, cartTotal, addToast);
+    setTimeout(() => {
+      if (addToast) {
+        addToast("Đặt hàng thành công!", { appearance: "success", autoDismiss: true });
+      }
+    }, 3000);
   };
   const formatter = new Intl.NumberFormat("it-IT", {
     style: "currency",
@@ -125,7 +123,7 @@ const Checkout = () => {
                       rules={ [
                         {
                           required: true,
-                          message: 'Xin vui lòng nhập tên',
+                          message: 'Xin vui lòng nhập tên !',
                         },
                       ] }
                     >
@@ -136,35 +134,22 @@ const Checkout = () => {
                         value={ shippingAddress.name }
                         onChange={ handleChange } />
                     </Form.Item>
-                    {/* <label htmlFor="c_country" className="text-black">
-                      Tên <span className="text-danger">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="name"
-                      value={ shippingAddress.name }
-                      onChange={ handleChange }
-                    // defaultValue={ shippingAddress.name }
-                    /> */}
                   </div>
 
                   <div className="form-group">
-                    <Form.Item
-                      name="phone"
-                      label="Số điện thoại"
+                    <Form.Item name="phone" label="Số điện thoại"
                       rules={ [
                         {
                           required: true,
-                          message: 'Vui lòng nhập số điện thoại!',
+                          message: 'Vui lòng nhập số điện thoại !',
                         },
                         {
                           min: 10,
-                          message: 'Sô điện thoại không hợp lệ!',
+                          message: 'Sô điện thoại không hợp lệ !',
                         },
                         {
                           max: 10,
-                          message: 'Sô điện thoại không hợp lệ!',
+                          message: 'Sô điện thoại không hợp lệ !',
                         },
                       ] }
                     >
@@ -176,16 +161,6 @@ const Checkout = () => {
                         value={ shippingAddress.phone }
                         onChange={ handleChange } />
                     </Form.Item>
-                    {/* <label htmlFor="c_country" className="text-black">
-                      Số điện thoại <span className="text-danger">*</span>
-                    </label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      name="phone"
-                      value={ shippingAddress.phone }
-                      onChange={ handleChange }
-                    /> */}
                   </div>
 
                   <div className="form-group ">
@@ -195,7 +170,7 @@ const Checkout = () => {
                       rules={ [
                         {
                           required: true,
-                          message: 'Vui lòng nhập địa chỉ!',
+                          message: 'Vui lòng nhập địa chỉ !',
                         },
                       ] }
                     >
@@ -205,24 +180,9 @@ const Checkout = () => {
                         showCount maxLength={ 100 }
                         value={ shippingAddress.address }
                         onChange={ handleChange }
-                        placeholder="Street address"
+                        placeholder=""
                       />
                     </Form.Item>
-                    {/* <div className="col-md-12">
-                      <label htmlFor="c_address" className="text-black">
-                        Địa chỉ <span className="text-danger">*</span>
-                      </label>
-                      <textarea
-                        className="form-control"
-                        id="c_address"
-                        name="address"
-                        cols={ 30 }
-                        rows={ 5 }
-                        value={ shippingAddress.address }
-                        onChange={ handleChange }
-                        placeholder="Street address"
-                      ></textarea>
-                    </div> */}
                   </div>
 
                   <div className="form-group">
@@ -232,7 +192,7 @@ const Checkout = () => {
                       rules={ [
                         {
                           required: true,
-                          message: 'Vui lòng nhập thành phố của bạn!',
+                          message: 'Vui lòng nhập thành phố của bạn !',
                         }
                       ] }
                     >
@@ -243,16 +203,6 @@ const Checkout = () => {
                         value={ shippingAddress.city }
                         onChange={ handleChange } />
                     </Form.Item>
-                    {/* <label htmlFor="c_country" className="text-black">
-                      Thành Phố <span className="text-danger">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="city"
-                      value={ shippingAddress.city }
-                      onChange={ handleChange }
-                    /> */}
                   </div>
 
                   <div className="form-group">
@@ -262,7 +212,7 @@ const Checkout = () => {
                       rules={ [
                         {
                           required: true,
-                          message: 'Vui lòng nhập Huyện/Phường của bạn!',
+                          message: 'Vui lòng nhập Huyện/Phường của bạn !',
                         }
                       ] }
                     >
@@ -274,16 +224,6 @@ const Checkout = () => {
                         value={ shippingAddress.country }
                         onChange={ handleChange } />
                     </Form.Item>
-                    {/* <label htmlFor="c_country" className="text-black">
-                      Huyện/Phường <span className="text-danger">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="country"
-                      value={ shippingAddress.country }
-                      onChange={ handleChange }
-                    /> */}
                   </div>
 
                   <div className="form-group">
@@ -293,7 +233,7 @@ const Checkout = () => {
                       rules={ [
                         {
                           required: true,
-                          message: 'Vui lòng nhập mã bưu điện của bạn!',
+                          message: 'Vui lòng nhập mã bưu điện của bạn !',
                         },
                         {
                           min: 6,
@@ -313,16 +253,6 @@ const Checkout = () => {
                         maxLength={ 6 }
                         onChange={ handleChange } />
                     </Form.Item>
-                    {/* <label htmlFor="c_country" className="text-black">
-                      Mã bưu điện <span className="text-danger">*</span>
-                    </label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      name="postalCode"
-                      value={ shippingAddress.postalCode }
-                      onChange={ handleChange }
-                    /> */}
                   </div>
                 </div>
               </div>
@@ -338,7 +268,7 @@ const Checkout = () => {
                             <th>Giá</th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="check">
                           { items.map((item) => (
                             <tr key={ item._id }>
                               <td>

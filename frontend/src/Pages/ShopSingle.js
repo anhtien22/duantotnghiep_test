@@ -12,23 +12,24 @@ import usePagination from "../helpers/Pagination"
 import { useToasts } from "react-toast-notifications";
 
 const ShopSingle = () => {
+  // for product context
+  const pContext = useContext(productContext);
+  const { getOneProduct, newReview } = pContext;
+  // user context
+  const userContext = useContext(UserContext)
+  const { user } = userContext
+
   const { addItem } = useCart();
   const { addToast } = useToasts();
   const [quantity, setQuantity] = useState(1);
-
-  const { id } = useParams();
-  const [product, setProduct] = useState({ brand: {} });
-  const pageLimit = 3;
-  const [offset, setOffset] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
   const [productReview, setProductReview] = useState([]);
   const [rating, setRating] = useState(1);
   const [comment, setComment] = useState("");
-
-  console.log("productReview", productReview);
-
+  const [product, setProduct] = useState({ brand: {} });
   const [page, setPage] = useState(1);
-  const PER_PAGE = 2;
+
+  const { id } = useParams();
+  const PER_PAGE = 5;
   const count = Math.ceil(productReview.length / PER_PAGE);
   const data = usePagination(productReview, PER_PAGE);
 
@@ -36,14 +37,6 @@ const ShopSingle = () => {
     setPage(p);
     data.jump(p);
   };
-
-  // for product context
-  const pContext = useContext(productContext);
-  const { getOneProduct, newReview } = pContext;
-
-  // user context
-  const userContext = useContext(UserContext)
-  const { user } = userContext
 
   useEffect(() => {
     const fetctProduct = async () => {
@@ -53,8 +46,7 @@ const ShopSingle = () => {
     };
     fetctProduct();
     // eslint-disable-next-line
-  }, [offset]);
-
+  }, []);
 
   const reviewSubmitHandler = (e) => {
     e.preventDefault();
@@ -74,68 +66,50 @@ const ShopSingle = () => {
     currency: "VND",
   });
 
-
   return (
     <>
       <Breadcrumb pageName={ product.name } />
+      <div class="container11">
+        <div class="imgBx">
+          <img src={ product.image } alt="" />
+        </div>
+        <div class="details">
+          <div class="content">
+            <h2>{ product.name }<br></br>
+              <span>Thương hiệu: { product.brand.local }</span>
+            </h2>
 
-      <div className="site-section">
-        <div className="container">
-          <div className="row">
-
-            <div className="wrapper1">
-              <div className="product-img">
-                <img src={ product.image } />
-              </div>
-              <div className="product-info">
-                <div className="product-text">
-                  <h1>{ product.name }</h1>
-                  <h2>Thương hiệu: { product.brand.local }</h2>
-                  <p>{ product.description }</p>
-                </div>
-                <div className="product-text">
-                  <div className="buttons_added">
-                    <input className="minus is-form" type="button" value="-" disabled={ quantity < 2 } onClick={ () => setQuantity(quantity - 1) } />
-                    <input aria-label="quantity" className="input-qty" type="number" value={ quantity } disabled onChange={ (e) => setQuantity(e.target.value) } />
-                    <input className="plus is-form" type="button" value="+" onClick={ () => setQuantity(quantity + 1) } disabled={ quantity >= product.Stock } />
-                  </div>
-                </div>
-                <p><span id="in"> { product.Stock } Sản phẩm có sãn</span></p>
-                <p><span id="in">{ formatter.format(product.price) }</span></p>
-                <div className="product-price-btn">
-
-                  {/* { product.Stock >= 0 ? (
-                    <> */}
-                  <div className="danhgia">
-                    <div>Tổng lượt đánh giá: { product?.ratings }</div>
-                    <Rating name="rating" readOnly defaultValue={ product.ratings } precision={ 0.5 } />
-                  </div>
-                  <br></br>
-                  {/* <Link to="/Cart"  > */ }
-                  <button type="button"
-                    onClick={ () => {
-                      let item = { ...product, id: product._id, };
-                      if (addToast) {
-                        addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
-                      }
-                      addItem(item, quantity);
-                    } }
-                    disabled={ product.Stock <= 1 }
-                  >buy now</button>
-                  {/* </Link> */ }
-                  {/* </>) : (<>
-                      <button className="buy-now btn btn-sm btn-primary">Hết hàng</button>
-                    </>
-                  ) } */}
-                </div>
-
-              </div>
-              <small>Mã sản phẩm: { product.sku }</small>
+            <div class="product-colors">
+              <input class="minus is-form" type="button" value="-" disabled={ quantity < 2 } onClick={ () => setQuantity(quantity - 1) } />
+              <input aria-label="quantity" class="input-qty" type="number" value={ quantity } disabled onChange={ (e) => setQuantity(e.target.value) } />
+              <input class="plus is-form" type="button" value="+" onClick={ () => setQuantity(quantity + 1) } disabled={ quantity >= product.Stock } />
             </div>
+            <div className=""><span>{ product.Stock } sản phẩm có sẵn</span></div>
+            { product.Stock >= 0 ? (
+              <>
+                <span>Tổng lượt đánh giá: { product?.ratings.toFixed(1) }</span>
+                <div id="start">
+                  <h3>{ formatter.format(product.price) }</h3>
+                  <Rating name="rating" readOnly defaultValue={ product.ratings } precision={ 0.5 } />
+                </div>
+                <button onClick={ () => {
+                  let item = { ...product, id: product._id, }; if (addToast) {
+                    addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
+                  };
+                  addItem(item, quantity);
+                } }
+                  disabled={ product.Stock <= 0 }
+                  type="button">{ product.Stock > 0 ? "Mua ngay" : "Hết Hàng" }</button>
+                <br></br>
+                <small>Mã sản phẩm: { product.sku }</small>
+              </>) : (<>
+                <button className="buy-now btn btn-sm btn-primary">Hết hàng</button>
+              </>
+            ) }
+            <h6 className="pt-2">Mô tả sản phẩm: { product.description }</h6>
           </div>
         </div>
       </div>
-
       <section>
         <div className="container">
           <div className="row">
@@ -211,7 +185,6 @@ const ShopSingle = () => {
             </div>
           </div>
         </div>
-
       </section>
     </>
   );
