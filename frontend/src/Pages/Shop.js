@@ -124,8 +124,6 @@ const Shop = () => {
   const handleInput = (e) => {
     setPrice(e.target.value);
   };
-  console.log(price);
-  const filterProduct = [...products];
 
   return (
     <>
@@ -170,114 +168,85 @@ const Shop = () => {
                 </div>
               </div>
 
-              <div className="row mb-5">
-                { products &&
-                  products
-                    .filter((filterProduct) => {
-                      return filterProduct.price <= price * 1;
-                    })
-                    .map((product) => (
-                      <div
-                        className="col-sm-6 col-lg-4 mb-4"
-                        data-aos="fade-up"
-                        key={ product.name }
-                      >
-                        <div className="block-4 text-center border">
+              <div className="row mb-5" id="shopproducts">
+                {/* products.filter((filterProduct) => {
+                  return filterProduct.price <= price * 1;
+                }) */}
+                {
+                  products &&
+                  products.map((product) => (
+                    <div
+                      className="col-sm-6 col-lg-4 mb-4"
+                      data-aos="fade-up"
+                      key={ product._id }
+                    >
+                      <div className="block-4 text-center border">
+                        <div className="box-image">
                           <figure className="block-4-image">
                             <Link to={ `/shopSingle/${product._id}` }>
-                              <img
-                                src={ product.image }
-                                alt="placeholder"
-                                className="img-fluid"
-                              />
+                              <img src={ product.image } alt="placeholder" className="img-fluid" />
                             </Link>
+                            <button className="deroul_titre" onClick={ () => {
+                              let item = {
+                                ...product,
+                                id: product._id,
+                              };
+                              if (addToast) {
+                                addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
+                              }
+                              addItem(item, quantity);
+                            } }>Mua ngay</button>
+                            <p className="deroul_soustitre">{ product.category.title }</p>
                           </figure>
-                          <div className="block-4-text p-4">
-                            <h3>
-                              <Link
-                                className="text-black font-weight-bold"
-                                to={ `/shopSingle/${product._id}` }
-                              >
-                                { product.name }
-                              </Link>
-                            </h3>
-                            <p className="mb-0 text-secondary">
-                              { product.category.title }
-                            </p>
-                            <p className="text-black font-weight-bold">
-                              { formatter.format(product.price) }
-                            </p>
-                            <p
-                              className="buy-now btn btn-sm btn-outline-dark"
-                              onClick={ () => {
-                                let item = {
-                                  ...product,
-                                  id: product._id,
-                                };
-                                addItem(item, quantity);
-                              } }
-                            >
-                              {/* <Link
-                        to="/Cart"
-                        className="buy-now btn btn-sm btn-primary"
-                        onClick={() => {
-                          let item = {
-                            ...product,
-                            id: product._id,
-                          };
-                          addItem(item, quantity);
-                        }}
-                      >
-                        Add To Cart
-                      </Link> */}
-                              add cart
-                            </p>
-                          </div>
+                        </div>
+                        <div className="block-4-text p-4">
+                          <p id="name"><Link to={ `/shopSingle/${product._id}` }>{ product.name }</Link>
+                          </p>
+                          <p id="price">{ formatter.format(product.price) }</p>
                         </div>
                       </div>
-                    )) }
-              </div>
-
-              <div className="row" data-aos="fade-up">
-                <div className="col-md-12 text-center">
-                  <div className="d-flex justify-content-between align-items-center my-3">
-                    <Button
-                      variant="success"
-                      size="sm"
-                      onClick={ handlePreviousClick }
-                      disabled={ skip < 1 }
-                    >
-                      &larr; Trước
-                    </Button>
-
-                    <div className="text-center mx-2">
-                      Trang -{ skip / limit + 1 },
-                      <span className="text-muted">
-                        { " " }
-                        Hiển thị { products.length } trong số { totalResults } sản
-                        phẩm .
-                      </span>
                     </div>
+                  )) }
+                <div className="row" data-aos="fade-up">
+                  <div className="col-md-12 text-center">
+                    <div className="d-flex justify-content-between align-items-center my-3">
+                      <Button
+                        variant="success"
+                        size="sm"
+                        onClick={ handlePreviousClick }
+                        disabled={ skip < 1 }
+                      >
+                        &larr; Trước
+                      </Button>
 
-                    <Button
-                      variant="success"
-                      size="sm"
-                      onClick={ handleNextClick }
-                      disabled={ totalResults - skip <= limit }
-                    >
-                      Tiếp tục &rarr;
-                    </Button>
+                      <div className="text-center mx-2">
+                        Trang -{ skip / limit + 1 },
+                        <span className="text-muted">
+                          { " " }
+                          Hiển thị { products.length } trong số { totalResults } sản
+                          phẩm .
+                        </span>
+                      </div>
+
+                      <Button
+                        variant="success"
+                        size="sm"
+                        onClick={ handleNextClick }
+                        disabled={ totalResults - skip <= limit }
+                      >
+                        Tiếp tục &rarr;
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="col-md-3 order-1 mb-5 mb-md-0">
-              <div className="border p-4 rounded mb-4">
-                {/* <h3 className="mb-3 h6 text-uppercase text-black d-block">
+              <div className="col-md-3 order-1 mb-5 mb-md-0">
+                <div className="border p-4 rounded mb-4">
+                  {/* <h3 className="mb-3 h6 text-uppercase text-black d-block">
                   Danh Mục
                 </h3> */}
-                {/* <div className="cont">
+                  {/* <div className="cont">
                   <label className="container">Tất cả
                     <input type="radio" checked="checked" name="radio" onClick={ () => {
                       setCategory('')
@@ -295,67 +264,68 @@ const Shop = () => {
                     </label>
                   )) }
                 </div> */}
-                {/* <div className="mb-4"> */ }
-                <h3 className="mb-3 h6 text-uppercase text-black d-block">
-                  Danh Mục
-                </h3>
-                {/* <div id="slider-range" className="border-primary"> */ }
-                <ul className="list-unstyled mb-0">
-                  <li className="mb-1">
-                    <button
-                      className="d-flex btn btn-secondary"
-                      onClick={ () => {
-                        setCategory("");
-                        setSkip(0);
-                      } }
-                    >
-                      <span>Tất cả</span>
-                      {/* <span className="text-black ml-auto">
-                        ({totalResults})
-                      </span> */}
-                    </button>
-                  </li>
-                  { categories.map((cate) => (
-                    <li className="mb-1" key={ cate._id }>
+                  {/* <div className="mb-4"> */ }
+                  <h3 className="mb-3 h6 text-uppercase text-black d-block">
+                    Danh Mục
+                  </h3>
+                  {/* <div id="slider-range" className="border-primary"> */ }
+                  <ul className="list-unstyled mb-0">
+                    <li className="mb-1">
                       <button
                         className="d-flex btn btn-secondary"
                         onClick={ () => {
-                          setCategory(cate._id);
+                          setCategory("");
                           setSkip(0);
                         } }
                       >
-                        <span>{ cate.title }</span>
-                        {/* <span className="text-black ml-auto">(2,220)</span> */ }
+                        <span>Tất cả</span>
+                        {/* <span className="text-black ml-auto">
+                        ({totalResults})
+                      </span> */}
                       </button>
                     </li>
-                  )) }
-                </ul>
-                <div className="App">
-                  <p>
-                    Filter Price:
-                    <br /> 0 VND - { formatter.format(price) }
-                  </p>
-                  <input type="range" min={ 0 } max={ 5000000 } onInput={ handleInput } />
-                </div>
-                {/* </div> */ }
-
-
-                <section id="sidebar">
-                  <div className="py-2 border-bottom ml-3">
-                    <h6 className="font-weight-bold">Danh Mục</h6>
-                    <div id="orange"><span className="fa fa-minus"></span></div>
-                    <form>
-                      <div className="form-group" onClick={ () => { setCategory(''); setSkip(0) } }>
-                        <label htmlFor="artisan">Tất cả</label>
-                      </div>
-                      { categories.map((cate) => (
-                        <div className="form-group" onClick={ () => { setCategory(cate._id); setSkip(0); } }>
-                          <label htmlFor="breakfast">{ cate.title }</label>
-                        </div>
-                      )) }
-                    </form>
+                    { categories.map((cate) => (
+                      <li className="mb-1" key={ cate._id }>
+                        <button
+                          className="d-flex btn btn-secondary"
+                          onClick={ () => {
+                            setCategory(cate._id);
+                            setSkip(0);
+                          } }
+                        >
+                          <span>{ cate.title }</span>
+                          {/* <span className="text-black ml-auto">(2,220)</span> */ }
+                        </button>
+                      </li>
+                    )) }
+                  </ul>
+                  <div className="App">
+                    <p>
+                      Filter Price:
+                      <br /> 0 VND - { formatter.format(price) }
+                    </p>
+                    <input type="range" min={ 0 } max={ 5000000 } onInput={ handleInput } />
                   </div>
-                </section>
+                  {/* </div> */ }
+
+
+                  <section id="sidebar">
+                    <div className="py-2 border-bottom ml-3">
+                      <h6 className="font-weight-bold">Danh Mục</h6>
+                      <div id="orange"><span className="fa fa-minus"></span></div>
+                      <form>
+                        <div className="form-group" onClick={ () => { setCategory(''); setSkip(0) } }>
+                          <label htmlFor="artisan">Tất cả</label>
+                        </div>
+                        { categories.map((cate) => (
+                          <div className="form-group" onClick={ () => { setCategory(cate._id); setSkip(0); } }>
+                            <label htmlFor="breakfast">{ cate.title }</label>
+                          </div>
+                        )) }
+                      </form>
+                    </div>
+                  </section>
+                </div>
               </div>
             </div>
           </div>
