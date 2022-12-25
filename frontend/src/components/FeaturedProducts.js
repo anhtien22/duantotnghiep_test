@@ -5,8 +5,20 @@ import { useCart } from "react-use-cart";
 import CategoryContext from "../context/category/categoryContext";
 import productContext from "../context/product/productContext";
 import usePagination from "../helpers/Pagination";
-import { Pagination } from "@material-ui/lab";
+// import { Pagination } from "@material-ui/lab";
 import { useToasts } from "react-toast-notifications";
+
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import 'swiper/swiper.min.css'
+import 'swiper/swiper-bundle.min.css'
+import 'swiper/components/navigation/navigation.min.css'
+import 'swiper/components/pagination/pagination.min.css'
+import "../../src/index.css";
+import { Pagination, Navigation } from "swiper";
+
+
+
 
 const FeaturedProducts = () => {
   const pContext = useContext(productContext);
@@ -48,48 +60,67 @@ const FeaturedProducts = () => {
     currency: "VND",
   });
   return (
-    <div className="site-section block-3 site-blocks-2 bg-light">
-      <div className="container">
-        <div className="row justify-content-center">
+<div>
           <div className="col-md-7 site-section-heading text-center pt-4">
             <h2>Sản phẩm mới</h2>
           </div>
-          <div className="row mb-5" id="featuredproducts">
-            {
-              products.map((product) => (
-                <>
-                  { product.ratings >= 3 ? (
-                    <>
-                      <div className="col-sm-6 col-lg-4 mb-4" data-aos="fade-up" key={product._id} >
-                        <div className="block-4 text-center border">
-                          <div className="product-img">
-                            <Link to={`/shopSingle/${product._id}`}>
-                              <img src={product.image} alt=""/>
-                            </Link>
-                            <div className="btn">                               
-                            <i class="icon" onClick={() => { let item = {  ...product, id: product._id,}; if (addToast) {
-                                addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
-                              }
-                              addItem(item, quantity);
+            <Swiper
+              slidesPerView={1}
+              spaceBetween={3}
+              pagination={{
+                clickable: true,
+              }}
+              breakpoints={{
+                640: {
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+                768: {
+                  slidesPerView: 4,
+                  spaceBetween: 40,
+                },
+                1024: {
+                  slidesPerView: 5,
+                  spaceBetween: 50,
+                },
+              }}
+              modules={[Pagination]}
+              className="mySwiper"
+            >
+              {
+                products.map((product) => (
+                  <>
+                    {product.ratings >= 3 ? (
+                      <>
+                        <SwiperSlide>
+                          <div className="block-4 text-center border" key={product._id}>
+                            <div className="product-img">
+                              <Link to={`/shopSingle/${product._id}`}>
+                                <img src={product.image} alt="" />
+                              </Link>
+                              <div className="btn">
+                                <i class="icon" onClick={() => {
+                                  let item = { ...product, id: product._id, }; if (addToast) {
+                                    addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
+                                  }
+                                  addItem(item, quantity);
                                 }}>Mua Ngay
-                              </i>
+                                </i>
+                              </div>
+                            </div>
+                            <div className="block-4-text p-4">
+                              <p id="name"><Link to={`/shopSingle/${product._id}`}>{product.name}</Link></p>
+                              <p className="text-black font-weight-bold"><Rating name="half-rating-read" defaultValue={product.ratings} precision={0.5} readOnly /></p>
+                              <p id="price">{formatter.format(product.price)}</p>
                             </div>
                           </div>
-                          <div className="block-4-text p-4">
-                            <p id="name"><Link to={`/shopSingle/${product._id}`}>{product.name}</Link></p>
-                            <p className="text-black font-weight-bold"><Rating name="half-rating-read" defaultValue={ product.ratings } precision={ 0.5 } readOnly /></p>
-                            <p id="price">{formatter.format(product.price)}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </>
-                  ) : "" }
-                </>
-              )
-              ) }
-          </div>
-        </div>
-      </div>
+                        </SwiperSlide>
+                      </>
+                    ) : ""}
+                  </>
+                )
+                )}
+            </Swiper>
     </div>
   );
 };

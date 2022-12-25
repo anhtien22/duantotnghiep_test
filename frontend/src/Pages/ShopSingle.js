@@ -97,13 +97,13 @@ const ShopSingle = () => {
             
               {product.Stock >= 0 ? (
                 <>
-                    {/* <span>Tổng lượt đánh giá: {product?.ratings}</span> */}
+                    <span>Tổng lượt đánh giá: {product?.ratings}</span>
                     <div id="start">
                       <h3>{formatter.format(product.price)}</h3>
                     <Rating name="rating" readOnly defaultValue={product.ratings} precision={0.5} />
                     </div>
                   <Link to="/Cart" onClick={() => { let item = { ...product, id: product._id, }; addItem(item, quantity); }} >
-                    <button type="button">buy now</button>
+                    <button type="button">Mua ngay</button>
                   </Link><br></br>
                   <small>Mã sản phẩm: {product.sku}</small>
                   
@@ -122,7 +122,7 @@ const ShopSingle = () => {
         <div className="container">
           <div className="row">
             <div className="col-sm-5 col-md-6 col-12 pb-4">
-              <h1>Comments</h1>
+              <h1>Bình luận</h1>
               {data.currentData().map((review, key) => (
                 <div className="comment mt-4 text-justify float-left col-122">
                   <div className="box1">
@@ -156,10 +156,10 @@ const ShopSingle = () => {
 
             <div className="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4">
               <form id="algin-form" onSubmit={reviewSubmitHandler}>
-                <h4>Leave a comment</h4>
+                <h4>Để lại một bình luận</h4>
                 {user ? (<>
                   <div className="form-group">
-                    <label>Your rating:</label>
+                    <label>Đánh giá:</label>
                     <Box
                       sx={{
                         '& > legend': { mt: 1 },
@@ -174,7 +174,7 @@ const ShopSingle = () => {
                       />
                     </Box>
 
-                    <label htmlFor="message">Message</label>
+                    <label htmlFor="message">Thông điệp</label>
                     <textarea
                       name="msg"
                       cols="30"
@@ -185,15 +185,15 @@ const ShopSingle = () => {
                       onChange={(e) => setComment(e.target.value)}
                     ></textarea>
                   </div>
-                  <input className="btn btn-secondary" type="submit" />
+                  <input className="btn btn-secondary" type="submit"/>
                 </>) : (
                   <p>Bạn cần đăng nhập để bình luận <Link to="/login">tại đây</Link></p>
                 )}
               </form>
+              <br></br>
             </div>
           </div>
         </div>
-
       </section>
     </>
   );
