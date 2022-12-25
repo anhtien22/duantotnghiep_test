@@ -140,19 +140,17 @@ const Shop = () => {
                         <Link to={ `/shopSingle/${product._id}` }>
                           <img src={ product.image } alt="" />
                         </Link>
-                        <div className="btn">
-
-                          <i className="icon" onClick={ () => {
+                        <div>
+                          <button className="icon btn" onClick={ () => {
                             let item = { ...product, id: product._id, }; if (addToast) {
                               addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
                             }
                             addItem(item, quantity);
-                          } }>Mua Ngay
-                          </i>
-
+                          } }
+                            disabled={ product.Stock <= 1 } >{ product.Stock <= 1 ? "Hết Hàng" : "Thêm vào giỏ hàng" }
+                          </button>
                         </div>
                       </div>
-
                       <div className="block-4-text p-4">
                         <p id="name"><Link to={ `/shopSingle/${product._id}` }>{ product.name }</Link>
                         </p>

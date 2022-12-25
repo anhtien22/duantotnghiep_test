@@ -76,11 +76,11 @@ const FeaturedProducts = () => {
             spaceBetween: 20,
           },
           768: {
-            slidesPerView: 4,
+            slidesPerView: 3,
             spaceBetween: 40,
           },
           1024: {
-            slidesPerView: 5,
+            slidesPerView: 4,
             spaceBetween: 50,
           },
         } }
@@ -98,15 +98,18 @@ const FeaturedProducts = () => {
                         <Link to={ `/shopSingle/${product._id}` }>
                           <img src={ product.image } alt="" />
                         </Link>
-                        <div className="btn">
-                          <i class="icon" onClick={ () => {
-                            let item = { ...product, id: product._id, }; if (addToast) {
-                              addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
-                            }
-                            addItem(item, quantity);
-                          } } >Mua Ngay
-                          </i>
-                        </div>
+                        <Link to={ `/cart` }>
+                          <div>
+                            <button class="icon btn" onClick={ () => {
+                              let item = { ...product, id: product._id, }; if (addToast) {
+                                addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
+                              }
+                              addItem(item, quantity);
+                            } }
+                              disabled={ product.Stock <= 1 } >{ product.Stock <= 1 ? "Hết Hàng" : "Mua Ngay" }
+                            </button>
+                          </div>
+                        </Link>
                       </div>
                       <div className="block-4-text p-4">
                         <p id="name"><Link to={ `/shopSingle/${product._id}` }>{ product.name }</Link></p>

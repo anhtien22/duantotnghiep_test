@@ -98,7 +98,7 @@ const Checkout = () => {
       if (addToast) {
         addToast("Đặt hàng thành công!", { appearance: "success", autoDismiss: true });
       }
-    }, 3000);
+    }, 2000);
   };
   const formatter = new Intl.NumberFormat("it-IT", {
     style: "currency",

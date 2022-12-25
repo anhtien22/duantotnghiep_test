@@ -92,14 +92,18 @@ const ShopSingle = () => {
                   <h3>{ formatter.format(product.price) }</h3>
                   <Rating name="rating" readOnly defaultValue={ product.ratings } precision={ 0.5 } />
                 </div>
-                <button onClick={ () => {
-                  let item = { ...product, id: product._id, }; if (addToast) {
-                    addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
-                  };
-                  addItem(item, quantity);
-                } }
-                  disabled={ product.Stock <= 0 }
-                  type="button">{ product.Stock > 0 ? "Mua ngay" : "Hết Hàng" }</button>
+                <Link to={ `/cart` }>
+                  <button onClick={ () => {
+                    let item = { ...product, id: product._id, };
+                    if (addToast) {
+                      addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
+                    };
+                    addItem(item, quantity);
+                  } }
+                    disabled={ product.Stock <= 1 }
+                    type="button">{ product.Stock <= 1 ? "Hết Hàng" : "Mua Ngay" }</button>
+                </Link>
+
                 <br></br>
                 <small>Mã sản phẩm: { product.sku }</small>
               </>) : (<>

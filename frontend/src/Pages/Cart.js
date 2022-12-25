@@ -85,16 +85,44 @@ const Cart = () => {
                               <td className="product-logo">{ formatter.format(item.price) }</td>
                               <td>
                                 <div className="buttons_added">
-                                  <input className="minus is-form" type="button" value="-" onClick={ () => updateItemQuantity(item.id, item.quantity - 1) } />
-                                  <input aria-label="quantity" className="input-qty" type="number" value={ item.quantity } disabled onChange={ (e) => updateItemQuantity(item.id, e.target.value) } />
-                                  <input className="plus is-form" type="button" value="+" onClick={ () => updateItemQuantity(item.id, item.quantity + 1) } disabled={ item.quantity >= item.Stock } />
+                                  <input
+                                    className="minus is-form"
+                                    type="button"
+                                    value="-"
+                                    onClick={ () => {
+                                      if (addToast) {
+                                        addToast("Xóa số lượng sản phẩm thành công", { appearance: "success", autoDismiss: true });
+                                      }; updateItemQuantity(item.id, item.quantity - 1)
+                                    }
+                                    }
+                                  />
+                                  <input
+                                    aria-label="quantity"
+                                    className="input-qty"
+                                    type="number"
+                                    value={ item.quantity }
+                                    disabled
+                                    onClick={ (e) => updateItemQuantity(item.id, e.target.value)
+                                    }
+                                  />
+                                  <input
+                                    className="plus is-form"
+                                    type="button"
+                                    value="+"
+                                    onClick={ () => {
+                                      if (addToast) {
+                                        addToast("Thêm số lượng sản phẩm thành công", { appearance: "success", autoDismiss: true });
+                                      };
+                                      updateItemQuantity(item.id, item.quantity + 1)
+                                    } }
+                                    disabled={ item.quantity >= item.Stock }
+                                  />
                                 </div>
                               </td>
                               <td>{ formatter.format(item.itemTotal) }</td>
                               <td>
                                 <button onClick={ () => removeItems(item.id) } className="delete"><i className="fa fa-trash" ></i></button>
                               </td>
-
                             </tr>
                           )) }
                         </>

@@ -1,7 +1,9 @@
-import React, { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import Paginator from "react-hooks-paginator";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../AdminComponents/Navbar";
 import OrderContext from "../context/orders/orderContext";
+import { Form, FormControl } from "react-bootstrap";
 
 const total = (orders, status) =>
   orders.reduce((r, index) => {
@@ -28,6 +30,31 @@ const OrderCod = () => {
     style: "currency",
     currency: "VND",
   });
+  const pageLimit = 5;
+
+  const [offset, setOffset] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentData, setCurrentData] = useState([]);
+
+  const navigate = useNavigate();
+  const [keyword, setKeyword] = useState("");
+  const searchHandler = (e) => {
+    e.preventDefault();
+    if (keyword.trim()) {
+      navigate(`/orderAdmin/cod?id=${keyword}`);
+    } else {
+      navigate(`/orderAdmin/cod`)
+    }
+  }
+
+  const handlerSearchChange = (e) => {
+    setKeyword(e.target.value);
+  }
+
+  useEffect(() => {
+    setCurrentData(orders.slice(offset, offset + pageLimit));
+  }, [offset, orders]);
+
   useEffect(() => {
     getAllOrders();
     // eslint-disable-next-line
@@ -45,12 +72,12 @@ const OrderCod = () => {
     <>
       <Navbar />
       {/* HEADER */ }
-      <header id="main-header" className="py-2 bg-warning text-white">
+      <header id="main-header" className="py-2 bg-info text-white">
         <div className="container">
           <div className="row">
             <div className="col-md-6">
               <h1>
-                <i className="fas fa-users" /> Orders
+                <i className="fas fa-shopping-cart" /> Đơn hàng
               </h1>
             </div>
           </div>
@@ -61,34 +88,21 @@ const OrderCod = () => {
       <section id="search" className="py-4 mb-4 bg-light">
         <div className="container">
           <div className="row">
-            {/* <div>Doanh thu đã giao hàng: {formatter.format(resulf)}</div>
-            <div>
-              Doanh thu đã thanh toán online: {formatter.format(resulf2)}
-            </div>
-            <Link to={`/orderAdmin/online`} className="btn btn-secondary">
-              <i className="fas fa-angle-double-right" /> Chi tiết
-            </Link>
-            <div>Tổng doanh thu : {formatter.format(resulf3)}</div>
-            <Link to={`/orders`} className="btn btn-secondary">
-              <i className="fas fa-angle-double-right" /> Chi tiết
-            </Link>{" "}
-            <div>
-              Đã hủy
-              <Link to={`/orderAdmin/canceled`} className="btn btn-secondary">
-                <i className="fas fa-angle-double-right" /> Chi tiết
-              </Link>
-            </div> */}
             <div className="col-md-6 ml-auto">
-              <div className="input-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Search Users..."
+              <Form className="d-flex" onSubmit={ searchHandler }>
+                <FormControl
+                  type="search"
+                  placeholder="Mã đơn hàng"
+                  className="me-2"
+                  aria-label="Search"
+                  minLength={ 3 }
+                  size="sm"
+                  defaultValue={ keyword } onChange={ handlerSearchChange }
                 />
-                <div className="input-group-append">
-                  <button className="btn btn-warning">Search</button>
-                </div>
-              </div>
+                <button type="submit" className="btn btn-secondary mx-3">
+                  Tìm kiếm
+                </button>
+              </Form>
             </div>
           </div>
         </div>
@@ -168,38 +182,57 @@ const OrderCod = () => {
                     <tbody>
                       {
                         <>
-                          { orders.map((order, index) =>
+                          { currentData.filter((value) => {
+                            if (keyword === "") {
+                              return value;
+                            } else if (value._id.toLowerCase().includes(keyword.toLowerCase())) {
+                              return value;
+                            }
+                          }).map((order, index) =>
                             order.paymentResult.status === "Successfully" ? (
-                            <tr key={ order._id }>
-                              <td className="product-mahang1">
-                              { order._id }
-                              </td>
-                              <td className="product-tenhang">{ order.user?.name }</td>
-                              <td className="product-logo"> { new Date(order.createdAt).toLocaleDateString() }</td>
-                              <td>
-                              { formatter.format(order.totalPrice) }
-                              </td>
-                              <td>
-                              <div className="flex-grow w-full online">
-                                Đã giao hàng
-                              </div>
-                              </td>
-                              <td>
-                                <Link
-                                  to={ `/orderDetailsAdmin/${order._id}` }
-                                  className="btn btn-secondary bg-primary text-white"
-                                >
-                                  <i className="fas fa-angle-double-right" /> Chi
-                                  tiết
-                                </Link>
-                              </td>
-                            </tr>
-                          ):(""))}
+                              <tr key={ order._id }>
+                                <td className="product-mahang1">
+                                  { order._id }
+                                </td>
+                                <td className="product-tenhang">{ order.user?.name }</td>
+                                <td className="product-logo"> { new Date(order.createdAt).toLocaleDateString() }</td>
+                                <td>
+                                  { formatter.format(order.totalPrice) }
+                                </td>
+                                <td>
+                                  <div className="flex-grow w-full online">
+                                    Đã giao hàng
+                                  </div>
+                                </td>
+                                <td>
+                                  <Link
+                                    to={ `/orderDetailsAdmin/${order._id}` }
+                                    className="btn btn-secondary bg-primary text-white"
+                                  >
+                                    <i className="fas fa-angle-double-right" /> Chi
+                                    tiết
+                                  </Link>
+                                </td>
+                              </tr>
+
+                            ) : ("")) }
+                          <Paginator
+                            totalRecords={ orders.length }
+                            pageLimit={ pageLimit }
+                            pageNeighbours={ 2 }
+                            setOffset={ setOffset }
+                            currentPage={ currentPage }
+                            setCurrentPage={ setCurrentPage }
+                            pageContainerClass="mb-0 mt-0 d-flex"
+                            pagePrevText="«"
+                            pageNextText="»"
+                          />
                         </>
                       }
                     </tbody>
                   </table>
                 </div>
+
               </div>
             </div>
           </div>

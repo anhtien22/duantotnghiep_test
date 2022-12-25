@@ -118,35 +118,6 @@ const Orders = () => {
       <section id="search" className="py-4 mb-4 bg-light">
         <div className="container">
           <div className="row">
-            {/* <div>Doanh thu giao hàng: {formatter.format(resulf)}</div>
-            <Link to={`/orderAdmin/cod`} className="btn btn-secondary">
-              <i className="fas fa-angle-double-right" /> Chi tiết
-            </Link>
-            <div>
-              Doanh thu đã thanh toán online: {formatter.format(resulf2)}
-              <Link to={`/orderAdmin/online`} className="btn btn-secondary">
-                <i className="fas fa-angle-double-right" /> Chi tiết
-              </Link>
-            </div>
-            <div>Tổng doanh thu : {formatter.format(resulf3)}</div>
-            <div>
-              Đã hủy
-              <Link to={`/orderAdmin/canceled`} className="btn btn-secondary">
-                <i className="fas fa-angle-double-right" /> Chi tiết
-              </Link>
-            </div> */}
-            {/* <div className="col-md-6 ml-auto">
-              <div className="input-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Search Users..."
-                />
-                <div className="input-group-append">
-                  <button className="btn btn-warning">Tìm kiếm</button>
-                </div>
-              </div>
-            </div> */}
             <div className="col-md-6 ml-auto">
               <Form className="d-flex" onSubmit={ searchHandler }>
                 <FormControl
