@@ -117,7 +117,7 @@
     display: grid;
 }
 .swiper-slide p{
-    margin-bottom: 2rem !important;
+    margin-bottom: 2rem ;
 }
 .mb{
     max-width: 100% !important;

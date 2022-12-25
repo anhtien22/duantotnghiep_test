@@ -108,7 +108,7 @@ const ProfileScreen = () => {
 
                     <div className="form-group">
                       <input
-                        value="save changes"
+                        value="Lưu thay đổi"
                         type="submit"
                         className="btn btn-dark btn-block"
                       />
