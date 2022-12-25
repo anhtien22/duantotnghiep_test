@@ -22,7 +22,7 @@ exports.addCategory = async (req, res) => {
         await category.save()
         res.status(200).json({ success: true, category })
       } else {
-        res.status(200).json({ error: 'Danh mục đã tồn tại' })
+        res.status(400).json({ error: 'Danh mục đã tồn tại' })
       }
 
     } else {

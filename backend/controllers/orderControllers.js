@@ -10,6 +10,12 @@ exports.placeOrder = async (req, res) => {
     if (!req.body.paymentMethod) {
       throw new Error('Bạn chưa chọn phương thức thanh toán')
     }
+    if (order.paymentResult.status === "COMPLETED") {
+      order.orderItems.forEach(async (o) => {
+        await updateStock(o.product, o.quantity);
+      });
+    }
+
     await order.save()
     res.status(201).json({ success: true, message: 'Đã đặt hàng', order })
   } catch (err) {
@@ -103,15 +109,30 @@ exports.updateOrder = async (req, res, next) => {
       .status(404)
       .json({ success: false, error: "Đơn hàng không tìm thấy Id" });
   }
+
   if (order.paymentResult.status === "Successfully") {
     return res.status(400).json({
       success: false,
       error: "Bạn đã thực hiện thành công đơn hàng này",
     });
   }
-  order.orderItems.forEach(async (o) => {
-    await updateStock(o.product, o.quantity);
-  });
+
+  if (req.body.status === "Processing") {
+    order.orderItems.forEach(async (o) => {
+      await updateStock(o.product, o.quantity);
+    });
+  }
+  if (req.body.status === "Successfully") {
+    order.orderItems.forEach(async (o) => {
+      await updateStockSuccess(o.product, o.quantity);
+    });
+  }
+  if (req.body.status === "Canceled") {
+    order.orderItems.forEach(async (o) => {
+      await updateStockCanceled(o.product, o.quantity);
+    });
+  }
+
   order.paymentResult.status = req.body.status;
 
   if (req.body.status === "Successfully") {
@@ -125,8 +146,27 @@ exports.updateOrder = async (req, res, next) => {
 };
 async function updateStock(id, quantity) {
   const product = await Product.findById(id);
-
   product.Stock -= quantity;
+
+  // if (product.Stock = quantity) {
+  //   return product.Stock;
+  // } else {
+  // }
+  await product.save({ validateBeforeSave: false });
+
+}
+async function updateStockSuccess(id, quantity) {
+  const product = await Product.findById(id);
+
+  product.Stock = quantity;
+
+  await product.save({ validateBeforeSave: false });
+
+}
+async function updateStockCanceled(id, quantity) {
+  const product = await Product.findById(id);
+
+  product.Stock += quantity;
 
   await product.save({ validateBeforeSave: false });
 }

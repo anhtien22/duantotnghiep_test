@@ -12,7 +12,6 @@ const statusOrder = {
   Processing: "Đang giao hàng",
   Successfully: "Đã giao hàng",
   Canceled: "Đã hủy",
-
   // COMPLETED: "Đã Thanh toán online",
 };
 const total = (orders, status) =>
@@ -108,7 +107,7 @@ const Orders = () => {
           <div className="row">
             <div className="col-md-6">
               <h1>
-                <i className="fas fa-users" /> Đơn hàng
+                <i className="fas fa-shopping-cart" /> Đơn hàng
               </h1>
             </div>
           </div>

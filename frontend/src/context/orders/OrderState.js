@@ -3,6 +3,7 @@ import OrderContext from "./orderContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "react-use-cart";
+import swal from "sweetalert";
 
 // Function for cleaning null, undefined and empty strings values in objects
 function clean(obj) {
@@ -76,6 +77,7 @@ const OdersState = (props) => {
       paymentResult,
     });
     try {
+      console.log("paymentMethod", paymentMethod);
       const userToken = JSON.parse(localStorage.getItem("userToken"));
       const headers = {
         Authorization: `Bearer ${userToken && userToken}`,
@@ -119,7 +121,15 @@ const OdersState = (props) => {
       setOrdersError(null);
       return data;
     } catch (err) {
-      errorHandler(err);
+      swal({
+        title: `${err.response.data.error}`,
+        icon: "error",
+        button: "Ok",
+      })
+        .then((value) => {
+          window.location.reload()
+          setOrdersLoading(false)
+        });
     }
   };
 
@@ -138,7 +148,15 @@ const OdersState = (props) => {
       setOrdersLoading(false);
       setOrdersError(null);
     } catch (err) {
-      errorHandler(err);
+      swal({
+        title: `${err.response.data.error}`,
+        icon: "error",
+        button: "Ok",
+      })
+        .then((value) => {
+          window.location.reload()
+          setOrdersLoading(false)
+        });
     }
   };
 
@@ -159,7 +177,15 @@ const OdersState = (props) => {
       setOrdersError(null);
       return data.order;
     } catch (err) {
-      errorHandler(err);
+      swal({
+        title: `${err.response.data.error}`,
+        icon: "error",
+        button: "Ok",
+      })
+        .then((value) => {
+          window.location.reload(`/myOrderDetails/${id}`)
+          setOrdersLoading(false)
+        });
     }
   };
 
@@ -180,7 +206,15 @@ const OdersState = (props) => {
       setOrdersError(null);
       return data.order;
     } catch (err) {
-      errorHandler(err);
+      swal({
+        title: `${err.response.data.error}`,
+        icon: "error",
+        button: "Ok",
+      })
+        .then((value) => {
+          window.location.reload(`/orderDetailsAdmin/${id}`)
+          setOrdersLoading(false)
+        });
     }
   };
 
@@ -210,7 +244,15 @@ const OdersState = (props) => {
       setOrdersError(null);
       return res.json();
     } catch (err) {
-      errorHandler(err);
+      swal({
+        title: `${err.response.data.error}`,
+        icon: "error",
+        button: "Ok",
+      })
+        .then((value) => {
+          window.location.reload(`/orders`)
+          setOrdersLoading(false)
+        });
     }
   };
 

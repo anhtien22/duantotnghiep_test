@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import OrderContext from "../context/orders/orderContext";
 import UserContext from "../context/user/UserContext";
 import { useToasts } from "react-toast-notifications";
+import Paginator from "react-hooks-paginator";
 
 const ProfileScreen = () => {
   // for user context
@@ -18,6 +19,18 @@ const ProfileScreen = () => {
     getMyOrders();
     //eslint-disable-next-line
   }, []);
+
+
+  const pageLimit = 5;
+
+  const [offset, setOffset] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentData, setCurrentData] = useState([]);
+
+
+  useEffect(() => {
+    setCurrentData(myOrders.slice(offset, offset + pageLimit));
+  }, [offset, myOrders]);
 
   const handleChange = (e) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
@@ -123,8 +136,8 @@ const ProfileScreen = () => {
                     <tbody>
                       {
                         <>
-                          { myOrders.length > 0 ? (
-                            myOrders.map((order) => (
+                          { currentData.length > 0 ? (
+                            currentData.map((order) => (
                               <tr key={ order._id }>
                                 <td className="product-mahang1">
                                   { order._id }
@@ -159,6 +172,17 @@ const ProfileScreen = () => {
                     </tbody>
                   </table>
                 </div>
+                <Paginator
+                  totalRecords={ myOrders.length }
+                  pageLimit={ pageLimit }
+                  pageNeighbours={ 2 }
+                  setOffset={ setOffset }
+                  currentPage={ currentPage }
+                  setCurrentPage={ setCurrentPage }
+                  pageContainerClass="mb-0 mt-0 d-flex"
+                  pagePrevText="«"
+                  pageNextText="»"
+                />
               </div>
             </div>
           </div>

@@ -61,41 +61,29 @@ const CategoryState = props => {
       }
       const categoryBody = clean({ title })
       setCategoriesLoading(true)
-      await axios.post('/api/category/add', categoryBody, { headers })
+      console.log("categoryBody", categoryBody);
+      const { data } = await axios.post('/api/category/add', categoryBody, { headers })
       // setCategories(data.category.title)
-      // console.log(categories);
-      // setCategoriesMessage({
-      //   variant: 'success',
-      //   message: 'Danh mục được thêm thành công!',
-      // })
+      console.log("data", data);
       swal({
         title: "Danh mục được thêm thành công!",
         icon: "success",
       })
         .then((value) => {
           window.location.reload("/categories")
-          // navigate("/products")
-          // swal(`The returned value is: ${value}`);
         });
-      // setTimeout(() => {
       setCategoriesLoading(false)
       setCategoriesError(null)
-      // if (addToast) {
-      //   addToast("Danh mục được thêm thành công!", { appearance: "success", autoDismiss: true });
-      // }
-      // }, 3000)
-
-      // window.location.reload()
 
     } catch (err) {
       swal({
-        title: `Vui lòng nhập tên danh mục!`,
+        title: `${err.response.data.error}, Không thể thêm danh mục`,
         icon: "error",
+        button: "Ok",
       })
         .then((value) => {
-          // window.location.reload("/products")
+          window.location.reload()
           setCategoriesLoading(false)
-          // swal(`The returned value is: ${value}`);
         });
     }
   }
@@ -109,7 +97,15 @@ const CategoryState = props => {
       setCategoriesLoading(false)
       setCategoriesError(null)
     } catch (err) {
-      errorHandler(err)
+      swal({
+        title: `${err.response.data.error}`,
+        icon: "error",
+        button: "Ok",
+      })
+        .then((value) => {
+          window.location.reload(`/orders`)
+          setCategoriesLoading(false)
+        });
     }
   }
 
@@ -123,16 +119,26 @@ const CategoryState = props => {
         'Content-Type': 'multipart/form-data',
       }
       const { data } = await axios.delete(`/api/category/${id}`, { headers })
-      setCategoriesMessage({
-        variant: 'success',
-        message: 'Xóa thành công!',
+      swal({
+        title: "Xóa thành công!",
+        icon: "success",
       })
-      window.location.reload();
+        .then((value) => {
+          window.location.reload("/categories");
+        });
       setCategoriesLoading(false)
       setCategoriesError(null)
       return data.categories
     } catch (err) {
-      errorHandler(err, 'Không tìm thấy sản phẩm')
+      swal({
+        title: `${err.response.data.error}`,
+        icon: "error",
+        button: "Ok",
+      })
+        .then((value) => {
+          window.location.reload(`/categories`)
+          setCategoriesLoading(false)
+        });
     }
   }
 
@@ -142,7 +148,15 @@ const CategoryState = props => {
       const { data } = await axios.get(`/api/category/${id}`)
       return data.categories
     } catch (err) {
-      errorHandler(err)
+      swal({
+        title: `${err.response.data.error}`,
+        icon: "error",
+        button: "Ok",
+      })
+        .then((value) => {
+          window.location.reload(`/categories`)
+          setCategoriesLoading(false)
+        });
     }
   }
 
@@ -155,14 +169,25 @@ const CategoryState = props => {
       setCategoriesLoading(true)
       await axios.patch(`api/category/${id}`, { title }, { headers })
       getCategories()
-      setCategoriesMessage({
-        variant: 'info',
-        message: 'Danh mục được cập nhật!',
+      swal({
+        title: "Danh mục được cập nhật!",
+        icon: "success",
       })
+        .then((value) => {
+          window.location.reload("/categories");
+        });
       setCategoriesLoading(false)
       setCategoriesError(null)
     } catch (err) {
-      errorHandler(err)
+      swal({
+        title: `${err.response.data.error}`,
+        icon: "error",
+        button: "Ok",
+      })
+        .then((value) => {
+          window.location.reload(`/categories`)
+          setCategoriesLoading(false)
+        });
     }
   }
 

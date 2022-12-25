@@ -2,6 +2,7 @@ import UserContext from './UserContext'
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import swal from 'sweetalert';
 
 // Function for cleaning null, undefined and empty strings values in objects
 function clean(obj) {
@@ -85,10 +86,7 @@ const UserState = props => {
       if (addToast) {
         addToast("Đăng nhập thành công", { appearance: "success", autoDismiss: true });
       }
-      //   history.push('/')
     } catch (err) {
-      // console.log(err);
-      // errorHandler(err)
       if (addToast) {
         addToast(`${err.response.data.error}`, { appearance: "error", autoDismiss: true });
       }
@@ -109,7 +107,6 @@ const UserState = props => {
       setUser(data.user)
       setUserError(null)
       setUserLoading(false)
-      // setUserMessage({ variant: 'success', message: 'Đăng ký thành công' })
       if (addToast) {
         addToast("Đăng ký thành công", { appearance: "success", autoDismiss: true });
       }
@@ -165,7 +162,15 @@ const UserState = props => {
       setUserLoading(false)
       return data
     } catch (err) {
-      errorHandler(err)
+      swal({
+        title: `${err.response.data.error}`,
+        icon: "error",
+        button: "Ok",
+      })
+        .then((value) => {
+          window.location.reload()
+          setUserLoading(false)
+        });
     }
   }
 
@@ -208,7 +213,15 @@ const UserState = props => {
       setUserError(null)
       setUserLoading(false)
     } catch (err) {
-      errorHandler(err)
+      swal({
+        title: `${err.response.data.error}`,
+        icon: "error",
+        button: "Ok",
+      })
+        .then((value) => {
+          window.location.reload()
+          setUserLoading(false)
+        });
     }
   }
 
@@ -244,7 +257,15 @@ const UserState = props => {
       setUserError(null)
       return data.user
     } catch (err) {
-      errorHandler(err)
+      swal({
+        title: `${err.response.data.error}`,
+        icon: "error",
+        button: "Ok",
+      })
+        .then((value) => {
+          window.location.reload()
+          setUserLoading(false)
+        });
     }
   }
   const forgotPassword = async (payload, addToast) => {
@@ -272,11 +293,10 @@ const UserState = props => {
         addToast(`${err.response.data.error}`, { appearance: "error", autoDismiss: true });
       }
       setUserLoading(false)
-
     }
   };
 
-  const resetPassword = async (token, payload) => {
+  const resetPassword = async (token, payload, addToast) => {
     try {
       setUserLoading(true)
 
@@ -293,17 +313,16 @@ const UserState = props => {
 
       setUserLoading(false)
       setUserError(null)
-      setUserMessage({
-        variant: 'success',
-        message: 'Bạn đã đổi mật khẩu thành công!',
-      })
+      if (addToast) {
+        addToast("Bạn đã đổi mật khẩu thành công!", { appearance: "success", autoDismiss: true });
+      }
       return data.user;
 
     } catch (error) {
-      // if (payload.password !== payload.confirmPassword) {
-      errorHandler(error)
-      // }
-
+      if (addToast) {
+        addToast(`${error.response.data.error}`, { appearance: "error", autoDismiss: true });
+      }
+      setUserLoading(false)
     }
   };
 
@@ -311,9 +330,6 @@ const UserState = props => {
     try {
       // setUserLoading(true)
       const userToken = JSON.parse(localStorage.getItem('userToken'))
-      // const headers = {
-      //   Authorization: `Bearer ${userToken && userToken}`,
-      // }
 
       const config = {
         headers: {
@@ -333,24 +349,13 @@ const UserState = props => {
         body,
         config
       );
-      console.log(data);
-      // const res = await fetch(`/api/users/profile/updatepassword`, {
-      //   method: "PATCH",
-      //   headers,
-      //   body: JSON.stringify({
-      //     oldPassword: payload.oldPassword,
-      //     newPassword: payload.newPassword,
-      //     confirmPassword: payload.confirmPassword,
-      //   }),
-      // });
-      // setUserLoading(false)
-      // setUserError(null)
+      setUserLoading(false)
+      setUserError(null)
       if (addToast) {
-        addToast("Đổi mật khẩu thành công", { appearance: "success", autoDismiss: true });
+        addToast("Đổi mật khẩu thành công!", { appearance: "success", autoDismiss: true });
       }
-      // return data.user;
+      return data.user;
     } catch (err) {
-      // console.log(err);
       if (addToast) {
         addToast(`${err.response.data.error}`, { appearance: "error", autoDismiss: true });
       }

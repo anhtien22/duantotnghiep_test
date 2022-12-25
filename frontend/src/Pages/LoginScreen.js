@@ -2,8 +2,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import UserContext from '../context/user/UserContext'
 import { useToasts } from "react-toast-notifications";
-
+import {
+  Form, Input,
+} from 'antd';
 const LoginScreen = () => {
+  const [form] = Form.useForm();
+
   // for user context
   const uContext = useContext(UserContext)
   const { login, user } = uContext
@@ -21,8 +25,8 @@ const LoginScreen = () => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value })
   }
 
-  const handleLogin = e => {
-    e.preventDefault()
+  const handleLogin = () => {
+    // e.preventDefault()
 
     login(credentials.email, credentials.password, addToast)
   }
@@ -49,33 +53,66 @@ const LoginScreen = () => {
                     <h4>Đăng nhập tài khoản</h4>
                   </div>
                   <div className="card-body">
-                    <form onSubmit={ handleLogin }>
+                    <Form form={ form }
+                      onFinish={ handleLogin }>
                       <div className="form-group">
-                        <label htmlFor="email">Email</label>
+                        <Form.Item
+                          name="email"
+                          label="Email"
+                          rules={ [
+                            {
+                              type: 'email',
+                              message: 'The input is not valid E-mail!',
+                            },
+                            {
+                              required: true,
+                              message: 'Please input your E-mail!',
+                            },
+                          ] }
+                        >
+                          <Input
+                            type="email"
+                            name="email"
+                            className="form-control"
+                            value={ credentials.email }
+                            onChange={ handleChange } />
+                        </Form.Item>
+                        {/* <label htmlFor="email">Email</label>
                         <input
                           onChange={ handleChange }
                           type="text"
                           className="form-control"
                           name="email"
                           value={ credentials.email }
-                        />
+                        /> */}
                       </div>
                       <div className="form-group">
-                        <label htmlFor="password">Mật khẩu</label>
+                        <Form.Item
+                          name="passwords"
+                          label="Mật khẩu"
+                        >
+                          <Input
+                            type="password"
+                            name="password"
+                            className="form-control"
+                            value={ credentials.password }
+                            onChange={ handleChange } />
+                        </Form.Item>
+                        {/* <label htmlFor="password">Mật khẩu</label>
                         <input
                           onChange={ handleChange }
                           type="password"
                           className="form-control"
                           name="password"
                           value={ credentials.password }
-                        />
+                        /> */}
                       </div>
                       <input
                         type="submit"
                         defaultValue="Login"
                         className="btn btn-primary btn-block"
                       />
-                    </form>
+                    </Form>
                   </div>
                 </div>
               </div>

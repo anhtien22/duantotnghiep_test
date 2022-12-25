@@ -95,7 +95,6 @@ const Categories = () => {
                                   { i + 1 }
                                 </td>
                                 <td className="product-tenhang">{ category.title }</td>
-                                <td className="product-logo">{ new Date(category.createdAt).toLocaleDateString() }</td>
                                 <td id='buttonadmin'>
                                   <EditCategoryModal category={ category } />
                                   <Button variant="danger" className="mx-2" onClick={ () => deleteSaveChanges(category._id) }>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import BrandContext from './brandContext'
 import axios from 'axios'
+import swal from 'sweetalert'
 
 
 // Function for cleaning null, undefined and empty strings values in objects
@@ -62,15 +63,26 @@ const BrandState = props => {
       setBrandsLoading(true)
       await axios.post('/api/brand/add', brandBody, { headers })
       setBrands([...brands, brandBody])
-      setBrandsMessage({
-        variant: 'success',
-        message: 'Thương hiệu được thêm thành công!',
+
+      swal({
+        title: "Thương hiệu được thêm thành công!",
+        icon: "success",
       })
-      window.location.reload();
+        .then((value) => {
+          window.location.reload("/brands")
+        });
       setBrandsLoading(false)
       setBrandsError(null)
     } catch (err) {
-      errorHandler(err)
+      swal({
+        title: `${err.response.data.error}`,
+        icon: "error",
+        button: "Ok",
+      })
+        .then((value) => {
+          window.location.reload("/brands")
+          setBrandsLoading(false)
+        });
     }
   }
 
@@ -85,7 +97,15 @@ const BrandState = props => {
       setBrandsLoading(false)
       setBrandsError(null)
     } catch (err) {
-      errorHandler(err)
+      swal({
+        title: `${err.response.data.error}`,
+        icon: "error",
+        button: "Ok",
+      })
+        .then((value) => {
+          window.location.reload("/brands")
+          setBrandsLoading(false)
+        });
     }
   }
 
@@ -99,16 +119,27 @@ const BrandState = props => {
         'Content-Type': 'multipart/form-data',
       }
       const { data } = await axios.delete(`/api/brand/${id}`, { headers })
+
+      swal({
+        title: "Xóa thành công!",
+        icon: "success",
+      })
+        .then((value) => {
+          window.location.reload("/brands")
+        });
       setBrandsLoading(false)
       setBrandsError(null)
-      setBrandsMessage({
-        variant: 'success',
-        message: 'Xóa thành công!',
-      })
-      window.location.reload();
       return data.categories
     } catch (err) {
-      errorHandler(err, 'Không tìm thấy sản phẩm')
+      swal({
+        title: `${err.response.data.error}`,
+        icon: "error",
+        button: "Ok",
+      })
+        .then((value) => {
+          window.location.reload("/brands")
+          setBrandsLoading(false)
+        });
     }
   }
 
@@ -118,7 +149,15 @@ const BrandState = props => {
       const { data } = await axios.get(`/api/brand/${id}`)
       return data.categories
     } catch (err) {
-      errorHandler(err)
+      swal({
+        title: `${err.response.data.error}`,
+        icon: "error",
+        button: "Ok",
+      })
+        .then((value) => {
+          window.location.reload("/brands")
+          setBrandsLoading(false)
+        });
     }
   }
 
@@ -131,14 +170,25 @@ const BrandState = props => {
       setBrandsLoading(true)
       await axios.patch(`api/brand/${id}`, { local }, { headers })
       getBrands()
-      setBrandsMessage({
-        variant: 'info',
-        message: 'Thương hiệu được cập nhật',
+      swal({
+        title: "Thương hiệu đã được cập nhật!",
+        icon: "success",
       })
+        .then((value) => {
+          window.location.reload("/brands")
+        });
       setBrandsLoading(false)
       setBrandsError(null)
     } catch (err) {
-      errorHandler(err)
+      swal({
+        title: `${err.response.data.error}`,
+        icon: "error",
+        button: "Ok",
+      })
+        .then((value) => {
+          window.location.reload("/brands")
+          setBrandsLoading(false)
+        });
     }
   }
 

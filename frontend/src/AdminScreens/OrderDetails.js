@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import Breadcrumb from "../components/Breadcrumb";
 import { Link, useParams } from "react-router-dom";
 import OrderContext from "../context/orders/orderContext";
 import Navbar from "../AdminComponents/Navbar";
@@ -40,7 +39,7 @@ const OrderDetails = () => {
     <>
       <Navbar />
       {/* HEADER */ }
-      <header id="main-header" className="py-2 bg-warning text-white">
+      <header id="main-header" className="py-2 bg-info text-white">
         <div className="container">
           <div className="row">
             <div className="col-md-6">
@@ -179,10 +178,10 @@ const OrderDetails = () => {
                     } }
                   >
                     <h5 className="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">
-                      Tổng tiền : 
+                      Tổng tiền :
                       <span className="h2 mb-0 ms-2">
                         {/* {order.totalPrice} */ }
-                         { formatter.format(order.totalPrice) }
+                        { formatter.format(order.totalPrice) }
                       </span>
                     </h5>
                   </div>

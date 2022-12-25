@@ -5,6 +5,7 @@ import BrandContext from '../context/brand/brandContext'
 import productContext from '../context/product/productContext'
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../AdminComponents/Navbar";
 
 const ProductDetails = () => {
   const navigate = useNavigate();
@@ -93,7 +94,22 @@ const ProductDetails = () => {
 
   return (
     <>
-      {/* ACTIONS */ }
+      <Navbar />
+      {/* HEADER */ }
+      <header id="main-header" className="py-2 bg-primary text-white">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6">
+              <h1>
+                <i className="fas fa-users" /> Sản phẩm
+              </h1>
+            </div>
+          </div>
+        </div>
+      </header>
+
+
+
       <section id="actions" className="py-4 mb-4 bg-light">
         <div className="container">
           <div className="row" id='boxx1'>

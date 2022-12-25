@@ -2,16 +2,20 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import UserContext from '../context/user/UserContext';
 import { useToasts } from "react-toast-notifications";
-
+import {
+  Form, Input,
+} from 'antd';
 const ForgotPassword = () => {
+  const [form] = Form.useForm();
+
   const uContext = useContext(UserContext)
   const { forgotPassword } = uContext
 
   const [email, setEmail] = useState("")
   const { addToast } = useToasts();
 
-  const handleForgotPassword = e => {
-    e.preventDefault()
+  const handleForgotPassword = () => {
+    // e.preventDefault()
     const payload = { email }
     forgotPassword(payload, addToast);
   }
@@ -28,7 +32,7 @@ const ForgotPassword = () => {
         <div className="container">
           <p className="text-center">
             Don't have an accout? <Link to="/signup">Đăng ký</Link> |
-            <Link to="/forgotpassword"> Quên mật khẩu</Link>
+            <Link to="/login"> Đăng nhập</Link>
           </p>
           <div className="row">
             <div className="col-md-6 mx-auto">
@@ -37,23 +41,46 @@ const ForgotPassword = () => {
                   <h4>Forgot Password</h4>
                 </div>
                 <div className="card-body">
-                  <form onSubmit={ handleForgotPassword }>
+                  <Form
+                    form={ form }
+                    onFinish={ handleForgotPassword }>
                     <div className="form-group">
-                      <label htmlFor="email">Email</label>
+                      <Form.Item
+                        name="email"
+                        label="Email"
+                        rules={ [
+                          {
+                            type: 'email',
+                            message: 'The input is not valid E-mail!',
+                          },
+                          {
+                            required: true,
+                            message: 'Please input your E-mail!',
+                          },
+                        ] }
+                      >
+                        <Input
+                          type="email"
+                          name="email"
+                          className="form-control"
+                          value={ email }
+                          onChange={ (e) => setEmail(e.target.value) } />
+                      </Form.Item>
+                      {/* <label htmlFor="email">Email</label>
                       <input
                         onChange={ (e) => setEmail(e.target.value) }
                         type="text"
                         className="form-control"
                         name="email"
                         value={ email }
-                      />
+                      /> */}
                     </div>
                     <input
                       type="submit"
                       defaultValue="ForgotPassword"
                       className="btn btn-primary btn-block"
                     />
-                  </form>
+                  </Form>
                 </div>
               </div>
             </div>

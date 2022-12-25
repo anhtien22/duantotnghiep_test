@@ -79,6 +79,16 @@ const SignupScreen = () => {
                         <Form.Item
                           name="email"
                           label="Email"
+                          rules={ [
+                            {
+                              type: 'email',
+                              message: 'The input is not valid E-mail!',
+                            },
+                            {
+                              required: true,
+                              message: 'Please input your E-mail!',
+                            },
+                          ] }
                         >
                           <Input
                             type="email"
@@ -90,8 +100,14 @@ const SignupScreen = () => {
                       </div>
                       <div className="form-group">
                         <Form.Item
-                          name="password"
+                          name="passwords"
                           label="Mật khẩu"
+                          rules={ [
+                            {
+                              min: 6,
+                              message: 'Mật khẩu của bạn phải trên 6 kí tự',
+                            },
+                          ] }
                         >
                           <Input
                             type="password"

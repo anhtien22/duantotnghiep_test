@@ -22,24 +22,13 @@ const Review = () => {
 
   const [productId, setProductId] = useState("");
 
-  const [totalResults, setTotalResults] = useState(0);
 
   const pageLimit = 5;
 
   const [offset, setOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentData, setCurrentData] = useState([]);
-  useEffect(() => {
-    const populateProducts = async () => {
-      setTotalResults(await getProducts());
-    };
-    populateProducts();
-    // eslint-disable-next-line
-  }, []);
-  const productReviewsSubmitHandler = (e) => {
-    e.preventDefault();
-    getAllReviews(productId);
-  };
+
 
   useEffect(() => {
     if (productId.length === 24) {
@@ -69,12 +58,12 @@ const Review = () => {
     <>
       <Navbar />
       {/* HEADER */ }
-      <header id="main-header" className="py-2 bg-info text-white">
+      <header id="main-header" className="py-2 bg-danger text-white">
         <div className="container">
           <div className="row">
             <div className="col-md-6">
               <h1>
-                <i className="fas fa-users" /> Bình luận
+                <i className="far fa-comment" /> Bình luận
               </h1>
             </div>
           </div>

@@ -69,8 +69,7 @@ exports.getAllProducts = async (req, res) => {
           { category: categoryQuery },
           {
             $or: [
-              { name: { $regex: searchQuery, $options: 'i' } },
-              { description: { $regex: searchQuery, $options: 'i' } },
+              { name: { $regex: searchQuery, $options: 'i' } }
             ],
           },
         ],
@@ -88,8 +87,7 @@ exports.getAllProducts = async (req, res) => {
 
     const findQuery = {
       $or: [
-        { name: { $regex: searchQuery, $options: 'i' } },
-        { description: { $regex: searchQuery, $options: 'i' } },
+        { name: { $regex: searchQuery, $options: 'i' } }
       ],
     }
 

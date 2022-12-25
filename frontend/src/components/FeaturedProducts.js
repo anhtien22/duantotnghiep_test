@@ -23,17 +23,17 @@ const FeaturedProducts = () => {
   const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
   const { addToast } = useToasts();
+  const limit = 3;
 
+  // const [page, setPage] = useState(1);
+  // const PER_PAGE = 3;
+  // const count = Math.ceil(products.length / PER_PAGE);
+  // const data = usePagination(products, PER_PAGE);
 
-  const [page, setPage] = useState(1);
-  const PER_PAGE = 3;
-  const count = Math.ceil(products.length / PER_PAGE);
-  const data = usePagination(products, PER_PAGE);
-
-  const handleChange = (e, p) => {
-    setPage(p);
-    data.jump(p);
-  };
+  // const handleChange = (e, p) => {
+  //   setPage(p);
+  //   data.jump(p);
+  // };
   useEffect(() => {
     const populateProducts = async () => {
       setTotalResults(await getProducts(skip, keyWord, category));
@@ -60,25 +60,26 @@ const FeaturedProducts = () => {
                 <>
                   { product.ratings >= 4 ? (
                     <>
-                      <div className="col-sm-6 col-lg-4 mb-4" data-aos="fade-up" key={product._id} >
+                      <div className="col-sm-6 col-lg-4 mb-4" data-aos="fade-up" key={ product._id } >
                         <div className="block-4 text-center border">
                           <div className="product-img">
-                            <Link to={`/shopSingle/${product._id}`}>
-                              <img src={product.image} alt=""/>
+                            <Link to={ `/shopSingle/${product._id}` }>
+                              <img src={ product.image } alt="" />
                             </Link>
-                            <div className="btn">                               
-                            <i class="icon" onClick={() => { let item = {  ...product, id: product._id,}; if (addToast) {
-                                addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
-                              }
-                              addItem(item, quantity);
-                                }}>Mua Ngay
+                            <div className="btn">
+                              <i className="icon" onClick={ () => {
+                                let item = { ...product, id: product._id, }; if (addToast) {
+                                  addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
+                                }
+                                addItem(item, quantity);
+                              } }>Mua Ngay
                               </i>
                             </div>
                           </div>
                           <div className="block-4-text p-4">
-                            <p id="name"><Link to={`/shopSingle/${product._id}`}>{product.name}</Link></p>
+                            <p id="name"><Link to={ `/shopSingle/${product._id}` }>{ product.name }</Link></p>
                             <p className="text-black font-weight-bold"><Rating name="half-rating-read" defaultValue={ product.ratings } precision={ 0.5 } readOnly /></p>
-                            <p id="price">{formatter.format(product.price)}</p>
+                            <p id="price">{ formatter.format(product.price) }</p>
                           </div>
                         </div>
                       </div>

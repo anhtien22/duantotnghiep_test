@@ -34,7 +34,7 @@ const ReviewById = () => {
   return (
     <>
       <Navbar />
-      <header id="main-header" className="py-2 bg-warning text-white">
+      <header id="main-header" className="py-2 bg-danger text-white">
         <div className="container">
           <div className="row">
             <div className="col-md-6">

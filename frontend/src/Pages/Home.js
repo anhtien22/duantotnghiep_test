@@ -76,34 +76,34 @@ const Home = ({ strings }) => {
       <div className="site-section site-section-sm site-blocks-1">
         <div className="container">
           <div className="row">
-            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-              <div class="list-box d-flex align-items-center">
-                <div class="list-icon">
-                  <i class="fas fa-shipping-fast"></i>
+            <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
+              <div className="list-box d-flex align-items-center">
+                <div className="list-icon">
+                  <i className="fas fa-shipping-fast"></i>
                 </div>
-                <div class="content">
+                <div className="content">
                   <h3>{ strings["FREE_SHIPPING"] }</h3>
                   <p>{ strings["Shop_Will_Support_Product_Delivery_For_Orders_Over_500000_VND_And_First_Time_Purchase_Orders_At_The_Shop"] }</p>
                 </div>
               </div>
             </div>
-            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-              <div class="list-box d-flex align-items-center">
-                <div class="list-icon">
-                  <i class="icon-refresh2"></i>
+            <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
+              <div className="list-box d-flex align-items-center">
+                <div className="list-icon">
+                  <i className="icon-refresh2"></i>
                 </div>
-                <div class="content">
+                <div className="content">
                   <h3>{ strings["FREE_REFUND"] }</h3>
                   <p>{ strings["According_to_the_terms_set_forth_in_the_Terms_of_Service_the_Shop_guarantees_the_interests_of_the_buyer"] }</p>
                 </div>
               </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-              <div class="list-box d-flex justify-content-start align-items-center">
-                <div class="list-icon">
-                  <i class="icon-help"></i>
+            <div className="col-lg-4 col-md-6">
+              <div className="list-box d-flex justify-content-start align-items-center">
+                <div className="list-icon">
+                  <i className="icon-help"></i>
                 </div>
-                <div class="content">
+                <div className="content">
                   <h3>{ strings["CUSTOMER_SUPPORT"] }</h3>
                   <p>{ strings["24/7_Support_Anytime_Customer_Needs_Support_Responding_to_Customer_Questions_and_Inquiries"] }</p>
                 </div>

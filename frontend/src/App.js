@@ -37,6 +37,7 @@ import { connect } from "react-redux";
 import Review from "./AdminScreens/Review";
 import ReviewById from "./AdminScreens/ReviewById";
 import { ToastProvider } from "react-toast-notifications";
+import NotFound from "./Pages/NotFound";
 
 function App(props) {
   useEffect(() => {
@@ -85,6 +86,13 @@ function App(props) {
           <Route path="/orderAdmin/canceled" element={ <OrderCancled /> } />
           <Route path="/reviews" element={ <Review /> } />
           <Route path="/reviews/:id" element={ <ReviewById /> } />
+
+          <Route
+            path={ "/not-found" }
+            element={ <NotFound /> }
+          />
+
+          <Route path={ "/*" } exact element={ <NotFound /> } />
         </Routes>
         <Footer />
       </main>

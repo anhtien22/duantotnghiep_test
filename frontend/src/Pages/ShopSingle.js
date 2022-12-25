@@ -69,20 +69,20 @@ const ShopSingle = () => {
   return (
     <>
       <Breadcrumb pageName={ product.name } />
-      <div class="container11">
-        <div class="imgBx">
+      <div className="container11">
+        <div className="imgBx">
           <img src={ product.image } alt="" />
         </div>
-        <div class="details">
-          <div class="content">
+        <div className="details">
+          <div className="content">
             <h2>{ product.name }<br></br>
               <span>Thương hiệu: { product.brand.local }</span>
             </h2>
 
-            <div class="product-colors">
-              <input class="minus is-form" type="button" value="-" disabled={ quantity < 2 } onClick={ () => setQuantity(quantity - 1) } />
-              <input aria-label="quantity" class="input-qty" type="number" value={ quantity } disabled onChange={ (e) => setQuantity(e.target.value) } />
-              <input class="plus is-form" type="button" value="+" onClick={ () => setQuantity(quantity + 1) } disabled={ quantity >= product.Stock } />
+            <div className="product-colors">
+              <input className="minus is-form" type="button" value="-" disabled={ quantity < 2 } onClick={ () => setQuantity(quantity - 1) } />
+              <input aria-label="quantity" className="input-qty" type="number" value={ quantity } disabled onChange={ (e) => setQuantity(e.target.value) } />
+              <input className="plus is-form" type="button" value="+" onClick={ () => setQuantity(quantity + 1) } disabled={ quantity >= product.Stock } />
             </div>
             <div className=""><span>{ product.Stock } sản phẩm có sẵn</span></div>
             { product.Stock >= 0 ? (

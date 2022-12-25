@@ -65,7 +65,7 @@ const ProductState = props => {
       return data.totalResults
     } catch (err) {
       swal({
-        title: `${err}`,
+        title: `${err.response.data.error}`,
         icon: "error",
         button: "Ok",
       })
@@ -123,7 +123,7 @@ const ProductState = props => {
       return data.product
     } catch (err) {
       swal({
-        title: `${err}`,
+        title: `${err.response.data.error}`,
         icon: "error",
       })
         .then((value) => {
@@ -146,7 +146,7 @@ const ProductState = props => {
       return data.product
     } catch (err) {
       swal({
-        title: `${err}`,
+        title: `${err.response.data.error}`,
         icon: "error",
         button: "Ok",
       })
@@ -207,7 +207,7 @@ const ProductState = props => {
       setProductsError(null)
     } catch (err) {
       swal({
-        title: `${err}`,
+        title: `${err.response.data.error}`,
         icon: "error",
       })
         .then((value) => {
@@ -240,7 +240,7 @@ const ProductState = props => {
       return data.image
     } catch (err) {
       swal({
-        title: `${err}`,
+        title: `${err.response.data.error}`,
         icon: "error",
       })
         .then((value) => {
@@ -268,7 +268,7 @@ const ProductState = props => {
 
     } catch (error) {
       swal({
-        title: `${error}`,
+        title: `${error.response.data.error}`,
         icon: "error",
         button: "Ok",
       })
@@ -290,7 +290,7 @@ const ProductState = props => {
       return data
     } catch (error) {
       swal({
-        title: `${error}`,
+        title: `${error.response.data.error}`,
         icon: "error",
       })
         .then((value) => {

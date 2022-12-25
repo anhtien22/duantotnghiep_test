@@ -33,6 +33,24 @@ const Shop = () => {
     getCategories();
     // eslint-disable-next-line
   }, [skip, limit, category]);
+  const [data, setData] = useState([]);
+
+  const [sortType, setSortType] = useState();
+  useEffect(() => {
+    const sortArray = (type) => {
+      const sorted = products;
+
+      if (type === "priceHighToLow") {
+        sorted.sort((a, b) => b.price - a.price);
+      }
+      if (type === "priceLowToHigh") {
+        sorted.sort((a, b) => a.price - b.price);
+      }
+      setData([...sorted]);
+    };
+
+    sortArray(sortType);
+  }, [sortType]);
 
   const handleChange = (e) => {
     setKeyWord(e.target.value);
@@ -63,9 +81,6 @@ const Shop = () => {
     currency: "VND",
   });
   const [price, setPrice] = useState(0);
-  const handleInput = (e) => {
-    setPrice(e.target.value);
-  };
 
   return (
     <>
@@ -78,15 +93,17 @@ const Shop = () => {
                 <div className="col-md-12 mb-5 d-flex justify-content-between" id="rowshop">
                   <div className=" col-md-6 float-md-left mb-4">
                     <h2 className="text-black h5">SHOP ALL</h2>
-                    {/* <select onChange={ (e) => setSortType(e.target.value) }>
-                      <option value="default">Mặc định</option>
+                    <select onChange={ (e) => setSortType(e.target.value) }>
+                      <option disabled value="default">
+                        Sắp xếp
+                      </option>
                       <option value="priceHighToLow">
                         Giá từ cao đến thấp
                       </option>
-<option value="priceLowToHigh">
+                      <option value="priceLowToHigh">
                         Giá từ thấp đến cao
                       </option>
-                    </select> */}
+                    </select>
                   </div>
                   <div className="col-md-6 " id="search">
                     <Form className="d-flex" onSubmit={ handleSearchSubmit }>
@@ -125,7 +142,7 @@ const Shop = () => {
                         </Link>
                         <div className="btn">
 
-                          <i class="icon" onClick={ () => {
+                          <i className="icon" onClick={ () => {
                             let item = { ...product, id: product._id, }; if (addToast) {
                               addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
                             }
@@ -159,11 +176,6 @@ const Shop = () => {
                     </Button>
                     <div className="text-center mx-2">
                       Trang { skip / limit + 1 }
-                      {/* <span className="text-muted"> */ }
-                      {/* {" "} */ }
-                      {/* Hiển thị {products.length} trong số {totalResults} sản */ }
-                      {/* phẩm . */ }
-                      {/* </span > */ }
                     </div>
 
                     <Button
@@ -187,23 +199,19 @@ const Shop = () => {
                     <div id="orange"><span className="fa fa-minus"></span></div>
                     <form>
                       <div className="form-group">
-                        <input type="radio" id="male" class="radio-input" name="gender" onClick={ () => { setCategory(''); setSkip(0) } } />
-                        <label for="male" class="radio-label">Tất cả</label>
+                        <input type="radio" id="male" className="radio-input" name="gender" onClick={ () => { setCategory(''); setSkip(0) } } />
+                        <label for="male" className="radio-label">Tất cả</label>
                       </div>
                       { categories.map((cate) => (
                         <div className="form-group">
-                          <input type="radio" id="fmale" class="radio-input" name="gender" onClick={ () => { setCategory(cate._id); setSkip(0); } } />
-                          <label for="fmale" class="radio-label">{ cate.title }</label>
+                          <input type="radio" id="fmale" className="radio-input" name="gender" onClick={ () => { setCategory(cate._id); setSkip(0); } } />
+                          <label for="fmale" className="radio-label">{ cate.title }</label>
                         </div>
                       )) }
                     </form>
                   </div>
                 </section>
                 <br></br>
-                <div className="App">
-                  <p>Filter Price: { price }</p>
-                  <input type="range" max={ 5000000 } onInput={ handleInput } />
-                </div>
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import UserContext from '../context/user/UserContext';
+import { useToasts } from "react-toast-notifications";
 
 const ResetPassword = () => {
   const uContext = useContext(UserContext)
@@ -9,13 +10,14 @@ const ResetPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const { token } = useParams();
   const navigate = useNavigate();
+  const { addToast } = useToasts();
 
   const resetPasswordSubmit = (e) => {
     e.preventDefault();
 
     const payload = { password, confirmPassword }
 
-    resetPassword(token, payload);
+    resetPassword(token, payload, addToast);
     navigate('/login')
   };
   return (
