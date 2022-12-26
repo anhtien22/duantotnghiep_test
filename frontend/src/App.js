@@ -86,12 +86,7 @@ function App(props) {
           <Route path="/orderAdmin/canceled" element={ <OrderCancled /> } />
           <Route path="/reviews" element={ <Review /> } />
           <Route path="/reviews/:id" element={ <ReviewById /> } />
-
-          <Route
-            path={ "/not-found" }
-            element={ <NotFound /> }
-          />
-
+          <Route path={ "/not-found" } element={ <NotFound /> } />
           <Route path={ "/*" } exact element={ <NotFound /> } />
         </Routes>
         <Footer />

@@ -75,7 +75,7 @@ const CategoryState = props => {
 
     } catch (err) {
       swal({
-        title: `${err.response.data.error}, Không thể thêm danh mục`,
+        title: `${err.response.data.error}, Vui lòng nhập dữ liệu!`,
         icon: "error",
         button: "Ok",
       })
