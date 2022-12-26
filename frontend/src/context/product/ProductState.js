@@ -151,7 +151,7 @@ const ProductState = props => {
         button: "Ok",
       })
         .then((value) => {
-          window.location.reload(`/shopSingle/${id}`)
+          window.location.reload()
           setProductsLoading(false)
         });
     }
