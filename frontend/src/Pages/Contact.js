@@ -1,7 +1,8 @@
 import React from "react"
+import { multilanguage } from "redux-multilanguage";
 import Breadcrumb from "../components/Breadcrumb"
 
-const Contact = () => {
+const Contact = ({ strings }) => {
   return (
     <>
       <Breadcrumb pageName="Contact" />
@@ -9,7 +10,7 @@ const Contact = () => {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <h2 className="h3 mb-3 text-black">Gửi liên hệ về cho MEN4MEN</h2>
+              <h2 className="h3 mb-3 text-black">{ strings["Send_contact_to_MEN4MEN"] }</h2>
             </div>
             <div className="col-md-7">
               <form action="#" method="post">
@@ -17,7 +18,7 @@ const Contact = () => {
                   <div className="form-group row">
                     <div className="col-md-6">
                       <label htmlFor="c_fname" className="text-black">
-                       Nhập tên <span className="text-danger">*</span>
+                        { strings["first_name"] } <span className="text-danger">*</span>
                       </label>
                       <input
                         type="text"
@@ -28,7 +29,7 @@ const Contact = () => {
                     </div>
                     <div className="col-md-6">
                       <label htmlFor="c_lname" className="text-black">
-                        Nhập họ <span className="text-danger">*</span>
+                        { strings["last_name"] } <span className="text-danger">*</span>
                       </label>
                       <input
                         type="text"
@@ -41,7 +42,7 @@ const Contact = () => {
                   <div className="form-group row">
                     <div className="col-md-12">
                       <label htmlFor="c_email" className="text-black">
-                        Email <span className="text-danger">*</span>
+                        { strings["email"] } <span className="text-danger">*</span>
                       </label>
                       <input
                         type="email"
@@ -52,24 +53,11 @@ const Contact = () => {
                       />
                     </div>
                   </div>
-                  <div className="form-group row">
-                    <div className="col-md-12">
-                      <label htmlFor="c_subject" className="text-black">
-                        Chủ đề{" "}
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="c_subject"
-                        name="c_subject"
-                      />
-                    </div>
-                  </div>
 
                   <div className="form-group row">
                     <div className="col-md-12">
                       <label htmlFor="c_message" className="text-black">
-                        Nội dung{" "}
+                        { strings["Content"] }
                       </label>
                       <textarea
                         name="c_message"
@@ -85,7 +73,7 @@ const Contact = () => {
                       <input
                         type="submit"
                         className="btn btn-primary btn-lg btn-block"
-                        value="Gửi liên hệ"
+                        value={ strings["send_the_contact"] }
                       />
                     </div>
                   </div>
@@ -96,26 +84,26 @@ const Contact = () => {
             <div className="col-md-5 ml-auto">
               <div className="p-4 border mb-3">
                 <span className="d-block text-primary h6 text-uppercase">
-                  Địa chỉ
+                  { strings["Address"] }
                 </span>
                 <p className="mb-0">
-                Tòa P , Công Viên Phần Mềm Quang Trung , Q.12 TP.HCM
+                  { strings["Building P, Quang Trung Software Park, District 12, Ho Chi Minh City"] }
                 </p>
               </div>
               <div className="p-4 border mb-3">
                 <span className="d-block text-primary h6 text-uppercase">
-                  Điện thoại
+                  { strings["phone"] }
                 </span>
                 <p className="mb-0">
-                +84 999 999 999
+                  +84 389 927 903
                 </p>
               </div>
               <div className="p-4 border mb-3">
                 <span className="d-block text-primary h6 text-uppercase">
-                  Email
+                  { strings["email"] }
                 </span>
                 <p className="mb-0">
-                duantotnghiep@domain.com
+                  duantotnghiep@domain.com
                 </p>
               </div>
             </div>
@@ -126,4 +114,4 @@ const Contact = () => {
   )
 }
 
-export default Contact
+export default multilanguage(Contact);

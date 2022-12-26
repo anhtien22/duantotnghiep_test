@@ -141,7 +141,7 @@ const Home = ({ strings }) => {
                 </figure>
                 <div className="text">
                   <span className="text-uppercase">{ strings["Trending"] }</span>
-                  <h3>Cá Tính</h3>
+                  <h3>{ strings["Personalities"] }</h3>
                 </div>
               </Link>
             </div>
@@ -152,7 +152,7 @@ const Home = ({ strings }) => {
                 </figure>
                 <div className="text">
                   <span className="text-uppercase">{ strings["Trending"] }</span>
-                  <h3>Nhiệt Huyết</h3>
+                  <h3>{ strings["Enthusiasm"] }</h3>
                 </div>
               </Link>
             </div>
@@ -164,7 +164,7 @@ const Home = ({ strings }) => {
         <div className="container">
           <div className="row justify-content-center mb-5">
             <div className="col-md-7 site-section-heading text-center pt-4">
-              <h2>Brand Cooperation!</h2>
+              <h2>{ strings["Brand_Cooperation"] }</h2>
             </div>
           </div>
           <Swiper watchSlidesProgress={ true } slidesPerView={ 4 } className="mySwiper">

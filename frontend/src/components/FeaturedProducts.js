@@ -16,11 +16,12 @@ import 'swiper/components/navigation/navigation.min.css'
 import 'swiper/components/pagination/pagination.min.css'
 import "../../src/index.css";
 import { Pagination, Navigation } from "swiper";
+import { multilanguage } from "redux-multilanguage";
 
 
 
 
-const FeaturedProducts = () => {
+const FeaturedProducts = ({ strings }) => {
   const pContext = useContext(productContext);
   const { getProducts, products } = pContext;
   // for category context
@@ -61,7 +62,7 @@ const FeaturedProducts = () => {
   return (
     <div>
       <div className="col-md-7 site-section-heading text-center pt-4">
-        <h2>Sản phẩm nổi bật</h2>
+        <h2>{ strings["Featured_products"] }</h2>
       </div>
       <Swiper
         slidesPerView={ 1 }
@@ -101,11 +102,11 @@ const FeaturedProducts = () => {
                           <div>
                             <button class="icon btn" onClick={ () => {
                               let item = { ...product, id: product._id, }; if (addToast) {
-                                addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
+                                addToast(`${strings["Added_to_cart"]}`, { appearance: "success", autoDismiss: true });
                               }
                               addItem(item, quantity);
                             } }
-                              disabled={ product.Stock <= 1 } >{ product.Stock <= 1 ? "Hết Hàng" : "Mua Ngay" }
+                              disabled={ product.Stock <= 0 } >{ product.Stock <= 0 ? `${strings["Out_of_stock"]}` : `${strings["Buy_now"]}` }
                             </button>
                           </div>
                         </Link>
@@ -127,4 +128,4 @@ const FeaturedProducts = () => {
   );
 };
 
-export default FeaturedProducts;
+export default multilanguage(FeaturedProducts);

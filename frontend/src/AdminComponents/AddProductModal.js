@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import CategoryContext from '../context/category/categoryContext'
 import BrandContext from '../context/brand/brandContext'
 import productContext from '../context/product/productContext'
+import { multilanguage } from 'redux-multilanguage'
 
 
 
-const AddProductModal = () => {
+const AddProductModal = ({ strings }) => {
   // for product context
   const pContext = useContext(productContext)
   const { addProduct } = pContext
@@ -73,7 +74,7 @@ const AddProductModal = () => {
         <div className="modal-dialog modal-lg">
           <div className="modal-content">
             <div className="modal-header bg-primary text-white">
-              <h5 className="modal-title">Thêm sản phẩm</h5>
+              <h5 className="modal-title">{ strings["Add products"] }</h5>
               <button className="close" data-dismiss="modal">
                 <span>×</span>
               </button>
@@ -81,7 +82,7 @@ const AddProductModal = () => {
             {/* <form onSubmit={handleAddproduct}> */ }
             <div className="modal-body">
               <div className="form-group">
-                <label htmlFor="name">Tên sản phẩm</label>
+                <label htmlFor="name">{ strings["Product name"] }</label>
                 <input
                   type="text"
                   name="name"
@@ -89,11 +90,11 @@ const AddProductModal = () => {
                   value={ product.name }
                   className="form-control"
                 />
-                <small className="form-text text-muted">Vui lòng nhập tên có ít nhất 3 ký tự</small>
+                <small className="form-text text-muted">{ strings["Please Enter Name With At least 3 Characters"] }</small>
               </div>
 
               <div className="form-group">
-                <label htmlFor="sku">Mã sản phẩm</label>
+                <label htmlFor="sku">{ strings["Product_code"] }</label>
                 <input
                   type="text"
                   name="sku"
@@ -104,12 +105,12 @@ const AddProductModal = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="category">Danh mục</label>
+                <label htmlFor="category">{ strings["Category"] }</label>
                 <select
                   className="form-control"
                   name="category"
                   onChange={ handleChange }>
-                  <option value>Chọn danh mục</option>
+                  <option value>{ strings["select category"] }</option>
                   { categories.map(item => (
                     <option key={ item._id } value={ item._id }>
                       { item.title }
@@ -119,12 +120,12 @@ const AddProductModal = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="brand">Thương hiệu</label>
+                <label htmlFor="brand">{ strings["brands"] }</label>
                 <select
                   className="form-control"
                   name="brand"
                   onChange={ handleChange }>
-                  <option value>Chọn thương hiệu</option>
+                  <option value>{ strings["Choose a brand"] }</option>
                   { brands.map(item => (
                     <option key={ item._id } value={ item._id }>
                       { item.local }
@@ -134,7 +135,7 @@ const AddProductModal = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="price">Giá</label>
+                <label htmlFor="price">{ strings["price_product"] }</label>
                 <input
                   type="text"
                   name="price"
@@ -142,11 +143,11 @@ const AddProductModal = () => {
                   value={ product.price }
                   className="form-control"
                 />
-                <small className="form-text text-muted">Giá phải là một số dương!</small>
+                <small className="form-text text-muted">{ strings["Price Must Be A Positive Number!"] }</small>
               </div>
 
               <div className="form-group">
-                <label htmlFor="price">Số lượng</label>
+                <label htmlFor="price">{ strings["quantity"] }</label>
                 <input
                   type="text"
                   name="Stock"
@@ -154,22 +155,22 @@ const AddProductModal = () => {
                   value={ product.Stock }
                   className="form-control"
                 />
-                <small className="form-text text-muted">Số lượng không được vượt quá 4 ký tự</small>
+                <small className="form-text text-muted">{ strings["Number Can't Exceed 4 Characters"] }</small>
               </div>
 
               <div className="form-group">
-                <label htmlFor="body">Mô tả</label>
+                <label htmlFor="body">{ strings["Product_Description"] }</label>
                 <textarea
                   className="form-control"
                   name="description"
                   onChange={ handleChange }
                   value={ product.description }
                 />
-                <small className="form-text text-muted">Vui lòng nhập mô tả với ít nhất 10 ký tự</small>
+                <small className="form-text text-muted">{ strings["Please Enter Description With At least 10 Characters"] }</small>
               </div>
 
               <div className="form-group">
-                <label htmlFor="image">Hình ảnh</label>
+                <label htmlFor="image">{ strings["Image"] }</label>
                 <div className="custom-file">
                   <input
                     type="file"
@@ -181,11 +182,11 @@ const AddProductModal = () => {
                   // value={product.description}
                   />
                   <label htmlFor="image" className="custom-file-label">
-                    Chọn hình ảnh
+                    { strings["upload_file"] }
                   </label>
                 </div>
                 {/* <small className="form-text text-muted">Max Size 3mb</small> */ }
-                <small className="form-text text-muted">Max Size 3mb</small>
+                <small className="form-text text-muted"> { strings["Max_size_3mb"] }</small>
               </div>
             </div>
             <div className="modal-footer">
@@ -194,7 +195,7 @@ const AddProductModal = () => {
                 type="submit"
                 // data-dismiss="modal"
                 onClick={ handleAddproduct }>
-                Thêm sản phẩm
+                { strings["Add products"] }
               </button>
             </div>
             {/* </form> */ }
@@ -205,4 +206,4 @@ const AddProductModal = () => {
   )
 }
 
-export default AddProductModal
+export default multilanguage(AddProductModal);

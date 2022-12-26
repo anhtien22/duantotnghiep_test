@@ -6,8 +6,9 @@ import BrandContext from '../context/brand/brandContext'
 import EditBrandModal from '../AdminComponents/EditBrandModal'
 import AddBrandModal from '../AdminComponents/AddBrandModal'
 import swal from 'sweetalert'
+import { multilanguage } from 'redux-multilanguage'
 
-const Brands = () => {
+const Brands = ({ strings }) => {
   const context = useContext(BrandContext)
   const { brands, getBrands, deleteBrand } = context
 
@@ -22,7 +23,7 @@ const Brands = () => {
   //delete catagory
   const deleteSaveChanges = (id) => {
     swal({
-      title: "Bạn có chắc muốn xóa không?",
+      title: `${strings["Are you sure you want to delete?"]}`,
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -31,7 +32,7 @@ const Brands = () => {
 
         if (willDelete) {
           swal({
-            title: "Đã xóa thương hiệu thành công!",
+            title: `${strings["Deleted brand successfully"]}`,
             icon: "success",
             buttons: true,
           });
@@ -58,7 +59,7 @@ const Brands = () => {
             <div className="row">
               <div className="col-md-6">
                 <h1>
-                  <i className="fas fa-folder" /> Thương hiệu
+                  <i className="fas fa-folder" /> { strings["brands"] }
                 </h1>
               </div>
             </div>
@@ -74,7 +75,7 @@ const Brands = () => {
                   className="btn bg-secondary text-white btn-block"
                   data-toggle="modal"
                   data-target="#addBrandModal">
-                  <i className="fas fa-plus" /> Thêm mới thương hiệu
+                  <i className="fas fa-plus" />  { strings["Add new brand"] }
                 </a>
                 <AddBrandModal />
               </div>
@@ -83,10 +84,10 @@ const Brands = () => {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Tìm kiếm danh mục..."
+                    placeholder={ strings["search_brand"] }
                   />
                   <div className="input-group-append">
-                    <button className="btn btn-secondary">Tìm kiếm</button>
+                    <button className="btn btn-secondary"> { strings["search"] }</button>
                   </div>
                 </div>
               </div>
@@ -100,15 +101,15 @@ const Brands = () => {
               <div className="col">
                 <div className="card">
                   <div className="card-header">
-                    <h4>Danh mục mới nhất</h4>
+                    <h4>{ strings["News brands"] }</h4>
                   </div>
 
                   <div className="content table-responsive table-full-width">
                     <table className="table table-hover">
                       <thead>
                         <th className="product-mahang1">#</th>
-                        <th className="product-tenhang">Tiêu đề</th>
-                        <th>Thao tác</th>
+                        <th className="product-tenhang">{ strings["Title"] }</th>
+                        <th>{ strings["Manipulation"] }</th>
                       </thead>
                       <tbody>
                         {
@@ -143,4 +144,4 @@ const Brands = () => {
   )
 }
 
-export default Brands
+export default multilanguage(Brands);

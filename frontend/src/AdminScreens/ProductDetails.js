@@ -6,8 +6,9 @@ import productContext from '../context/product/productContext'
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../AdminComponents/Navbar";
+import { multilanguage } from 'redux-multilanguage'
 
-const ProductDetails = () => {
+const ProductDetails = ({ strings }) => {
   const navigate = useNavigate();
 
   // for product context
@@ -102,7 +103,7 @@ const ProductDetails = () => {
           <div className="row">
             <div className="col-md-6">
               <h1>
-                <i className="fas fa-users" /> Sản phẩm
+                <i className="fas fa-users" />    { strings["Product"] }
               </h1>
             </div>
           </div>
@@ -118,20 +119,20 @@ const ProductDetails = () => {
               <Link
                 to="/adminDashboard"
                 className="btn btn-secondary btn-block">
-                <i className="fas fa-arrow-left" /> Trở về trang
+                <i className="fas fa-arrow-left" />  { strings["come_back"] }
               </Link>
             </div>
             <div className="col-md-4">
               <button
                 className="btn btn-success btn-block"
                 onClick={ handleSaveChanges }>
-                <i className="fas fa-check" /> Lưu thay đổi
+                <i className="fas fa-check" /> { strings["save"] }
               </button>
             </div>
             <div className="col-md-4">
               <button className="btn btn-danger btn-block"
                 onClick={ () => deleteSaveChanges(id) }>
-                <i className="fas fa-trash" /> Xóa sản phẩm
+                <i className="fas fa-trash" />{ strings["delete_product"] }
               </button>
             </div>
           </div>
@@ -144,11 +145,11 @@ const ProductDetails = () => {
             <div className="col-md-8">
               <div className="card">
                 <div className="card-header">
-                  <h4>Sửa sản phẩm</h4>
+                  <h4>{ strings["edit_product"] }</h4>
                 </div>
                 <div className="card-body">
                   <div className="form-group">
-                    <label htmlFor="name">Tên sản phẩm</label>
+                    <label htmlFor="name">{ strings["Product name"] }</label>
                     <input
                       type="text"
                       name="name"
@@ -159,7 +160,7 @@ const ProductDetails = () => {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="sku">Mã sản phẩm</label>
+                    <label htmlFor="sku">{ strings["Product_code"] }</label>
                     <input
                       type="text"
                       name="sku"
@@ -170,7 +171,7 @@ const ProductDetails = () => {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="category">Danh mục</label>
+                    <label htmlFor="category">{ strings["Category"] }</label>
                     <select
                       className="form-control"
                       name="category"
@@ -187,7 +188,7 @@ const ProductDetails = () => {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="brand">Thương hiệu</label>
+                    <label htmlFor="brand">{ strings["Brand"] }</label>
                     <select
                       className="form-control"
                       name="brand"
@@ -204,7 +205,7 @@ const ProductDetails = () => {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="price">Giá</label>
+                    <label htmlFor="price">{ strings["price_product"] }</label>
                     <input
                       type="text"
                       name="price"
@@ -214,7 +215,7 @@ const ProductDetails = () => {
                     />
                   </div>
                   <div className="form-group">
-                    <label htmlFor="Stock">Stock</label>
+                    <label htmlFor="Stock">{ strings["Stock"] }</label>
                     <input
                       type="text"
                       name="Stock"
@@ -225,7 +226,7 @@ const ProductDetails = () => {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="body">Mô tả</label>
+                    <label htmlFor="body">{ strings["Product_Description"] }</label>
                     <textarea
                       className="form-control"
                       name="description"
@@ -238,10 +239,10 @@ const ProductDetails = () => {
             </div>
 
             <div className="col-md-4">
-              <h3 className="text-center">Hình ảnh</h3>
+              <h3 className="text-center">{ strings["Image"] }</h3>
               <img src={ image } alt="" className="d-block img-fluid mb-3" />
               <div className="form-group">
-                <label htmlFor="image">Tải hình ảnh</label>
+                <label htmlFor="image">{ strings["upload_file"] }</label>
                 <div className="custom-file">
                   <input
                     type="file"
@@ -253,10 +254,10 @@ const ProductDetails = () => {
                   // value={product.description}
                   />
                   <label htmlFor="image" className="custom-file-label">
-                    Chọn hình ảnh
+                    { strings["upload_file"] }
                   </label>
                 </div>
-                <small className="form-text text-muted">Max Size 3mb</small>
+                <small className="form-text text-muted"> { strings["Max_size_3mb"] }</small>
               </div>
               <button
                 className="btn btn-primary btn-block"
@@ -274,4 +275,4 @@ const ProductDetails = () => {
   )
 }
 
-export default ProductDetails
+export default multilanguage(ProductDetails);

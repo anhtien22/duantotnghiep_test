@@ -1,14 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { multilanguage } from 'redux-multilanguage'
 import Breadcrumb from '../components/Breadcrumb'
 
-const Navbar = () => {
+const Navbar = ({ strings }) => {
   return (
     <>
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark p-0">
         <div className="container">
           <Link to="/adminDashboard" className="navbar-brand">
-            Bảng điều khiển
+            { strings["Admin DashBoard"] }
           </Link>
           <button
             className="navbar-toggler"
@@ -20,37 +21,38 @@ const Navbar = () => {
             <ul className="navbar-nav">
               <li className="nav-item px-2">
                 <Link to="/adminDashboard" className="nav-link active">
-                  Dashboard
+                  { strings["Dashboard"] }
                 </Link>
               </li>
               <li className="nav-item px-2">
                 <Link to="/products" className="nav-link">
-                  Sản phẩm
+                  { strings["Product"] }
                 </Link>
               </li>
               <li className="nav-item px-2">
                 <Link to="/categories" className="nav-link">
-                  Danh mục
+                  { strings["Category"] }
+
                 </Link>
               </li>
               <li className="nav-item px-2">
                 <Link to="/brands" className="nav-link">
-                  Thương hiệu
+                  { strings["brands"] }
                 </Link>
               </li>
               <li className="nav-item px-2">
                 <Link to="/users" className="nav-link">
-                  Tài khoản
+                  { strings["Account"] }
                 </Link>
               </li>
               <li className="nav-item px-2">
                 <Link to="/orders" className="nav-link">
-                  Đơn hàng
+                  { strings["Order"] }
                 </Link>
               </li>
               <li className="nav-item px-2">
                 <Link to="/reviews" className="nav-link">
-                  Bình luận
+                  { strings["Comment"] }
                 </Link>
               </li>
             </ul>
@@ -62,4 +64,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default multilanguage(Navbar);

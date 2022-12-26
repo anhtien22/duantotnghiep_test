@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { multilanguage } from 'redux-multilanguage';
 import Breadcrumb from '../components/Breadcrumb';
 import UserContext from '../context/user/UserContext';
 
-const UserDetails = () => {
+const UserDetails = ({ strings }) => {
   const uContext = useContext(UserContext)
   const { getOneUserAdmin } = uContext
 
@@ -28,7 +29,7 @@ const UserDetails = () => {
               <div className="card" style={ { borderRadius: '10px' } }>
                 <div className="card-header px-4 py-5">
                   <h5 className="text-muted mb-0">
-                    Xin chào,
+                    { strings["hello"] },
                     <span style={ { color: '#a8729a' } }>{ user.name }</span>!
                   </h5>
                 </div>
@@ -37,10 +38,10 @@ const UserDetails = () => {
                     <p
                       className="lead fw-normal mb-0"
                       style={ { color: '#a8729a' } }>
-                      Biên nhận
+                      { strings["Receipt"] }
                     </p>
                     <p className="small text-muted mb-0">
-                      User ID : <b>{ id }</b>
+                      { strings["user_id"] }: <b>{ id }</b>
                     </p>
                   </div>
 
@@ -52,17 +53,17 @@ const UserDetails = () => {
                       <div className="row">
                         <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
                           <p className="text-muted mb-0">
-                            <b> Name: { user.name }</b>
+                            <b>  { strings["first_and_last_name"] }: { user.name }</b>
                           </p>
                         </div>
                         <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
                           <p className="text-muted mb-0 small">
-                            Email: { user.email }
+                            { strings["email"] }: { user.email }
                           </p>
                         </div>
                         <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
                           <p className="text-muted mb-0 small">
-                            Role: { user.role }
+                            { strings["Role"] }: { user.role }
                           </p>
                         </div>
                       </div>
@@ -83,4 +84,4 @@ const UserDetails = () => {
 
 };
 
-export default UserDetails;
+export default multilanguage(UserDetails);

@@ -1,6 +1,7 @@
 import React from 'react'
+import { multilanguage } from 'redux-multilanguage'
 
-const Footer = () => {
+const Footer = ({ strings }) => {
   return (
     <footer className="site-footer border-top">
       <div className="container">
@@ -8,18 +9,18 @@ const Footer = () => {
           <div className="col-lg-3  mb-lg-0">
             <div className="row">
               <div className="col-md-12">
-                <h3 className="footer-heading mb-4">Về Công Ty</h3>
+                <h3 className="footer-heading mb-4"> { strings["Back to comity"] }</h3>
               </div>
               <div className="col-md-6 col-lg">
                 <ul className="list-unstyled">
                   <li>
-                    <a href="/">Lứa tuyển dụng</a>
+                    <a href="/">{ strings["Recruiting Class"] }</a>
                   </li>
                   <li>
-                    <a href="/">Liên hệ nhượng quyền</a>
+                    <a href="/">{ strings["Contact Franchise"] }</a>
                   </li>
                   <li>
-                    <a href="/">Về MEN4MEN</a>
+                    <a href="/">{ strings["About MEN4MEN"] }</a>
                   </li>
                 </ul>
               </div>
@@ -29,7 +30,7 @@ const Footer = () => {
           <div className="col-lg-3 mb-lg-0">
             <div className="row">
               <div className="col-md-12">
-                <h3 className="footer-heading mb-4">Hỗ Trợ</h3>
+                <h3 className="footer-heading mb-4">{ strings["Support"] }</h3>
               </div>
               <div className="col-md-6 col-lg">
                 <ul className="list-unstyled">
@@ -37,13 +38,13 @@ const Footer = () => {
                     <a href="/">FAQs</a>
                   </li>
                   <li>
-                    <a href="/">Bảo mật thông tin</a>
+                    <a href="/">{ strings["Information security"] }</a>
                   </li>
                   <li>
-                    <a href="/">Chính sách chung</a>
+                    <a href="/">{ strings["General Policy"] }</a>
                   </li>
                   <li>
-                    <a href="/">Tra cứu đơn hàng</a>
+                    <a href="/">{ strings["Order Lookup"] }</a>
                   </li>
                 </ul>
               </div>
@@ -51,45 +52,38 @@ const Footer = () => {
           </div>
           <div className="col-md-6 col-lg-3">
             <div className="block-5">
-              <h3 className="footer-heading mb-4">Địa Chỉ Liên Hệ</h3>
+              <h3 className="footer-heading mb-4">{ strings["Address"] }</h3>
               <ul className="list-unstyled">
                 <li className="address">
-                  <a href=" https://goo.gl/maps/gviSv1m62iDQ8kub6">  Tòa P ,  Công Viên Phần Mềm Quang Trung , Q.12 TP.HCM  </a>
+                  <a href=" https://goo.gl/maps/gviSv1m62iDQ8kub6">  T{ strings["Building P, Quang Trung Software Park, District 12, Ho Chi Minh City"] }</a>
                 </li>
                 <li className="phone">
-                  <a>+84 999 999 999</a>
+                  <a>+84 389 927 803</a>
                 </li>
                 <li className="email">duantotnghiep@domain.com</li>
               </ul>
             </div>
           </div>
         </div>
-        {/* <div className="block-7"> */}
-          {/* <form action="/" method="post"> */}
-            {/* <div className="form-group"> */}
-              {/* <input type="text" className="form-control py-4" id="email_subscribe" placeholder="Email"/> */}
-              {/* <input type="submit" className="btn btn-sm btn-primary" value="Send"/> */}
-            {/* </div> */}
-          {/* </form> */}
-        {/* </div> */}
+
         <br></br>
         <br></br>
         <div className="row text-center">
           <div className="col-md-12">
             <p>
-              Copyright &copy;
+              { strings["Copyright"] } &copy;
               <script
                 data-cfasync="false"
                 src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
               <script>document.write(new Date().getFullYear())</script>
-              Bảo lưu mọi quyền | Website này được thực hiện&#160;
-              <i className="icon-heart" aria-hidden="true"></i> bởi nhóm
+              { strings["All Rights Reserved"] }  | { strings["This Website Made"] } &#160;
+              <i className="icon-heart" aria-hidden="true"></i>  { strings["By Team"] }
               <a
                 href="https://colorlib.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary">
-                &#160;MEN4MEN
+                &#160;{ strings["MEN4MEN"] }
               </a>
             </p>
           </div>
@@ -99,4 +93,5 @@ const Footer = () => {
   )
 }
 
-export default Footer
+
+export default multilanguage(Footer);

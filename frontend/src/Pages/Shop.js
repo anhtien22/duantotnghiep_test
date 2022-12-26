@@ -6,8 +6,9 @@ import Breadcrumb from "../components/Breadcrumb";
 import CategoryContext from "../context/category/categoryContext";
 import productContext from "../context/product/productContext";
 import { useToasts } from "react-toast-notifications";
+import { multilanguage } from "redux-multilanguage";
 
-const Shop = () => {
+const Shop = ({ strings }) => {
   // for product context
   const pContext = useContext(productContext);
   const { getProducts, products } = pContext;
@@ -92,16 +93,16 @@ const Shop = () => {
               <div className="row">
                 <div className="col-md-12 mb-5 d-flex justify-content-between" id="rowshop">
                   <div className=" col-md-6 float-md-left mb-4">
-                    <h2 className="text-black h5">SHOP ALL</h2>
+                    <h2 className="text-black h5">{ strings["Price_filter"] }</h2>
                     <select onChange={ (e) => setSortType(e.target.value) }>
                       <option disabled value="default">
-                        Sắp xếp
+                        { strings["Sort_price"] }
                       </option>
                       <option value="priceHighToLow">
-                        Giá từ cao đến thấp
+                        { strings["price_HighToLow"] }
                       </option>
-                      <option value="priceLowToHigh">
-                        Giá từ thấp đến cao
+                      <option value="price_LowToHigh">
+                        { strings["price_LowToHigh"] }
                       </option>
                     </select>
                   </div>
@@ -109,7 +110,7 @@ const Shop = () => {
                     <Form className="d-flex" onSubmit={ handleSearchSubmit }>
                       <FormControl
                         type="search"
-                        placeholder="Search products"
+                        placeholder={ strings["search_products"] }
                         className="me-2 "
                         aria-label="Search"
                         size="sm"
@@ -118,7 +119,7 @@ const Shop = () => {
                       />
 
                       <button type="submit" className="btn btn-secondary ">
-                        Search
+                        { strings["search"] }
                       </button>
                     </Form>
                   </div>
@@ -144,11 +145,11 @@ const Shop = () => {
                             <button className="icon btn" onClick={ () => {
                               let item = { ...product, id: product._id, };
                               if (addToast) {
-                                addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
+                                addToast(`${strings["Added_to_cart"]}`, { appearance: "success", autoDismiss: true });
                               }
                               addItem(item, quantity);
                             } }
-                              disabled={ product.Stock <= 1 } >{ product.Stock <= 1 ? "Hết Hàng" : "Thêm vào giỏ hàng" }
+                              disabled={ product.Stock <= 0 } >{ product.Stock <= 0 ? `${strings["Out_of_stock"]}` : `${strings["add_to_cart"]}` }
                             </button>
                           </div>
                         </div>
@@ -165,7 +166,7 @@ const Shop = () => {
 
                 <div className="col-md-12 text-center">
                   <img className="text-center" src="https://bizweb.dktcdn.net/100/333/755/themes/688335/assets/empty_cart.png?1647314197820" alt="" />
-                  <h2>Không có sản phẩm nào !</h2>
+                  <h2>{ strings["No_products"] }</h2>
                 </div>
 
               ) }
@@ -178,10 +179,10 @@ const Shop = () => {
                       onClick={ handlePreviousClick }
                       disabled={ skip < 1 }
                     >
-                      &larr; Trước
+                      &larr; { strings["Before"] }
                     </Button>
                     <div className="text-center mx-2">
-                      Trang { skip / limit + 1 }
+                      { strings["Page"] } { skip / limit + 1 }
                     </div>
 
                     <Button
@@ -190,7 +191,7 @@ const Shop = () => {
                       onClick={ handleNextClick }
                       disabled={ totalResults - skip <= limit }
                     >
-                      Tiếp tục &rarr;
+                      { strings["After"] } &rarr;
                     </Button>
                   </div>
                 </div>
@@ -201,12 +202,12 @@ const Shop = () => {
               <div className="border p-4 rounded mb-4">
                 <section id="sidebar">
                   <div className="py-2 border-bottom ml-3">
-                    <h6 className="font-weight-bold">Danh Mục</h6>
+                    <h6 className="font-weight-bold"> { strings["Category"] }</h6>
                     <div id="orange"><span className="fa fa-minus"></span></div>
                     <form>
                       <div className="form-group">
                         <input type="radio" id="male" className="radio-input" name="gender" onClick={ () => { setCategory(''); setSkip(0) } } />
-                        <label for="male" className="radio-label">Tất cả</label>
+                        <label for="male" className="radio-label">  { strings["All"] }</label>
                       </div>
                       { categories.map((cate) => (
                         <div className="form-group">
@@ -226,4 +227,5 @@ const Shop = () => {
     </>
   );
 };
-export default Shop;
+
+export default multilanguage(Shop);

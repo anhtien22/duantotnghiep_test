@@ -15,6 +15,7 @@ const Header = ({
   // const dispatch = useDispatch();
   const changeLanguageTrigger = e => {
     const languageCode = e.target.value;
+    localStorage.setItem("lang", languageCode)
     dispatch(changeLanguage(languageCode));
   };
 
@@ -125,22 +126,16 @@ const Header = ({
                               </a>
                             </div>
 
-
-
-
-
-
-
                           </Link>
                         </li>
                       </ul>
                     </span>
                     <div className="dropdown">
                       <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        { currentLanguageCode === "en"
-                          ? "English"
-                          : currentLanguageCode === "vn"
-                            ? "Việt Nam"
+                        { currentLanguageCode === "vn"
+                          ? "Việt Nam" :
+                          currentLanguageCode === "en"
+                            ? "English"
                             : "" }
                       </button>
                       <ul className="dropdown-menu">
@@ -164,10 +159,10 @@ const Header = ({
               <div className="dropdown2">
                 <div className="dropdown">
                   <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    { currentLanguageCode === "en"
-                      ? "English"
-                      : currentLanguageCode === "vn"
-                        ? "Việt Nam"
+                    { currentLanguageCode === "vn"
+                      ? "Việt Nam" :
+                      currentLanguageCode === "en"
+                        ? "English"
                         : "" }
                   </button>
                   <ul className="dropdown-menu">

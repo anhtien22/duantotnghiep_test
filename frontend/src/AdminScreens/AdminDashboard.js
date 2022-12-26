@@ -8,6 +8,7 @@ import categoryContext from '../context/category/categoryContext'
 import userContext from '../context/user/UserContext'
 import OrderContext from '../context/orders/orderContext'
 import Paginator from 'react-hooks-paginator'
+import { multilanguage } from 'redux-multilanguage'
 
 const total = (orders, status) =>
   orders.reduce((r, index) => {
@@ -22,7 +23,7 @@ const total = (orders, status) =>
     }
     return r;
   }, 0);
-const AdminDashboard = () => {
+const AdminDashboard = ({ strings }) => {
   // for product context
   const cContext = useContext(categoryContext)
   const pContext = useContext(productContext)
@@ -97,7 +98,7 @@ const AdminDashboard = () => {
               <div className="col-md-6">
                 <h1>
                   <i className="fas fa-cog" />
-                  Admin Dashboard
+                  { strings["Admin Dashboard"] }
                 </h1>
               </div>
             </div>
@@ -113,7 +114,8 @@ const AdminDashboard = () => {
                   className="btn btn-primary btn-block"
                   data-toggle="modal"
                   data-target="#addProductModal">
-                  <i className="fas fa-plus" /> Thêm sản phẩm
+                  <i className="fas fa-plus" />
+                  { strings["Add products"] }
                 </a>
               </div>
 
@@ -123,13 +125,14 @@ const AdminDashboard = () => {
                   className="btn btn-success btn-block"
                   data-toggle="modal"
                   data-target="#addCategoryModal">
-                  <i className="fas fa-plus" /> Thêm danh mục
+                  <i className="fas fa-plus" />{ strings["Add Category"] }
+
                 </a>
               </div>
 
               <div className="col-md-4">
                 <Link to="/users" className="btn btn-warning btn-block">
-                  <i className="fas fa-plus" /> Quản lý người dùng
+                  <i className="fas fa-plus" /> { strings["user management"] }
                 </Link>
               </div>
             </div>
@@ -142,18 +145,18 @@ const AdminDashboard = () => {
               <div className="col-md-9">
                 <div className="card">
                   <div className="card-header">
-                    <h4>Sản phẩm mới nhất</h4>
+                    <h4>{ strings["New product"] }</h4>
                   </div>
 
 
                   <div className="content table-responsive table-full-width">
                     <table className="table table-hover">
                       <thead>
-                        <th className="product-mahang1">Id</th>
-                        <th className="product-tenhang">Tên</th>
-                        <th className="product-logo">Giá</th>
-                        <th className="product-logo">Ngày</th>
-                        <th>Thao tác</th>
+                        <th className="product-mahang1">{ strings["Id"] }</th>
+                        <th className="product-tenhang">{ strings["Product name"] }</th>
+                        <th className="product-logo">{ strings["price_product"] }</th>
+                        <th className="product-logo">{ strings["Date"] }</th>
+                        <th>{ strings["Manipulation"] }</th>
                       </thead>
                       <tbody>
                         {
@@ -171,7 +174,7 @@ const AdminDashboard = () => {
                                 <td>
                                   <Link to={ `/productDetailsAdmin/${product._id}` } className="btn btn-secondary bg-primary text-white">
                                     <i className="fas fa-angle-double-right" />{ " " }
-                                    Chi tiết
+                                    { strings["Detail"] }
                                   </Link>
                                 </td>
                               </tr>
@@ -202,49 +205,49 @@ const AdminDashboard = () => {
               <div className="col-md-3">
                 <div className="card text-center bg-primary text-white mb-3">
                   <div className="card-body">
-                    <h3>Sản phẩm</h3>
+                    <h3>{ strings["Product"] }</h3>
                     <h4>
                       <i className="fas fa-pencil-alt" /> { products.length }
                     </h4>
                     <Link
                       to="/products"
                       className="btn btn-outline-light btn-sm">
-                      Xem
+                      { strings["to watch"] }
                     </Link>
                   </div>
                 </div>
                 <div className="card text-center bg-success text-white mb-3">
                   <div className="card-body">
-                    <h3>Danh mục</h3>
+                    <h3>   { strings["Category"] }</h3>
                     <h4>
                       <i className="fas fa-folder" /> { categories.length }
                     </h4>
                     <Link
                       to="/categories"
                       className="btn btn-outline-light btn-sm">
-                      Xem
+                      { strings["to watch"] }
                     </Link>
                   </div>
                 </div>
                 <div className="card text-center bg-warning text-white mb-3">
                   <div className="card-body">
-                    <h3>Tài khoản</h3>
+                    <h3> { strings["Account"] }</h3>
                     <h4 >
                       <i className="fas fa-users" /> { allUsers.length }
                     </h4>
                     <Link to="/users" className="btn btn-outline-light btn-sm">
-                      Xem
+                      { strings["to watch"] }
                     </Link>
                   </div>
                 </div>
                 <div className="card text-center bg-info text-white mb-3">
                   <div className="card-body">
-                    <h3>Doanh Thu</h3>
+                    <h3>     { strings["Revenue"] }</h3>
                     <h4>
                       <i className="fas fa-dollar-sign"></i> { formatter.format(resulf3) }
                     </h4>
                     <Link to="/orders" className="btn btn-outline-light btn-sm">
-                      Xem
+                      { strings["to watch"] }
                     </Link>
                   </div>
                 </div>
@@ -266,4 +269,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default multilanguage(AdminDashboard);

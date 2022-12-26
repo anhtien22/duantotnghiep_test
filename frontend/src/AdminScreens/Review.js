@@ -9,9 +9,10 @@ import Paginator from 'react-hooks-paginator';
 import swal from "sweetalert";
 import productContext from "../context/product/productContext";
 import { Rating } from "@mui/material";
+import { multilanguage } from "redux-multilanguage";
 
 
-const Review = () => {
+const Review = ({ strings }) => {
   const pContext = useContext(productContext);
   const { getProducts, products, getAllReviews } = pContext;
 
@@ -171,4 +172,4 @@ const Review = () => {
   );
 };
 
-export default Review;
+export default multilanguage(Review);

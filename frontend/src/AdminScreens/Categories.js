@@ -7,8 +7,9 @@ import EditCategoryModal from '../AdminComponents/EditCategoryModal'
 import AddCategoryModal from '../AdminComponents/AddCategoryModal'
 import { useNavigate } from 'react-router-dom'
 import swal from 'sweetalert'
+import { multilanguage } from 'redux-multilanguage'
 
-const Categories = () => {
+const Categories = ({ strings }) => {
   const context = useContext(CategoryContext)
   const { categories, getCategories, deleteCategory } = context
   const navigate = useNavigate()
@@ -23,7 +24,7 @@ const Categories = () => {
   //delete catagory
   const deleteSaveChanges = (id) => {
     swal({
-      title: "Bạn có chắc muốn xóa không?",
+      title: `${strings["Are you sure you want to delete?"]}`,
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -31,7 +32,7 @@ const Categories = () => {
       .then((willDelete) => {
         if (willDelete) {
           swal({
-            title: "Đã xóa danh mục thành công!",
+            title: `${strings["Deleted category successfully"]}`,
             icon: "success",
             buttons: true,
           });
@@ -58,7 +59,7 @@ const Categories = () => {
             <div className="row">
               <div className="col-md-6">
                 <h1>
-                  <i className="fas fa-folder" /> Danh mục
+                  <i className="fas fa-folder" />{ strings["Category"] }
                 </h1>
               </div>
             </div>
@@ -74,7 +75,7 @@ const Categories = () => {
                   className="btn btn-success btn-block"
                   data-toggle="modal"
                   data-target="#addCategoryModal">
-                  <i className="fas fa-plus" /> Thêm mới danh mục
+                  <i className="fas fa-plus" /> { strings["Add new category"] }
                 </a>
                 <AddCategoryModal />
               </div>
@@ -84,10 +85,10 @@ const Categories = () => {
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="Tìm kiếm danh mục..."
+                      placeholder={ strings["search_category"] }
                     />
                     <div className="input-group-append">
-                      <button className="btn btn-success" type="submit">Tìm kiếm</button>
+                      <button className="btn btn-success" type="submit">  { strings["search"] }</button>
                     </div>
                   </div>
                 </form>
@@ -102,14 +103,14 @@ const Categories = () => {
               <div className="col">
                 <div className="card">
                   <div className="card-header">
-                    <h4>Danh mục mới nhất</h4>
+                    <h4>{ strings["News category"] }</h4>
                   </div>
                   <div className="content table-responsive table-full-width">
                     <table className="table table-hover">
                       <thead>
                         <th className="product-mahang1">#</th>
-                        <th className="product-tenhang">Tiêu đề</th>
-                        <th>Thao tác</th>
+                        <th className="product-tenhang">{ strings["Title"] }</th>
+                        <th>{ strings["Manipulation"] }</th>
                       </thead>
                       <tbody>
                         {
@@ -144,4 +145,5 @@ const Categories = () => {
   )
 }
 
-export default Categories
+
+export default multilanguage(Categories);

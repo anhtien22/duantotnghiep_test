@@ -1,10 +1,11 @@
 import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { multilanguage } from 'redux-multilanguage'
 import Navbar from '../AdminComponents/Navbar'
 import UserContext from '../context/user/UserContext'
 // import Footer from '../AdminComponents/Footer'
 
-const Users = () => {
+const Users = ({ strings }) => {
   // for user context
   const uContext = useContext(UserContext)
   const { getAllUsers, allUsers, deleteOneUserAdmin } = uContext
@@ -27,7 +28,7 @@ const Users = () => {
             <div className="row">
               <div className="col-md-6">
                 <h1>
-                  <i className="fas fa-users" /> Tài khoản
+                  <i className="fas fa-users" />     { strings["Account"] }
                 </h1>
               </div>
             </div>
@@ -42,10 +43,10 @@ const Users = () => {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Tìm kiếm người dùng..."
+                    placeholder={ strings["search"] }
                   />
                   <div className="input-group-append">
-                    <button className="btn btn-warning">Tìm kiếm</button>
+                    <button className="btn btn-warning">{ strings["search"] }</button>
                   </div>
                 </div>
               </div>
@@ -59,7 +60,7 @@ const Users = () => {
               <div className="col">
                 <div className="card">
                   <div className="card-header">
-                    <h4>Tài khoản mới nhất</h4>
+                    <h4>{ strings["News users"] }</h4>
                   </div>
 
 
@@ -67,10 +68,10 @@ const Users = () => {
                     <table className="table table-hover">
                       <thead>
                         <th className="product-mahang1">#</th>
-                        <th className="product-tenhang">Tên</th>
-                        <th className="product-logo">Email</th>
-                        <th className="product-logo">Ngày</th>
-                        <th>Thao tác</th>
+                        <th className="product-tenhang">{ strings["account_name"] }</th>
+                        <th className="product-logo">{ strings["email"] }</th>
+                        <th className="product-logo">{ strings["Date"] }</th>
+                        <th>{ strings["Manipulation"] }</th>
                       </thead>
                       <tbody>
                         {
@@ -102,36 +103,6 @@ const Users = () => {
                   </div>
                 </div>
               </div>
-              {/* <div className="col"> */ }
-              {/* <div className="card"> */ }
-              {/* <div className="card-header"> */ }
-              {/* <h4>All Admins</h4> */ }
-              {/* </div> */ }
-              {/* <table className="table table-striped"> */ }
-              {/* <thead className="thead-dark"> */ }
-              {/* <tr> */ }
-              {/* <th>#</th> */ }
-              {/* <th>Tên</th> */ }
-              {/* <th>Email</th> */ }
-              {/* <th>Ngày</th> */ }
-              {/* <th /> */ }
-              {/* </tr> */ }
-              {/* </thead> */ }
-              {/* <tbody> */ }
-              {/* <tr> */ }
-              {/* <td>1</td> */ }
-              {/* <td>Admin</td> */ }
-              {/* <td>admin@gmail.com</td> */ }
-              {/* <td> */ }
-              {/* <a href="details.html" className="btn btn-secondary bg-primary text-white"> */ }
-              {/* <i className="fas fa-angle-double-right" /> Chi tiết */ }
-              {/* </a> */ }
-              {/* </td> */ }
-              {/* </tr> */ }
-              {/* </tbody> */ }
-              {/* </table> */ }
-              {/* </div> */ }
-              {/* </div> */ }
             </div>
           </div>
         </section>
@@ -141,4 +112,4 @@ const Users = () => {
   )
 }
 
-export default Users
+export default multilanguage(Users);

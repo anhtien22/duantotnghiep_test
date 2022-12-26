@@ -10,8 +10,9 @@ import Rating from '@mui/material/Rating';
 import { Pagination } from "@mui/material";
 import usePagination from "../helpers/Pagination"
 import { useToasts } from "react-toast-notifications";
+import { multilanguage } from "redux-multilanguage";
 
-const ShopSingle = () => {
+const ShopSingle = ({ strings }) => {
   // for product context
   const pContext = useContext(productContext);
   const { getOneProduct, newReview } = pContext;
@@ -54,7 +55,7 @@ const ShopSingle = () => {
     const payload = { rating, comment, productId: product._id, user: user._id, name: user.name };
     newReview(payload);
     if (addToast) {
-      addToast("Cảm ơn bạn đã đánh giá", { appearance: "success", autoDismiss: true });
+      addToast(`${strings["Thank you for rating the product"]}`, { appearance: "success", autoDismiss: true });
     }
     setTimeout(() => {
       window.location.reload(`/shopSingle/${id}`)
@@ -76,7 +77,7 @@ const ShopSingle = () => {
         <div className="details">
           <div className="content">
             <h2>{ product.name }<br></br>
-              <span>Thương hiệu: { product.brand.local }</span>
+              <span>{ strings["brands"] }: { product.brand.local }</span>
             </h2>
 
             <div className="product-colors">
@@ -84,10 +85,10 @@ const ShopSingle = () => {
               <input aria-label="quantity" className="input-qty" type="number" value={ quantity } disabled onChange={ (e) => setQuantity(e.target.value) } />
               <input className="plus is-form" type="button" value="+" onClick={ () => setQuantity(quantity + 1) } disabled={ quantity >= product.Stock } />
             </div>
-            <div className=""><span>{ product.Stock } sản phẩm có sẵn</span></div>
+            <div className=""><span>{ product.Stock } { strings["products_available"] }</span></div>
             { product.Stock >= 0 ? (
               <>
-                <span>Tổng lượt đánh giá: { product?.ratings.toFixed(1) }</span>
+                <span>{ strings["Total_reviews"] }: { product?.ratings.toFixed(1) }</span>
                 <div id="start">
                   <h3>{ formatter.format(product.price) }</h3>
                   <Rating name="rating" readOnly defaultValue={ product.ratings } precision={ 0.5 } />
@@ -96,21 +97,21 @@ const ShopSingle = () => {
                   <button onClick={ () => {
                     let item = { ...product, id: product._id, };
                     if (addToast) {
-                      addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
+                      addToast(`${strings["Added_to_cart"]}`, { appearance: "success", autoDismiss: true });
                     };
                     addItem(item, quantity);
                   } }
-                    disabled={ product.Stock <= 1 }
-                    type="button">{ product.Stock <= 1 ? "Hết Hàng" : "Mua Ngay" }</button>
+                    disabled={ product.Stock <= 0 }
+                    type="button">{ product.Stock <= 0 ? "Hết Hàng" : "Mua Ngay" }</button>
                 </Link>
 
                 <br></br>
-                <small>Mã sản phẩm: { product.sku }</small>
+                <small>{ strings["Product_code"] }: { product.sku }</small>
               </>) : (<>
-                <button className="buy-now btn btn-sm btn-primary">Hết hàng</button>
+                <button className="buy-now btn btn-sm btn-primary">{ strings["out_of_stock"] }</button>
               </>
             ) }
-            <h6 className="pt-2">Mô tả sản phẩm: { product.description }</h6>
+            <h6 className="pt-2">{ strings["Product_Description"] }: { product.description }</h6>
           </div>
         </div>
       </div>
@@ -118,7 +119,7 @@ const ShopSingle = () => {
         <div className="container">
           <div className="row">
             <div className="col-sm-5 col-md-6 col-12 pb-4">
-              <h1>Bình luận</h1>
+              <h1>{ strings["comment"] }</h1>
               { data.currentData().map((review, key) => (
                 <div className="comment mt-4 text-justify float-left col-122">
                   <div className="box1">
@@ -152,10 +153,10 @@ const ShopSingle = () => {
 
             <div className="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4">
               <form id="algin-form" onSubmit={ reviewSubmitHandler }>
-                <h4>Để lại một bình luận</h4>
+                <h4>{ strings["Leave a comment"] }</h4>
                 { user ? (<>
                   <div className="form-group">
-                    <label>Đánh giá:</label>
+                    <label>{ strings["Rating"] }:</label>
                     <Box
                       sx={ {
                         '& > legend': { mt: 1 },
@@ -170,7 +171,7 @@ const ShopSingle = () => {
                       />
                     </Box>
 
-                    <label htmlFor="message">Thông điệp</label>
+                    <label htmlFor="message">{ strings["Content"] }</label>
                     <textarea
                       name="msg"
                       cols="30"
@@ -183,7 +184,7 @@ const ShopSingle = () => {
                   </div>
                   <input className="btn btn-secondary" type="submit" />
                 </>) : (
-                  <p>Bạn cần đăng nhập để bình luận <Link to="/login">tại đây</Link></p>
+                  <p>{ strings["You need to login to comment"] }<Link to="/login">{ strings["here"] }</Link></p>
                 ) }
               </form>
               <br></br>
@@ -194,4 +195,4 @@ const ShopSingle = () => {
     </>
   );
 };
-export default ShopSingle;
+export default multilanguage(ShopSingle);

@@ -44,8 +44,8 @@ function App(props) {
     props.dispatch(
       loadLanguages({
         languages: {
+          vn: require("./translations/vn.json"),
           en: require("./translations/english.json"),
-          vn: require("./translations/vn.json")
         }
       })
     );

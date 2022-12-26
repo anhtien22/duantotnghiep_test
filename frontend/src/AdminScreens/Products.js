@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { multilanguage } from "redux-multilanguage";
 import AddProductModal from "../AdminComponents/AddProductModal";
 import Navbar from "../AdminComponents/Navbar";
 import productContext from "../context/product/productContext";
 // import Footer from '../AdminComponents/Footer'
 
-const Products = () => {
+const Products = ({ strings }) => {
   // for product context
   const pContext = useContext(productContext);
   const { getProducts, products } = pContext;
@@ -62,7 +63,7 @@ const Products = () => {
           <div className="row">
             <div className="col-md-6">
               <h1>
-                <i className="fas fa-pencil-alt" /> Sản phẩm
+                <i className="fas fa-pencil-alt" /> { strings["Product"] }
               </h1>
             </div>
           </div>
@@ -78,7 +79,7 @@ const Products = () => {
                 className="btn btn-primary btn-block"
                 data-toggle="modal"
                 data-target="#addProductModal">
-                <i className="fas fa-plus" /> Thêm sản phẩm
+                <i className="fas fa-plus" />  { strings["Add products"] }
               </a>
               <AddProductModal />
             </div>
@@ -88,13 +89,13 @@ const Products = () => {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Tìm kiếm sản phẩm..."
+                    placeholder={ strings["search_products"] }
                     value={ keyWord }
                     onChange={ handleChange }
                   />
                   <div className="input-group-append">
                     <button className="btn btn-primary" type="submit">
-                      Tìm kiếm
+                      { strings["search"] }
                     </button>
                   </div>
                 </div>
@@ -110,7 +111,7 @@ const Products = () => {
             <div className="col">
               <div className="card">
                 <div className="card-header">
-                  <h4>Danh sách sản phẩm</h4>
+                  <h4> { strings["list_products"] }</h4>
                 </div>
                 <div className="content table-responsive table-full-width">
                   { products?.length ? (
@@ -118,10 +119,10 @@ const Products = () => {
                       <table className="table table-hover">
                         <thead>
                           <th className="product-mahang1">#</th>
-                          <th className="product-tenhang">Tên</th>
-                          <th className="product-logo">Giá</th>
-                          <th className="product-logo">Ngày</th>
-                          <th>Thao tác</th>
+                          <th className="product-tenhang"> { strings["Product name"] }</th>
+                          <th className="product-logo">{ strings["price_product"] }</th>
+                          <th className="product-logo">{ strings["Date"] }</th>
+                          <th>{ strings["Manipulation"] }</th>
                         </thead>
 
                         <tbody>
@@ -144,7 +145,7 @@ const Products = () => {
                                     <Link
                                       to={ `/productDetailsAdmin/${product._id}` }
                                       className="btn btn-secondary bg-primary text-white">
-                                      <i className="fas fa-angle-double-right" /> Chi tiết
+                                      <i className="fas fa-angle-double-right" /> { strings["Detail"] }
                                     </Link>
                                   </td>
                                 </tr>
@@ -161,11 +162,11 @@ const Products = () => {
                               size="sm"
                               onClick={ handlePreviousClick }
                               disabled={ skip < 1 }>
-                              &larr; Trước
+                              &larr; { strings["Before"] }
                             </Button>
 
                             <div className="text-center mx-2">
-                              Trang { skip / limit + 1 }
+                              { strings["Page"] } { skip / limit + 1 }
                               {/* <span className="text-muted"> */ }
                               {/* Hiển thị {products.length} hết {totalResults} */ }
                               {/* sản phẩm. */ }
@@ -177,7 +178,7 @@ const Products = () => {
                               size="sm"
                               onClick={ handleNextClick }
                               disabled={ totalResults - skip <= limit }>
-                              Tiếp tục &rarr;
+                              { strings["After"] } &rarr;
                             </Button>
                           </div>
                         </div>
@@ -187,7 +188,7 @@ const Products = () => {
 
                     <div className="col-md-12 text-center">
                       <img className="text-center" src="https://bizweb.dktcdn.net/100/333/755/themes/688335/assets/empty_cart.png?1647314197820" alt="" />
-                      <h2>Không có sản phẩm nào !</h2>
+                      <h2> { strings["No_products"] } </h2>
                     </div>
 
                   ) }
@@ -203,4 +204,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default multilanguage(Products);
