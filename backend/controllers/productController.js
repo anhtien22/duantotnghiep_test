@@ -8,7 +8,6 @@ const { errorHandler } = require('../middleware/errorMiddleware.js');
 // @route POST '/api/products/add'
 // @access Private : Admin
 exports.addProduct = async (req, res) => {
-  const date = new Date()
   try {
     // if (!req.body.name) {
     //   throw new Error('Bạn chưa nhập tên sản phẩm!')
@@ -31,18 +30,18 @@ exports.addProduct = async (req, res) => {
 
     const product = new Product({
       ...req.body,
-      image: `uploads/${date.getTime()}${req.file.originalname}`,
+      image: `uploads/${req.file.originalname}`,
     })
 
     await sharp(req.file.buffer)
-      .toFile(`uploads/${date.getTime()}${req.file.originalname}`)
+      .toFile(`uploads/${req.file.originalname}`)
 
     await product.save()
     res.status(201).json({ success: true, message: 'Thêm sản phẩm', product })
   } catch (err) {
     if (req.file) {
       fs.unlinkSync(
-        path.resolve(`uploads/${date.getTime()}${req.file.originalname}`)
+        path.resolve(`uploads/${req.file.originalname}`)
       )
     }
     res.status(400).json({ success: false, error: err.message })
@@ -171,15 +170,15 @@ exports.updateProductImage = async (req, res) => {
 
     await sharp(req.file.buffer)
       .resize({ width: 400, height: 400 })
-      .toFile(`uploads/${date.getTime()}${req.file.originalname}`)
+      .toFile(`uploads/${req.file.originalname}`)
 
-    product.image = `uploads/${date.getTime()}${req.file.originalname}`
+    product.image = `uploads/${req.file.originalname}`
     await product.save()
     res.json({ success: true, message: 'Hình ảnh được cập nhật', image: product.image })
   } catch (err) {
     if (req.file) {
       fs.unlinkSync(
-        path.resolve(`uploads/${date.getTime()}${req.file.originalname}`)
+        path.resolve(`uploads/${req.file.originalname}`)
       )
     }
     res.status(400).json({ success: false, error: err.message })
