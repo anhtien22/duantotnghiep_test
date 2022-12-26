@@ -177,19 +177,18 @@ const UserState = props => {
   // -----------------------------------------------------------------
   // Edit Profile
   // -----------------------------------------------------------------
-  const editProfile = async (name, email, addToast) => {
+  const editProfile = async (payload, addToast) => {
     try {
       setUserLoading(true)
-      const body = clean({ name, email })
-      const { data } = await axios.patch('api/users/profile', body, { headers })
+      if (payload.name === "") {
+        addToast("bạn chưa nhập tên", { appearance: "error", autoDismiss: true });
+        setUserLoading(false)
+      }
+      const { data } = await axios.patch('api/users/profile', payload, { headers })
       setUser(data.user)
       localStorage.setItem('userInfo', JSON.stringify(data.user))
       setUserError(null)
       setUserLoading(false)
-      // setUserMessage({
-      //   variant: 'success',
-      //   message: 'Hồ sơ của bạn đã được cập nhật thành công',
-      // })
       if (addToast) {
         addToast("Hồ sơ của bạn đã được cập nhật thành công", { appearance: "success", autoDismiss: true });
       }
@@ -349,11 +348,15 @@ const UserState = props => {
         body,
         config
       );
-      setUserLoading(false)
-      setUserError(null)
       if (addToast) {
         addToast("Đổi mật khẩu thành công!", { appearance: "success", autoDismiss: true });
+        setTimeout(() => {
+          navigate("/profile")
+        }, 2000)
       }
+      setUserLoading(false)
+      setUserError(null)
+
       return data.user;
     } catch (err) {
       if (addToast) {

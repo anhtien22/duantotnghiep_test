@@ -46,6 +46,7 @@ const Cart = () => {
       <Breadcrumb pageName="Cart" />
       { isEmpty ? (
         <div className="text-center my-5">
+          <img src="https://bizweb.dktcdn.net/100/333/755/themes/688335/assets/empty_cart.png?1647314197820" alt="" />
           <h2 className=" my-3">Giỏ của bạn trống</h2>
           <button className="btn btn-secondary" onClick={ () => navigate("/shop") }>Quay trở lại</button>
         </div>
@@ -151,27 +152,7 @@ const Cart = () => {
                     </Link>
                   </div>
                 </div>
-                <div className="row">
-                  <div className="col-md-12">
-                    <label className="text-black h4" htmlFor="coupon">
-                      Phiếu mua hàng
-                    </label>
-                    <p>Nhập mã phiếu giảm giá của bạn nếu bạn có.</p>
-                  </div>
-                  <div className="col-md-8 mb-3 mb-md-0">
-                    <input
-                      type="text"
-                      className="form-control py-3"
-                      id="coupon"
-                      placeholder="Coupon Code"
-                    />
-                  </div>
-                  <div className="col-md-4">
-                    <button className="btn btn-primary btn-sm">
-                      Áp dụng phiếu giảm giá
-                    </button>
-                  </div>
-                </div>
+
                 <br></br>
               </div>
 

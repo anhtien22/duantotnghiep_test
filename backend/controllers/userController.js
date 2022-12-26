@@ -78,7 +78,9 @@ exports.updateProfile = async (req, res) => {
   if (!isValidOperation) {
     return res.status(400).json({ error: 'Cập nhật không thành công' })
   }
-
+  if (!req.body.name) {
+    throw new Error('Bạn chưa nhập tên!')
+  }
   updates.forEach(update => (req.user[update] = req.body[update]))
   try {
     await req.user.save()

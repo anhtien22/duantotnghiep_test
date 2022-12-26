@@ -84,7 +84,7 @@ const Categories = () => {
                       <thead>
                         <th className="product-mahang1">#</th>
                         <th className="product-tenhang">Tiêu đề</th>
-                        <th></th>
+                        <th>Thao tác</th>
                       </thead>
                       <tbody>
                         {
@@ -95,7 +95,7 @@ const Categories = () => {
                                   { i + 1 }
                                 </td>
                                 <td className="product-tenhang">{ category.title }</td>
-                                <td id='buttonadmin'>
+                                <td id='buttonadmin' >
                                   <EditCategoryModal category={ category } />
                                   <Button variant="danger" className="mx-2" onClick={ () => deleteSaveChanges(category._id) }>
                                     <i className="fas fa-trash" />

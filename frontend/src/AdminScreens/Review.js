@@ -102,47 +102,55 @@ const Review = () => {
                 <div className="card-header">
                   <h4>Danh sách bình luận</h4>
                 </div>
+                { currentData?.length ? (
+                  <div className="content table-responsive table-full-width">
+                    <table className="table table-hover">
+                      <thead>
+                        <th className="product-mahang1">Mã</th>
+                        <th className="product-tenhang">Tên sản phẩm</th>
+                        <th className="product-logo">Tổng bình luận</th>
+                        <th className="product-logo">Tổng đánh giá</th>
+                        <th>Thao tác</th>
+                        <th></th>
+                      </thead>
+                      <tbody>
+                        {
+                          <>
+                            { currentData && currentData.filter((value) => {
+                              if (keyword === "") {
+                                return value;
+                              } else if (value._id.toLowerCase().includes(keyword.toLowerCase())) {
+                                return value;
+                              }
+                            }).map((product, index) => (
+                              <tr key={ product._id }>
+                                <td className="product-mahang1">{ product._id }</td>
+                                <td className="product-tenhang">{ product.name }</td>
+                                <td className="product-logo">{ product.numOfReviews }</td>
+                                <td><Rating name="half-rating-read" defaultValue={ product.ratings } precision={ 0.5 } readOnly /></td>
+                                <td>
+                                  <Link
+                                    to={ `/reviews/${product._id}` }
+                                    className="btn btn-secondary bg-primary text-white"
+                                  >
+                                    <i className="fas fa-angle-double-right" /> Chi tiết
+                                  </Link>
+                                </td>
+                              </tr>
+                            )) }
+                          </>
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+                ) : (
 
-                <div className="content table-responsive table-full-width">
-                  <table className="table table-hover">
-                    <thead>
-                      <th className="product-mahang1">Mã</th>
-                      <th className="product-tenhang">Tên sản phẩm</th>
-                      <th className="product-logo">Tổng bình luận</th>
-                      <th className="product-logo">Tổng đánh giá</th>
-                      <th>Thao tác</th>
-                      <th></th>
-                    </thead>
-                    <tbody>
-                      {
-                        <>
-                          { currentData && currentData.filter((value) => {
-                            if (keyword === "") {
-                              return value;
-                            } else if (value._id.toLowerCase().includes(keyword.toLowerCase())) {
-                              return value;
-                            }
-                          }).map((product, index) => (
-                            <tr key={ product._id }>
-                              <td className="product-mahang1">{ product._id }</td>
-                              <td className="product-tenhang">{ product.name }</td>
-                              <td className="product-logo">{ product.numOfReviews }</td>
-                              <td><Rating name="half-rating-read" defaultValue={ product.ratings } precision={ 0.5 } readOnly /></td>
-                              <td>
-                                <Link
-                                  to={ `/reviews/${product._id}` }
-                                  className="btn btn-secondary bg-primary text-white"
-                                >
-                                  <i className="fas fa-angle-double-right" /> Chi tiết
-                                </Link>
-                              </td>
-                            </tr>
-                          )) }
-                        </>
-                      }
-                    </tbody>
-                  </table>
-                </div>
+                  <div className="col-md-12 text-center">
+                    <img className="text-center" src="https://bizweb.dktcdn.net/100/333/755/themes/688335/assets/empty_cart.png?1647314197820" alt="" />
+                    <h2>Không có bình luận nào !</h2>
+                  </div>
+
+                ) }
                 <Paginator
                   totalRecords={ products.length }
                   pageLimit={ pageLimit }

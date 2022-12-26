@@ -113,73 +113,86 @@ const Products = () => {
                   <h4>Danh sách sản phẩm</h4>
                 </div>
                 <div className="content table-responsive table-full-width">
-                  <table className="table table-hover">
-                    <thead>
-                      <th className="product-mahang1">#</th>
-                      <th className="product-tenhang">Tên</th>
-                      <th className="product-logo">Giá</th>
-                      <th className="product-logo">Ngày</th>
-                      <th></th>
-                    </thead>
-                    <tbody>
-                      {
-                        <>
-                          { products.map((product, i) => (
-                            <tr key={ product._id }>
-                              <td className="product-mahang1">
-                                { i + 1 }
-                              </td>
-                              <td className="product-tenhang">{ product.name }</td>
-                              <td className="product-logo"> { product.price.toLocaleString("it-IT", {
-                                style: "currency",
-                                currency: "VND",
-                              }) }</td>
-                              <td>
-                                { new Date(product.createdAt).toLocaleDateString() }
-                              </td>
-                              <td>
-                                <Link
-                                  to={ `/productDetailsAdmin/${product._id}` }
-                                  className="btn btn-secondary bg-primary text-white">
-                                  <i className="fas fa-angle-double-right" /> Chi tiết
-                                </Link>
-                              </td>
-                            </tr>
-                          )) }
-                        </>
-                      }
-                    </tbody>
-                  </table>
-                </div>
-                <div className="row mx-3">
-                  <div className="col-md-12 text-center">
-                    <div className="d-flex justify-content-between align-items-center my-3">
-                      <Button
-                        variant="success"
-                        size="sm"
-                        onClick={ handlePreviousClick }
-                        disabled={ skip < 1 }>
-                        &larr; Trước
-                      </Button>
+                  { products?.length ? (
+                    <>
+                      <table className="table table-hover">
+                        <thead>
+                          <th className="product-mahang1">#</th>
+                          <th className="product-tenhang">Tên</th>
+                          <th className="product-logo">Giá</th>
+                          <th className="product-logo">Ngày</th>
+                          <th>Thao tác</th>
+                        </thead>
 
-                      <div className="text-center mx-2">
-                        Trang { skip / limit + 1 }
-                        {/* <span className="text-muted"> */ }
-                        {/* Hiển thị {products.length} hết {totalResults} */ }
-                        {/* sản phẩm. */ }
-                        {/* </span> */ }
+                        <tbody>
+                          {
+                            <>
+                              { products.map((product, i) => (
+                                <tr key={ product._id }>
+                                  <td className="product-mahang1">
+                                    { i + 1 }
+                                  </td>
+                                  <td className="product-tenhang">{ product.name }</td>
+                                  <td className="product-logo"> { product.price.toLocaleString("it-IT", {
+                                    style: "currency",
+                                    currency: "VND",
+                                  }) }</td>
+                                  <td>
+                                    { new Date(product.createdAt).toLocaleDateString() }
+                                  </td>
+                                  <td>
+                                    <Link
+                                      to={ `/productDetailsAdmin/${product._id}` }
+                                      className="btn btn-secondary bg-primary text-white">
+                                      <i className="fas fa-angle-double-right" /> Chi tiết
+                                    </Link>
+                                  </td>
+                                </tr>
+                              )) }
+                            </>
+                          }
+                        </tbody>
+                      </table>
+                      <div className="row mx-3">
+                        <div className="col-md-12 text-center">
+                          <div className="d-flex justify-content-between align-items-center my-3">
+                            <Button
+                              variant="success"
+                              size="sm"
+                              onClick={ handlePreviousClick }
+                              disabled={ skip < 1 }>
+                              &larr; Trước
+                            </Button>
+
+                            <div className="text-center mx-2">
+                              Trang { skip / limit + 1 }
+                              {/* <span className="text-muted"> */ }
+                              {/* Hiển thị {products.length} hết {totalResults} */ }
+                              {/* sản phẩm. */ }
+                              {/* </span> */ }
+                            </div>
+
+                            <Button
+                              variant="success"
+                              size="sm"
+                              onClick={ handleNextClick }
+                              disabled={ totalResults - skip <= limit }>
+                              Tiếp tục &rarr;
+                            </Button>
+                          </div>
+                        </div>
                       </div>
+                    </>
+                  ) : (
 
-                      <Button
-                        variant="success"
-                        size="sm"
-                        onClick={ handleNextClick }
-                        disabled={ totalResults - skip <= limit }>
-                        Tiếp tục &rarr;
-                      </Button>
+                    <div className="col-md-12 text-center">
+                      <img className="text-center" src="https://bizweb.dktcdn.net/100/333/755/themes/688335/assets/empty_cart.png?1647314197820" alt="" />
+                      <h2>Không có sản phẩm nào !</h2>
                     </div>
-                  </div>
+
+                  ) }
                 </div>
+
               </div>
             </div>
           </div>

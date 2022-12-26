@@ -176,8 +176,7 @@ const OrderCod = () => {
                       <th>Ngày đặt hàng</th>
                       <th>Tiền </th>
                       <th>Trạng thái</th>
-                      <th>Xem thêm</th>
-                      <th></th>
+                      <th>Thao tác</th>
                     </thead>
                     <tbody>
                       {
@@ -229,8 +228,56 @@ const OrderCod = () => {
                           />
                         </>
                       }
+                      {/* { currentData.paymentResult.status === "Successfully" ? (
+                        <>
+                          { currentData.filter((value) => {
+                            if (keyword === "") {
+                              return value;
+                            } else if (value._id.toLowerCase().includes(keyword.toLowerCase())) {
+                              return value;
+                            }
+                          }).map((order, index) =>
+
+                            <tr key={ order._id }>
+                              <td className="product-mahang1">
+                                { order._id }
+                              </td>
+                              <td className="product-tenhang">{ order.user?.name }</td>
+                              <td className="product-logo"> { new Date(order.createdAt).toLocaleDateString() }</td>
+                              <td>
+                                { formatter.format(order.totalPrice) }
+                              </td>
+                              <td>
+                                <div className="flex-grow w-full online">
+                                  Đã giao hàng
+                                </div>
+                              </td>
+                              <td>
+                                <Link
+                                  to={ `/orderDetailsAdmin/${order._id}` }
+                                  className="btn btn-secondary bg-primary text-white"
+                                >
+                                  <i className="fas fa-angle-double-right" /> Chi
+                                  tiết
+                                </Link>
+                              </td>
+                            </tr>
+                          ) }
+                        </>
+                      ) : "" } */}
                     </tbody>
                   </table>
+                  {/* <Paginator
+                    totalRecords={ orders.length }
+                    pageLimit={ pageLimit }
+                    pageNeighbours={ 2 }
+                    setOffset={ setOffset }
+                    currentPage={ currentPage }
+                    setCurrentPage={ setCurrentPage }
+                    pageContainerClass="mb-0 mt-0 d-flex"
+                    pagePrevText="«"
+                    pageNextText="»"
+                  /> */}
                 </div>
 
               </div>

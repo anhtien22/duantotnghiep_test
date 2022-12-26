@@ -9,19 +9,9 @@ import userContext from '../context/user/UserContext'
 import OrderContext from '../context/orders/orderContext'
 import Paginator from 'react-hooks-paginator'
 
-
-const AdminDashboard = () => {
-  // for product context
-  const cContext = useContext(categoryContext)
-  const pContext = useContext(productContext)
-  const uContext = useContext(userContext)
-  const oContext = useContext(OrderContext)
-  const { getProducts, products } = pContext
-  const { getCategories, categories } = cContext
-  const { getAllUsers, allUsers } = uContext
-  const { getAllOrders, orders } = oContext
-  const resulf = orders.reduce((r, index) => {
-    if (index.paymentResult.status === "Successfully") {
+const total = (orders, status) =>
+  orders.reduce((r, index) => {
+    if (index.paymentResult.status === status) {
       if (index.orderItems.length) {
         const total = index.orderItems.reduce((count, item) => {
           return (count += item.price * item.quantity);
@@ -32,6 +22,31 @@ const AdminDashboard = () => {
     }
     return r;
   }, 0);
+const AdminDashboard = () => {
+  // for product context
+  const cContext = useContext(categoryContext)
+  const pContext = useContext(productContext)
+  const uContext = useContext(userContext)
+  const oContext = useContext(OrderContext)
+  const { getProducts, products } = pContext
+  const { getCategories, categories } = cContext
+  const { getAllUsers, allUsers } = uContext
+  const { getAllOrders, orders } = oContext
+  // const resulf = orders.reduce((r, index) => {
+  //   if (index.paymentResult.status === "Successfully") {
+  //     if (index.orderItems.length) {
+  //       const total = index.orderItems.reduce((count, item) => {
+  //         return (count += item.price * item.quantity);
+  //       }, 0);
+
+  //       return (r += total);
+  //     }
+  //   }
+  //   return r;
+  // }, 0);
+  const resulf = total(orders, "Successfully");
+  const resulf2 = total(orders, "COMPLETED");
+  const resulf3 = resulf + resulf2;
   const skip = 0
 
   const pageLimit = 5;
@@ -138,7 +153,7 @@ const AdminDashboard = () => {
                         <th className="product-tenhang">Tên</th>
                         <th className="product-logo">Giá</th>
                         <th className="product-logo">Ngày</th>
-                        <th></th>
+                        <th>Thao tác</th>
                       </thead>
                       <tbody>
                         {
@@ -226,7 +241,7 @@ const AdminDashboard = () => {
                   <div className="card-body">
                     <h3>Doanh Thu</h3>
                     <h4>
-                      <i className="fas fa-dollar-sign"></i> { formatter.format(resulf) }
+                      <i className="fas fa-dollar-sign"></i> { formatter.format(resulf3) }
                     </h4>
                     <Link to="/orders" className="btn btn-outline-light btn-sm">
                       Xem

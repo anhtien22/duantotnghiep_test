@@ -213,7 +213,7 @@ const Orders = () => {
                       <th className="product-logo">Ngày đặt hàng</th>
                       <th className="product-logo">Tiền</th>
                       <th className="product-logo">Trạng thái</th>
-                      <th className="product-logo">Xem thêm</th>
+                      <th className="product-logo">Thao tác</th>
                       <th></th>
                     </thead>
                     <tbody>
@@ -252,6 +252,7 @@ const Orders = () => {
                                                 icon: "success",
                                               });
                                               updateStatustAdmin(e, order._id);
+                                              window.location.reload();
                                             } else {
                                               window.location.reload();
                                             }

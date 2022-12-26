@@ -2,8 +2,10 @@ import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import UserContext from '../context/user/UserContext';
 import { useToasts } from "react-toast-notifications";
+import { Form, Input } from 'antd';
 
 const UpdatePassword = () => {
+  const [form] = Form.useForm();
 
   const uContext = useContext(UserContext);
   const { updatePassword } = uContext;
@@ -13,8 +15,7 @@ const UpdatePassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const updatePasswordSubmit = (e) => {
-    e.preventDefault();
+  const updatePasswordSubmit = () => {
 
     const payload = { oldPassword, newPassword, confirmPassword };
     updatePassword(payload, addToast);
@@ -37,43 +38,86 @@ const UpdatePassword = () => {
                   <h4>Đổi mật khẩu</h4>
                 </div>
                 <div className="card-body">
-                  <form onSubmit={ updatePasswordSubmit }>
+                  <Form form={ form }
+                    onFinish={ updatePasswordSubmit }>
                     <div className="form-group">
-                      <label htmlFor="oldPassword">Mật khẩu cũ</label>
-                      <input
-                        onChange={ (e) => setOldPassword(e.target.value) }
-                        type="password"
-                        className="form-control"
-                        value={ oldPassword }
-                      />
+                      <Form.Item
+                        name="passwords"
+                        label="Mật khẩu cũ"
+                        rules={ [
+                          {
+                            min: 6,
+                            message: 'Mật khẩu của bạn phải lớn hơn 6 kí tự!',
+                          },
+                          {
+                            required: true,
+                            message: 'Bạn chưa nhập mật khẩu!',
+                          },
+                        ] }
+                      >
+                        <Input
+                          type="password"
+                          className="form-control"
+                          value={ oldPassword }
+                          onChange={ (e) => setOldPassword(e.target.value) }
+                        />
+                      </Form.Item>
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="newPassword">Mật khẩu mới</label>
-                      <input
-                        onChange={ (e) => setNewPassword(e.target.value) }
-                        type="password"
-                        className="form-control"
-                        value={ newPassword }
-                      />
+                      <Form.Item
+                        name="newPassword"
+                        label="Mật khẩu mới"
+                        rules={ [
+                          {
+                            min: 6,
+                            message: 'Mật khẩu của bạn phải lớn hơn 6 kí tự',
+                          },
+                          {
+                            required: true,
+                            message: 'Bạn chưa nhập mật khẩu mới!',
+                          },
+                        ] }
+                      >
+                        <Input
+                          type="password"
+                          className="form-control"
+                          value={ newPassword }
+                          onChange={ (e) => setNewPassword(e.target.value) }
+                        />
+                      </Form.Item>
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="confirmPassword">Nhập mật khẩu mới</label>
-                      <input
-                        onChange={ (e) => setConfirmPassword(e.target.value) }
-                        type="password"
-                        className="form-control"
-                        value={ confirmPassword }
-                      />
+                      <Form.Item
+                        name="confirmPassword"
+                        label="Nhập mật khẩu mới"
+                        rules={ [
+                          {
+                            min: 6,
+                            message: 'Mật khẩu của bạn phải lớn hơn 6 kí tự',
+                          },
+                          {
+                            required: true,
+                            message: 'Bạn chưa nhập lại mật khẩu mới!',
+                          },
+                        ] }
+                      >
+                        <Input
+                          type="password"
+                          className="form-control"
+                          value={ confirmPassword }
+                          onChange={ (e) => setConfirmPassword(e.target.value) }
+                        />
+                      </Form.Item>
                     </div>
 
-                    <input
+                    <Input
                       type="submit"
-                      defaultValue="ForgotPassword"
+                      defaultValue="Đổi mật khẩu"
                       className="btn btn-primary btn-block"
                     />
-                  </form>
+                  </Form>
                 </div>
               </div>
             </div>

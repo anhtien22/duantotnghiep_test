@@ -5,9 +5,35 @@ const Brand = require('../models/Brand.js');
 // @access Private : Admin
 exports.addBrand = async (req, res) => {
   try {
-    const brand = new Brand(req.body)
-    await brand.save()
-    res.status(201).json({ success: true, message: 'Thương hiệu đã thêm', brand })
+    const brand_data = await Brand.find();
+    if (brand_data.length > 0) {
+      let checkBrand = false;
+      for (let i = 0; i < brand_data.length; i++) {
+        if (brand_data[i]['local'] === req.body.local) {
+          checkBrand = true;
+          break;
+        }
+      };
+      if (checkBrand == false) {
+        const brand = new Brand({
+          local: req.body.local
+        })
+
+        await brand.save()
+        res.status(200).json({ success: true, brand })
+      } else {
+        res.status(400).json({ error: 'Thương hiệu đã tồn tại' })
+      }
+
+    } else {
+      const brand = new Brand({
+        local: req.body.local
+      })
+
+      await brand.save()
+      res.status(200).json({ success: true, brand })
+    }
+
   } catch (err) {
     res.status(400).json({ success: false, error: err.message })
   }

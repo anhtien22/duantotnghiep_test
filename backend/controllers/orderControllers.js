@@ -122,11 +122,11 @@ exports.updateOrder = async (req, res, next) => {
       await updateStock(o.product, o.quantity);
     });
   }
-  if (req.body.status === "Successfully") {
-    order.orderItems.forEach(async (o) => {
-      await updateStockSuccess(o.product, o.quantity);
-    });
-  }
+  // if (req.body.status === "Successfully") {
+  //   order.orderItems.forEach(async (o) => {
+  //     await updateStockSuccess(o.product, o.quantity);
+  //   });
+  // }
   if (req.body.status === "Canceled") {
     order.orderItems.forEach(async (o) => {
       await updateStockCanceled(o.product, o.quantity);
@@ -155,14 +155,7 @@ async function updateStock(id, quantity) {
   await product.save({ validateBeforeSave: false });
 
 }
-async function updateStockSuccess(id, quantity) {
-  const product = await Product.findById(id);
 
-  product.Stock = quantity;
-
-  await product.save({ validateBeforeSave: false });
-
-}
 async function updateStockCanceled(id, quantity) {
   const product = await Product.findById(id);
 

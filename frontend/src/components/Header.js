@@ -116,7 +116,7 @@ const Header = ({
                           <Link to="/cart" className="site-cart">
 
                             <div className="main-icon">
-                              <a href="#" className="main-bag">
+                              <a className="main-bag">
                                 <i className="icon icon-shopping_cart" aria-hidden="true"></i>
                                 { totalUniqueItems && totalUniqueItems > 0 ? (
                                   <span className="count-item" id="cart-total">{ totalUniqueItems }</span>

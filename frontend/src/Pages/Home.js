@@ -120,41 +120,41 @@ const Home = ({ strings }) => {
               data-aos="fade"
               data-aos-delay=""
             >
-              <a className="block-2-item" href="/">
+              <Link className="block-2-item" to={ "/shop" }>
                 <figure className="image">
                   <img src="images/Avatar/thun.png" alt="" className="img-fluid" />
                 </figure>
                 <div className="text">
-                  <span className="text-uppercase">Collections</span>
-                  <h3>Áo thun</h3>
+                  <span className="text-uppercase">Xu hướng</span>
+                  <h3>Năng Động</h3>
                 </div>
-              </a>
+              </Link>
             </div>
             <div
               className="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0"
               data-aos="fade"
               data-aos-delay="100"
             >
-              <a className="block-2-item" href="/">
+              <Link className="block-2-item" to={ "/shop" }>
                 <figure className="image">
                   <img src="images/Avatar/khoac.png" alt="" className="img-fluid" />
                 </figure>
                 <div className="text">
-                  <span className="text-uppercase">Collections</span>
-                  <h3>Áo khoác</h3>
+                  <span className="text-uppercase">Xu hướng</span>
+                  <h3>Cá Tính</h3>
                 </div>
-              </a>
+              </Link>
             </div>
             <div className="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="200">
-              <a className="block-2-item" href="/">
+              <Link className="block-2-item" to={ "/shop" }>
                 <figure className="image">
                   <img src="images/Avatar/Polo.png" alt="" className="img-fluid" />
                 </figure>
                 <div className="text">
-                  <span className="text-uppercase">Collections</span>
-                  <h3>Polo</h3>
+                  <span className="text-uppercase">Xu hướng</span>
+                  <h3>Nhiệt Huyết</h3>
                 </div>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

@@ -62,26 +62,26 @@ const BrandState = props => {
       }
       setBrandsLoading(true)
       await axios.post('/api/brand/add', brandBody, { headers })
-      setBrands([...brands, brandBody])
-
+      // setBrands([...brands, brandBody])
       swal({
-        title: "Thương hiệu được thêm thành công!",
+        title: "Đã thêm thương hiệu thành công!",
         icon: "success",
       })
         .then((value) => {
           window.location.reload("/brands")
+          // navigate("/products")
+          // swal(`The returned value is: ${value}`);
         });
       setBrandsLoading(false)
       setBrandsError(null)
     } catch (err) {
+      // errorHandler(err, "Không thể thêm thương hiệu")
       swal({
-        title: `${err.response.data.error}`,
+        title: `${err.response.data.error}, Vui lòng nhập dữ liệu!`,
         icon: "error",
-        button: "Ok",
       })
         .then((value) => {
           window.location.reload("/brands")
-          setBrandsLoading(false)
         });
     }
   }

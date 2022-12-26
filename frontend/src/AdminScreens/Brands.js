@@ -83,7 +83,7 @@ const Brands = () => {
                       <thead>
                         <th className="product-mahang1">#</th>
                         <th className="product-tenhang">Tiêu đề</th>
-                        <th></th>
+                        <th>Thao tác</th>
                       </thead>
                       <tbody>
                         {

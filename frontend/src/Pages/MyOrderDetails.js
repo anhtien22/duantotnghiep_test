@@ -68,7 +68,7 @@ const MyOrderDetails = () => {
                       className="card shadow-0 border mb-4"
                     >
                       <div className="card-body">
-                        <div className="row">
+                        <div className="row" id="details">
                           <div className="col-md-2">
                             <Link to={ `/shopSingle/${orderItem.product}` }>
                               <img
@@ -83,11 +83,11 @@ const MyOrderDetails = () => {
                               <b>{ orderItem.name }</b>
                             </p>
                           </div>
-                          <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
+                          {/* <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
                             <p className="text-muted mb-0 small">
                               { orderItem.description }
                             </p>
-                          </div>
+                          </div> */}
                           <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
                             <p className="text-muted mb-0 small">
                               Số lượng: { orderItem.quantity }

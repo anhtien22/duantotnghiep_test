@@ -39,7 +39,14 @@ const Checkout = () => {
   const handleChange = (e) => {
     setShippingAddress({ ...shippingAddress, [e.target.name]: e.target.value });
   };
-
+  useEffect(() => {
+    if (user) {
+      form.setFieldsValue({
+        name: user.name,
+      })
+    }
+    // eslint-disable-next-line no-use-before-define
+  }, [form, user])
   const {
     isEmpty,
     // totalItems,
@@ -187,26 +194,6 @@ const Checkout = () => {
 
                   <div className="form-group">
                     <Form.Item
-                      name="city"
-                      label="Thành Phố"
-                      rules={ [
-                        {
-                          required: true,
-                          message: 'Vui lòng nhập thành phố của bạn !',
-                        }
-                      ] }
-                    >
-                      <Input
-                        type="text"
-                        name="city"
-                        className="form-control"
-                        value={ shippingAddress.city }
-                        onChange={ handleChange } />
-                    </Form.Item>
-                  </div>
-
-                  <div className="form-group">
-                    <Form.Item
                       name="country"
                       label="Huyện/Phường"
                       rules={ [
@@ -222,6 +209,26 @@ const Checkout = () => {
 
                         className="form-control"
                         value={ shippingAddress.country }
+                        onChange={ handleChange } />
+                    </Form.Item>
+                  </div>
+
+                  <div className="form-group">
+                    <Form.Item
+                      name="city"
+                      label="Thành Phố"
+                      rules={ [
+                        {
+                          required: true,
+                          message: 'Vui lòng nhập thành phố của bạn !',
+                        }
+                      ] }
+                    >
+                      <Input
+                        type="text"
+                        name="city"
+                        className="form-control"
+                        value={ shippingAddress.city }
                         onChange={ handleChange } />
                     </Form.Item>
                   </div>

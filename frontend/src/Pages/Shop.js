@@ -124,43 +124,51 @@ const Shop = () => {
                   </div>
                 </div>
               </div>
+              { products?.length ? (
+                <div className="row mb-5" id="shopproducts">
+                  { products.filter((filterProduct) => {
+                    return filterProduct.price >= parseInt(price, 10);
+                  }).map((product) => (
+                    <div
+                      className="col-sm-6 col-lg-4 mb-4"
+                      data-aos="fade-up"
+                      key={ product._id }
+                    >
+                      <div className="block-4 text-center border">
 
-              <div className="row mb-5" id="shopproducts">
-                { products.filter((filterProduct) => {
-                  return filterProduct.price >= parseInt(price, 10);
-                }).map((product) => (
-                  <div
-                    className="col-sm-6 col-lg-4 mb-4"
-                    data-aos="fade-up"
-                    key={ product._id }
-                  >
-                    <div className="block-4 text-center border">
-
-                      <div className="product-img">
-                        <Link to={ `/shopSingle/${product._id}` }>
-                          <img src={ product.image } alt="" />
-                        </Link>
-                        <div>
-                          <button className="icon btn" onClick={ () => {
-                            let item = { ...product, id: product._id, }; if (addToast) {
-                              addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
-                            }
-                            addItem(item, quantity);
-                          } }
-                            disabled={ product.Stock <= 1 } >{ product.Stock <= 1 ? "Hết Hàng" : "Thêm vào giỏ hàng" }
-                          </button>
+                        <div className="product-img">
+                          <Link to={ `/shopSingle/${product._id}` }>
+                            <img src={ product.image } alt="" />
+                          </Link>
+                          <div>
+                            <button className="icon btn" onClick={ () => {
+                              let item = { ...product, id: product._id, };
+                              if (addToast) {
+                                addToast("Đã thêm vào giỏ hàng", { appearance: "success", autoDismiss: true });
+                              }
+                              addItem(item, quantity);
+                            } }
+                              disabled={ product.Stock <= 1 } >{ product.Stock <= 1 ? "Hết Hàng" : "Thêm vào giỏ hàng" }
+                            </button>
+                          </div>
+                        </div>
+                        <div className="block-4-text p-4">
+                          <p id="name"><Link to={ `/shopSingle/${product._id}` }>{ product.name }</Link>
+                          </p>
+                          <p id="price">{ formatter.format(product.price) }</p>
                         </div>
                       </div>
-                      <div className="block-4-text p-4">
-                        <p id="name"><Link to={ `/shopSingle/${product._id}` }>{ product.name }</Link>
-                        </p>
-                        <p id="price">{ formatter.format(product.price) }</p>
-                      </div>
                     </div>
-                  </div>
-                )) }
-              </div>
+                  )) }
+                </div>
+              ) : (
 
+                <div className="col-md-12 text-center">
+                  <img className="text-center" src="https://bizweb.dktcdn.net/100/333/755/themes/688335/assets/empty_cart.png?1647314197820" alt="" />
+                  <h2>Không có sản phẩm nào !</h2>
+                </div>
+
+              ) }
               <div className="row" data-aos="fade-up">
                 <div className="col-md-12 text-center">
                   <div className="d-flex justify-content-between align-items-center my-3">

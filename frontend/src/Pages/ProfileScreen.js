@@ -1,11 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import OrderContext from "../context/orders/orderContext";
 import UserContext from "../context/user/UserContext";
 import { useToasts } from "react-toast-notifications";
 import Paginator from "react-hooks-paginator";
-
+import {
+  Form, Input,
+} from 'antd';
 const ProfileScreen = () => {
+  const [form] = Form.useForm();
+
   // for user context
   const uContext = useContext(UserContext);
   const { user, editProfile } = uContext;
@@ -35,11 +39,25 @@ const ProfileScreen = () => {
   const handleChange = (e) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   };
+  useEffect(() => {
+    if (userInfo) {
+      form.setFieldsValue({
+        name: userInfo.name,
+        email: userInfo.email,
+      })
+    }
+    // eslint-disable-next-line no-use-before-define
+  }, [form, userInfo])
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    editProfile(userInfo.name, userInfo.email, addToast);
-  };
+
+  const onFinishForm = useCallback(
+    async (values) => {
+      const payload = {
+        name: values.name,
+        email: values.email,
+      }
+      await editProfile(payload, addToast)
+    }, [addToast, editProfile])
 
   const [userInfo, setUserInfo] = useState({
     name: user.name,
@@ -84,28 +102,42 @@ const ProfileScreen = () => {
                   <h4>Chỉnh sửa hồ sơ</h4>
                 </div>
                 <div className="card-body">
-                  <form onSubmit={ handleSubmit }>
+                  <Form
+                    form={ form }
+                    onFinish={ onFinishForm }>
                     <div className="form-group">
-                      <label htmlFor="name">Tên</label>
-                      <input
-                        type="text"
+                      <Form.Item
                         name="name"
-                        onChange={ handleChange }
-                        className="form-control"
-                        value={ userInfo.name }
-                      />
+                        label="Tên"
+                        rules={ [
+                          {
+                            min: 3,
+                            message: 'Tên của bạn phải trên 3 kí tự',
+                          },
+                          {
+                            required: true,
+                            message: 'Bạn chưa nhập tên',
+                          },
+                        ] }
+                      >
+                        <Input
+                          type="text"
+                          className="form-control"
+                          onChange={ handleChange } />
+                      </Form.Item>
                     </div>
                     <div className="form-group">
-                      <label htmlFor="email">Email</label>
-                      <input
-                        type="email"
-                        className="form-control"
+                      <Form.Item
                         name="email"
-                        onChange={ handleChange }
-                        value={ userInfo.email }
-                      />
+                        label="Email"
+                      >
+                        <Input
+                          disabled
+                          type="email"
+                          className="form-control"
+                          onChange={ handleChange } />
+                      </Form.Item>
                     </div>
-
                     <div className="form-group">
                       <input
                         value="Lưu thay đổi"
@@ -113,7 +145,7 @@ const ProfileScreen = () => {
                         className="btn btn-dark btn-block"
                       />
                     </div>
-                  </form>
+                  </Form>
                 </div>
               </div>
               <br></br>

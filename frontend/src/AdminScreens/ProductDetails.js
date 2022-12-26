@@ -62,18 +62,19 @@ const ProductDetails = () => {
       dangerMode: true,
     })
       .then((willDelete) => {
+        deleteProduct(id)
         if (willDelete) {
-          setTimeout(() => {
-            deleteProduct(id)
-            navigate("/products")
-          }, 1000)
-          setTimeout(() => {
-            swal({
-              title: "Đã xóa sản phẩm thành công!",
-              icon: "success",
-              buttons: true,
-            });
-          }, 2000)
+          swal({
+            title: "Đã xóa sản phẩm thành công!",
+            icon: "success",
+            buttons: true,
+          });
+
+          // setTimeout(() => {
+          navigate("/products")
+
+
+          // }, 3000)
         } else {
           navigate(`/productDetailsAdmin/${id}`)
         }
@@ -174,8 +175,8 @@ const ProductDetails = () => {
                       className="form-control"
                       name="category"
                       onChange={ handleChange }>
-                      <option value={ product.category._id }>
-                        { product.category.title }
+                      <option value={ product.category?._id }>
+                        { product.category?.title }
                       </option>
                       { categories.map(item => (
                         <option key={ item._id } value={ item._id }>
@@ -191,8 +192,8 @@ const ProductDetails = () => {
                       className="form-control"
                       name="brand"
                       onChange={ handleChange }>
-                      <option value={ product.brand._id }>
-                        { product.brand.local }
+                      <option value={ product.brand?._id }>
+                        { product.brand?.local }
                       </option>
                       { brands.map(item => (
                         <option key={ item._id } value={ item._id }>

@@ -166,8 +166,7 @@ const OrderCancled = () => {
                       <th>Ngày đặt hàng</th>
                       <th>Tiền </th>
                       <th>Trạng thái</th>
-                      <th>Xem thêm</th>
-                      <th></th>
+                      <th>Thao tác</th>
                     </thead>
                     <tbody>
                       {
