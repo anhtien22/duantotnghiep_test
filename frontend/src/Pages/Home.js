@@ -148,7 +148,7 @@ const Home = ({ strings }) => {
             <div className="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="200">
               <Link className="block-2-item" to={ "/shop" }>
                 <figure className="image">
-                  <img src="images/Avatar/Polo.png" alt="" className="img-fluid" />
+                  <img src="images/Avatar/polo.png" alt="" className="img-fluid" />
                 </figure>
                 <div className="text">
                   <span className="text-uppercase">Xu hướng</span>
