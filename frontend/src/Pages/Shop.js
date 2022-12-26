@@ -101,7 +101,7 @@ const Shop = ({ strings }) => {
                       <option value="priceHighToLow">
                         { strings["price_HighToLow"] }
                       </option>
-                      <option value="price_LowToHigh">
+                      <option value="priceLowToHigh">
                         { strings["price_LowToHigh"] }
                       </option>
                     </select>
