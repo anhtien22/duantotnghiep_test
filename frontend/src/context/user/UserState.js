@@ -341,7 +341,6 @@ const UserState = props => {
         newPassword: payload.newPassword,
         confirmPassword: payload.confirmPassword,
       })
-      console.log("body", body);
 
       const { data } = await axios.put(
         `api/users/profile/updatepassword`,

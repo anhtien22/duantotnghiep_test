@@ -61,10 +61,8 @@ const CategoryState = props => {
       }
       const categoryBody = clean({ title })
       setCategoriesLoading(true)
-      console.log("categoryBody", categoryBody);
       const { data } = await axios.post('/api/category/add', categoryBody, { headers })
       // setCategories(data.category.title)
-      console.log("data", data);
       swal({
         title: "Danh mục được thêm thành công!",
         icon: "success",

@@ -1769,7 +1769,7 @@ span.h2.mb-0.ms-2{
 }
 .container11 .imgBx img{
   max-height: 550px;
-  max-width: 550px;
+  max-width: 450px;
 }
 .container11 .details {
   /* display: flex; */
@@ -1925,6 +1925,7 @@ div.product-colors{
 }
 
 #buttonadmin{
+  justify-content: center;
   display: flex;
 }
 
@@ -2009,4 +2010,13 @@ div.product-colors{
   border: 1px solid #0089ff;
   padding: 10px;
   background-color:#0089ff;
+}
+h6.pt-2{
+  word-wrap: break-word;
+}
+.row#details{
+  justify-content: space-between;
+}
+.row#details .text-muted.mb-0{
+  font-size: 12px;
 }

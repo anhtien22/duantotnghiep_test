@@ -337,16 +337,6 @@ const Checkout = () => {
                               amount={ cartTotal }
                               // onSuccess={handlePlaceOrder}
                               onSuccess={ async (details, data) => {
-                                // alert(
-                                //   'Transaction completed by ' +
-                                //     details.payer.name.given_name
-                                // )
-                                console.log(details, "details");
-                                console.log(data, "data");
-
-                                // setPaymentResult()
-                                // console.log(paymentResult, 'paymentResult')
-
                                 await placeOrder(
                                   orderItems,
                                   shippingAddress,

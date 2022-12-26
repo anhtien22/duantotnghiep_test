@@ -14,7 +14,6 @@ import { Rating } from "@mui/material";
 const Review = () => {
   const pContext = useContext(productContext);
   const { getProducts, products, getAllReviews } = pContext;
-  console.log("products", products);
 
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState("");

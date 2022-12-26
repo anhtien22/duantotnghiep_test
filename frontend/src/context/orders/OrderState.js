@@ -77,7 +77,6 @@ const OdersState = (props) => {
       paymentResult,
     });
     try {
-      console.log("paymentMethod", paymentMethod);
       const userToken = JSON.parse(localStorage.getItem("userToken"));
       const headers = {
         Authorization: `Bearer ${userToken && userToken}`,

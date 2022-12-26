@@ -12,7 +12,6 @@ const ReviewById = () => {
   const [review, setReview] = useState({
     reviews: [],
   });
-  console.log("review", review);
   useEffect(() => {
     const fetchOrder = async () => {
       const reviewData = await getAllReviews(id);

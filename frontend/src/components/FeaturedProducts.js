@@ -23,7 +23,6 @@ import { Pagination, Navigation } from "swiper";
 const FeaturedProducts = () => {
   const pContext = useContext(productContext);
   const { getProducts, products } = pContext;
-  console.log(products);
   // for category context
   const cContext = useContext(CategoryContext);
   const { getCategories } = cContext;

@@ -15,7 +15,6 @@ const Header = ({
   // const dispatch = useDispatch();
   const changeLanguageTrigger = e => {
     const languageCode = e.target.value;
-    console.log(languageCode)
     dispatch(changeLanguage(languageCode));
   };
 
