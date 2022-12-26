@@ -52,36 +52,35 @@ const CategoryState = props => {
   }
 
   // Add new category
-  const addCategory = async (title, addToast) => {
+  const addCategory = async title => {
+    const categoryBody = clean({ title })
+    console.log(categoryBody, ' categoryBody')
     try {
       const userToken = JSON.parse(localStorage.getItem('userToken'))
       const headers = {
         Authorization: `Bearer ${userToken && userToken}`,
-        'Content-Type': 'multipart/form-data',
       }
-      const categoryBody = clean({ title })
       setCategoriesLoading(true)
-      const { data } = await axios.post('/api/category/add', categoryBody, { headers })
-      // setCategories(data.category.title)
+      await axios.post('api/category/add', categoryBody, { headers })
+      // setCategories([...categories, categoryBody])
       swal({
-        title: "Danh mục được thêm thành công!",
+        title: "Đã thêm danh mục thành công!",
         icon: "success",
       })
         .then((value) => {
           window.location.reload("/categories")
+          // navigate("/products")
+          // swal(`The returned value is: ${value}`);
         });
       setCategoriesLoading(false)
       setCategoriesError(null)
-
     } catch (err) {
       swal({
         title: `${err.response.data.error}, Vui lòng nhập dữ liệu!`,
         icon: "error",
-        button: "Ok",
       })
         .then((value) => {
-          window.location.reload()
-          setCategoriesLoading(false)
+          window.location.reload("/brands")
         });
     }
   }
@@ -117,13 +116,6 @@ const CategoryState = props => {
         'Content-Type': 'multipart/form-data',
       }
       const { data } = await axios.delete(`/api/category/${id}`, { headers })
-      swal({
-        title: "Xóa thành công!",
-        icon: "success",
-      })
-        .then((value) => {
-          window.location.reload("/categories");
-        });
       setCategoriesLoading(false)
       setCategoriesError(null)
       return data.categories

@@ -62,13 +62,13 @@ const ProductDetails = () => {
       dangerMode: true,
     })
       .then((willDelete) => {
-        deleteProduct(id)
         if (willDelete) {
           swal({
             title: "Đã xóa sản phẩm thành công!",
             icon: "success",
             buttons: true,
           });
+          deleteProduct(id)
 
           // setTimeout(() => {
           navigate("/products")

@@ -5,11 +5,13 @@ import Navbar from '../AdminComponents/Navbar'
 import CategoryContext from '../context/category/categoryContext'
 import EditCategoryModal from '../AdminComponents/EditCategoryModal'
 import AddCategoryModal from '../AdminComponents/AddCategoryModal'
+import { useNavigate } from 'react-router-dom'
+import swal from 'sweetalert'
 
 const Categories = () => {
   const context = useContext(CategoryContext)
   const { categories, getCategories, deleteCategory } = context
-
+  const navigate = useNavigate()
   // const [categoryArray, setCategoryArray] = useState(categories)
 
   useEffect(() => {
@@ -20,7 +22,30 @@ const Categories = () => {
 
   //delete catagory
   const deleteSaveChanges = (id) => {
-    deleteCategory(id)
+    swal({
+      title: "Bạn có chắc muốn xóa không?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          swal({
+            title: "Đã xóa danh mục thành công!",
+            icon: "success",
+            buttons: true,
+          });
+          deleteCategory(id)
+          // setTimeout(() => {
+          window.location.reload()
+
+
+          // }, 3000)
+        } else {
+          window.location.reload()
+        }
+      });
+
   }
   return (
     <div>

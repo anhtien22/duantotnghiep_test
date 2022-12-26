@@ -125,8 +125,8 @@ const Home = ({ strings }) => {
                   <img src="images/Avatar/thun.png" alt="" className="img-fluid" />
                 </figure>
                 <div className="text">
-                  <span className="text-uppercase">Xu hướng</span>
-                  <h3>Năng Động</h3>
+                  <span className="text-uppercase">{ strings["Trending"] }</span>
+                  <h3>{ strings["Dynamic"] }</h3>
                 </div>
               </Link>
             </div>
@@ -140,7 +140,7 @@ const Home = ({ strings }) => {
                   <img src="images/Avatar/khoac.png" alt="" className="img-fluid" />
                 </figure>
                 <div className="text">
-                  <span className="text-uppercase">Xu hướng</span>
+                  <span className="text-uppercase">{ strings["Trending"] }</span>
                   <h3>Cá Tính</h3>
                 </div>
               </Link>
@@ -151,7 +151,7 @@ const Home = ({ strings }) => {
                   <img src="images/Avatar/polo.png" alt="" className="img-fluid" />
                 </figure>
                 <div className="text">
-                  <span className="text-uppercase">Xu hướng</span>
+                  <span className="text-uppercase">{ strings["Trending"] }</span>
                   <h3>Nhiệt Huyết</h3>
                 </div>
               </Link>

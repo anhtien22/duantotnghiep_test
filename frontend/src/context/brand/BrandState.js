@@ -120,13 +120,6 @@ const BrandState = props => {
       }
       const { data } = await axios.delete(`/api/brand/${id}`, { headers })
 
-      swal({
-        title: "Xóa thành công!",
-        icon: "success",
-      })
-        .then((value) => {
-          window.location.reload("/brands")
-        });
       setBrandsLoading(false)
       setBrandsError(null)
       return data.categories

@@ -5,6 +5,7 @@ import Navbar from '../AdminComponents/Navbar'
 import BrandContext from '../context/brand/brandContext'
 import EditBrandModal from '../AdminComponents/EditBrandModal'
 import AddBrandModal from '../AdminComponents/AddBrandModal'
+import swal from 'sweetalert'
 
 const Brands = () => {
   const context = useContext(BrandContext)
@@ -20,7 +21,31 @@ const Brands = () => {
 
   //delete catagory
   const deleteSaveChanges = (id) => {
-    deleteBrand(id)
+    swal({
+      title: "Bạn có chắc muốn xóa không?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+
+        if (willDelete) {
+          swal({
+            title: "Đã xóa thương hiệu thành công!",
+            icon: "success",
+            buttons: true,
+          });
+          deleteBrand(id)
+          // setTimeout(() => {
+          window.location.reload()
+
+
+          // }, 3000)
+        } else {
+          window.location.reload()
+        }
+      });
+
   }
   return (
     <div>

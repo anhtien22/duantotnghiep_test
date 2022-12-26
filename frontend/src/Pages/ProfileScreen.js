@@ -174,7 +174,7 @@ const ProfileScreen = () => {
                                 <td className="product-mahang1">
                                   { order._id }
                                 </td>
-                                <td className="product-tenhang">{ order.orderItems.length } item(s)</td>
+                                <td className="product-tenhang">{ order.orderItems.length } sản phẩm</td>
                                 <td className="product-logo">{ formatter.format(order.totalPrice) }</td>
                                 <td>
                                   { new Date(order.createdAt).toLocaleDateString() }
